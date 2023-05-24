@@ -208,6 +208,37 @@ Widget customDialogLoading(BuildContext context, String msg) {
       ));
 }
 
+Widget customDialogOk(BuildContext context, String msg) {
+  return AlertDialog(
+      insetPadding: EdgeInsets.zero,
+      actionsPadding: EdgeInsets.zero,
+      titlePadding: EdgeInsets.zero,
+      content: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            msg,
+            style: const TextStyle(
+                fontSize: 14, color: Colors.black, fontWeight: FontWeight.w500),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: Text(
+              'Ok',
+              style: const TextStyle(
+                  fontSize: 14,
+                  color: colorBluePrimary,
+                  fontWeight: FontWeight.w500),
+            ),
+          ),
+        ],
+      ));
+}
+
 Widget changeEmailLayout(BuildContext context) {
   return Wrap(
     children: [

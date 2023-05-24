@@ -51,6 +51,15 @@ class SplashController extends GetxController {
         });
   }
 
+  horizontalDialogOk(msg) {
+    showDialog(
+        context: Get.overlayContext!,
+        barrierDismissible: true,
+        builder: (ctx) {
+          return customDialogOk(ctx, msg);
+        });
+  }
+
   showConfirmationDialog(
       String title, String message, VoidCallback? actionFunc) {
     showDialog(

@@ -3,15 +3,18 @@ import 'package:app/global_resource.dart';
 Widget formUndangan(context, s) {
   return Center(
     child: Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 80),
+      padding: const EdgeInsets.only(left: 30, right: 30, bottom: 80, top: 30),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          customHeaderAuth(context, "Undangan", "Bergabung dengan Hora"),
+          Text(
+            "Undangan Melalui Email",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(
-            height: 40,
+            height: 10,
           ),
           TextFormField(
             validator: (value) {
@@ -23,70 +26,21 @@ Widget formUndangan(context, s) {
             onChanged: (value) => s.emailUndangan = value,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: "Masukkan e-mail tujuan",
-                contentPadding:
-                    const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-                border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: colorBluePrimary),
-                    borderRadius: BorderRadius.circular(20)),
-                errorBorder:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: colorBluePrimary, width: 2),
-                    borderRadius: BorderRadius.circular(20)),
-                suffixIconConstraints:
-                    const BoxConstraints(minHeight: 30, minWidth: 30),
-                suffixIconColor: Colors.white,
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      s.kirimUndangan();
-                      // if (emailController.text.isEmpty) {
-                      //   showDialog(
-                      //       context: context,
-                      //       builder: (ctx) => customDialog(
-                      //           context, "Mohon di isi alamat email", "OK",
-                      //           onTap: () => AppRoute.pop()));
-                      // } else {
-                      //   if (emailController.value.text == "heri@mail.com") {
-                      //     showDialog(
-                      //         context: context,
-                      //         builder: (ctx) {
-                      //           Future.delayed(const Duration(seconds: 2))
-                      //               .then((value) => AppRoute.pop());
-                      //           return customDialogLoading(
-                      //               ctx, "Mengirimkan undangan...");
-                      //         }).then((value) {
-                      //       showDialog(
-                      //               context: context,
-                      //               builder: (ctx) => customDialog(
-                      //                   context, "Undangan terkirim", "OK",
-                      //                   onTap: () => AppRoute.pop()))
-                      //           .then((value) => AppRoute.pop());
-                      //     });
-                      //   } else {
-                      //     showDialog(
-                      //         context: context,
-                      //         builder: (ctx) => customDialog(
-                      //             context, "E-mail tujuan salah", "OK",
-                      //             onTap: () => AppRoute.pop()));
-                      //   }
-                      // }
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        "assets/icons/arrow_right_primary.png",
-                        width: 30,
-                        height: 30,
-                      ),
-                    ),
-                  ),
-                )),
+              hintText: "Masukkan e-mail tujuan",
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: colorBluePrimary, width: 1.5),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: colorBluePrimary, width: 1.5),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 5,
+          ),
+          Text(
+            "Anda dapat masuk menggunakan e-mail yang telah diundang sebelumnya.",
+            style: TextStyle(fontSize: 11, color: Colors.grey),
           ),
           const SizedBox(
             height: 220,

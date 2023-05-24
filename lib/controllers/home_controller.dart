@@ -251,7 +251,7 @@ class HomeController extends GetxController {
       if (response.statusCode == 200) {
         Get.back();
         Get.back();
-        Get.snackbar("Undangan Telah Terkirim !!", response.body.toString());
+        SplashController().horizontalDialogOk('Undangan terkirim');
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);

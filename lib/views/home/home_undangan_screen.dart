@@ -7,53 +7,101 @@ class HomeUndanganScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorGrayPrimary,
+      backgroundColor: colorBlueOpacity2,
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: colorGrayPrimary,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: ovalCardIcon(context, FeatherIcons.x,
-                onTaped: () => Get.back()),
-          ),
-        ],
-      ),
       body: GetBuilder<HomeController>(
         init: HomeController(),
-        builder: (s) => Column(
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            formUndangan(context, s),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
+        builder: (s) => Container(
+          margin: EdgeInsets.only(top: 80),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    customTextRich(
-                        context, "Pastikan ", "koneksi tidak terputus.",
-                        onTextClicked: () {
-                      Get.toNamed(RouteName.webview,
-                          arguments: "https://simxd.com");
-                    }),
-                    const Center(
-                      child: Text(
-                        "Tekan \u{2192} untuk mengirimkan undangan. Terima kasih.",
-                        textAlign: TextAlign.center,
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(50.0)),
+                              // margin: EdgeInsets.only(right: 20),
+                              padding: EdgeInsets.all(10),
+                              child: Icon(FeatherIcons.x),
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              s.kirimUndangan();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(50.0)),
+                              // margin: EdgeInsets.only(right: 20),
+                              padding: EdgeInsets.all(10),
+                              child: Icon(
+                                Icons.send,
+                                color: colorBluePrimary,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    formUndangan(context, s),
                   ],
                 ),
               ),
-            )
-          ],
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Text(
+                          'Tekan “Cek e-mail” untuk memeriksa e-mail temananda',
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 10),
+                        child: SizedBox(
+                          width: double.infinity,
+                          height: 50,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStatePropertyAll(Colors.white)),
+                            onPressed: () {},
+                            child: Text(
+                              "Cek e-mail",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.black),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
