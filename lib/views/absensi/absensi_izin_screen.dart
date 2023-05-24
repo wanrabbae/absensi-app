@@ -8,24 +8,47 @@ class AbsensiIzinScreen extends StatelessWidget {
     return GetBuilder<AbsenController>(
       init: AbsenController(),
       builder: (s) => Scaffold(
-        backgroundColor: colorGrayPrimary,
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: colorGrayPrimary,
+          title: Text(
+            'Surat Izin',
+            style: TextStyle(fontSize: 15),
+          ),
           automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(FeatherIcons.arrowLeft),
+            onPressed: () {
+              Get.back();
+            },
+          ),
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Align(
+            Align(
                 alignment: Alignment.topRight,
-                child: ovalCardIcon(context, FeatherIcons.x,
-                    onTaped: () => Get.back()),
-              ),
-            ),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.send,
+                    color: colorBluePrimary,
+                  ),
+                  onPressed: () {
+                    if (s.currentDate != null) {
+                      izin() {
+                        return s.absenIzin();
+                      }
+
+                      SplashController().showConfirmationDialog(
+                        "Izin",
+                        "Ajukan Izin Sekarang",
+                        izin,
+                      );
+                    }
+                  },
+                )),
           ],
         ),
         body: Container(
-          padding: const EdgeInsets.only(top: 20, left: 20, right: 20),
+          padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
           width: MediaQuery.of(context).size.width,
           color: colorGrayPrimary,
           child: Column(
@@ -33,134 +56,96 @@ class AbsensiIzinScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Center(
-                  child: customHeaderAuth(context, "Surat izin",
-                      changeFormatDate(3, s.currentDate!))),
-              const SizedBox(
-                height: 40,
-              ),
               Expanded(
                 flex: 1,
                 child: SingleChildScrollView(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                              child: TextFormField(
-                            readOnly: true,
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.all(20.0),
-                              fillColor: Colors.white,
-                              filled: true,
-                              hintText: (s.fileName == null)
-                                  ? "File_surat_sakit.docx"
-                                  : s.fileName,
-                              border: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: colorBluePrimary),
-                                  borderRadius: BorderRadius.circular(20)),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: colorBluePrimary, width: 2),
-                                  borderRadius: BorderRadius.circular(20)),
-                            ),
-                          )),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              s.updateFile();
-                            },
-                            child: Container(
-                              width: 60,
-                              height: 60,
-                              decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20.0))),
-                              child: const Icon(
-                                FeatherIcons.paperclip,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                        ],
+                      Text("Lampiran"),
+                      TextFormField(
+                        onTap: () {
+                          s.updateFile();
+                        },
+                        readOnly: true,
+                        style: TextStyle(fontSize: 13),
+                        decoration: InputDecoration(
+                          hintText: (s.fileName == null)
+                              ? "File_surat_sakit.docx"
+                              : s.fileName,
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1.5)),
+                        ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
+                      Text("Alasan"),
                       Container(
-                        height: 60,
+                        height: 40,
                         constraints: const BoxConstraints(minHeight: 60),
                         decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(20))),
+                            border: Border(
+                                bottom:
+                                    BorderSide(color: Colors.black, width: 1))),
                         child: Center(
                           child: DropdownButtonHideUnderline(
-                            child: Padding(
-                              padding: const EdgeInsets.all(20.0),
-                              child: DropdownButton(
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(20.0)),
-                                  key: Key(s.formIzin),
-                                  value: s.formIzin,
-                                  isExpanded: true,
-                                  items: s.izinList!
-                                      .map<DropdownMenuItem<String>>((value) =>
-                                          DropdownMenuItem<String>(
-                                            value: value["value"].toString(),
-                                            child: Text(
-                                              '${value["nama"]}',
-                                              style: const TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ))
-                                      .toList(),
-                                  onChanged: (value) {
-                                    if (value != null) {
-                                      s.updateFormIzin(value);
-                                    }
-                                  }),
-                            ),
+                            child: DropdownButton(
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20.0)),
+                                key: Key(s.formIzin),
+                                value: s.formIzin,
+                                isExpanded: true,
+                                items: s.izinList!
+                                    .map<DropdownMenuItem<String>>((value) =>
+                                        DropdownMenuItem<String>(
+                                          value: value["value"].toString(),
+                                          child: Text(
+                                            '${value["nama"]}',
+                                            style: const TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ))
+                                    .toList(),
+                                onChanged: (value) {
+                                  if (value != null) {
+                                    s.updateFormIzin(value);
+                                  }
+                                }),
                           ),
                         ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
+                      Text("Keterangan (Kosongkan jika tidak ada)"),
                       SizedBox(
-                        height: 320,
+                        height: 5,
+                      ),
+                      SizedBox(
+                        height: 120,
                         child: TextFormField(
                           onChanged: (value) => s.formDeskripsi = value,
                           maxLength: null,
                           keyboardType: TextInputType.multiline,
                           maxLines: 15,
+                          style: TextStyle(fontSize: 13),
                           decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              contentPadding: const EdgeInsets.all(20),
-                              border: OutlineInputBorder(
-                                  borderSide:
-                                      const BorderSide(color: colorBluePrimary),
-                                  borderRadius: BorderRadius.circular(20)),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                      color: colorBluePrimary, width: 2),
-                                  borderRadius: BorderRadius.circular(20))),
+                            hintText: "Ketikkan disini",
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.black, width: 1)),
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.black, width: 1.5)),
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -170,46 +155,6 @@ class AbsensiIzinScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    height: 60,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (s.currentDate != null) {
-                          SplashController().showConfirmationDialog(
-                              "Izin", "Ajukan Izin Sekarang", s.absenIzin());
-                        }
-                      },
-                      style: s.currentDate != null
-                          ? const ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(colorBluePrimary),
-                              shape: MaterialStatePropertyAll(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20)))))
-                          : const ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(colorGrayPrimary),
-                              shape: MaterialStatePropertyAll(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20))))),
-                      child: const Text(
-                        "AJUKAN",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: Colors.white,
-                            fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ),
-              )
             ],
           ),
         ),

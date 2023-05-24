@@ -311,7 +311,7 @@ class AbsenController extends GetxController {
       }
     } catch (e) {
       print(e);
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      Get.snackbar('Izin', 'Anda sudah melakukan izin');
     }
   }
 }

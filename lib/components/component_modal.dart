@@ -49,7 +49,8 @@ Widget modalSelectCompany(BuildContext context, s) {
             ),
             itemBuilder: (ctx, pos) => GestureDetector(
               onTap: () {
-                s.pilihPerusahaan(s.perusahaanList[pos]['idperusahaan']);
+                print("TEST");
+                // s.pilihPerusahaan(s.perusahaanList[pos]['idperusahaan']);
               },
               child: Container(
                 color: Colors.transparent,

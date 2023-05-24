@@ -54,24 +54,8 @@ class HomeController extends GetxController {
 
   absensi(context) async {
     if (izinAbs()) {
-      Get.defaultDialog(
-        contentPadding: EdgeInsets.all(10),
-        title: "Anda Telah melakukan izin hari ini",
-        titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        titlePadding: const EdgeInsets.all(10),
-        content: const Padding(
-          padding: EdgeInsets.all(5),
-          child: Text(
-            'tidak bisa melakukan absen lagi hari ini',
-            style: TextStyle(fontSize: 12),
-            textAlign: TextAlign.center,
-          ),
-        ),
-        buttonColor: Colors.white,
-        cancelTextColor: colorBluePrimary,
-        confirmTextColor: colorBluePrimary,
-        textCancel: "Ok",
-      );
+      SplashController().showOkDialog('Anda sudah izin hari ini',
+          "tidak bisa melakukan absen lagi hari ini");
     } else {
       if (!klikAbsen) {
         if (await Permission.camera.isGranted &&

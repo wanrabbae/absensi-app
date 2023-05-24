@@ -254,7 +254,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: colorBluePrimary,
                       ),
                       onPressed: () {
-                        Get.toNamed(RouteName.absenIzin);
+                        if (izinAbs()) {
+                          SplashController().showOkDialog(
+                              'Anda sudah izin hari ini',
+                              "tidak bisa melakukan absen lagi hari ini");
+                        } else {
+                          Get.toNamed(RouteName.absenIzin);
+                        }
                       },
                     ),
                     SizedBox(
@@ -267,7 +273,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                       ),
                       onPressed: () {
-                        Get.toNamed(RouteName.absenIzin);
+                        if (izinAbs()) {
+                          SplashController().showOkDialog(
+                              'Anda sudah izin hari ini',
+                              "tidak bisa melakukan absen lagi hari ini");
+                        } else {
+                          Get.toNamed(RouteName.absenIzin);
+                        }
                       },
                     )
                   ],
