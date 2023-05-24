@@ -180,7 +180,8 @@ class AbsensiIzinScreen extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         if (s.currentDate != null) {
-                          s.absenIzin();
+                          SplashController().showConfirmationDialog(
+                              "Izin", "Ajukan Izin Sekarang", s.absenIzin());
                         }
                       },
                       style: s.currentDate != null

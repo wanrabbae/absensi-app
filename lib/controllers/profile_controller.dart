@@ -131,16 +131,16 @@ class ProfileController extends GetxController {
   keluar() {
     Get.defaultDialog(
         title: "Keluar Aplikasi??",
-        titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         titlePadding: const EdgeInsets.all(10),
         content: const Padding(
           padding: EdgeInsets.all(5),
           child: Text('Tekan "Keluar" untuk keluar aplikasi.',
               style: TextStyle(fontSize: 12)),
         ),
-        buttonColor: colorBluePrimary,
+        buttonColor: Colors.white,
         cancelTextColor: colorBluePrimary,
-        confirmTextColor: Colors.white,
+        confirmTextColor: colorBluePrimary,
         textCancel: "Batal",
         textConfirm: "Keluar",
         onConfirm: () {
@@ -151,16 +151,16 @@ class ProfileController extends GetxController {
   hapusAkun() {
     Get.defaultDialog(
         title: "Apakah Anda yakin menghapus akun anda??",
-        titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         titlePadding: const EdgeInsets.all(10),
         content: const Padding(
           padding: EdgeInsets.all(5),
           child: Text('Tekan "Hapus Akun" untuk menghapus akun anda.',
               style: TextStyle(fontSize: 12)),
         ),
-        buttonColor: colorBluePrimary,
+        buttonColor: Colors.white,
         cancelTextColor: colorBluePrimary,
-        confirmTextColor: Colors.white,
+        confirmTextColor: Colors.red,
         textCancel: "Batal",
         textConfirm: "Hapus Akun",
         onConfirm: () {

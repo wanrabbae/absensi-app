@@ -68,7 +68,7 @@ Widget dataSearch(BuildContext context, s) {
                                     "${DataHelper.absences()[0].lastAbsenceRemark}",
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w400,
-                                        fontSize: 12,
+                                        fontSize: 10,
                                         color:
                                             Color.fromRGBO(51, 51, 51, 0.5))),
                               ],

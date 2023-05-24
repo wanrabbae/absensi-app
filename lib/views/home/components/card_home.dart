@@ -70,7 +70,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                 "${DataHelper.absences()[0].lastAbsenceRemark}",
                                 style: const TextStyle(
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 7,
+                                    fontSize: 10,
                                     color: Color.fromRGBO(51, 51, 51, 0.5))),
                           ],
                         ),
@@ -92,7 +92,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                 },
                                 child: const Icon(
                                   Icons.location_on_rounded,
-                                  color: Color(0xFF18E22C),
+                                  // color: Color(0xFF18E22C),
+                                  color: colorBlueOpacity2,
                                   size: 16,
                                 ),
                               ),

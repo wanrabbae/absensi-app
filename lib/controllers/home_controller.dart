@@ -55,17 +55,21 @@ class HomeController extends GetxController {
   absensi(context) async {
     if (izinAbs()) {
       Get.defaultDialog(
-        title: "Anda Telah melakukan izin hari ini !!",
-        titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        contentPadding: EdgeInsets.all(10),
+        title: "Anda Telah melakukan izin hari ini",
+        titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         titlePadding: const EdgeInsets.all(10),
         content: const Padding(
           padding: EdgeInsets.all(5),
-          child: Text('tidak bisa melakukan absen lagi hari ini',
-              style: TextStyle(fontSize: 12)),
+          child: Text(
+            'tidak bisa melakukan absen lagi hari ini',
+            style: TextStyle(fontSize: 12),
+            textAlign: TextAlign.center,
+          ),
         ),
-        buttonColor: colorBluePrimary,
+        buttonColor: Colors.white,
         cancelTextColor: colorBluePrimary,
-        confirmTextColor: Colors.white,
+        confirmTextColor: colorBluePrimary,
         textCancel: "Ok",
       );
     } else {
@@ -90,7 +94,8 @@ class HomeController extends GetxController {
         }
       } else {
         Get.defaultDialog(
-            title: "Kehadiran hari ini telah diisi.",
+            contentPadding: EdgeInsets.all(10),
+            title: "Hadir",
             titleStyle:
                 const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             titlePadding: const EdgeInsets.all(10),
@@ -99,11 +104,11 @@ class HomeController extends GetxController {
               child: Text('Apakah anda ingin pulang ?',
                   style: TextStyle(fontSize: 12)),
             ),
-            buttonColor: colorBluePrimary,
+            buttonColor: Colors.white,
             cancelTextColor: colorBluePrimary,
-            confirmTextColor: Colors.white,
-            textCancel: "Batal",
-            textConfirm: "Ok",
+            confirmTextColor: colorBluePrimary,
+            textCancel: "Tidak",
+            textConfirm: "Ya",
             onConfirm: () {
               Get.back();
               Get.toNamed(RouteName.absen);

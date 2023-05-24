@@ -142,9 +142,9 @@ class AbsenController extends GetxController {
             child: Text('Silahkan ambil foto selfi untuk bisa melanjutkan',
                 style: TextStyle(fontSize: 12)),
           ),
-          buttonColor: colorBluePrimary,
+          buttonColor: Colors.white,
           cancelTextColor: colorBluePrimary,
-          confirmTextColor: Colors.white,
+          confirmTextColor: colorBluePrimary,
           textConfirm: "Foto",
           textCancel: "Batal",
           onConfirm: () {
@@ -174,9 +174,9 @@ class AbsenController extends GetxController {
           child: Text('Silahkan klik "pulang" jika anda akan pulang',
               style: TextStyle(fontSize: 12)),
         ),
-        buttonColor: colorBluePrimary,
+        buttonColor: Colors.white,
         cancelTextColor: colorBluePrimary,
-        confirmTextColor: Colors.white,
+        confirmTextColor: colorBluePrimary,
         textConfirm: "Pulang",
         textCancel: "Batal",
         onConfirm: () {
@@ -508,6 +508,7 @@ class AbsenController extends GetxController {
 //   mulaiSelesaiAbsen(context) {
 //     if (!klikAbsen) {
 //       Get.defaultDialog(
+  
 //           title: "Siap untuk memulai?",
 //           titleStyle:
 //               const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -517,9 +518,9 @@ class AbsenController extends GetxController {
 //             child: Text('Silahkan ambil foto selfi untuk bisa melanjutkan',
 //                 style: TextStyle(fontSize: 12)),
 //           ),
-//           buttonColor: colorBluePrimary,
+//           buttonColor: Colors.white,
 //           cancelTextColor: colorBluePrimary,
-//           confirmTextColor: Colors.white,
+//           confirmTextColor: colorBluePrimary,
 //           textConfirm: "Foto",
 //           textCancel: "Batal",
 //           onConfirm: () {
@@ -541,6 +542,7 @@ class AbsenController extends GetxController {
 //           });
 //     } else {
 //       Get.defaultDialog(
+  
 //         title: "Pulang sekarang ?",
 //         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
 //         titlePadding: const EdgeInsets.all(10),
@@ -549,9 +551,9 @@ class AbsenController extends GetxController {
 //           child: Text('Silahkan klik "pulang" jika anda akan pulang',
 //               style: TextStyle(fontSize: 12)),
 //         ),
-//         buttonColor: colorBluePrimary,
+//         buttonColor: Colors.white,
 //         cancelTextColor: colorBluePrimary,
-//         confirmTextColor: Colors.white,
+//         confirmTextColor: colorBluePrimary,
 //         textConfirm: "Pulang",
 //         textCancel: "Batal",
 //         onConfirm: () {
@@ -564,6 +566,7 @@ class AbsenController extends GetxController {
 
 //   mulaiAbsen() async {
 //     Get.defaultDialog(
+  
 //         title: "Sudah Melakukan foto selfie!!",
 //         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
 //         titlePadding: const EdgeInsets.all(10),
@@ -571,9 +574,9 @@ class AbsenController extends GetxController {
 //           padding: EdgeInsets.all(5),
 //           child: Text('silahkan Melanjutkan', style: TextStyle(fontSize: 12)),
 //         ),
-//         buttonColor: colorBluePrimary,
+//         buttonColor: Colors.white,
 //         cancelTextColor: colorBluePrimary,
-//         confirmTextColor: Colors.white,
+//         confirmTextColor: colorBluePrimary,
 //         textConfirm: "Lanjutkan",
 //         textCancel: "Batal",
 //         onConfirm: () {

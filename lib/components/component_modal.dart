@@ -80,8 +80,9 @@ Widget modalSelectCompany(BuildContext context, s) {
                       ),
                       Text(
                         "Tekan tombol untuk meninggalkan perusahaan ini",
-                        style: TextStyle(
-                            color: Colors.grey.shade300, fontSize: 12),
+                        textAlign: TextAlign.center,
+                        style:
+                            TextStyle(color: Colors.red.shade200, fontSize: 12),
                       ),
                       TextButton(
                           onPressed: () {},

@@ -37,7 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                  margin: EdgeInsets.only(top: 60, bottom: 20, left: 20),
+                  margin:
+                      EdgeInsets.only(top: 60, bottom: 20, left: 20, right: 10),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,7 +84,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 10,
                       ),
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.toNamed(RouteName.homeUndangan);
+                          },
                           icon: Icon(
                             CupertinoIcons.plus,
                             size: 30,
@@ -228,7 +231,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              dataHome(context, s, hadirHighlight)
+              Container(child: dataHome(context, s, hadirHighlight))
             ],
           ),
           floatingActionButton: hadirHighlight

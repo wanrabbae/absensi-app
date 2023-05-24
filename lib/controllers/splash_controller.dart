@@ -50,4 +50,81 @@ class SplashController extends GetxController {
           return customDialogLoading(ctx, msg);
         });
   }
+
+  showConfirmationDialog(
+      String title, String message, VoidCallback? actionFunc) {
+    showDialog(
+      context: Get.overlayContext!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14),
+          ),
+          content: Text(
+            message,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12),
+          ),
+          actionsAlignment: MainAxisAlignment.spaceEvenly,
+          actions: <Widget>[
+            TextButton(
+              child: Text('Tidak'),
+              onPressed: () {
+                Navigator.of(context).pop(false); // Returns false when canceled
+              },
+            ),
+            TextButton(
+              child: Text('Ya'),
+              onPressed: () {
+                Navigator.of(context).pop(true); // Returns true when confirmed
+              },
+            ),
+          ],
+        );
+      },
+    ).then((value) {
+      if (value == true) {
+        actionFunc!();
+      } else {
+        Get.back();
+      }
+    });
+  }
+
+  showOkDialog(String title, String message) {
+    showDialog(
+      context: Get.overlayContext!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14),
+          ),
+          content: Text(
+            message,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 12),
+          ),
+          actionsAlignment: MainAxisAlignment.center,
+          actions: <Widget>[
+            Center(
+              child: TextButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Get.back();
+                },
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
