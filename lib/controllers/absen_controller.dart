@@ -246,14 +246,18 @@ class AbsenController extends GetxController {
   }
 
   absenPulang(status) async {
+    var currentDate = DateTime.now();
+    var newDate =
+        new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
+            .toString()
+            .split(" ")[0];
+
     try {
       if (status) {
         SplashController().loading("Sedang Pulang...");
       }
-      var response = await AbsensiServices().pulangPut({
-        'id': user?['idkaryawan'],
-        'tanggal': changeFormatDate(1, DateTime.now().toString()).toString()
-      }, {});
+      var response = await AbsensiServices()
+          .pulangPut({'id': user!['idkaryawan'], 'tanggal': newDate}, {});
       if (response.statusCode == 200) {
         Get.back();
         box.write(Base.klikAbsen, false);
@@ -268,6 +272,9 @@ class AbsenController extends GetxController {
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
+      } else if (response.statusCode == 400) {
+        Get.back();
+        Get.snackbar('Ups', 'Terjadi kesalahan :(');
       } else {
         Get.back();
         Get.snackbar('Gagal Menjalankan Fitur Ini !!', response.toString());

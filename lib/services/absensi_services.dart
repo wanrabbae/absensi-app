@@ -25,12 +25,10 @@ class AbsensiServices extends GetConnect implements GetxService {
     final options = dio.Options(headers: header);
 
     try {
-      var test = await dio.Dio().post('https://api.horaapp.id/api/absensi',
-          data: formData, options: options);
-      print(test);
+      var test = await dio.Dio()
+          .post(Base.url + Base.absenHadir, data: formData, options: options);
       return test;
     } catch (e) {
-      print(e.toString());
       return [];
     }
     // var test = await post(Base.url + Base.absenHadir, headers: header, body);
@@ -38,13 +36,25 @@ class AbsensiServices extends GetConnect implements GetxService {
     // return test;
   }
 
-  Future pulangPut(param, body) {
+  Future pulangPut(param, body) async {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};
-    return put(
-        '${Base.url}${Base.absenPulang}?id=${param['id']}&tanggal=${param['tanggal']}',
-        headers: header,
-        body);
+    final options = dio.Options(headers: header);
+
+    try {
+      var pulang = await dio.Dio().put(
+          '${Base.url}${Base.absenPulang}?id=${param['id']}&tanggal=${param['tanggal']}',
+          options: options,
+          data: {});
+      return pulang;
+    } catch (e) {
+      return [];
+    }
+
+    // return put(
+    //     '${Base.url}${Base.absenPulang}?id=${param['id']}&tanggal=${param['tanggal']}',
+    //     headers: header,
+    //     body);
   }
 
   Future izinPost(body) {
