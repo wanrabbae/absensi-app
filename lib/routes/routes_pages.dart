@@ -1,4 +1,6 @@
 import 'package:app/global_resource.dart';
+import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
+import 'package:app/views/home/company_full_screen.dart';
 
 class Routes {
   static final pages = [
@@ -29,6 +31,9 @@ class Routes {
     //Home Undangan
     GetPage(
         name: RouteName.homeUndangan, page: () => const HomeUndanganScreen()),
+    GetPage(
+        name: RouteName.companyFullScreen,
+        page: () => const CompanyFullScreen()),
 //End Home
 
 //Start Profile
@@ -53,6 +58,9 @@ class Routes {
     GetPage(name: RouteName.absen, page: () => const AbsensiScreen()),
     //Izin
     GetPage(name: RouteName.absenIzin, page: () => const AbsensiIzinScreen()),
+    GetPage(
+        name: RouteName.absenIzinDownloaded,
+        page: () => const AbsensiIzinDownloadedScreen()),
 //End Absensi
 
 //Start WebView

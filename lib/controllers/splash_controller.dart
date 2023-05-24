@@ -83,7 +83,7 @@ class SplashController extends GetxController {
             TextButton(
               child: Text('Tidak'),
               onPressed: () {
-                Navigator.of(context).pop(false); // Returns false when canceled
+                Get.back(); // Returns false when canceled
               },
             ),
             TextButton(

@@ -72,25 +72,25 @@ class AbsensiScreen extends StatelessWidget {
                         //   });
                         // });
                         // }),
-                        const SizedBox(width: 10),
-                        ovalCardIcon(
-                          context,
-                          FeatherIcons.mail,
-                          onTaped: () {
-                            showDialog(
-                              context: context,
-                              builder: (ctx) => customDialog(
-                                context,
-                                "Anda ingin izin hari ini?",
-                                "Ok",
-                                onTap: () {
-                                  Get.back();
-                                  Get.toNamed(RouteName.absenIzin);
-                                },
-                              ),
-                            );
-                          },
-                        )
+                        // const SizedBox(width: 10),
+                        // ovalCardIcon(
+                        //   context,
+                        //   FeatherIcons.mail,
+                        //   onTaped: () {
+                        //     showDialog(
+                        //       context: context,
+                        //       builder: (ctx) => customDialog(
+                        //         context,
+                        //         "Anda ingin izin hari ini?",
+                        //         "Ok",
+                        //         onTap: () {
+                        //           Get.back();
+                        //           Get.toNamed(RouteName.absenIzin);
+                        //         },
+                        //       ),
+                        //     );
+                        //   },
+                        // )
                       ],
                     ),
                   )
@@ -132,9 +132,10 @@ class AbsensiScreen extends StatelessWidget {
                           },
                           style: ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll(
-                                  s.klikAbsen
-                                      ? colorGrayPrimary
-                                      : colorBluePrimary),
+                                  // s.klikAbsen
+                                  //     ? colorGrayPrimary
+                                  //     : colorBluePrimary
+                                  colorBlueOpacity2),
                               shape: const MaterialStatePropertyAll(
                                   (RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(

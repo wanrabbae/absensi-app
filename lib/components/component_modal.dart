@@ -49,7 +49,7 @@ Widget modalSelectCompany(BuildContext context, s) {
             ),
             itemBuilder: (ctx, pos) => GestureDetector(
               onTap: () {
-                print("TEST");
+                Get.toNamed(RouteName.companyFullScreen);
                 // s.pilihPerusahaan(s.perusahaanList[pos]['idperusahaan']);
               },
               child: Container(
@@ -80,7 +80,7 @@ Widget modalSelectCompany(BuildContext context, s) {
                         height: 10,
                       ),
                       Text(
-                        "Tekan tombol untuk meninggalkan perusahaan ini",
+                        "Tekan tombol 'Hapus' untuk meninggalkan perusahaan ini",
                         textAlign: TextAlign.center,
                         style:
                             TextStyle(color: Colors.red.shade200, fontSize: 12),

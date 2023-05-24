@@ -50,18 +50,16 @@ Widget dataSearch(BuildContext context, s) {
                               children: [
                                 Container(
                                   width: 150,
-                                  child: Flexible(
-                                    child: RichText(
-                                      overflow: TextOverflow.ellipsis,
-                                      strutStyle: StrutStyle(fontSize: 12.0),
-                                      text: TextSpan(
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 16),
-                                          text: s.searchHasil?[index]
-                                              ['namaKaryawan']),
-                                    ),
+                                  child: RichText(
+                                    overflow: TextOverflow.ellipsis,
+                                    strutStyle: StrutStyle(fontSize: 12.0),
+                                    text: TextSpan(
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16),
+                                        text: s.searchHasil?[index]
+                                            ['namaKaryawan']),
                                   ),
                                 ),
                                 Text(

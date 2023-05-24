@@ -68,6 +68,7 @@ abstract class RouteName {
 
   //Home Screen
   static const home = "/home_screen";
+  static const companyFullScreen = "/company_full_screen";
 
   //Home Search Screen
   static const homeSearch = "/home_search_screen";
@@ -95,6 +96,7 @@ abstract class RouteName {
 
   //Absen Izin
   static const absenIzin = "/absen_izin_screen";
+  static const absenIzinDownloaded = "/absen_izin_downloaded_screen";
 
   //Webview
   static const webview = "/webview_screen";
