@@ -128,7 +128,7 @@ class AbsensiScreen extends StatelessWidget {
                           top: 3, bottom: 20, left: 20, right: 20),
                       child: ElevatedButton(
                           onPressed: () {
-                            s.mulaiSelesaiAbsen(context);
+                            s.mulaiSelesaiAbsen(context, Get.arguments);
                           },
                           style: ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll(

@@ -130,7 +130,7 @@ class AbsenController extends GetxController {
     });
   }
 
-  mulaiSelesaiAbsen(context) {
+  mulaiSelesaiAbsen(context, idAbsen) {
     if (!klikAbsen) {
       Get.defaultDialog(
           title: "Siap untuk memulai?",
@@ -181,7 +181,7 @@ class AbsenController extends GetxController {
         textCancel: "Batal",
         onConfirm: () {
           Get.back();
-          absenPulang(true);
+          absenPulang(true, idAbsen);
         },
       );
     }
@@ -245,19 +245,19 @@ class AbsenController extends GetxController {
     }
   }
 
-  absenPulang(status) async {
+  absenPulang(status, [idAbsen = null]) async {
     var currentDate = DateTime.now();
     var newDate =
         new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
             .toString()
             .split(" ")[0];
-
+    print(idAbsen);
     try {
       if (status) {
         SplashController().loading("Sedang Pulang...");
       }
       var response = await AbsensiServices()
-          .pulangPut({'id': user!['idkaryawan'], 'tanggal': newDate}, {});
+          .pulangPut({'id': idAbsen.toString(), 'tanggal': newDate}, {});
       if (response.statusCode == 200) {
         Get.back();
         box.write(Base.klikAbsen, false);

@@ -95,7 +95,9 @@ class HomeController extends GetxController {
             textConfirm: "Ya",
             onConfirm: () {
               Get.back();
-              Get.toNamed(RouteName.absen);
+              Get.toNamed(RouteName.absen,
+                  arguments: absen?[0]?[
+                      "id"]); // NOTES: INI MASIH AMBIL INDEX 0 AJA BELUM DINAMIS
             });
       }
     }
@@ -186,6 +188,7 @@ class HomeController extends GetxController {
   }
 
   dataHome() async {
+    print(perusahaan);
     try {
       var response = await HomeServices().absenGet({
         'idperusahaan': perusahaan?['idperusahaan'],

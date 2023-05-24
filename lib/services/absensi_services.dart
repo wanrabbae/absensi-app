@@ -41,20 +41,10 @@ class AbsensiServices extends GetConnect implements GetxService {
     final header = {'Authorization': '$tokens'};
     final options = dio.Options(headers: header);
 
-    try {
-      var pulang = await dio.Dio().put(
-          '${Base.url}${Base.absenPulang}?id=${param['id']}&tanggal=${param['tanggal']}',
-          options: options,
-          data: {});
-      return pulang;
-    } catch (e) {
-      return [];
-    }
-
-    // return put(
-    //     '${Base.url}${Base.absenPulang}?id=${param['id']}&tanggal=${param['tanggal']}',
-    //     headers: header,
-    //     body);
+    return put(
+        '${Base.url}${Base.absenPulang}?id=${param['id']}',
+        headers: header,
+        body);
   }
 
   Future izinPost(body) {
