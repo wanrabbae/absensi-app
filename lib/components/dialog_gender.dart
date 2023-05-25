@@ -27,7 +27,7 @@ Widget dialogGender(context, value) {
                   ),
                 ),
                 const SizedBox(height: 20),
-                Row(
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
@@ -36,16 +36,16 @@ Widget dialogGender(context, value) {
                       onTap: () {
                         s.changeGender("pria");
                       },
-                      child: ovalCardIconGender(context, Icons.male_rounded,
-                          s.selectedGender != "pria"),
+                      child: ovalCardIconGender(
+                          context, "Pria", s.selectedGender != "pria"),
                     ),
                     const SizedBox(width: 30),
                     GestureDetector(
                       onTap: () {
                         s.changeGender("wanita");
                       },
-                      child: ovalCardIconGender(context, Icons.female_rounded,
-                          s.selectedGender != "wanita"),
+                      child: ovalCardIconGender(
+                          context, "Wanita", s.selectedGender != "wanita"),
                     ),
                   ],
                 ),

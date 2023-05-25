@@ -319,10 +319,10 @@ Widget ovalCardIcon55(BuildContext context, IconData icon,
 }
 
 Widget ovalCardIconGender(
-    BuildContext context, IconData icon, bool genderSelected) {
+    BuildContext context, String genderName, bool genderSelected) {
   return Container(
     color: Colors.transparent,
-    width: 60,
+    width: double.infinity,
     height: 60,
     child: Card(
       color:
@@ -336,12 +336,15 @@ Widget ovalCardIconGender(
               color: (!genderSelected)
                   ? Colors.white
                   : const Color.fromRGBO(51, 51, 51, 1))),
-      child: Icon(
-        icon,
-        size: 40,
-        color: (!genderSelected)
-            ? Colors.white
-            : const Color.fromRGBO(51, 51, 51, 1),
+      child: Center(
+        child: Text(
+          genderName,
+          style: TextStyle(
+            color: (!genderSelected)
+                ? Colors.white
+                : const Color.fromRGBO(51, 51, 51, 1),
+          ),
+        ),
       ),
     ),
   );

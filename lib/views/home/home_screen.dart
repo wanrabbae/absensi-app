@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             s.dataSearch();
                           },
                           child: Container(
-                            padding: EdgeInsets.all(10),
+                            padding: EdgeInsets.all(15),
                             width: 200,
                             decoration: BoxDecoration(
                                 border: Border.all(

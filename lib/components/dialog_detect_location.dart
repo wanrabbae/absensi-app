@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:flutter/cupertino.dart';
 
 class DialogDetectLocation extends HookConsumerWidget {
   const DialogDetectLocation({Key? key}) : super(key: key);
@@ -39,7 +40,7 @@ class DialogDetectLocation extends HookConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Icon(
-                        FeatherIcons.home,
+                        CupertinoIcons.map_pin_ellipse,
                         size: 50,
                       ),
                       SizedBox(
@@ -71,7 +72,7 @@ class DialogDetectLocation extends HookConsumerWidget {
                           s.handleLocationPermission();
                         },
                         child: const Text(
-                          "Deteksi Lokasi",
+                          "Deteksi",
                           style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,

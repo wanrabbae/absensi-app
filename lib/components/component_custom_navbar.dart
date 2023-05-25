@@ -2,6 +2,7 @@ import 'package:app/global_resource.dart';
 
 Widget customNavbar(s) {
   return Container(
+    // padding: EdgeInsets.all(10),
     decoration: const BoxDecoration(boxShadow: [
       BoxShadow(
         color: colorGrayPrimary,
@@ -13,17 +14,23 @@ Widget customNavbar(s) {
         BottomNavigationBarItem(
             icon: Icon(
               FeatherIcons.briefcase,
-              size: 20,
+              size: 30,
             ),
             label: "Kerja"),
         BottomNavigationBarItem(
           icon: Icon(
             FeatherIcons.user,
-            size: 20,
+            size: 30,
           ),
           label: "Profile",
         ),
       ],
+      unselectedLabelStyle: const TextStyle(
+        fontWeight: FontWeight.w300,
+        fontSize: 12,
+        color: Colors.black,
+      ),
+      unselectedItemColor: Colors.black,
       currentIndex: s ?? 0,
       elevation: 10,
       selectedLabelStyle: const TextStyle(

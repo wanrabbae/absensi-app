@@ -142,7 +142,7 @@ class AbsenController extends GetxController {
             child: Text('Silahkan ambil foto selfi untuk bisa melanjutkan',
                 style: TextStyle(fontSize: 12)),
           ),
-          buttonColor: Colors.white,
+          buttonColor: Colors.transparent,
           cancelTextColor: colorBluePrimary,
           confirmTextColor: colorBluePrimary,
           textConfirm: "Foto",

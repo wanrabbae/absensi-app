@@ -25,7 +25,7 @@ class ProfileController extends GetxController {
     super.onInit();
     user = box.read(Base.dataUser);
     user = await dataProfile(user?['alamatEmail']);
-    print(user);
+    print("PROFILE CTRL: " + user.toString());
     await dataPerusahaan();
   }
 

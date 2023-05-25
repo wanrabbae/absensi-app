@@ -138,14 +138,19 @@ Widget formProfile(context, s) {
                                 initialValue: s.user?['alamatEmail'],
                                 readOnly: true,
                                 onTap: () {
-                                  showModalBottomSheet(
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(20),
-                                              topRight: Radius.circular(20))),
-                                      context: context,
-                                      builder: (ctx) =>
-                                          changeEmailLayout(context));
+                                  SplashController().showConfirmationDialog(
+                                      'Email', "Anda ingin mengubah email?",
+                                      () {
+                                    Get.toNamed(RouteName.profileGantiemail);
+                                  });
+                                  // showModalBottomSheet(
+                                  //     shape: const RoundedRectangleBorder(
+                                  //         borderRadius: BorderRadius.only(
+                                  //             topLeft: Radius.circular(20),
+                                  //             topRight: Radius.circular(20))),
+                                  //     context: context,
+                                  //     builder: (ctx) =>
+                                  //         changeEmailLayout(context));
                                 },
                                 decoration: const InputDecoration(
                                     border: UnderlineInputBorder(),

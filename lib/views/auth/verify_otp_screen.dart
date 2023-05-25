@@ -110,7 +110,7 @@ class VerifyOtpScreen extends StatelessWidget {
                                 child: Text(
                                   "Kirim ulang OTP",
                                   style: TextStyle(
-                                      fontSize: 20, color: Colors.black),
+                                      fontSize: 16, color: Colors.black),
                                 ),
                               ),
                             ),

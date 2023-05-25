@@ -113,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                                 child: Text(
                                   "Cek e-mail",
                                   style: TextStyle(
-                                      fontSize: 20, color: Colors.black),
+                                      fontSize: 16, color: Colors.black),
                                 ),
                               ),
                             ),

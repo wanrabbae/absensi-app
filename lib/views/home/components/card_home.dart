@@ -2,7 +2,7 @@ import 'package:app/global_resource.dart';
 
 Widget dataHome(BuildContext context, s, isHadir) {
   return Container(
-    margin: const EdgeInsets.symmetric(horizontal: 15),
+    margin: const EdgeInsets.symmetric(horizontal: 20),
     child: ListView.builder(
       shrinkWrap: true,
       scrollDirection: Axis.vertical,
@@ -118,15 +118,19 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                   flex: 1,
                                   child: GestureDetector(
                                     onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (ctx) => dialogGoogleMap(ctx,
-                                              latLng: LatLng(
-                                                  DataHelper.absences()[0]
-                                                      .locationLat!,
-                                                  DataHelper.absences()[0]
-                                                      .locationLng!),
-                                              updateLocation: false));
+                                      isHadir
+                                          ? showDialog(
+                                              context: context,
+                                              builder: (ctx) => dialogGoogleMap(
+                                                  ctx,
+                                                  latLng: LatLng(
+                                                      DataHelper.absences()[0]
+                                                          .locationLat!,
+                                                      DataHelper.absences()[0]
+                                                          .locationLng!),
+                                                  updateLocation: false))
+                                          : Get.toNamed(
+                                              RouteName.absenIzinDownloaded);
                                     },
                                     child: Text(
                                         "${DataHelper.absences()[0].locationName}",

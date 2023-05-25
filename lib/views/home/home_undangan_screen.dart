@@ -12,7 +12,7 @@ class HomeUndanganScreen extends StatelessWidget {
       body: GetBuilder<HomeController>(
         init: HomeController(),
         builder: (s) => Container(
-          margin: EdgeInsets.only(top: 80),
+          margin: EdgeInsets.only(top: 70),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -21,7 +21,7 @@ class HomeUndanganScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Container(
-                      margin: EdgeInsets.symmetric(horizontal: 30),
+                      margin: EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -91,7 +91,7 @@ class HomeUndanganScreen extends StatelessWidget {
                             child: Text(
                               "Cek e-mail",
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.black),
+                                  TextStyle(fontSize: 16, color: Colors.black),
                             ),
                           ),
                         ),
