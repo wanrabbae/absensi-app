@@ -15,7 +15,10 @@ Widget formData(s, context) {
               padding: const EdgeInsets.only(left: 5),
               child: Text(
                 "Masuk",
-                style: TextStyle(fontSize: 25, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(
@@ -41,11 +44,9 @@ Widget formData(s, context) {
                   // filled: true,
                   // fillColor: Colors.white,
                   hintText: "gunakan e-mail anda",
-                  prefixIcon: Icon(Icons.email),
                   suffixText: "300",
                   suffixStyle: TextStyle(color: colorBluePrimary),
-                  contentPadding:
-                      const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+                  contentPadding: const EdgeInsets.only(left: 5),
                   // suffixIconConstraints:
                   //     const BoxConstraints(minHeight: 30, minWidth: 30),
                   // suffixIconColor: Colors.white,

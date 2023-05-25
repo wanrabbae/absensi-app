@@ -110,14 +110,14 @@ class AbsensiScreen extends StatelessWidget {
               mapLayout(context, s),
               Container(
                 color: Colors.white,
-                padding: const EdgeInsets.only(top: 5),
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
-                      "Tekan tombol dibawah ini untuk memulai",
+                      "Tekan tombol untuk masuk/pulang",
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,

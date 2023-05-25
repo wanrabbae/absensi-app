@@ -12,7 +12,7 @@ class HomeUndanganScreen extends StatelessWidget {
       body: GetBuilder<HomeController>(
         init: HomeController(),
         builder: (s) => Container(
-          margin: EdgeInsets.only(top: 70),
+          margin: EdgeInsets.only(top: 60),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,7 +72,7 @@ class HomeUndanganScreen extends StatelessWidget {
                     children: [
                       Center(
                         child: Text(
-                          'Tekan “Cek e-mail” untuk memeriksa e-mail temananda',
+                          'Tekan “Cek e-mail” untuk memeriksa e-mail teman anda',
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                           textAlign: TextAlign.center,
                         ),
@@ -83,15 +83,19 @@ class HomeUndanganScreen extends StatelessWidget {
                         child: SizedBox(
                           width: double.infinity,
                           height: 50,
-                          child: ElevatedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Colors.white)),
-                            onPressed: () {},
-                            child: Text(
-                              "Cek e-mail",
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.black),
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Center(
+                              child: Text(
+                                "Periksa e-mail teman",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         ),

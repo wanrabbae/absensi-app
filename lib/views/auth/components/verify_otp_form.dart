@@ -15,7 +15,10 @@ Widget formData(s, context) {
               padding: const EdgeInsets.only(left: 5),
               child: Text(
                 "Kode OTP",
-                style: TextStyle(fontSize: 25, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(
@@ -48,12 +51,8 @@ Widget formData(s, context) {
                   focusedBorder: UnderlineInputBorder(
                       borderSide:
                           BorderSide(color: colorBluePrimary, width: 2)),
-                  contentPadding:
-                      const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+                  contentPadding: const EdgeInsets.only(left: 5),
                   hintText: "Masukkan 6 angka kode",
-                  suffixIconConstraints:
-                      const BoxConstraints(minHeight: 30, minWidth: 30),
-                  suffixIconColor: Colors.white,
                 ),
               ),
             ),

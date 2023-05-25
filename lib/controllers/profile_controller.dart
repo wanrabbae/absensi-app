@@ -138,7 +138,7 @@ class ProfileController extends GetxController {
           child: Text('Tekan "Keluar" untuk keluar aplikasi.',
               style: TextStyle(fontSize: 12)),
         ),
-        buttonColor: Colors.white,
+        buttonColor: Colors.transparent,
         cancelTextColor: colorBluePrimary,
         confirmTextColor: colorBluePrimary,
         textCancel: "Batal",

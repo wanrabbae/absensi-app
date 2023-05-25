@@ -16,8 +16,8 @@ Widget customHeaderAuth(BuildContext context, String title, String subTitle) {
           subTitle,
           style: const TextStyle(
               fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.w600,
-              color: Color.fromRGBO(33, 33, 33, 80),
+              fontWeight: FontWeight.w400,
+              // color: Color.fromRGBO(33, 33, 33, 80),
               fontSize: 20.0),
         )
       ],

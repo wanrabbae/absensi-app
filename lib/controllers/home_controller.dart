@@ -77,28 +77,30 @@ class HomeController extends GetxController {
           });
         }
       } else {
-        Get.defaultDialog(
-            contentPadding: EdgeInsets.all(10),
-            title: "Hadir",
-            titleStyle:
-                const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            titlePadding: const EdgeInsets.all(10),
-            content: const Padding(
-              padding: EdgeInsets.all(5),
-              child: Text('Apakah anda ingin pulang ?',
-                  style: TextStyle(fontSize: 12)),
-            ),
-            buttonColor: Colors.white,
-            cancelTextColor: colorBluePrimary,
-            confirmTextColor: colorBluePrimary,
-            textCancel: "Tidak",
-            textConfirm: "Ya",
-            onConfirm: () {
-              Get.back();
-              Get.toNamed(RouteName.absen,
-                  arguments: absen?[0]?[
-                      "id"]); // NOTES: INI MASIH AMBIL INDEX 0 AJA BELUM DINAMIS
-            });
+        Get.back();
+        Get.toNamed(RouteName.absen, arguments: absen?[0]?["id"]);
+        // Get.defaultDialog(
+        //     contentPadding: EdgeInsets.all(10),
+        //     title: "Presensi",
+        //     titleStyle:
+        //         const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        //     titlePadding: const EdgeInsets.all(10),
+        //     content: const Padding(
+        //       padding: EdgeInsets.all(5),
+        //       child: Text('Apakah anda ingin pulang ?',
+        //           style: TextStyle(fontSize: 12)),
+        //     ),
+        //     buttonColor: Colors.transparent,
+        //     cancelTextColor: colorBluePrimary,
+        //     confirmTextColor: colorBluePrimary,
+        //     textCancel: "Tidak",
+        //     textConfirm: "Ya",
+        //     onConfirm: () {
+        //       Get.back();
+        //       Get.toNamed(RouteName.absen,
+        //           arguments: absen?[0]?[
+        //               "id"]); // NOTES: INI MASIH AMBIL INDEX 0 AJA BELUM DINAMIS
+        //     });
       }
     }
   }

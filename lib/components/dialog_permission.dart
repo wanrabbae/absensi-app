@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class DialogPermission extends HookConsumerWidget {
@@ -29,6 +30,16 @@ class DialogPermission extends HookConsumerWidget {
                     ],
                   ),
                 ),
+                const Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Perizinan perangkat",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Color.fromRGBO(51, 51, 51, 1)),
+                  ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -43,56 +54,63 @@ class DialogPermission extends HookConsumerWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    "Perizinan perangkat :",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Color.fromRGBO(51, 51, 51, 1)),
-                  ),
+                Text(
+                  "Anda diperlukan untuk memberikan izin: ",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Color.fromRGBO(51, 51, 51, 1)),
                 ),
-                const Text("  \u2022   Kamera",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Color.fromRGBO(24, 102, 225, 1))),
-                const Text("  \u2022   Lokasi",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Color.fromRGBO(24, 102, 225, 1))),
-                const Text("  \u2022   Bluetooth",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Color.fromRGBO(24, 102, 225, 1))),
-                const Text("  \u2022   Penyimpanan",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Color.fromRGBO(24, 102, 225, 1))),
-                const Padding(
-                  padding: EdgeInsets.only(top: 10.0),
-                  child: Text("dibutuhkan untuk mengisi profil.",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          color: Color.fromRGBO(51, 51, 51, 1))),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      CupertinoIcons.camera,
+                      size: 16,
+                    ),
+                    const Text(" Kamera",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                            color: Colors.black)),
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      CupertinoIcons.map_pin_ellipse,
+                      size: 16,
+                    ),
+                    const Text(" Lokasi",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                            color: Colors.black)),
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Icon(
+                      CupertinoIcons.folder,
+                      size: 16,
+                    ),
+                    const Text(" Penyimpanan",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                            color: Colors.black)),
+                  ],
                 ),
                 const SizedBox(
                   height: 20,
-                ),
-                const Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "Tekan tombol untuk menyimpan",
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w300,
-                        color: Color.fromRGBO(51, 51, 51, 0.5)),
-                  ),
                 ),
                 Align(
                     alignment: Alignment.bottomCenter,

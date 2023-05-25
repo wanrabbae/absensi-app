@@ -59,13 +59,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                         const Color.fromRGBO(238, 240, 244, 1),
                                     width: 2),
                                 borderRadius: BorderRadius.circular(20),
-                                color: colorBlueOpacity),
+                                color: colorBlueOpacity2),
                             child: Row(
                               children: [
                                 Icon(
                                   Icons.search,
                                   size: 25,
-                                  color: colorBlueOpacity2,
+                                  color: colorBlueOpacity3,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Text(
                                   "Pencarian",
                                   style: TextStyle(
-                                      fontSize: 16, color: colorBlueOpacity2),
+                                      fontSize: 16, color: colorBlueOpacity3),
                                 )
                               ],
                             ),

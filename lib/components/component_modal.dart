@@ -2,7 +2,8 @@ import 'package:app/global_resource.dart';
 
 const colorBluePrimary = Color.fromRGBO(24, 102, 225, 1);
 const colorBlueOpacity = Color(0xffE8F0FC);
-const colorBlueOpacity2 = Color(0xffAEC9F5);
+const colorBlueOpacity2 = Color(0xffE8F0FC);
+const colorBlueOpacity3 = Color(0xffAEC9F5);
 const colorGrayPrimary = Color.fromRGBO(238, 240, 244, 1);
 const colorGreenPrimary = Color.fromRGBO(0, 234, 37, 1);
 const LatLng currentLatLng = LatLng(-6.175221730228861, 106.827163526188);

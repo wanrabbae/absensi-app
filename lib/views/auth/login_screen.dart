@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 80, left: 20),
+                    padding: const EdgeInsets.only(top: 60, left: 20),
                     child: GestureDetector(
                       onTap: () {
                         Get.back();
@@ -50,7 +50,7 @@ class LoginScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.topRight,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 80, right: 20),
+                    padding: const EdgeInsets.only(top: 60, right: 20),
                     child: GestureDetector(
                       onTap: () {
                         s.emailKirim(null, 2);
@@ -73,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                   child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 22),
+                  padding: const EdgeInsets.only(bottom: 32),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
@@ -90,7 +90,7 @@ class LoginScreen extends StatelessWidget {
                           //       arguments: "https://docs.horaapp.id/#privasi");
                           // }),
                           Text(
-                            'Tekan “Cek e-mail” untuk memeriksa e-mail anda',
+                            'Tekan “Cek koneksi untuk memeriksa koneksi anda',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.grey.shade500),
                           ),
@@ -104,16 +104,17 @@ class LoginScreen extends StatelessWidget {
                                   as Uri);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(15),
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20)),
                               child: Center(
                                 child: Text(
-                                  "Cek e-mail",
+                                  "Cek koneksi",
                                   style: TextStyle(
-                                      fontSize: 16, color: Colors.black),
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),

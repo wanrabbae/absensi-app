@@ -37,10 +37,12 @@ class LoginController extends GetxController {
               "Silahkan Cek Email Anda Untuk Melanjutkan");
         }
       } else {
+        print("EMAIL KIRIM ERROR: " + response.toString());
         Get.back();
         Get.snackbar('Masuk Gagal', response.body.toString());
       }
     } catch (e) {
+      print("CATCH EMAIL KIRIM: " + e.toString());
       Get.back();
       Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
     }

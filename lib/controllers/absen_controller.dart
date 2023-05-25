@@ -133,19 +133,19 @@ class AbsenController extends GetxController {
   mulaiSelesaiAbsen(context, idAbsen) {
     if (!klikAbsen) {
       Get.defaultDialog(
-          title: "Siap untuk memulai?",
+          backgroundColor: Colors.white,
+          title: "Verifikasi Wajah",
           titleStyle:
               const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           titlePadding: const EdgeInsets.all(10),
           content: const Padding(
             padding: EdgeInsets.all(5),
-            child: Text('Silahkan ambil foto selfi untuk bisa melanjutkan',
-                style: TextStyle(fontSize: 12)),
+            child: Text('Yuk selfie...', style: TextStyle(fontSize: 12)),
           ),
           buttonColor: Colors.transparent,
           cancelTextColor: colorBluePrimary,
           confirmTextColor: colorBluePrimary,
-          textConfirm: "Foto",
+          textConfirm: "Oke",
           textCancel: "Batal",
           onConfirm: () {
             Get.back();
@@ -166,19 +166,18 @@ class AbsenController extends GetxController {
           });
     } else {
       Get.defaultDialog(
-        title: "Pulang sekarang ?",
+        title: "Presensi",
         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         titlePadding: const EdgeInsets.all(10),
         content: const Padding(
           padding: EdgeInsets.all(5),
-          child: Text('Silahkan klik "pulang" jika anda akan pulang',
-              style: TextStyle(fontSize: 12)),
+          child: Text('Anda ingin pulang?', style: TextStyle(fontSize: 12)),
         ),
-        buttonColor: Colors.white,
+        buttonColor: Colors.transparent,
         cancelTextColor: colorBluePrimary,
         confirmTextColor: colorBluePrimary,
-        textConfirm: "Pulang",
-        textCancel: "Batal",
+        textConfirm: "Ya",
+        textCancel: "Tidak",
         onConfirm: () {
           Get.back();
           absenPulang(true, idAbsen);

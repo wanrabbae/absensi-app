@@ -15,7 +15,7 @@ class GreetingScreen extends StatelessWidget {
           children: [
             Positioned(
                 top: 60,
-                child: customHeaderAuth(context, "HORA,", "Selamat datang!")),
+                child: customHeaderAuth(context, "Halo,", "Selamat datang")),
             Center(
                 child: Image.asset(
               "assets/icons/logo/main_logo.png",
@@ -43,9 +43,9 @@ class GreetingScreen extends StatelessWidget {
                         //   height: 5,
                         // ),
                         const Text(
-                          "Tekan “SETUJU & LANJUTKAN” untuk menyetujui. Terima kasih.",
+                          "Tekan “SETUJU DAN LANJUTKAN” untuk menyetujui Kebijakan Hora dan Privasi Pengguna",
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(color: Colors.grey, fontSize: 11),
                         ),
                         buttonGreen("SETUJU & LANJUTKAN", onTap: () {
                           Get.toNamed(RouteName.login);

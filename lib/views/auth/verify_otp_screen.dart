@@ -30,7 +30,7 @@ class VerifyOtpScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 80, left: 20),
+                    padding: const EdgeInsets.only(top: 60, left: 20),
                     child: GestureDetector(
                       onTap: () {
                         Get.back();
@@ -49,7 +49,7 @@ class VerifyOtpScreen extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.topRight,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 80, right: 20),
+                    padding: const EdgeInsets.only(top: 60, right: 20),
                     child: GestureDetector(
                       onTap: () {
                         s.otpKirim();
@@ -72,7 +72,7 @@ class VerifyOtpScreen extends StatelessWidget {
                   child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 22),
+                  padding: const EdgeInsets.only(bottom: 32),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
@@ -101,7 +101,6 @@ class VerifyOtpScreen extends StatelessWidget {
                               s.emailKirim(null, 1);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(15),
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   color: Colors.white,
@@ -110,7 +109,9 @@ class VerifyOtpScreen extends StatelessWidget {
                                 child: Text(
                                   "Kirim ulang OTP",
                                   style: TextStyle(
-                                      fontSize: 16, color: Colors.black),
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),

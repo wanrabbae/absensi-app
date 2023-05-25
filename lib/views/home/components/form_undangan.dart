@@ -26,7 +26,7 @@ Widget formUndangan(context, s) {
             onChanged: (value) => s.emailUndangan = value,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              hintText: "Masukkan e-mail tujuan",
+              hintText: "e-mail teman",
               enabledBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: colorBluePrimary, width: 1.5),
               ),
@@ -39,7 +39,7 @@ Widget formUndangan(context, s) {
             height: 5,
           ),
           Text(
-            "Anda dapat masuk menggunakan e-mail yang telah diundang sebelumnya.",
+            "Beritahu teman anda untuk segera memeriksa kotak masuk e-mail",
             style: TextStyle(fontSize: 11, color: Colors.grey),
           ),
           const SizedBox(
