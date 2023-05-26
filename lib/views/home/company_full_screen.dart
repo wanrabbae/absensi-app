@@ -30,7 +30,7 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
                   alignment: Alignment.center),
             ),
             child: Padding(
-              padding: EdgeInsets.only(top: 80, left: 30, right: 30),
+              padding: EdgeInsets.only(top: 80, left: 20, right: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
