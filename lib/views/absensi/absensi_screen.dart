@@ -1,33 +1,53 @@
 import 'package:app/global_resource.dart';
 import 'components/layout_map.dart';
 
-class AbsensiScreen extends StatelessWidget {
+class AbsensiScreen extends StatefulWidget {
   const AbsensiScreen({super.key});
 
   @override
+  State<AbsensiScreen> createState() => _AbsensiScreenState();
+}
+
+class _AbsensiScreenState extends State<AbsensiScreen> {
+  var isDrag = true;
+
+  @override
   Widget build(BuildContext context) {
+    var idAbsen = Get.arguments?["id"] ?? null;
+    print("ID ABSE: " + idAbsen.toString());
+
     return GetBuilder<AbsenController>(
       init: AbsenController(),
       dispose: (state) {
         state.controller!.cancelTimer();
       },
       builder: (s) => Scaffold(
+        extendBodyBehindAppBar: true,
         backgroundColor: const Color.fromRGBO(238, 240, 244, 1),
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          backgroundColor: Colors.transparent,
           actions: [
             Container(
               padding: const EdgeInsets.only(left: 20, right: 20),
               width: MediaQuery.of(context).size.width,
-              color: Colors.white,
+              color: Colors.transparent,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  ovalCardIcon(context, FeatherIcons.arrowLeft, onTaped: () {
-                    Get.back();
-                  }),
+                  GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(50.0)),
+                        child: Icon(FeatherIcons.arrowLeft)),
+                  ),
                   Align(
                     alignment: Alignment.topRight,
                     child: Row(
@@ -99,50 +119,68 @@ class AbsensiScreen extends StatelessWidget {
             ),
           ],
         ),
-        body: SizedBox(
+        body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
+          child: Stack(
             children: [
-              mapLayout(context, s),
-              Container(
-                color: Colors.white,
-                padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      "Tekan tombol untuk masuk/pulang",
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: Color.fromRGBO(51, 51, 51, 0.5)),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 3, bottom: 20, left: 20, right: 20),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            s.mulaiSelesaiAbsen(context, Get.arguments);
-                          },
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                  // s.klikAbsen
-                                  //     ? colorGrayPrimary
-                                  //     : colorBluePrimary
-                                  colorBlueOpacity2),
-                              shape: const MaterialStatePropertyAll(
-                                  (RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20)))))),
-                          child: timerCount(context, s)),
-                    )
-                  ],
+              idAbsen == null
+                  ? GestureDetector(
+                      onHorizontalDragStart: (details) {
+                        setState(() {
+                          isDrag = !isDrag;
+                        });
+                      },
+                      child: isDrag
+                          ? Image.network(
+                              "https://res.cloudinary.com/touchme/image/upload/v1685070466/Rectangle_11_vxgyef.png",
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.cover,
+                              alignment: Alignment.bottomCenter,
+                            )
+                          : mapLayout(context, s))
+                  : mapLayout(context, s),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        "Tekan tombol untuk masuk/pulang",
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: Color.fromRGBO(51, 51, 51, 0.5)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            top: 3, bottom: 20, left: 20, right: 20),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              s.mulaiSelesaiAbsen(context, idAbsen);
+                            },
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    // s.klikAbsen
+                                    //     ? colorGrayPrimary
+                                    //     : colorBluePrimary
+                                    colorBlueOpacity2),
+                                shape: const MaterialStatePropertyAll(
+                                    (RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)))))),
+                            child: timerCount(context, s)),
+                      )
+                    ],
+                  ),
                 ),
               )
             ],

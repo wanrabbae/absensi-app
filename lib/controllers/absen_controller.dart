@@ -99,6 +99,7 @@ class AbsenController extends GetxController {
   }
 
   lokasiDetect() async {
+    // SplashController().loading("Memuat lokasi");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       currentLocation = LatLng(position.latitude, position.longitude);
@@ -116,6 +117,7 @@ class AbsenController extends GetxController {
           ),
         );
       });
+      // Get.back();
       update();
     });
   }

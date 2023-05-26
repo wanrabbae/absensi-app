@@ -107,7 +107,7 @@ customSnackbar1(message) {
   Get.rawSnackbar(
       messageText: Text(
         message ?? "Success action",
-        style: TextStyle(fontSize: 18, color: Colors.white),
+        style: TextStyle(fontSize: 15, color: Colors.white),
       ),
       snackPosition: SnackPosition.TOP,
       borderRadius: 20,

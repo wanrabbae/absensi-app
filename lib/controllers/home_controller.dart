@@ -77,7 +77,8 @@ class HomeController extends GetxController {
         }
       } else {
         Get.back();
-        Get.toNamed(RouteName.absen, arguments: absen?[0]?["id"]);
+        Get.toNamed(RouteName.absen,
+            arguments: {"id": absen?[0]?["id"] ?? null});
         // Get.defaultDialog(
         //     contentPadding: EdgeInsets.all(10),
         //     title: "Presensi",
