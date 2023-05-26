@@ -10,7 +10,9 @@ Widget dataHome(BuildContext context, s, isHadir) {
       itemCount: isHadir ? s.absen?.length : s.izin?.length,
       itemBuilder: (ctx, index) => SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: GestureDetector(
+        child: InkWell(
+          // splashColor: colorBlueOpacity3,
+          radius: 5,
           onTap: () {
             isHadir
                 ? print("hadir")

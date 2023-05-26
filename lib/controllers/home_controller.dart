@@ -59,8 +59,15 @@ class HomeController extends GetxController {
       if (!klikAbsen) {
         if (await Permission.camera.isGranted &&
             await Permission.location.isGranted) {
-          Get.back();
-          Get.toNamed(RouteName.absen);
+          var IsPresent = absen?.firstWhere(
+              (element) => element["idkaryawan"] == user?["idkaryawan"]);
+
+          if (IsPresent != null) {
+            customSnackbar1("Kehadiran hari ini telah terisi.");
+          } else {
+            Get.back();
+            Get.toNamed(RouteName.absen);
+          }
         } else {
           showModalBottomSheet(
               shape: const RoundedRectangleBorder(
@@ -76,9 +83,10 @@ class HomeController extends GetxController {
           });
         }
       } else {
+        var currentAbsen = absen?.firstWhere(
+            (element) => element['idkaryawan'] == user?['idkaryawan']);
         Get.back();
-        Get.toNamed(RouteName.absen,
-            arguments: {"id": absen?[0]?["id"] ?? null});
+        Get.toNamed(RouteName.absen, arguments: {"dataAbsen": currentAbsen});
         // Get.defaultDialog(
         //     contentPadding: EdgeInsets.all(10),
         //     title: "Presensi",

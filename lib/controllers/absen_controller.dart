@@ -86,12 +86,12 @@ class AbsenController extends GetxController {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         Get.snackbar(
-            'Permission dilarang!!', 'Aplikasi Tidak Mendapatkan izin ');
+            'Izin perangkat ditolak!', 'Aplikasi Tidak Mendapatkan izin ');
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      Get.snackbar('Permission dilarang!!',
+      Get.snackbar('Izin perangkat ditolak!',
           'Lokasi tidak mendapatkan izin secara permanen');
       return false;
     }
@@ -168,6 +168,7 @@ class AbsenController extends GetxController {
           });
     } else {
       Get.defaultDialog(
+        backgroundColor: Colors.white,
         title: "Presensi",
         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         titlePadding: const EdgeInsets.all(10),
@@ -263,11 +264,11 @@ class AbsenController extends GetxController {
         Get.back();
         box.write(Base.klikAbsen, false);
         if (status) {
-          Get.snackbar("Anda Sudah Pulang !!", "waktu telah dihentikan");
+          // Get.snackbar("Anda Sudah Pulang", "waktu telah dihentikan");
           Get.offAllNamed(RouteName.home);
         } else {
-          Get.snackbar("Mengajukan Izin Berhasil !!",
-              "Berhasil mematikan absen sebelumnya. Berhasil mengirimkan izin. Silahkan hubungi admin.");
+          // Get.snackbar("Mengajukan Izin Berhasil",
+          //     "Berhasil mematikan absen sebelumnya. Berhasil mengirimkan izin. Silahkan hubungi admin.");
           Get.offAllNamed(RouteName.home);
         }
       } else if (response.statusCode == 401) {
@@ -303,8 +304,8 @@ class AbsenController extends GetxController {
         box.write(Base.izinAbsen, DateTime.now().toString());
         if (!klikAbsen) {
           Get.back();
-          Get.snackbar("Mengajukan Izin Berhasil !!",
-              "Berhasil. Silahkan hubungi admin.");
+          // Get.snackbar("Mengajukan Izin Berhasil !!",
+          //     "Berhasil. Silahkan hubungi admin.");
           Get.offAllNamed(RouteName.home);
         } else {
           absenPulang(false);
@@ -479,12 +480,12 @@ class AbsenController extends GetxController {
 //       permission = await Geolocator.requestPermission();
 //       if (permission == LocationPermission.denied) {
 //         Get.snackbar(
-//             'Permission dilarang!!', 'Aplikasi Tidak Mendapatkan izin ');
+//             'Izin perangkat ditolak!', 'Aplikasi Tidak Mendapatkan izin ');
 //         return false;
 //       }
 //     }
 //     if (permission == LocationPermission.deniedForever) {
-//       Get.snackbar('Permission dilarang!!',
+//       Get.snackbar('Izin perangkat ditolak!',
 //           'Lokasi tidak mendapatkan izin secara permanen');
 //       return false;
 //     }

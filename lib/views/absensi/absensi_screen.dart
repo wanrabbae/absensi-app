@@ -13,7 +13,8 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var idAbsen = Get.arguments?["id"] ?? null;
+    var currentAbsen = Get.arguments?["dataAbsen"] ?? {};
+    var idAbsen = Get.arguments?["dataAbsen"]?["id"] ?? null;
     print("ID ABSE: " + idAbsen.toString());
 
     return GetBuilder<AbsenController>(
@@ -124,7 +125,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
           height: MediaQuery.of(context).size.height,
           child: Stack(
             children: [
-              idAbsen == null
+              idAbsen != null
                   ? GestureDetector(
                       onHorizontalDragStart: (details) {
                         setState(() {
@@ -133,7 +134,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                       },
                       child: isDrag
                           ? Image.network(
-                              "https://res.cloudinary.com/touchme/image/upload/v1685070466/Rectangle_11_vxgyef.png",
+                              changeUrlImage(currentAbsen?["fotoKaryawan"]),
                               width: double.infinity,
                               height: double.infinity,
                               fit: BoxFit.cover,
@@ -141,6 +142,33 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                             )
                           : mapLayout(context, s))
                   : mapLayout(context, s),
+              idAbsen != null
+                  ? Positioned(
+                      bottom: 0,
+                      right: 0,
+                      left: 0,
+                      top: 450,
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.circle,
+                              size: 14,
+                              color: isDrag ? Colors.white : Colors.grey,
+                            ),
+                            SizedBox(
+                              width: 7,
+                            ),
+                            Icon(
+                              Icons.circle,
+                              size: 14,
+                              color: isDrag ? Colors.grey : Colors.white,
+                            )
+                          ],
+                        ),
+                      ))
+                  : Text(""),
               Positioned(
                 bottom: 0,
                 right: 0,
