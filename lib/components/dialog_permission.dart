@@ -83,7 +83,7 @@ class DialogPermission extends HookConsumerWidget {
                 Row(
                   children: [
                     Icon(
-                      CupertinoIcons.map_pin_ellipse,
+                      FeatherIcons.mapPin,
                       size: 16,
                     ),
                     const Text(" Lokasi",
@@ -99,7 +99,7 @@ class DialogPermission extends HookConsumerWidget {
                 Row(
                   children: [
                     Icon(
-                      CupertinoIcons.folder,
+                      FeatherIcons.folder,
                       size: 16,
                     ),
                     const Text(" Penyimpanan",

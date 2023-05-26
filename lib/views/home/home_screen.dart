@@ -38,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Container(
                   margin:
-                      EdgeInsets.only(top: 60, bottom: 20, left: 20, right: 10),
+                      EdgeInsets.only(top: 60, bottom: 20, left: 20, right: 20),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -250,33 +250,29 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(50))),
                       backgroundColor: Colors.white,
                       child: Icon(
-                        Icons.attachment,
+                        FeatherIcons.paperclip,
                         color: colorBluePrimary,
                       ),
                       onPressed: () {
                         if (izinAbs()) {
-                          SplashController().showOkDialog(
-                              'Anda sudah izin hari ini',
-                              "tidak bisa melakukan absen lagi hari ini");
+                          customSnackbar1("Izin hari ini telah terisi");
                         } else {
                           Get.toNamed(RouteName.absenIzin);
                         }
                       },
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 15,
                     ),
                     FloatingActionButton(
                       backgroundColor: colorBluePrimary,
                       child: Icon(
-                        Icons.camera_alt_outlined,
+                        FeatherIcons.camera,
                         color: Colors.white,
                       ),
                       onPressed: () {
                         if (izinAbs()) {
-                          SplashController().showOkDialog(
-                              'Anda sudah izin hari ini',
-                              "tidak bisa melakukan absen lagi hari ini");
+                          customSnackbar1("Izin hari ini telah terisi");
                         } else {
                           Get.toNamed(RouteName.absenIzin);
                         }

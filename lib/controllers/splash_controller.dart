@@ -66,6 +66,7 @@ class SplashController extends GetxController {
       context: Get.overlayContext!,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           title: Text(
@@ -109,6 +110,7 @@ class SplashController extends GetxController {
       context: Get.overlayContext!,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           title: Text(

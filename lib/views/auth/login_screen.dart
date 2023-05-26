@@ -104,6 +104,7 @@ class LoginScreen extends StatelessWidget {
                                   as Uri);
                             },
                             child: Container(
+                              padding: EdgeInsets.all(15),
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   color: Colors.white,

@@ -14,7 +14,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
           onTap: () {
             isHadir
                 ? print("hadir")
-                : Get.toNamed(RouteName.absenIzinDownloaded);
+                : Get.toNamed(RouteName.absenIzinDownloaded,
+                    arguments: s.izin[index]);
           },
           child: Padding(
             padding: const EdgeInsets.only(top: 5, bottom: 5),
@@ -36,7 +37,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                 s.gambarAbsen(
                                     isHadir ? s.absen[index] : s.izin[index],
                                     2)))
-                        : Get.toNamed(RouteName.absenIzinDownloaded);
+                        : Get.toNamed(RouteName.absenIzinDownloaded,
+                            arguments: s.izin[index]);
                   },
                   child: buildImageList(
                       context,
@@ -102,7 +104,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                                         .locationLng!),
                                                 updateLocation: false))
                                         : Get.toNamed(
-                                            RouteName.absenIzinDownloaded);
+                                            RouteName.absenIzinDownloaded,
+                                            arguments: s.izin[index]);
                                   },
                                   child: const Icon(
                                     Icons.location_on_rounded,
@@ -130,7 +133,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                                           .locationLng!),
                                                   updateLocation: false))
                                           : Get.toNamed(
-                                              RouteName.absenIzinDownloaded);
+                                              RouteName.absenIzinDownloaded,
+                                              arguments: s.izin[index]);
                                     },
                                     child: Text(
                                         "${DataHelper.absences()[0].locationName}",

@@ -11,11 +11,12 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: colorGrayPrimary,
+          backgroundColor: Colors.white,
           title: Text(
             'Surat Izin',
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
+          centerTitle: false,
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: Icon(FeatherIcons.arrowLeft),
@@ -32,16 +33,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                     color: colorBluePrimary,
                   ),
                   onPressed: () {
-                    izin() {
-                      return "YEYY";
-                    }
-
-                    SplashController().showConfirmationDialog(
-                      "Unduhan",
-                      "Anda ingin mengunduh berkas ini?",
-                      SplashController()
-                          .showOkDialog("Unduhan", "Berhasil mengunduh berkas"),
-                    );
+                    customSnackbar1("Lampiran telah disimpan.");
                   },
                 )),
           ],
@@ -49,7 +41,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
         body: Container(
           padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
           width: MediaQuery.of(context).size.width,
-          color: colorGrayPrimary,
+          color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,
@@ -70,10 +62,13 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                         },
                         readOnly: true,
                         style: TextStyle(fontSize: 13),
+                        initialValue: Get.arguments?["dokumen"]
+                                .toString()
+                                .split("/")
+                                .last ??
+                            "",
                         decoration: InputDecoration(
-                          hintText: (s.fileName == null)
-                              ? "File_surat_sakit.docx"
-                              : s.fileName,
+                          hintText: "File_surat_sakit.docx",
                           enabledBorder: UnderlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.black, width: 1)),
@@ -98,8 +93,8 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                             child: DropdownButton(
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(20.0)),
-                                key: Key(s.formIzin),
-                                value: s.formIzin,
+                                key: Key(Get.arguments?["ijin"] ?? "Izin"),
+                                value: Get.arguments?["ijin"] ?? "Izin",
                                 isExpanded: true,
                                 items: s.izinList!
                                     .map<DropdownMenuItem<String>>((value) =>
@@ -136,6 +131,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                           keyboardType: TextInputType.multiline,
                           maxLines: 15,
                           style: TextStyle(fontSize: 13),
+                          initialValue: Get.arguments?["keterangan"] ?? "",
                           decoration: InputDecoration(
                             hintText: "Ketikkan disini",
                             enabledBorder: UnderlineInputBorder(

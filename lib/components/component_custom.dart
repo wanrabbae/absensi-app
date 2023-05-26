@@ -103,6 +103,18 @@ Widget buildImageProfile(BuildContext context, String? url, bool local) {
   );
 }
 
+customSnackbar1(message) {
+  Get.rawSnackbar(
+      messageText: Text(
+        message ?? "Success action",
+        style: TextStyle(fontSize: 18, color: Colors.white),
+      ),
+      snackPosition: SnackPosition.TOP,
+      borderRadius: 20,
+      padding: EdgeInsets.all(25),
+      margin: EdgeInsets.symmetric(horizontal: 20));
+}
+
 Widget buildImageProfileBig(
     BuildContext context, String urlPhoto, bool isLocal, file) {
   return Container(

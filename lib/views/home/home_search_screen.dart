@@ -64,6 +64,7 @@ class HomeSearchScreen extends StatelessWidget {
                           ),
                           Flexible(
                             child: TextFormField(
+                              autofocus: true,
                               onChanged: (value) async {
                                 s.searchFunc(value);
                                 // s.search = value;

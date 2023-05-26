@@ -1,12 +1,21 @@
 import 'package:app/global_resource.dart';
+import 'package:dio/dio.dart' as dio;
 
 class HomeServices extends GetConnect implements GetxService {
   final box = GetStorage();
 
-  Future<Response> absenGet(params) {
+  Future absenGet(params) async {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};
-    return get(Base.url + Base.absensi, headers: header, query: params);
+    final options = dio.Options(headers: header);
+    return await dio.Dio().get(
+        Base.url +
+            Base.absensi +
+            "?idperusahaan=" +
+            params['idperusahaan'] +
+            "&tanggal=" +
+            params['tanggal'],
+        options: options);
   }
 
   Future<Response> perusahaanGet(params) {

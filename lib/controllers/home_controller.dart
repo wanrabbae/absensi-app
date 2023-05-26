@@ -54,8 +54,7 @@ class HomeController extends GetxController {
 
   absensi(context) async {
     if (izinAbs()) {
-      SplashController().showOkDialog('Anda sudah izin hari ini',
-          "tidak bisa melakukan absen lagi hari ini");
+      customSnackbar1("Izin hari ini telah terisi.");
     } else {
       if (!klikAbsen) {
         if (await Permission.camera.isGranted &&
@@ -190,26 +189,20 @@ class HomeController extends GetxController {
   }
 
   dataHome() async {
-    print(perusahaan);
+    print("PERUSAHAAN HOME: " + perusahaan.toString());
     try {
       var response = await HomeServices().absenGet({
         'idperusahaan': perusahaan?['idperusahaan'],
         "tanggal": currentDate,
       });
-      print(response.body);
+      print(response.data);
       if (response.statusCode == 200) {
-        absen?.addAll(response.body['absen']);
-        izin?.addAll(response.body['cuti']);
+        absen?.addAll(response.data['absen']);
+        izin?.addAll(response.data['cuti']);
         box.remove(Base.dataAbsen);
         box.write(Base.dataAbsen, jsonEncode(absen));
         update();
       }
-      //  else if (response.statusCode == 401) {
-      //   SplashController().sessionHabis(user?['alamatEmail']);
-      // }
-      // else {
-      //   Get.snackbar('Gagal Menggunakan Otp', response.body.toString());
-      // }
     } catch (e) {
       Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
     }

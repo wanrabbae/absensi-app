@@ -101,6 +101,7 @@ class VerifyOtpScreen extends StatelessWidget {
                               s.emailKirim(null, 1);
                             },
                             child: Container(
+                              padding: EdgeInsets.all(15),
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   color: Colors.white,

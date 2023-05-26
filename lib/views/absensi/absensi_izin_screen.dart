@@ -11,11 +11,12 @@ class AbsensiIzinScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: colorGrayPrimary,
+          backgroundColor: Colors.white,
           title: Text(
             'Surat Izin',
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           ),
+          centerTitle: false,
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: Icon(FeatherIcons.arrowLeft),
@@ -50,7 +51,7 @@ class AbsensiIzinScreen extends StatelessWidget {
         body: Container(
           padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
           width: MediaQuery.of(context).size.width,
-          color: colorGrayPrimary,
+          color: Colors.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.end,

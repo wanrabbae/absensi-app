@@ -20,16 +20,17 @@ class LoginController extends GetxController {
   emailKirim(mail, status) async {
     try {
       SplashController().loading("Mengirim kode OTP");
+      print(emailForm);
       var response = await AuthServices().sendLinkPost(mail ?? emailForm);
       if (response.statusCode == 200) {
-        if (response.body.toString() == 'OTP Terkirim') {
+        if (response.data.toString() == 'OTP Terkirim') {
           Get.back();
           if (status != 1) {
-            Get.snackbar('Masuk Berhasil', response.body.toString());
+            Get.snackbar('Masuk Berhasil', response.data.toString());
             Get.toNamed(RouteName.otpLogin);
           } else {
             Get.snackbar(
-                'Otp Berhasil Dikirim Ulang', response.body.toString());
+                'Otp Berhasil Dikirim Ulang', response.data.toString());
           }
         } else {
           Get.back();
