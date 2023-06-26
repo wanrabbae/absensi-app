@@ -7,6 +7,7 @@ class VerifyOtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var emailBefore = Get.arguments;
     return Scaffold(
       backgroundColor: colorBlueOpacity,
       resizeToAvoidBottomInset: false,
@@ -52,7 +53,7 @@ class VerifyOtpScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 60, right: 20),
                     child: GestureDetector(
                       onTap: () {
-                        s.otpKirim();
+                        s.otpKirim(emailBefore);
                       },
                       child: Container(
                           padding: EdgeInsets.all(10),
@@ -98,7 +99,7 @@ class VerifyOtpScreen extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              s.emailKirim(null, 1);
+                              s.emailKirim(emailBefore, 1);
                             },
                             child: Container(
                               padding: EdgeInsets.all(15),

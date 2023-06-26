@@ -18,16 +18,17 @@ class LoginController extends GetxController {
   }
 
   emailKirim(mail, status) async {
+    emailForm = emailForm;
+    print(mail.toString() + ", " + emailForm.toString());
     try {
       SplashController().loading("Mengirim kode OTP");
-      print(emailForm);
       var response = await AuthServices().sendLinkPost(mail ?? emailForm);
       if (response.statusCode == 200) {
         if (response.data.toString() == 'OTP Terkirim') {
           Get.back();
           if (status != 1) {
             Get.snackbar('Masuk Berhasil', response.data.toString());
-            Get.toNamed(RouteName.otpLogin);
+            Get.toNamed(RouteName.otpLogin, arguments: emailForm);
           } else {
             Get.snackbar(
                 'Otp Berhasil Dikirim Ulang', response.data.toString());
@@ -45,18 +46,19 @@ class LoginController extends GetxController {
     } catch (e) {
       print("CATCH EMAIL KIRIM: " + e.toString());
       Get.back();
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      Get.snackbar('Mohon maaf masukkan email anda kembali', '');
+      Get.offAllNamed(RouteName.login);
     }
   }
 
-  otpKirim() async {
+  otpKirim(email) async {
     try {
       SplashController().loading("Mengkonfirmasi Masuk");
       var response = await AuthServices().verifyOtpGet(
-          {"email": user?['alamatEmail'] ?? emailForm, "otp": otpForm});
+          {"email": user?['alamatEmail'] ?? email, "otp": otpForm});
       if (response.statusCode == 200) {
         box.write(Base.token, response.body['token']);
-        var res = await ProfileController().dataProfile(emailForm);
+        var res = await ProfileController().dataProfile(email);
         Get.back();
         box.write(Base.dataUser, res);
         Get.toNamed(RouteName.home);

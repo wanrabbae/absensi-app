@@ -15,6 +15,7 @@ class AbsenController extends GetxController {
   String? timerRecor = "00:00:00";
   String? waktuAbsen;
   File? formFoto;
+  File? formFotoIzin;
   bool klikAbsen = false;
   String? alamatLoc;
   // ignore: prefer_typing_uninitialized_variables

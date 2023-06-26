@@ -39,7 +39,8 @@ class SplashController extends GetxController {
 
   sessionHabis(mail) {
     LoginController().emailKirim(mail, 1);
-    Get.offAllNamed(RouteName.otpLogin);
+    removeData();
+    Get.offAllNamed(RouteName.login);
   }
 
   loading(msg) {

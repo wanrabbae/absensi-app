@@ -19,6 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
   var hadirHighlight = true;
   var izinHighlight = false;
 
+  File? formFotoIzin;
+
   @override
   Widget build(BuildContext context) {
     Get.put(HomeController());
@@ -274,6 +276,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         if (izinAbs()) {
                           customSnackbar1("Izin hari ini telah terisi");
                         } else {
+                          ImagePicker()
+                              .pickImage(
+                                  source: ImageSource.camera,
+                                  preferredCameraDevice: CameraDevice.front)
+                              .then((value) {
+                            if (value != null) {
+                              formFotoIzin = File(value.path);
+                            } else {
+                              customSnackbar1(
+                                  "Silahkan tangkap foto terlebih dahulu");
+                            }
+                          });
                           Get.toNamed(RouteName.absenIzin);
                         }
                       },

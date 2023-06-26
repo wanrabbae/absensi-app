@@ -87,28 +87,6 @@ class HomeController extends GetxController {
             (element) => element['idkaryawan'] == user?['idkaryawan']);
         Get.back();
         Get.toNamed(RouteName.absen, arguments: {"dataAbsen": currentAbsen});
-        // Get.defaultDialog(
-        //     contentPadding: EdgeInsets.all(10),
-        //     title: "Presensi",
-        //     titleStyle:
-        //         const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        //     titlePadding: const EdgeInsets.all(10),
-        //     content: const Padding(
-        //       padding: EdgeInsets.all(5),
-        //       child: Text('Apakah anda ingin pulang ?',
-        //           style: TextStyle(fontSize: 12)),
-        //     ),
-        //     buttonColor: Colors.transparent,
-        //     cancelTextColor: colorBluePrimary,
-        //     confirmTextColor: colorBluePrimary,
-        //     textCancel: "Tidak",
-        //     textConfirm: "Ya",
-        //     onConfirm: () {
-        //       Get.back();
-        //       Get.toNamed(RouteName.absen,
-        //           arguments: absen?[0]?[
-        //               "id"]); // NOTES: INI MASIH AMBIL INDEX 0 AJA BELUM DINAMIS
-        //     });
       }
     }
   }
@@ -189,11 +167,14 @@ class HomeController extends GetxController {
       } else if (response.statusCode == 401) {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
-        Get.snackbar(
-            'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        // SplashController().sessionHabis(user?['alamatEmail']);
+        // Get.snackbar('Sesi habis', '');
+        customSnackbar1("Lost connection!");
       }
     } catch (e) {
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      // SplashController().sessionHabis(user?['alamatEmail']);
+      // Get.snackbar('Sesi habis', '');
+      customSnackbar1("Lost connection!");
     }
   }
 
@@ -213,7 +194,8 @@ class HomeController extends GetxController {
         update();
       }
     } catch (e) {
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      print(e);
+      // Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
     }
   }
 

@@ -179,11 +179,15 @@ class ProfileController extends GetxController {
       } else if (response.statusCode == 401) {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
-        Get.snackbar(
-            'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        // SplashController().sessionHabis(user?['alamatEmail']);
+        customSnackbar1("Lost connection!");
+        // Get.snackbar(
+        //     'Gagal Menjalankan Fitur Ini !!', response.body.toString());
       }
     } catch (e) {
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      // Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      // SplashController().sessionHabis(user?['alamatEmail']);
+      customSnackbar1("Lost connection!");
     }
   }
 
