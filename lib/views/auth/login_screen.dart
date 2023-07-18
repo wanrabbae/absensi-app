@@ -98,10 +98,8 @@ class LoginScreen extends StatelessWidget {
                             height: 10,
                           ),
                           GestureDetector(
-                            onTap: () async {
-                              await launchUrl(Uri.parse(
-                                      "https://mail.google.com/mail/u/2/#inbox")
-                                  as Uri);
+                            onTap: () {
+                              customSnackbar1(Base.connected);
                             },
                             child: Container(
                               padding: EdgeInsets.all(15),

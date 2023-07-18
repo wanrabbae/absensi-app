@@ -27,27 +27,11 @@ Widget formData(s, context) {
               child: TextFormField(
                 onChanged: (value) {
                   s.otpForm = value;
-                  // if (value == "1234") {
-                  //   ref.read(prefProvider).setIsLogin(true);
-                  //   AppRoute.push(Routes.TUTORIAL).then((value) {
-                  //     ref.read(prefProvider).setIsFirstOpen(true);
-                  //     if (value != null) {
-                  //       AppRoute.push(Routes.MAIN);
-                  //     }
-                  //   });
-                  // } else {
-                  //   showDialog(
-                  //       context: context,
-                  //       builder: (ctx) => customDialog(
-                  //           context, "Periksa kembali kode OTP", "OK",
-                  //           onTap: () => AppRoute.pop()));
-                  // }
                 },
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: colorBluePrimary, width: 2)),
+                      borderSide: BorderSide(color: Colors.black, width: 2)),
                   focusedBorder: UnderlineInputBorder(
                       borderSide:
                           BorderSide(color: colorBluePrimary, width: 2)),
@@ -59,14 +43,6 @@ Widget formData(s, context) {
           ],
         ),
       ),
-      // Padding(
-      //   padding: const EdgeInsets.all(8.0),
-      //   child: customTextRich(
-      //       context, "Tidak menerima kode OTP ? ", "Kirim Ulang",
-      //       onTextClicked: () {
-      //     LoginController().emailKirim(s.emailForm, 1);
-      //   }),
-      // ),
       Container(
         padding: const EdgeInsets.only(top: 10, left: 30, right: 20),
         child: Text(

@@ -200,7 +200,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                     // s.klikAbsen
                                     //     ? colorGrayPrimary
                                     //     : colorBluePrimary
-                                    colorBlueOpacity2),
+                                    colorBluePrimary),
                                 shape: const MaterialStatePropertyAll(
                                     (RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(

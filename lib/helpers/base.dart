@@ -44,6 +44,7 @@ abstract class Base {
   static String dataAbsen = "absen";
   static String splash = "splash";
   static String greating = "greating";
+  static String connected = "Koneksi anda tersambung.";
 //End data auth
 }
 

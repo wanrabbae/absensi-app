@@ -55,7 +55,7 @@ Widget buttonGreen(String title, {VoidCallback? onTap}) {
                 const MaterialStatePropertyAll<Color>(colorGreenPrimary),
             shape: MaterialStatePropertyAll<OutlinedBorder>(
                 RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)))),
+                    borderRadius: BorderRadius.circular(50.0)))),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Text(
@@ -111,6 +111,19 @@ customSnackbar1(message) {
       ),
       snackPosition: SnackPosition.TOP,
       borderRadius: 20,
+      padding: EdgeInsets.all(25),
+      margin: EdgeInsets.symmetric(horizontal: 20));
+}
+
+customSnackbarLoading(message) {
+  Get.rawSnackbar(
+      messageText: Text(
+        message ?? "Loading...",
+        style: TextStyle(fontSize: 15, color: Colors.white),
+      ),
+      snackPosition: SnackPosition.TOP,
+      borderRadius: 20,
+      isDismissible: false,
       padding: EdgeInsets.all(25),
       margin: EdgeInsets.symmetric(horizontal: 20));
 }

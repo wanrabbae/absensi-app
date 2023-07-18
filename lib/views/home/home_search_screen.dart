@@ -8,7 +8,7 @@ class HomeSearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: colorBlueOpacity3,
       body: GetBuilder<HomeController>(
           init: HomeController(),
           dispose: (state) {
@@ -51,7 +51,7 @@ class HomeSearchScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                                color: Colors.grey.shade400, width: 1.5))),
+                                color: colorBluePrimary, width: 1.5))),
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
@@ -81,7 +81,7 @@ class HomeSearchScreen extends StatelessWidget {
                                         BorderSide(color: Colors.transparent)),
                                 contentPadding: EdgeInsets.only(
                                     left: 20, right: 20, top: 10, bottom: 10),
-                                hintText: "Telusuri",
+                                hintText: "Pencarian",
                                 hintStyle: TextStyle(
                                     color: Color.fromRGBO(51, 51, 51, 0.5),
                                     fontSize: 14),

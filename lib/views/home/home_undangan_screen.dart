@@ -72,7 +72,7 @@ class HomeUndanganScreen extends StatelessWidget {
                     children: [
                       Center(
                         child: Text(
-                          'Tekan “Cek e-mail” untuk memeriksa e-mail teman anda',
+                          'Periksa anda terhubung dengan internet.',
                           style: TextStyle(fontSize: 12, color: Colors.grey),
                           textAlign: TextAlign.center,
                         ),
@@ -83,18 +83,23 @@ class HomeUndanganScreen extends StatelessWidget {
                         child: SizedBox(
                           width: double.infinity,
                           height: 50,
-                          child: Container(
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Center(
-                              child: Text(
-                                "Periksa e-mail teman",
-                                style: TextStyle(
+                          child: GestureDetector(
+                            onTap: () {
+                              customSnackbar1("Koneksi anda terhubung");
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Center(
+                                child: Text(
+                                  "Cek Koneksi",
+                                  style: TextStyle(
                                     fontSize: 16,
                                     color: Colors.black,
-                                    fontWeight: FontWeight.bold),
+                                  ),
+                                ),
                               ),
                             ),
                           ),

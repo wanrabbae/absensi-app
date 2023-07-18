@@ -31,9 +31,6 @@ class AbsensiServices extends GetConnect implements GetxService {
     } catch (e) {
       return [];
     }
-    // var test = await post(Base.url + Base.absenHadir, headers: header, body);
-    // print("INIT TEST: " + test.toString());
-    // return test;
   }
 
   Future pulangPut(param, body) async {

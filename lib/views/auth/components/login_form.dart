@@ -36,33 +36,16 @@ Widget formData(s, context) {
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
-                      borderSide:
-                          BorderSide(color: colorBluePrimary, width: 2)),
+                      borderSide: BorderSide(color: Colors.black, width: 2)),
                   focusedBorder: UnderlineInputBorder(
                       borderSide:
                           BorderSide(color: colorBluePrimary, width: 2)),
                   // filled: true,
                   // fillColor: Colors.white,
-                  hintText: "gunakan e-mail anda",
-                  suffixText: "300",
+                  hintText: "Gunakan e-mail anda",
+                  // suffixText: "300",
                   suffixStyle: TextStyle(color: colorBluePrimary),
                   contentPadding: const EdgeInsets.only(left: 5),
-                  // suffixIconConstraints:
-                  //     const BoxConstraints(minHeight: 30, minWidth: 30),
-                  // suffixIconColor: Colors.white,
-                  // suffixIcon: GestureDetector(
-                  //   onTap: () {
-                  //     s.emailKirim(null, 2);
-                  //   },
-                  //   child: Padding(
-                  //     padding: const EdgeInsets.only(right: 20),
-                  //     child: Image.asset(
-                  //       "assets/icons/arrow_right_primary.png",
-                  //       width: 30,
-                  //       height: 30,
-                  //     ),
-                  //   ),
-                  // ),
                 ),
               ),
             ),

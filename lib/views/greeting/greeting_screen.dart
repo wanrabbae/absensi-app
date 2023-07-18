@@ -15,7 +15,7 @@ class GreetingScreen extends StatelessWidget {
           children: [
             Positioned(
                 top: 60,
-                child: customHeaderAuth(context, "Halo,", "Selamat datang")),
+                child: customHeaderAuth(context, "HORA,", "Selamat datang")),
             Center(
                 child: Image.asset(
               "assets/icons/logo/main_logo.png",
@@ -47,9 +47,12 @@ class GreetingScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.grey, fontSize: 11),
                         ),
-                        buttonGreen("SETUJU & LANJUTKAN", onTap: () {
-                          Get.toNamed(RouteName.login);
-                        })
+                        buttonGreen(
+                          "SETUJU & LANJUTKAN",
+                          onTap: () {
+                            Get.toNamed(RouteName.login);
+                          },
+                        )
                       ],
                     ),
                   ),

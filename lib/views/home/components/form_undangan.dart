@@ -28,7 +28,7 @@ Widget formUndangan(context, s) {
             decoration: InputDecoration(
               hintText: "e-mail teman",
               enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: colorBluePrimary, width: 1.5),
+                borderSide: BorderSide(color: Colors.black, width: 1.5),
               ),
               focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: colorBluePrimary, width: 1.5),

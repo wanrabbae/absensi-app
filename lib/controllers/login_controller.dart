@@ -19,15 +19,14 @@ class LoginController extends GetxController {
 
   emailKirim(mail, status) async {
     emailForm = emailForm;
-    print(mail.toString() + ", " + emailForm.toString());
     try {
-      SplashController().loading("Mengirim kode OTP");
+      customSnackbarLoading("Sedang mengirimkan kode OTP...");
       var response = await AuthServices().sendLinkPost(mail ?? emailForm);
       if (response.statusCode == 200) {
         if (response.data.toString() == 'OTP Terkirim') {
           Get.back();
           if (status != 1) {
-            Get.snackbar('Masuk Berhasil', response.data.toString());
+            customSnackbar1('Berhasil mengirimkan kode OTP.');
             Get.toNamed(RouteName.otpLogin, arguments: emailForm);
           } else {
             Get.snackbar(
@@ -35,25 +34,24 @@ class LoginController extends GetxController {
           }
         } else {
           Get.back();
-          Get.snackbar("${response.body.toString()} !!",
-              "Silahkan Cek Email Anda Untuk Melanjutkan");
+          customSnackbar1("Silahkan Cek Email Anda Untuk Melanjutkan");
         }
       } else {
         print("EMAIL KIRIM ERROR: " + response.toString());
         Get.back();
-        Get.snackbar('Masuk Gagal', response.body.toString());
+        customSnackbar1("Masuk gagal!");
       }
     } catch (e) {
       print("CATCH EMAIL KIRIM: " + e.toString());
       Get.back();
-      Get.snackbar('Mohon maaf masukkan email anda kembali', '');
+      customSnackbar1("Email anda tidak terdaftar!");
       Get.offAllNamed(RouteName.login);
     }
   }
 
   otpKirim(email) async {
     try {
-      SplashController().loading("Mengkonfirmasi Masuk");
+      customSnackbarLoading("Mengkonfirmasi Masuk...");
       var response = await AuthServices().verifyOtpGet(
           {"email": user?['alamatEmail'] ?? email, "otp": otpForm});
       if (response.statusCode == 200) {
@@ -64,11 +62,11 @@ class LoginController extends GetxController {
         Get.toNamed(RouteName.home);
       } else {
         Get.back();
-        Get.snackbar('Gagal Menggunakan Otp', response.body.toString());
+        customSnackbar1("Otp tidak valid!");
       }
     } catch (e) {
       Get.back();
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      customSnackbar1("Otp tidak valid!");
     }
   }
 }

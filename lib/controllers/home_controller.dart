@@ -230,7 +230,7 @@ class HomeController extends GetxController {
 
   kirimUndangan() async {
     try {
-      SplashController().loading("Mengirim Undangan");
+      customSnackbarLoading("Sedang mengirimkan undangan...");
       var response = await HomeServices().undanganPost({
         'receiver': emailUndangan,
         'sender': user?['alamatEmail'],
@@ -240,17 +240,16 @@ class HomeController extends GetxController {
       if (response.statusCode == 200) {
         Get.back();
         Get.back();
-        SplashController().horizontalDialogOk('Undangan terkirim');
+        customSnackbar1('Berhasil mengirimkan undangan.');
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        Get.snackbar(
-            'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        customSnackbar1('Gagal Menjalankan Fitur Ini !!');
       }
     } catch (e) {
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      customSnackbar1("lost connection!");
     }
   }
 }

@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Icon(
                                   Icons.search,
                                   size: 25,
-                                  color: colorBlueOpacity3,
+                                  color: Colors.black,
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Text(
                                   "Pencarian",
                                   style: TextStyle(
-                                      fontSize: 16, color: colorBlueOpacity3),
+                                      fontSize: 16, color: Colors.black),
                                 )
                               ],
                             ),
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Get.toNamed(RouteName.homeUndangan);
                           },
                           icon: Icon(
-                            CupertinoIcons.plus,
+                            FeatherIcons.userPlus,
                             size: 30,
                             color: colorBluePrimary,
                           )),
@@ -242,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.all(Radius.circular(20))),
                   onPressed: () => s.absensi(context),
                   label: timerCount(context, s),
-                  backgroundColor: colorBlueOpacity,
+                  backgroundColor: colorBluePrimary,
                 )
               : Column(
                   mainAxisAlignment: MainAxisAlignment.end,
