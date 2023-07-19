@@ -58,7 +58,11 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(50.0)),
                       padding: EdgeInsets.all(10),
-                      child: Icon(Icons.download),
+                      child: Image.asset(
+                        'assets/icons/ic_screen_shot.png',
+                        width: 24,
+                        height: 24,
+                      ),
                     ),
                   ),
                 ],

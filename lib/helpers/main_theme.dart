@@ -1,7 +1,10 @@
 import 'package:app/global_resource.dart';
 
+TextStyle rubikTextStyle = TextStyle(fontFamily: 'Rubik');
+
 class MainTheme {
   const MainTheme._();
+
   static GetMaterialApp materialApp(BuildContext context,
       {required Widget child}) {
     return GetMaterialApp(
@@ -33,7 +36,13 @@ class MainTheme {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   borderSide: BorderSide(color: colorGrayPrimary, width: 2))),
           fontFamily: "Rubik",
-          textTheme: GoogleFonts.rubikTextTheme()),
+          textTheme: TextTheme(
+            bodyText1: rubikTextStyle,
+            bodyText2: rubikTextStyle,
+            // bodyLarge: rubikTextStyle,
+            // // bodyMedium: rubikTextStyle,
+            // // bodySmall: rubikTextStyle,
+          )),
       darkTheme: ThemeData(
           useMaterial3: true,
           inputDecorationTheme: const InputDecorationTheme(
@@ -73,6 +82,7 @@ class MainTheme {
     return TextStyle(
         fontWeight: customFontWeight,
         fontSize: customFontSize,
+        fontFamily: 'Rubik',
         color: customColor);
   }
 }

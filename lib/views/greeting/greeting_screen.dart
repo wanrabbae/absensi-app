@@ -45,7 +45,10 @@ class GreetingScreen extends StatelessWidget {
                         const Text(
                           "Tekan “SETUJU DAN LANJUTKAN” untuk menyetujui Kebijakan Hora dan Privasi Pengguna",
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.grey, fontSize: 11),
+                          style: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 11,
+                              fontWeight: FontWeight.bold),
                         ),
                         buttonGreen(
                           "SETUJU & LANJUTKAN",

@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Row(
                               children: [
                                 Icon(
-                                  Icons.search,
+                                  FeatherIcons.search,
                                   size: 25,
                                   color: Colors.black,
                                 ),
@@ -75,7 +75,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Text(
                                   "Pencarian",
                                   style: TextStyle(
-                                      fontSize: 16, color: Colors.black),
+                                      fontSize: 16,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: 'Rubik'),
                                 )
                               ],
                             ),
@@ -141,8 +144,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           "Hadir",
                           style: TextStyle(
-                            color: colorBluePrimary,
-                          ),
+                              color: colorBluePrimary,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Rubik'),
                         )),
                     SizedBox(
                       width: 5,
@@ -165,6 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Izin",
                           style: TextStyle(
                             color: colorBluePrimary,
+                            fontWeight: FontWeight.bold,
                           ),
                         )),
                   ],

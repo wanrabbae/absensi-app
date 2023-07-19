@@ -10,11 +10,17 @@ Widget customNavbar(s) {
       ),
     ]),
     child: BottomNavigationBar(
-      items: const [
+      items: [
         BottomNavigationBarItem(
-            icon: Icon(
-              FeatherIcons.briefcase,
-              size: 30,
+            icon: Image.asset(
+              'assets/icons/briefcase.png',
+              width: 30,
+              height: 30,
+            ),
+            activeIcon: Image.asset(
+              'assets/icons/briefcase-active.png',
+              width: 30,
+              height: 30,
             ),
             label: "Kerja"),
         BottomNavigationBarItem(

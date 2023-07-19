@@ -13,20 +13,36 @@ class ProfileFormScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: const Center(
-            child: Padding(
-              padding: EdgeInsets.only(right: 25),
-              child: Text(
-                "Sunting Profil",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          leading: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: Icon(FeatherIcons.x),
+                onPressed: () {
+                  Get.back();
+                },
               ),
-            ),
+              SizedBox(
+                height: 0,
+              ),
+              // // Padding(padding: EdgeInsets.only(right: 20)),
+              // Text(
+              //   "Sunting",
+              //   style: TextStyle(
+              //     fontSize: 18,
+              //     fontWeight: FontWeight.w600,
+              //   ),
+              // ),
+            ],
           ),
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 20),
-              child: ovalCardIcon(context, FeatherIcons.check,
-                  onTaped: () => s.editData()),
+              child: ovalCardIcon(
+                context,
+                FeatherIcons.userCheck,
+                onTaped: () => s.editData(),
+              ),
             )
           ],
         ),

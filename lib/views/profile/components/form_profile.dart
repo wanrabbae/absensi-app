@@ -224,12 +224,22 @@ Widget formProfile(context, s) {
                 child: Center(
                     child: GestureDetector(
                   // onTap: () => s.hapusAkun(),
-                  child: const Text(
-                    "Hapus Akun",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                        color: Color.fromRGBO(225, 24, 24, 1)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        FeatherIcons.trash2,
+                        color: Color.fromRGBO(225, 24, 24, 1),
+                        weight: 1.5,
+                      ),
+                      const Text(
+                        "Hapus",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Color.fromRGBO(225, 24, 24, 1)),
+                      ),
+                    ],
                   ),
                 )),
               ),
