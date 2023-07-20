@@ -64,34 +64,41 @@ Widget modalSelectCompany(BuildContext context, s) {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        "${s.perusahaanList[pos]['namaPerusahaan']}",
+                        "Perusahaan",
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
+                          fontSize: 16,
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       buildImageSizeIconNetwork(
                           context,
                           s.gambarPerusahaan(s.perusahaanList[pos], 1),
                           s.gambarPerusahaan(s.perusahaanList[pos], 2)),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Text(
-                        "Tekan tombol 'Hapus' untuk meninggalkan perusahaan ini",
-                        textAlign: TextAlign.center,
-                        style:
-                            TextStyle(color: Colors.red.shade200, fontSize: 12),
+                        "${s.perusahaanList[pos]['namaPerusahaan']}",
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                        ),
                       ),
-                      TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "Hapus",
-                            style: TextStyle(color: Colors.red),
-                          ))
+                      // Text(
+                      //   "Tekan tombol 'Hapus' untuk meninggalkan perusahaan ini",
+                      //   textAlign: TextAlign.center,
+                      //   style:
+                      //       TextStyle(color: Colors.red.shade200, fontSize: 12),
+                      // ),
+                      // TextButton(
+                      //     onPressed: () {},
+                      //     child: Text(
+                      //       "Hapus",
+                      //       style: TextStyle(color: Colors.red),
+                      //     ))
                     ],
                   ),
                 ),

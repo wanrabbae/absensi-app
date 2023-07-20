@@ -88,7 +88,7 @@ Widget dataSearch(BuildContext context, s) {
                                               updateLocation: false));
                                     },
                                     child: const Icon(
-                                      Icons.location_on_rounded,
+                                      FeatherIcons.mapPin,
                                       color: Color.fromRGBO(51, 51, 51, 0.5),
                                       size: 16,
                                     ),

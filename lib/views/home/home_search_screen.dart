@@ -60,7 +60,7 @@ class HomeSearchScreen extends StatelessWidget {
                             onPressed: () {
                               Get.back();
                             },
-                            icon: Icon(CupertinoIcons.arrow_left),
+                            icon: Icon(FeatherIcons.arrowLeft),
                           ),
                           Flexible(
                             child: TextFormField(

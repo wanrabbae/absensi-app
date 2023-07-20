@@ -18,6 +18,20 @@ class HomeServices extends GetConnect implements GetxService {
         options: options);
   }
 
+  Future izinGet(params) async {
+    var tokens = box.read(Base.token);
+    final header = {'Authorization': '$tokens'};
+    final options = dio.Options(headers: header);
+    return await dio.Dio().get(
+        Base.url +
+            Base.absenIzinEndpoint +
+            "?idperusahaan=" +
+            params['idperusahaan'] +
+            "&tanggal=" +
+            params['tanggal'],
+        options: options);
+  }
+
   Future<Response> perusahaanGet(params) {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};

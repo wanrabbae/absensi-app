@@ -29,7 +29,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: IconButton(
                   icon: Icon(
-                    Icons.download,
+                    FeatherIcons.download,
                     color: colorBluePrimary,
                   ),
                   onPressed: () {

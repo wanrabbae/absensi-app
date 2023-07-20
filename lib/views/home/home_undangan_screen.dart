@@ -49,7 +49,7 @@ class HomeUndanganScreen extends StatelessWidget {
                               // margin: EdgeInsets.only(right: 20),
                               padding: EdgeInsets.all(10),
                               child: Icon(
-                                Icons.send,
+                                FeatherIcons.send,
                                 color: colorBluePrimary,
                               ),
                             ),

@@ -41,7 +41,7 @@ class VerifyOtpScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
-                          child: Icon(CupertinoIcons.arrow_left)),
+                          child: Icon(FeatherIcons.arrowLeft)),
                     ),
                   ),
                 ),
@@ -61,7 +61,7 @@ class VerifyOtpScreen extends StatelessWidget {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
                           child: Icon(
-                            Icons.send,
+                            FeatherIcons.send,
                             color: colorBluePrimary,
                           )),
                     ),

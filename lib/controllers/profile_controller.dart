@@ -130,19 +130,19 @@ class ProfileController extends GetxController {
 
   keluar() {
     Get.defaultDialog(
-        title: "Keluar Aplikasi??",
+        title: "Akun",
         titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         titlePadding: const EdgeInsets.all(10),
         content: const Padding(
           padding: EdgeInsets.all(5),
-          child: Text('Tekan "Keluar" untuk keluar aplikasi.',
-              style: TextStyle(fontSize: 12)),
+          child: Text('Anda ingin keluar?', style: TextStyle(fontSize: 12)),
         ),
         buttonColor: Colors.transparent,
         cancelTextColor: colorBluePrimary,
         confirmTextColor: colorBluePrimary,
-        textCancel: "Batal",
-        textConfirm: "Keluar",
+        textCancel: "Tidak",
+        textConfirm: "Ya",
+        backgroundColor: Colors.white,
         onConfirm: () {
           SplashController().removeData();
         });
@@ -150,19 +150,20 @@ class ProfileController extends GetxController {
 
   hapusAkun() {
     Get.defaultDialog(
-        title: "Apakah Anda yakin menghapus akun anda??",
+        title: "Profil",
         titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
         titlePadding: const EdgeInsets.all(10),
         content: const Padding(
           padding: EdgeInsets.all(5),
-          child: Text('Tekan "Hapus Akun" untuk menghapus akun anda.',
+          child: Text('Anda ingin menghapus profil?',
               style: TextStyle(fontSize: 12)),
         ),
-        buttonColor: Colors.white,
+        buttonColor: Colors.transparent,
         cancelTextColor: colorBluePrimary,
-        confirmTextColor: Colors.red,
-        textCancel: "Batal",
-        textConfirm: "Hapus Akun",
+        confirmTextColor: colorBluePrimary,
+        backgroundColor: Colors.white,
+        textCancel: "Tidak",
+        textConfirm: "Ya",
         onConfirm: () {
           hapusData();
         });
@@ -193,7 +194,7 @@ class ProfileController extends GetxController {
 
   editData() async {
     try {
-      SplashController().loading("Menyimpan Data..");
+      // SplashController().loading("Menyimpan Data..");
       final FormData forms = FormData({
         'AlamatEmail': user?['alamatEmail'],
         'Idperusahaan': perusahaan?['idperusahaan'],
@@ -214,6 +215,7 @@ class ProfileController extends GetxController {
         'perusahaan': perusahaan?['idperusahaan']
       }, forms);
       if (response.statusCode == 200) {
+        customSnackbar1("Profil baru telah tersimpan");
         await dataProfile(user?['alamatEmail']);
         Get.back();
         Get.back();
@@ -233,7 +235,7 @@ class ProfileController extends GetxController {
 
   hapusData() async {
     try {
-      SplashController().loading("Menghapus Akun...");
+      customSnackbarLoading("Menghapus Akun...");
       var response = await ProfileServices().profileDeletePut({
         'email': user?['alamatEmail'],
         'perusahaan': perusahaan?['idperusahaan']
@@ -241,8 +243,7 @@ class ProfileController extends GetxController {
       if (response.statusCode == 200) {
         Get.back();
         SplashController().removeData();
-        Get.snackbar(
-            'Akun Telah Dihapus !!', "terimakasih telah menggunakan hora");
+        customSnackbar1("Akun berhasil dihapus.");
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);

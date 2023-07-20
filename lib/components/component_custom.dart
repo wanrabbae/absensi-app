@@ -103,6 +103,23 @@ Widget buildImageProfile(BuildContext context, String? url, bool local) {
   );
 }
 
+Widget buildImageProfilePage(BuildContext context, String? url, bool local) {
+  return Container(
+    width: double.infinity,
+    height: 292,
+    decoration: local
+        ? BoxDecoration(
+            image: DecorationImage(image: AssetImage(url!), fit: BoxFit.cover),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20))
+        : BoxDecoration(
+            image:
+                DecorationImage(image: NetworkImage(url!), fit: BoxFit.cover),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20)),
+  );
+}
+
 customSnackbar1(message) {
   Get.rawSnackbar(
       messageText: Text(
@@ -225,6 +242,15 @@ Widget line(BuildContext context) {
     color: const Color.fromRGBO(51, 51, 51, 0.5),
     width: MediaQuery.of(context).size.width,
     height: 1,
+  );
+}
+
+Widget line2(BuildContext context) {
+  return Container(
+    margin: const EdgeInsets.only(top: 5, bottom: 5),
+    color: Color.fromARGB(125, 135, 135, 135),
+    width: MediaQuery.of(context).size.width,
+    height: 0.5,
   );
 }
 

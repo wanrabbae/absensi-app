@@ -28,7 +28,7 @@ class TutorialScreen extends StatelessWidget {
                   child: const Padding(
                     padding: EdgeInsets.only(right: 25),
                     child: Icon(
-                      Icons.close,
+                      FeatherIcons.x,
                       color: Colors.black,
                       size: 30,
                     ),

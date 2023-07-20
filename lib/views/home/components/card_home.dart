@@ -110,9 +110,9 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                             arguments: s.izin[index]);
                                   },
                                   child: const Icon(
-                                    Icons.location_on_rounded,
+                                    FeatherIcons.mapPin,
                                     // color: Color(0xFF18E22C),
-                                    color: colorBlueOpacity2,
+                                    color: colorBlueOpacity3,
                                     size: 16,
                                   ),
                                 ),

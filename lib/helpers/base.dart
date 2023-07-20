@@ -10,6 +10,7 @@ abstract class Base {
 
 //Start Home
   static const String absensi = "api/absensi/HomeA";
+  static const String absenIzinEndpoint = "api/absensi/HomeI";
   static const String perusahaan = "api/profile/home-company";
   static const String searchPerusahaan = "api/profile/search-company";
   static const String searchUser = "api/profile/search-nama";

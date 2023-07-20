@@ -153,7 +153,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
-                              Icons.circle,
+                              FeatherIcons.circle,
                               size: 14,
                               color: isDrag ? Colors.white : Colors.grey,
                             ),
@@ -161,7 +161,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                               width: 7,
                             ),
                             Icon(
-                              Icons.circle,
+                              FeatherIcons.circle,
                               size: 14,
                               color: isDrag ? Colors.grey : Colors.white,
                             )

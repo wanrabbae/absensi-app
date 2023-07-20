@@ -29,7 +29,7 @@ class AbsensiIzinScreen extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: IconButton(
                   icon: Icon(
-                    Icons.send,
+                    FeatherIcons.send,
                     color: colorBluePrimary,
                   ),
                   onPressed: () {

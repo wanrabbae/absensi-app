@@ -179,22 +179,26 @@ class HomeController extends GetxController {
   }
 
   dataHome() async {
-    print("PERUSAHAAN HOME: " + perusahaan?['idperusahaan']);
     try {
-      var response = await HomeServices().absenGet({
-        'idperusahaan': '${perusahaan?['idperusahaan']}',
+      var absens = await HomeServices().absenGet({
+        "idperusahaan": perusahaan?['idperusahaan'],
         "tanggal": currentDate,
       });
-      print("RESPONSE: " + response.data.toString());
-      if (response.statusCode == 200) {
-        absen = response.data['absen'];
-        izin = response.data['cuti'];
+
+      var izins = await HomeServices().izinGet({
+        "idperusahaan": perusahaan?['idperusahaan'],
+        "tanggal": currentDate,
+      });
+      if (absens.statusCode == 200 && izins.statusCode == 200) {
+        print(izins.data);
+        absen = absens.data;
+        izin = izins.data;
         box.remove(Base.dataAbsen);
         box.write(Base.dataAbsen, jsonEncode(absen));
         update();
       }
     } catch (e) {
-      print("ERROR: " + e.toString());
+      print(e);
       // Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
     }
   }
