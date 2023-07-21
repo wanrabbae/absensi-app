@@ -29,8 +29,7 @@ class LoginController extends GetxController {
             customSnackbar1('Berhasil mengirimkan kode OTP.');
             Get.toNamed(RouteName.otpLogin, arguments: emailForm);
           } else {
-            Get.snackbar(
-                'Otp Berhasil Dikirim Ulang', response.data.toString());
+            customSnackbar1('Berhasil mengirimkan kode OTP.');
           }
         } else {
           Get.back();

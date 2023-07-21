@@ -2,6 +2,7 @@ import 'package:app/global_resource.dart';
 
 const colorBluePrimary = Color.fromRGBO(24, 102, 225, 1);
 const colorBlueOpacity = Color(0xffE8F0FC);
+const colorBluePrimary2 = Color(0xff1865E2);
 const colorBlueOpacity2 = Color(0xffE8F0FC);
 const colorBlueOpacity3 = Color(0xffAEC9F5);
 const colorGrayPrimary = Color.fromRGBO(238, 240, 244, 1);
@@ -9,105 +10,107 @@ const colorGreenPrimary = Color.fromRGBO(0, 234, 37, 1);
 const LatLng currentLatLng = LatLng(-6.175221730228861, 106.827163526188);
 
 Widget modalSelectCompany(BuildContext context, s) {
-  return Container(
-    height: 300,
-    padding: EdgeInsets.all(10),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
+  return Wrap(
+    children: [
+      SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Container(
+          padding: const EdgeInsets.all(20),
           child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: GestureDetector(
+              SizedBox(
+                height: 20,
+                child: Row(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: ovalCardIcon(context, FeatherIcons.x,
+                          onTaped: () => Get.back()),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 250,
+                alignment: Alignment.center,
+                width: double.infinity,
+                child: SingleChildScrollView(
+                  physics: NeverScrollableScrollPhysics(),
+                  child: ListView.separated(
+                    itemCount: s.perusahaanList?.length,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    // scrollDirection: Axis.horizontal,
+                    separatorBuilder: (ctx, pos) => const Divider(
+                      color: Color.fromRGBO(238, 240, 244, 1),
+                    ),
+                    itemBuilder: (ctx, pos) => GestureDetector(
                       onTap: () {
-                        Get.back();
+                        Get.toNamed(RouteName.companyFullScreen);
+                        // s.pilihPerusahaan(s.perusahaanList[pos]['idperusahaan']);
                       },
-                      child: const Icon(FeatherIcons.x, size: 30),
+                      child: Container(
+                        color: Colors.transparent,
+                        padding: const EdgeInsets.only(left: 20, right: 20),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 10, bottom: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                "Perusahaan",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              buildImageSizeIconNetwork(
+                                  context,
+                                  s.gambarPerusahaan(s.perusahaanList[pos], 1),
+                                  s.gambarPerusahaan(s.perusahaanList[pos], 2)),
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              Text(
+                                "${s.perusahaanList[pos]['namaPerusahaan']}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              // Text(
+                              //   "Tekan tombol 'Hapus' untuk meninggalkan perusahaan ini",
+                              //   textAlign: TextAlign.center,
+                              //   style:
+                              //       TextStyle(color: Colors.red.shade200, fontSize: 12),
+                              // ),
+                              // TextButton(
+                              //     onPressed: () {},
+                              //     child: Text(
+                              //       "Hapus",
+                              //       style: TextStyle(color: Colors.red),
+                              //     ))
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ],
-              ),
-              const Divider(
-                height: 2,
-                color: Color.fromRGBO(238, 240, 244, 1),
+                ),
               ),
             ],
           ),
         ),
-        Expanded(
-          flex: 2,
-          child: ListView.separated(
-            itemCount: s.perusahaanList?.length,
-            separatorBuilder: (ctx, pos) => const Divider(
-              color: Color.fromRGBO(238, 240, 244, 1),
-            ),
-            itemBuilder: (ctx, pos) => GestureDetector(
-              onTap: () {
-                Get.toNamed(RouteName.companyFullScreen);
-                // s.pilihPerusahaan(s.perusahaanList[pos]['idperusahaan']);
-              },
-              child: Container(
-                color: Colors.transparent,
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        "Perusahaan",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      buildImageSizeIconNetwork(
-                          context,
-                          s.gambarPerusahaan(s.perusahaanList[pos], 1),
-                          s.gambarPerusahaan(s.perusahaanList[pos], 2)),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        "${s.perusahaanList[pos]['namaPerusahaan']}",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 16,
-                        ),
-                      ),
-                      // Text(
-                      //   "Tekan tombol 'Hapus' untuk meninggalkan perusahaan ini",
-                      //   textAlign: TextAlign.center,
-                      //   style:
-                      //       TextStyle(color: Colors.red.shade200, fontSize: 12),
-                      // ),
-                      // TextButton(
-                      //     onPressed: () {},
-                      //     child: Text(
-                      //       "Hapus",
-                      //       style: TextStyle(color: Colors.red),
-                      //     ))
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
-      ],
-    ),
+      )
+    ],
   );
 }
 

@@ -15,7 +15,7 @@ class GreetingScreen extends StatelessWidget {
           children: [
             Positioned(
                 top: 60,
-                child: customHeaderAuth(context, "HORA,", "Selamat datang")),
+                child: customHeaderAuth(context, "HORA", "Selamat datang")),
             Center(
                 child: Image.asset(
               "assets/icons/logo/main_logo.png",
@@ -42,16 +42,16 @@ class GreetingScreen extends StatelessWidget {
                         // const SizedBox(
                         //   height: 5,
                         // ),
-                        const Text(
-                          "Tekan “SETUJU DAN LANJUTKAN” untuk menyetujui Kebijakan Hora dan Privasi Pengguna",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        customTextRichWithLink(
+                            context,
+                            "Tekan “SETUJU DAN LANJUTKAN” untuk menyetujui ",
+                            "Kebijakan Hora dan Privasi Pengguna",
+                            onTextClicked: () {
+                          Get.toNamed(RouteName.webview,
+                              arguments: "https://docs.horaapp.id/#privasi");
+                        }),
                         buttonGreen(
-                          "SETUJU & LANJUTKAN",
+                          "SETUJU DAN LANJUTKAN",
                           onTap: () {
                             Get.toNamed(RouteName.login);
                           },

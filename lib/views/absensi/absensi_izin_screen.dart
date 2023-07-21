@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'dart:math' as math;
 
 class AbsensiIzinScreen extends StatelessWidget {
   const AbsensiIzinScreen({super.key});
@@ -12,9 +13,11 @@ class AbsensiIzinScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Text(
-            'Surat Izin',
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          title: Container(
+            child: Text(
+              'Surat Izin',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            ),
           ),
           centerTitle: false,
           automaticallyImplyLeading: false,
@@ -27,24 +30,27 @@ class AbsensiIzinScreen extends StatelessWidget {
           actions: [
             Align(
                 alignment: Alignment.topRight,
-                child: IconButton(
-                  icon: Icon(
-                    FeatherIcons.send,
-                    color: colorBluePrimary,
-                  ),
-                  onPressed: () {
-                    if (s.currentDate != null) {
-                      izin() {
-                        return s.absenIzin();
-                      }
+                child: Transform.rotate(
+                  angle: math.pi / 4,
+                  child: IconButton(
+                    icon: Icon(
+                      FeatherIcons.send,
+                      color: colorBluePrimary,
+                    ),
+                    onPressed: () {
+                      if (s.currentDate != null) {
+                        izin() {
+                          return s.absenIzin();
+                        }
 
-                      SplashController().showConfirmationDialog(
-                        "Izin",
-                        "Ajukan Izin Sekarang",
-                        izin,
-                      );
-                    }
-                  },
+                        SplashController().showConfirmationDialog(
+                          "Izin",
+                          "Ajukan Izin Sekarang?",
+                          izin,
+                        );
+                      }
+                    },
+                  ),
                 )),
           ],
         ),
@@ -65,17 +71,19 @@ class AbsensiIzinScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Text("Lampiran"),
+                      Text(
+                        "Nama",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
                       TextFormField(
-                        onTap: () {
-                          s.updateFile();
-                        },
-                        readOnly: true,
-                        style: TextStyle(fontSize: 13),
+                        onChanged: (value) => s.namaOrang = value,
+                        initialValue: s.user?["namaKaryawan"] ?? "",
+                        keyboardType: TextInputType.text,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
                         decoration: InputDecoration(
-                          hintText: (s.fileName == null)
-                              ? "File_surat_sakit.docx"
-                              : s.fileName,
+                          hintText: "Ketikkan disini",
                           enabledBorder: UnderlineInputBorder(
                               borderSide:
                                   BorderSide(color: Colors.black, width: 1)),
@@ -87,7 +95,41 @@ class AbsensiIzinScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text("Alasan"),
+                      Text(
+                        "Lampiran",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                      TextFormField(
+                        onTap: () {
+                          s.updateFile();
+                        },
+                        readOnly: true,
+                        // initialValue: ,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                        decoration: InputDecoration(
+                          hintText: (s.fileName == null)
+                              ? "File_surat_sakit.docx"
+                              : s.fileName,
+                          hintStyle: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1.5)),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Alasan",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
                       Container(
                         height: 40,
                         constraints: const BoxConstraints(minHeight: 60),
@@ -98,6 +140,10 @@ class AbsensiIzinScreen extends StatelessWidget {
                         child: Center(
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
+                                icon: Icon(
+                                  FeatherIcons.chevronDown,
+                                  size: 20,
+                                ),
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(20.0)),
                                 key: Key(s.formIzin),
@@ -110,8 +156,8 @@ class AbsensiIzinScreen extends StatelessWidget {
                                           child: Text(
                                             '${value["nama"]}',
                                             style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ))
                                     .toList(),
@@ -126,10 +172,8 @@ class AbsensiIzinScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text("Keterangan (Kosongkan jika tidak ada)"),
-                      SizedBox(
-                        height: 5,
-                      ),
+                      customTextRich2(
+                          context, "Keterangan", " (Kosongkan jika tidak ada)"),
                       SizedBox(
                         height: 120,
                         child: TextFormField(
@@ -137,7 +181,8 @@ class AbsensiIzinScreen extends StatelessWidget {
                           maxLength: null,
                           keyboardType: TextInputType.multiline,
                           maxLines: 15,
-                          style: TextStyle(fontSize: 13),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
                           decoration: InputDecoration(
                             hintText: "Ketikkan disini",
                             enabledBorder: UnderlineInputBorder(

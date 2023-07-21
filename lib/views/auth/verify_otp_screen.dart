@@ -1,6 +1,7 @@
 import 'package:app/global_resource.dart';
 import 'package:flutter/cupertino.dart';
 import 'components/verify_otp_form.dart';
+import 'dart:math' as math;
 
 class VerifyOtpScreen extends StatelessWidget {
   const VerifyOtpScreen({super.key});
@@ -60,9 +61,12 @@ class VerifyOtpScreen extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
-                          child: Icon(
-                            FeatherIcons.send,
-                            color: colorBluePrimary,
+                          child: Transform.rotate(
+                            angle: math.pi / 4,
+                            child: Icon(
+                              FeatherIcons.send,
+                              color: colorBluePrimary,
+                            ),
                           )),
                     ),
                   ),
@@ -73,7 +77,8 @@ class VerifyOtpScreen extends StatelessWidget {
                   child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 32),
+                  padding:
+                      const EdgeInsets.only(bottom: 32, left: 20, right: 20),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Padding(
@@ -90,9 +95,11 @@ class VerifyOtpScreen extends StatelessWidget {
                           //       arguments: "https://docs.horaapp.id/#privasi");
                           // }),
                           Text(
-                            'Tekan “Kirim ulang OTP” jika anda belum menerima\n kode OTP',
+                            'Kirim ulang kode OTP?',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.grey.shade500),
+                            style: TextStyle(
+                                color: Colors.grey.shade500,
+                                fontWeight: FontWeight.w500),
                           ),
                           SizedBox(
                             height: 10,

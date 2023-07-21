@@ -58,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
                                             "Hai, \n${s.user?['namaKaryawan']}",
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
-                                                fontSize: 20,
+                                                fontSize: 16,
                                                 fontWeight: FontWeight.w600),
                                           ),
                                         ],

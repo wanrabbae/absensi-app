@@ -39,8 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                  margin:
-                      EdgeInsets.only(top: 60, bottom: 20, left: 20, right: 20),
+                  margin: EdgeInsets.only(top: 60, left: 20, right: 20),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w500,
                                       fontFamily: 'Rubik'),
                                 )
                               ],
@@ -107,8 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               backgroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20),
                               )),
                               builder: (ctx) => modalSelectCompany(context, s));
                         },
@@ -124,7 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   )),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(
+                    left: 20, right: 20, top: 20, bottom: 20),
                 child: Row(
                   children: [
                     TextButton(
@@ -144,8 +144,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           "Hadir",
                           style: TextStyle(
-                              color: colorBluePrimary,
-                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
                               fontFamily: 'Rubik'),
                         )),
                     SizedBox(
@@ -168,8 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Text(
                           "Izin",
                           style: TextStyle(
-                            color: colorBluePrimary,
-                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
                           ),
                         )),
                   ],
@@ -185,7 +185,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       curentDate,
                       style: const TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 11),
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                          color: Colors.black),
                     ),
                     Container(
                       padding: EdgeInsets.all(10),
@@ -242,62 +244,72 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           floatingActionButton: hadirHighlight
-              ? FloatingActionButton.extended(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  onPressed: () => s.absensi(context),
-                  label: timerCount(context, s),
-                  backgroundColor: colorBluePrimary,
+              ? Container(
+                  padding: EdgeInsets.only(bottom: 20, right: 20),
+                  child: FloatingActionButton.extended(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    onPressed: () => s.absensi(context),
+                    label: timerCount(context, s),
+                    backgroundColor: colorBluePrimary2,
+                  ),
                 )
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FloatingActionButton(
-                      shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      backgroundColor: Colors.white,
-                      child: Icon(
-                        FeatherIcons.paperclip,
-                        color: colorBluePrimary,
+              : Container(
+                  padding: EdgeInsets.only(right: 20),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      FloatingActionButton(
+                        shape: const RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(50))),
+                        backgroundColor: Colors.white,
+                        child: Icon(
+                          FeatherIcons.paperclip,
+                          color: colorBluePrimary,
+                        ),
+                        onPressed: () {
+                          if (izinAbs()) {
+                            customSnackbar1("Izin hari ini telah terisi");
+                          } else {
+                            Get.toNamed(RouteName.absenIzin);
+                          }
+                        },
                       ),
-                      onPressed: () {
-                        if (izinAbs()) {
-                          customSnackbar1("Izin hari ini telah terisi");
-                        } else {
-                          Get.toNamed(RouteName.absenIzin);
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    FloatingActionButton(
-                      backgroundColor: colorBluePrimary,
-                      child: Icon(
-                        FeatherIcons.camera,
-                        color: Colors.white,
+                      SizedBox(
+                        height: 20,
                       ),
-                      onPressed: () {
-                        if (izinAbs()) {
-                          customSnackbar1("Izin hari ini telah terisi");
-                        } else {
-                          ImagePicker()
-                              .pickImage(
-                                  source: ImageSource.camera,
-                                  preferredCameraDevice: CameraDevice.front)
-                              .then((value) {
-                            if (value != null) {
-                              formFotoIzin = File(value.path);
-                            } else {
-                              customSnackbar1(
-                                  "Silahkan tangkap foto terlebih dahulu");
-                            }
-                          });
-                          Get.toNamed(RouteName.absenIzin);
-                        }
-                      },
-                    )
-                  ],
+                      FloatingActionButton(
+                        backgroundColor: colorBlueOpacity2,
+                        child: Icon(
+                          FeatherIcons.camera,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                          if (izinAbs()) {
+                            customSnackbar1("Izin hari ini telah terisi");
+                          } else {
+                            ImagePicker()
+                                .pickImage(
+                                    source: ImageSource.camera,
+                                    preferredCameraDevice: CameraDevice.front)
+                                .then((value) {
+                              if (value != null) {
+                                formFotoIzin = File(value.path);
+                              } else {
+                                customSnackbar1(
+                                    "Silahkan tangkap foto terlebih dahulu");
+                              }
+                            });
+                            Get.toNamed(RouteName.absenIzin);
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
                 )),
     );
   }

@@ -33,8 +33,8 @@ timerAbsen() {
       '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
   var hours = waktu.hour < 10 ? '0${waktu.hour}' : waktu.hour;
   var munite = waktu.minute < 10 ? '0${waktu.minute}' : waktu.minute;
-  var second = waktu.second < 10 ? '0${waktu.second}' : waktu.second;
-  return "$hours:$munite:$second";
+  // var second = waktu.second < 10 ? '0${waktu.second}' : waktu.second;
+  return "$hours:$munite";
 }
 
 izinAbs() {

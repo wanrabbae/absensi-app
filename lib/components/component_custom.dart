@@ -10,13 +10,14 @@ Widget customHeaderAuth(BuildContext context, String title, String subTitle) {
       children: [
         Text(
           title,
-          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 24.0),
+          style: const TextStyle(
+              fontWeight: FontWeight.w600, fontSize: 24.0, letterSpacing: 0.5),
         ),
         Text(
           subTitle,
           style: const TextStyle(
               fontStyle: FontStyle.normal,
-              fontWeight: FontWeight.w400,
+              fontWeight: FontWeight.w500,
               // color: Color.fromRGBO(33, 33, 33, 80),
               fontSize: 20.0),
         )
@@ -45,6 +46,40 @@ Widget customTextRich(BuildContext context, String text1, String text2,
   );
 }
 
+Widget customTextRich2(BuildContext context, String text1, String text2) {
+  return RichText(
+      text: TextSpan(
+          text: text1,
+          style: const TextStyle(
+              fontWeight: FontWeight.w300, fontSize: 16, color: Colors.black),
+          children: [
+        TextSpan(
+            text: text2,
+            style: const TextStyle(
+                fontWeight: FontWeight.w300, fontSize: 16, color: Colors.black))
+      ]));
+}
+
+Widget customTextRichWithLink(BuildContext context, String text1, String text2,
+    {required VoidCallback onTextClicked}) {
+  return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+          text: text1,
+          style: TextStyle(
+              fontWeight: FontWeight.w500, color: Colors.grey.shade400),
+          children: [
+            TextSpan(
+                text: text2,
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey.shade400,
+                  // decoration: TextDecoration.underline,
+                ),
+                recognizer: TapGestureRecognizer()..onTap = onTextClicked)
+          ]));
+}
+
 Widget buttonGreen(String title, {VoidCallback? onTap}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
@@ -55,7 +90,7 @@ Widget buttonGreen(String title, {VoidCallback? onTap}) {
                 const MaterialStatePropertyAll<Color>(colorGreenPrimary),
             shape: MaterialStatePropertyAll<OutlinedBorder>(
                 RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50.0)))),
+                    borderRadius: BorderRadius.circular(20)))),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Text(
@@ -76,7 +111,7 @@ Widget buildRoundedActionNext(BuildContext context,
       height: 60,
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.blue, borderRadius: BorderRadius.circular(50)),
+            color: Colors.blue, borderRadius: BorderRadius.circular(20)),
         child: const Icon(
           Icons.arrow_forward_rounded,
           color: Colors.white,
@@ -124,7 +159,8 @@ customSnackbar1(message) {
   Get.rawSnackbar(
       messageText: Text(
         message ?? "Success action",
-        style: TextStyle(fontSize: 15, color: Colors.white),
+        style: TextStyle(
+            fontSize: 16, color: Colors.white, fontWeight: FontWeight.w600),
       ),
       snackPosition: SnackPosition.TOP,
       borderRadius: 20,
@@ -188,7 +224,7 @@ Widget buildImageBig(BuildContext context) {
         color: Colors.blue,
         image: DecorationImage(
             image: AssetImage("assets/icons/logo/hora.png"), fit: BoxFit.cover),
-        borderRadius: BorderRadius.all(Radius.circular(10))),
+        borderRadius: BorderRadius.all(Radius.circular(20))),
   );
 }
 
@@ -204,7 +240,7 @@ Widget buildImageSizeIcon(BuildContext context, String url) {
               url,
             ),
             fit: BoxFit.cover),
-        borderRadius: BorderRadius.circular(30)),
+        borderRadius: BorderRadius.circular(20)),
   );
 }
 

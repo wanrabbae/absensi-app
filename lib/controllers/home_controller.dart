@@ -9,7 +9,7 @@ class HomeController extends GetxController {
   Map? perusahaan;
   Map? user;
   String? currentDate;
-  var timerRecor = "00:00:00";
+  var timerRecor = "00:00";
   //home
   List? absen = [];
   List? izin = [];
@@ -36,11 +36,11 @@ class HomeController extends GetxController {
 
   startTimer() {
     klikAbsen = box.read(Base.klikAbsen) ?? false;
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    timer = Timer.periodic(const Duration(minutes: 1), (timer) {
       if (klikAbsen) {
         timerRecor = timerAbsen();
       } else {
-        timerRecor = "00:00:00";
+        timerRecor = "00:00";
         cancelTimer();
       }
       update();

@@ -35,7 +35,7 @@ class DialogPermission extends HookConsumerWidget {
                   child: Text(
                     "Perizinan perangkat",
                     style: TextStyle(
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w600,
                         fontSize: 16,
                         color: Color.fromRGBO(51, 51, 51, 1)),
                   ),
@@ -52,7 +52,7 @@ class DialogPermission extends HookConsumerWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 Text(
                   "Anda diperlukan untuk memberikan izin: ",
@@ -67,13 +67,13 @@ class DialogPermission extends HookConsumerWidget {
                 Row(
                   children: [
                     Icon(
-                      CupertinoIcons.camera,
+                      FeatherIcons.camera,
                       size: 16,
                     ),
                     const Text(" Kamera",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 15,
+                            fontSize: 16,
                             color: Colors.black)),
                   ],
                 ),
@@ -89,7 +89,7 @@ class DialogPermission extends HookConsumerWidget {
                     const Text(" Lokasi",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 15,
+                            fontSize: 16,
                             color: Colors.black)),
                   ],
                 ),
@@ -105,7 +105,7 @@ class DialogPermission extends HookConsumerWidget {
                     const Text(" Penyimpanan",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
-                            fontSize: 15,
+                            fontSize: 16,
                             color: Colors.black)),
                   ],
                 ),
@@ -124,7 +124,7 @@ class DialogPermission extends HookConsumerWidget {
                             shape: MaterialStatePropertyAll(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(
-                                        Radius.circular(16))))),
+                                        Radius.circular(20))))),
                         onPressed: () async {
                           Get.back();
                           Get.toNamed(RouteName.absen);

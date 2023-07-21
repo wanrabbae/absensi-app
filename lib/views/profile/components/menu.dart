@@ -29,6 +29,9 @@ Widget menuProfile(BuildContext context, String title, IconData iconData,
                         Icon(
                           iconData,
                           size: 24,
+                          fill: 0,
+                          weight: 0.1,
+                          color: title == "Keluar" ? colorBluePrimary2 : null,
                         ),
                         const SizedBox(
                           width: 15,
@@ -36,10 +39,12 @@ Widget menuProfile(BuildContext context, String title, IconData iconData,
                         Center(
                           child: Text(
                             title,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.w400,
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500,
                                 fontSize: 14,
-                                color: Color.fromRGBO(51, 51, 51, 1)),
+                                color: title == "Keluar"
+                                    ? colorBluePrimary2
+                                    : Color.fromRGBO(51, 51, 51, 1)),
                           ),
                         )
                       ],

@@ -3,7 +3,7 @@ import 'package:app/global_resource.dart';
 
 Widget timerCount(BuildContext context, s) {
   return Container(
-    child: s.timerRecor != "00:00:00"
+    child: s.timerRecor != "00:00"
         ? buildDisable(context, s.timerRecor)
         : buildEnable(context, s.timerRecor, s),
   );
@@ -28,7 +28,7 @@ Widget buildEnable(BuildContext context, timer, s) {
         Text(
           timer,
           style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
+              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
         ),
       ],
     ),
@@ -54,7 +54,7 @@ Widget buildDisable(BuildContext context, timer) {
         Text(
           timer,
           style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w600, fontSize: 16),
+              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
         ),
       ],
     ),

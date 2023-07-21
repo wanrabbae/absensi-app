@@ -25,6 +25,7 @@ class AbsenController extends GetxController {
   List? perusahaanList;
   String formIzin = 'Izin';
   String? formDeskripsi;
+  String? namaOrang;
   List? izinList = [
     {"nama": "Izin", "value": "Izin"},
     {"nama": "Sakit", "value": "Sakit"},
@@ -139,11 +140,12 @@ class AbsenController extends GetxController {
           backgroundColor: Colors.white,
           title: "Verifikasi Wajah",
           titleStyle:
-              const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           titlePadding: const EdgeInsets.all(10),
           content: const Padding(
             padding: EdgeInsets.all(5),
-            child: Text('Yuk selfie...', style: TextStyle(fontSize: 12)),
+            child: Text('Yuk selfie...',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
           ),
           buttonColor: Colors.transparent,
           cancelTextColor: colorBluePrimary,
@@ -171,11 +173,12 @@ class AbsenController extends GetxController {
       Get.defaultDialog(
         backgroundColor: Colors.white,
         title: "Presensi",
-        titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         titlePadding: const EdgeInsets.all(10),
         content: const Padding(
           padding: EdgeInsets.all(5),
-          child: Text('Anda ingin pulang?', style: TextStyle(fontSize: 12)),
+          child: Text('Anda ingin pulang?',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
         ),
         buttonColor: Colors.transparent,
         cancelTextColor: colorBluePrimary,
@@ -316,12 +319,12 @@ class AbsenController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        Get.snackbar(
-            'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        // Get.snackbar(
+        //     'Gagal Menjalankan Fitur Ini !!', response.body.toString());
       }
     } catch (e) {
       print(e);
-      Get.snackbar('Izin', 'Anda sudah melakukan izin');
+      customSnackbar1("Izin hari ini telah terisi.");
     }
   }
 }
@@ -521,12 +524,12 @@ class AbsenController extends GetxController {
   
 //           title: "Siap untuk memulai?",
 //           titleStyle:
-//               const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//               const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
 //           titlePadding: const EdgeInsets.all(10),
 //           content: const Padding(
 //             padding: EdgeInsets.all(5),
 //             child: Text('Silahkan ambil foto selfi untuk bisa melanjutkan',
-//                 style: TextStyle(fontSize: 12)),
+//                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
 //           ),
 //           buttonColor: Colors.white,
 //           cancelTextColor: colorBluePrimary,
@@ -554,12 +557,12 @@ class AbsenController extends GetxController {
 //       Get.defaultDialog(
   
 //         title: "Pulang sekarang ?",
-//         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
 //         titlePadding: const EdgeInsets.all(10),
 //         content: const Padding(
 //           padding: EdgeInsets.all(5),
 //           child: Text('Silahkan klik "pulang" jika anda akan pulang',
-//               style: TextStyle(fontSize: 12)),
+//               style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
 //         ),
 //         buttonColor: Colors.white,
 //         cancelTextColor: colorBluePrimary,
@@ -578,11 +581,11 @@ class AbsenController extends GetxController {
 //     Get.defaultDialog(
   
 //         title: "Sudah Melakukan foto selfie!!",
-//         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+//         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
 //         titlePadding: const EdgeInsets.all(10),
 //         content: const Padding(
 //           padding: EdgeInsets.all(5),
-//           child: Text('silahkan Melanjutkan', style: TextStyle(fontSize: 12)),
+//           child: Text('silahkan Melanjutkan', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
 //         ),
 //         buttonColor: Colors.white,
 //         cancelTextColor: colorBluePrimary,

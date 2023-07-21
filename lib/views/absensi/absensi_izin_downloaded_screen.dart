@@ -55,13 +55,42 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Text("Lampiran"),
+                      Text(
+                        "Nama",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                      TextFormField(
+                        onChanged: (value) => s.namaOrang = value,
+                        initialValue: s.user?["namaKaryawan"] ?? "",
+                        keyboardType: TextInputType.text,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
+                        decoration: InputDecoration(
+                          hintText: "Ketikkan disini",
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1)),
+                          focusedBorder: UnderlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colors.black, width: 1.5)),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Lampiran",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
                       TextFormField(
                         onTap: () {
                           s.updateFile();
                         },
                         readOnly: true,
-                        style: TextStyle(fontSize: 13),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
                         initialValue: Get.arguments?["dokumen"]
                                 .toString()
                                 .split("/")
@@ -80,7 +109,11 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text("Alasan"),
+                      Text(
+                        "Alasan",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
                       Container(
                         height: 40,
                         constraints: const BoxConstraints(minHeight: 60),
@@ -91,6 +124,10 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                         child: Center(
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton(
+                                icon: Icon(
+                                  FeatherIcons.chevronDown,
+                                  size: 20,
+                                ),
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(20.0)),
                                 key: Key(Get.arguments?["ijin"] ?? "Izin"),
@@ -103,8 +140,8 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                                           child: Text(
                                             '${value["nama"]}',
                                             style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold),
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ))
                                     .toList(),
@@ -119,10 +156,8 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                       const SizedBox(
                         height: 20,
                       ),
-                      Text("Keterangan (Kosongkan jika tidak ada)"),
-                      SizedBox(
-                        height: 5,
-                      ),
+                      customTextRich2(
+                          context, "Keterangan", " (Kosongkan jika tidak ada)"),
                       SizedBox(
                         height: 120,
                         child: TextFormField(
@@ -130,7 +165,8 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                           maxLength: null,
                           keyboardType: TextInputType.multiline,
                           maxLines: 15,
-                          style: TextStyle(fontSize: 13),
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.w600),
                           initialValue: Get.arguments?["keterangan"] ?? "",
                           decoration: InputDecoration(
                             hintText: "Ketikkan disini",
