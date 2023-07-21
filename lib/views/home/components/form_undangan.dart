@@ -14,7 +14,7 @@ Widget formUndangan(s, context) {
                 style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
-                    fontWeight: FontWeight.w600),
+                    fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(

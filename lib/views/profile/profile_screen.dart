@@ -59,7 +59,7 @@ class ProfileScreen extends StatelessWidget {
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
                                                 fontSize: 16,
-                                                fontWeight: FontWeight.w600),
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ],
                                       ),
@@ -100,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
                             child: Text(
                               "Tentang",
                               style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
+                                  fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ),
                           menuProfile(

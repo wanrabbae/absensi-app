@@ -11,7 +11,7 @@ Widget customHeaderAuth(BuildContext context, String title, String subTitle) {
         Text(
           title,
           style: const TextStyle(
-              fontWeight: FontWeight.w600, fontSize: 24.0, letterSpacing: 0.5),
+              fontWeight: FontWeight.bold, fontSize: 24.0, letterSpacing: 0.5),
         ),
         Text(
           subTitle,
@@ -160,7 +160,7 @@ customSnackbar1(message) {
       messageText: Text(
         message ?? "Success action",
         style: TextStyle(
-            fontSize: 16, color: Colors.white, fontWeight: FontWeight.w600),
+            fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
       ),
       snackPosition: SnackPosition.TOP,
       borderRadius: 20,

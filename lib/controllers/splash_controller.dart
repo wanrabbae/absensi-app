@@ -82,7 +82,7 @@ class SplashController extends GetxController {
   //         title: Text(
   //           title,
   //           textAlign: TextAlign.center,
-  //           style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+  //           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
   //         ),
   //         content: Text(
   //           message,
@@ -123,7 +123,7 @@ class SplashController extends GetxController {
     Get.defaultDialog(
         backgroundColor: Colors.white,
         title: title,
-        titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         titlePadding: const EdgeInsets.all(10),
         content: Padding(
           padding: EdgeInsets.all(5),

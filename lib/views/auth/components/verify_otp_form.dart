@@ -60,7 +60,7 @@ class _OTPFormState extends State<OTPForm> {
                   style: TextStyle(
                       fontSize: 25,
                       color: Colors.black,
-                      fontWeight: FontWeight.w600),
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(
@@ -90,7 +90,8 @@ class _OTPFormState extends State<OTPForm> {
               Container(
                 child: Text(
                   "Temukan 6 angka kode OTP pada kotak masuk e-mail anda.",
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.w500),
                 ),
               ),
             ],

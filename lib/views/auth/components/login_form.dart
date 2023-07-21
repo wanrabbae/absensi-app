@@ -14,7 +14,7 @@ Widget formData(s, context) {
                 style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
-                    fontWeight: FontWeight.w600),
+                    fontWeight: FontWeight.bold),
               ),
             ),
             SizedBox(
@@ -44,7 +44,8 @@ Widget formData(s, context) {
             Container(
               child: Text(
                 "Masuk menggunakan e-mail yang telah diundang sebelumnya.",
-                style: TextStyle(color: Colors.grey),
+                style:
+                    TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
               ),
             )
           ],

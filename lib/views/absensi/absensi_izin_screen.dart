@@ -16,7 +16,7 @@ class AbsensiIzinScreen extends StatelessWidget {
           title: Container(
             child: Text(
               'Surat Izin',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
           centerTitle: false,
@@ -81,7 +81,7 @@ class AbsensiIzinScreen extends StatelessWidget {
                         initialValue: s.user?["namaKaryawan"] ?? "",
                         keyboardType: TextInputType.text,
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                            fontSize: 16, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
                           hintText: "Ketikkan disini",
                           enabledBorder: UnderlineInputBorder(
@@ -107,7 +107,7 @@ class AbsensiIzinScreen extends StatelessWidget {
                         readOnly: true,
                         // initialValue: ,
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w600),
+                            fontSize: 16, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
                           hintText: (s.fileName == null)
                               ? "File_surat_sakit.docx"
@@ -157,7 +157,7 @@ class AbsensiIzinScreen extends StatelessWidget {
                                             '${value["nama"]}',
                                             style: const TextStyle(
                                                 fontSize: 16,
-                                                fontWeight: FontWeight.w600),
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ))
                                     .toList(),
@@ -182,7 +182,7 @@ class AbsensiIzinScreen extends StatelessWidget {
                           keyboardType: TextInputType.multiline,
                           maxLines: 15,
                           style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w600),
+                              fontSize: 16, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
                             hintText: "Ketikkan disini",
                             enabledBorder: UnderlineInputBorder(

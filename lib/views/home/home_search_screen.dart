@@ -34,7 +34,7 @@ class HomeSearchScreen extends StatelessWidget {
                   //       Text(
                   //         "Telusuri",
                   //         style: TextStyle(
-                  //             fontSize: 24, fontWeight: FontWeight.w600),
+                  //             fontSize: 24, fontWeight: FontWeight.bold),
                   //       ),
                   //       Text("Karyawan perusahaan",
                   //           style: TextStyle(

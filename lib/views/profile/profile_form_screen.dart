@@ -30,7 +30,7 @@ class ProfileFormScreen extends StatelessWidget {
               //   "Sunting",
               //   style: TextStyle(
               //     fontSize: 18,
-              //     fontWeight: FontWeight.w600,
+              //     fontWeight: FontWeight.bold,
               //   ),
               // ),
             ],

@@ -77,7 +77,7 @@ class MainTheme {
 
   static TextStyle textStylePrimary(
       {double customFontSize = 14,
-      FontWeight customFontWeight = FontWeight.w600,
+      FontWeight customFontWeight = FontWeight.bold,
       Color customColor = colorBluePrimary}) {
     return TextStyle(
         fontWeight: customFontWeight,

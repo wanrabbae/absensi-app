@@ -140,7 +140,7 @@ class AbsenController extends GetxController {
           backgroundColor: Colors.white,
           title: "Verifikasi Wajah",
           titleStyle:
-              const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+              const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           titlePadding: const EdgeInsets.all(10),
           content: const Padding(
             padding: EdgeInsets.all(5),
@@ -173,7 +173,7 @@ class AbsenController extends GetxController {
       Get.defaultDialog(
         backgroundColor: Colors.white,
         title: "Presensi",
-        titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         titlePadding: const EdgeInsets.all(10),
         content: const Padding(
           padding: EdgeInsets.all(5),
@@ -524,7 +524,7 @@ class AbsenController extends GetxController {
   
 //           title: "Siap untuk memulai?",
 //           titleStyle:
-//               const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+//               const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
 //           titlePadding: const EdgeInsets.all(10),
 //           content: const Padding(
 //             padding: EdgeInsets.all(5),
@@ -557,7 +557,7 @@ class AbsenController extends GetxController {
 //       Get.defaultDialog(
   
 //         title: "Pulang sekarang ?",
-//         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+//         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
 //         titlePadding: const EdgeInsets.all(10),
 //         content: const Padding(
 //           padding: EdgeInsets.all(5),
@@ -581,7 +581,7 @@ class AbsenController extends GetxController {
 //     Get.defaultDialog(
   
 //         title: "Sudah Melakukan foto selfie!!",
-//         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+//         titleStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
 //         titlePadding: const EdgeInsets.all(10),
 //         content: const Padding(
 //           padding: EdgeInsets.all(5),

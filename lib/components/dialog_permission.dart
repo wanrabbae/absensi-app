@@ -35,7 +35,7 @@ class DialogPermission extends HookConsumerWidget {
                   child: Text(
                     "Perizinan perangkat",
                     style: TextStyle(
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.bold,
                         fontSize: 16,
                         color: Color.fromRGBO(51, 51, 51, 1)),
                   ),
