@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   margin: EdgeInsets.only(top: 60, left: 20, right: 20),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
                         flex: 1,
@@ -52,7 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             s.dataSearch();
                           },
                           child: Container(
-                            padding: EdgeInsets.all(15),
+                            padding: EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 15),
                             width: 200,
                             decoration: BoxDecoration(
                                 border: Border.all(
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 Icon(
                                   FeatherIcons.search,
-                                  size: 25,
+                                  size: 20,
                                   color: Colors.black,
                                 ),
                                 SizedBox(
@@ -111,14 +112,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               )),
                               builder: (ctx) => modalSelectCompany(context, s));
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              right: 10, top: 10, bottom: 10),
-                          child: buildImageSizeIcon(
-                              context,
-                              changeUrlImage(s.perusahaan?['logoPerusahaan'] ??
-                                  'wwwroot/Images/CompanyLogo/logo_hora.png')),
-                        ),
+                        child: buildImageSizeIcon(
+                            context,
+                            changeUrlImage(s.perusahaan?['logoPerusahaan'] ??
+                                'wwwroot/Images/CompanyLogo/logo_hora.png')),
                       ),
                     ],
                   )),
@@ -176,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 25, right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -190,7 +187,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Colors.black),
                     ),
                     Container(
-                      padding: EdgeInsets.all(10),
                       child: GestureDetector(
                         onTap: () async {
                           await showDatePicker(
@@ -245,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           floatingActionButton: hadirHighlight
               ? Container(
-                  padding: EdgeInsets.only(bottom: 20, right: 20),
+                  // padding: EdgeInsets.only(bottom: 20),
                   child: FloatingActionButton.extended(
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -255,7 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 )
               : Container(
-                  padding: EdgeInsets.only(right: 20),
+                  // padding: EdgeInsets.only(bottom: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [

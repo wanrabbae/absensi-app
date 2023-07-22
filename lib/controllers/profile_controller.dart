@@ -181,14 +181,14 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         // SplashController().sessionHabis(user?['alamatEmail']);
-        customSnackbar1("Lost connection!");
+        customSnackbar1("Anda offline.!");
         // Get.snackbar(
         //     'Gagal Menjalankan Fitur Ini !!', response.body.toString());
       }
     } catch (e) {
       // Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
       // SplashController().sessionHabis(user?['alamatEmail']);
-      customSnackbar1("Lost connection!");
+      customSnackbar1("Anda offline.!");
     }
   }
 

@@ -10,6 +10,7 @@ Widget timerCount(BuildContext context, s) {
 }
 
 Widget buildEnable(BuildContext context, timer, s) {
+  print(timer);
   return Padding(
     padding: const EdgeInsets.only(top: 20, bottom: 20),
     child: Row(

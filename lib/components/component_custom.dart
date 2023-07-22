@@ -11,12 +11,11 @@ Widget customHeaderAuth(BuildContext context, String title, String subTitle) {
         Text(
           title,
           style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 24.0, letterSpacing: 0.5),
+              fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: 1.5),
         ),
         Text(
           subTitle,
           style: const TextStyle(
-              fontStyle: FontStyle.normal,
               fontWeight: FontWeight.w500,
               // color: Color.fromRGBO(33, 33, 33, 80),
               fontSize: 20.0),
@@ -67,12 +66,16 @@ Widget customTextRichWithLink(BuildContext context, String text1, String text2,
       text: TextSpan(
           text: text1,
           style: TextStyle(
-              fontWeight: FontWeight.w500, color: Colors.grey.shade400),
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Rubik',
+            color: Colors.grey.shade400,
+          ),
           children: [
             TextSpan(
                 text: text2,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
+                  // fontSize: 16,
                   color: Colors.grey.shade400,
                   // decoration: TextDecoration.underline,
                 ),
@@ -172,7 +175,8 @@ customSnackbarLoading(message) {
   Get.rawSnackbar(
       messageText: Text(
         message ?? "Loading...",
-        style: TextStyle(fontSize: 15, color: Colors.white),
+        style: TextStyle(
+            fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
       ),
       snackPosition: SnackPosition.TOP,
       borderRadius: 20,

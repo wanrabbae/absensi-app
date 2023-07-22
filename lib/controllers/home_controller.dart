@@ -26,6 +26,7 @@ class HomeController extends GetxController {
 
   @override
   void onInit() async {
+    print("TOKEN: " + GetStorage().read("tokens"));
     super.onInit();
     user = box.read(Base.dataUser);
     currentDate = now.toString();
@@ -36,7 +37,7 @@ class HomeController extends GetxController {
 
   startTimer() {
     klikAbsen = box.read(Base.klikAbsen) ?? false;
-    timer = Timer.periodic(const Duration(minutes: 1), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (klikAbsen) {
         timerRecor = timerAbsen();
       } else {
@@ -59,15 +60,15 @@ class HomeController extends GetxController {
       if (!klikAbsen) {
         if (await Permission.camera.isGranted &&
             await Permission.location.isGranted) {
-          var IsPresent = absen?.firstWhere(
-              (element) => element["idkaryawan"] == user?["idkaryawan"]);
+          // var IsPresent = await absen!.firstWhere(
+          //     (element) => element["idkaryawan"] == user?["idkaryawan"]);
 
-          if (IsPresent != null) {
-            customSnackbar1("Kehadiran hari ini telah terisi.");
-          } else {
-            Get.back();
-            Get.toNamed(RouteName.absen);
-          }
+          // if (absen!.length > 0 && IsPresent != null) {
+          //   customSnackbar1("Kehadiran hari ini telah terisi.");
+          // } else {
+          Get.back();
+          Get.toNamed(RouteName.absen);
+          // }
         } else {
           showModalBottomSheet(
               shape: const RoundedRectangleBorder(
@@ -169,12 +170,12 @@ class HomeController extends GetxController {
       } else {
         // SplashController().sessionHabis(user?['alamatEmail']);
         // Get.snackbar('Sesi habis', '');
-        customSnackbar1("Lost connection!");
+        customSnackbar1("Anda offline.!");
       }
     } catch (e) {
       // SplashController().sessionHabis(user?['alamatEmail']);
       // Get.snackbar('Sesi habis', '');
-      customSnackbar1("Lost connection!");
+      customSnackbar1("Anda offline.!");
     }
   }
 
@@ -253,7 +254,7 @@ class HomeController extends GetxController {
         customSnackbar1('Gagal Menjalankan Fitur Ini !!');
       }
     } catch (e) {
-      customSnackbar1("lost connection!");
+      customSnackbar1("Anda offline.!");
     }
   }
 }

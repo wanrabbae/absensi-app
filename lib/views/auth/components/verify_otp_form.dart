@@ -58,7 +58,7 @@ class _OTPFormState extends State<OTPForm> {
                 child: Text(
                   "Kode OTP",
                   style: TextStyle(
-                      fontSize: 25,
+                      fontSize: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.bold),
                 ),

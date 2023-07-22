@@ -2,6 +2,15 @@ import 'package:app/global_resource.dart';
 
 final box = GetStorage();
 
+String getTimeFromDatetime(String createdAt) {
+  DateTime dateTime = DateTime.parse(createdAt);
+
+  String formattedTime =
+      "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
+
+  return formattedTime;
+}
+
 changeFormatDate(status, date) {
   DateFormat f;
   if (status == 1) {

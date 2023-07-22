@@ -27,6 +27,7 @@ Widget formUndangan(s, context) {
                   }
                   return null;
                 },
+                autofocus: true,
                 onChanged: (value) => s.emailUndangan = value,
                 keyboardType: TextInputType.emailAddress,
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),

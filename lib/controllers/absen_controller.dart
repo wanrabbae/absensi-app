@@ -12,7 +12,7 @@ class AbsenController extends GetxController {
   BitmapDescriptor customMarker = BitmapDescriptor.defaultMarker;
   Completer<GoogleMapController> googleMapController =
       Completer<GoogleMapController>();
-  String? timerRecor = "00:00:00";
+  String? timerRecor = "00:00";
   String? waktuAbsen;
   File? formFoto;
   File? formFotoIzin;
@@ -49,7 +49,7 @@ class AbsenController extends GetxController {
       if (klikAbsen) {
         timerRecor = timerAbsen();
       } else {
-        timerRecor = "00:00:00";
+        timerRecor = "00:00";
         cancelTimer();
       }
       update();
@@ -232,22 +232,22 @@ class AbsenController extends GetxController {
       var response = await AbsensiServices().hadirPost(forms);
       if (response.statusCode == 200) {
         Get.back();
-        Get.snackbar("Anda Sudah Absen !!",
-            "waktu akan berjalan selama belum melakukan absen pulang");
+        customSnackbar1("Anda sudah absen.");
         box.write(Base.waktuAbsen, DateTime.now().toString());
         box.write(Base.klikAbsen, true);
         Get.offAllNamed(RouteName.home);
       } else if (response.statusCode == 401) {
         Get.back();
-        SplashController().sessionHabis(user?['alamatEmail']);
+        // SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        Get.snackbar('Gagal Menjalankan Fitur Ini !!', response.toString());
+        // Get.snackbar('Gagal Menjalankan Fitur Ini !!', response.toString());
         // print("INI HADIR: " + (response as Response<dynamic>).toString());
         // print("CODE: " + response.statusCode.toString());
       }
     } catch (e) {
       Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      customSnackbar1("Anda offline.");
     }
   }
 

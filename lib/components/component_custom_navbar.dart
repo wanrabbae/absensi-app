@@ -45,7 +45,7 @@ Widget customNavbar(s) {
         color: colorBluePrimary,
       ),
       fixedColor: colorBluePrimary,
-      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
+      backgroundColor: colorBlueOpacity2,
       // backgroundColor: colorBlueOpacity2,
       onTap: (index) {
         switch (index) {
