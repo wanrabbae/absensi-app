@@ -191,13 +191,13 @@ Widget buildImageProfileBig(
     width: 150,
     height: 150,
     decoration: BoxDecoration(
-        image: (isLocal)
-            ? localImage(urlPhoto, file)
-            : networkImage(urlPhoto, file),
-        color: Colors.white,
-        shape: BoxShape.circle),
-    child: const Icon(
-      FeatherIcons.image,
+      image:
+          (isLocal) ? localImage(urlPhoto, file) : networkImage(urlPhoto, file),
+      color: Colors.white,
+      shape: BoxShape.circle,
+    ),
+    child: Icon(
+      FeatherIcons.camera,
       color: Colors.white,
       size: 20,
     ),

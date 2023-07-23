@@ -91,6 +91,8 @@ Widget formProfile(context, s) {
                                 children: [
                                   Text("Nama"),
                                   TextFormField(
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                     initialValue: s.user?['namaKaryawan'],
                                     onChanged: (value) => s.profileNama = value,
                                     decoration: const InputDecoration(
@@ -117,6 +119,8 @@ Widget formProfile(context, s) {
                                   TextFormField(
                                     key: Key(s.valueGender().toString()),
                                     initialValue: s.valueGender(),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                     onTap: () {
                                       showModalBottomSheet(
                                           shape: const RoundedRectangleBorder(
@@ -156,6 +160,8 @@ Widget formProfile(context, s) {
                                   Text("Alamat e-mail"),
                                   TextFormField(
                                     initialValue: s.user?['alamatEmail'],
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                     readOnly: true,
                                     onTap: () {
                                       SplashController().showConfirmationDialog(
@@ -201,6 +207,8 @@ Widget formProfile(context, s) {
                                   TextFormField(
                                     key: Key(s.profileAlamat.toString()),
                                     initialValue: s.profileAlamat,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                     onTap: () {
                                       showModalBottomSheet(
                                           shape: const RoundedRectangleBorder(
@@ -262,6 +270,7 @@ Widget formProfile(context, s) {
                     children: [
                       Icon(
                         FeatherIcons.trash2,
+                        fill: 0.1,
                         color: Color.fromRGBO(225, 24, 24, 1),
                         weight: 1.5,
                       ),

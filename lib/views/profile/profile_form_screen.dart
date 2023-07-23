@@ -13,37 +13,45 @@ class ProfileFormScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          leading: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: Icon(FeatherIcons.x),
-                onPressed: () {
-                  Get.back();
-                },
-              ),
-              SizedBox(
-                height: 0,
-              ),
-              // // Padding(padding: EdgeInsets.only(right: 20)),
-              // Text(
-              //   "Sunting",
-              //   style: TextStyle(
-              //     fontSize: 18,
-              //     fontWeight: FontWeight.bold,
-              //   ),
-              // ),
-            ],
+          leading: Container(
+            padding: EdgeInsets.only(left: 3),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: Icon(FeatherIcons.x),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+                SizedBox(
+                  height: 0,
+                ),
+                // // Padding(padding: EdgeInsets.only(right: 20)),
+                // Text(
+                //   "Sunting",
+                //   style: TextStyle(
+                //     fontSize: 18,
+                //     fontWeight: FontWeight.bold,
+                //   ),
+                // ),
+              ],
+            ),
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: ovalCardIcon(
-                context,
-                FeatherIcons.userCheck,
-                onTaped: () => s.editData(),
-              ),
-            )
+                padding: const EdgeInsets.only(right: 20),
+                child: GestureDetector(
+                  onTap: () => s.editData(),
+                  child: SizedBox(
+                    child: Center(
+                      child: Icon(
+                        FeatherIcons.userCheck,
+                        color: colorBluePrimary2,
+                      ),
+                    ),
+                  ),
+                ))
           ],
         ),
         backgroundColor: Colors.white,

@@ -76,7 +76,7 @@ class HomeUndanganScreen extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding:
-                      const EdgeInsets.only(bottom: 32, left: 20, right: 20),
+                      const EdgeInsets.only(bottom: 20, left: 20, right: 20),
                   child: SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Padding(

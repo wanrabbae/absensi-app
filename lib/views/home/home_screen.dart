@@ -236,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Container(child: dataHome(context, s, hadirHighlight))
+              dataHome(context, s, hadirHighlight)
             ],
           ),
           floatingActionButton: hadirHighlight
@@ -300,9 +300,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             Get.toNamed(RouteName.absenIzin);
                           }
                         },
-                      ),
-                      SizedBox(
-                        height: 20,
                       ),
                     ],
                   ),
