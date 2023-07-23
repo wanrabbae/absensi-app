@@ -68,9 +68,12 @@ class DialogPermission extends HookConsumerWidget {
                   children: [
                     Icon(
                       FeatherIcons.camera,
-                      size: 16,
+                      size: 17,
                     ),
-                    const Text(" Kamera",
+                    SizedBox(
+                      width: 10,
+                    ),
+                    const Text("Kamera",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -84,9 +87,12 @@ class DialogPermission extends HookConsumerWidget {
                   children: [
                     Icon(
                       FeatherIcons.mapPin,
-                      size: 16,
+                      size: 17,
                     ),
-                    const Text(" Lokasi",
+                    SizedBox(
+                      width: 10,
+                    ),
+                    const Text("Lokasi",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
@@ -100,9 +106,12 @@ class DialogPermission extends HookConsumerWidget {
                   children: [
                     Icon(
                       FeatherIcons.folder,
-                      size: 16,
+                      size: 17,
                     ),
-                    const Text(" Penyimpanan",
+                    SizedBox(
+                      width: 10,
+                    ),
+                    const Text("Penyimpanan",
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 16,

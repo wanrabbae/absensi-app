@@ -68,7 +68,7 @@ Widget customTextRichWithLink(BuildContext context, String text1, String text2,
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontFamily: 'Rubik',
-            color: Colors.grey.shade400,
+            color: Colors.grey.shade500,
           ),
           children: [
             TextSpan(
@@ -76,7 +76,7 @@ Widget customTextRichWithLink(BuildContext context, String text1, String text2,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   // fontSize: 16,
-                  color: Colors.grey.shade400,
+                  color: Colors.grey.shade500,
                   // decoration: TextDecoration.underline,
                 ),
                 recognizer: TapGestureRecognizer()..onTap = onTextClicked)

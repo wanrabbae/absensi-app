@@ -118,7 +118,7 @@ class HomeUndanganScreen extends StatelessWidget {
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontWeight: FontWeight.w500),
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ),

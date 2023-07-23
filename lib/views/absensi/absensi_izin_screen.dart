@@ -14,9 +14,40 @@ class AbsensiIzinScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: Container(
-            child: Text(
-              'Surat Izin',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Surat Izin',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Container(
+                  // padding: EdgeInsets.only(top: 5),
+                  child: Transform.rotate(
+                    angle: math.pi / 4,
+                    child: IconButton(
+                      icon: Icon(
+                        FeatherIcons.send,
+                        color: colorBluePrimary,
+                      ),
+                      onPressed: () {
+                        if (s.currentDate != null) {
+                          izin() {
+                            return s.absenIzin();
+                          }
+
+                          SplashController().showConfirmationDialog(
+                            "Izin",
+                            "Ajukan Izin Sekarang?",
+                            izin,
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           centerTitle: false,
@@ -27,32 +58,6 @@ class AbsensiIzinScreen extends StatelessWidget {
               Get.back();
             },
           ),
-          actions: [
-            Align(
-                alignment: Alignment.topRight,
-                child: Transform.rotate(
-                  angle: math.pi / 4,
-                  child: IconButton(
-                    icon: Icon(
-                      FeatherIcons.send,
-                      color: colorBluePrimary,
-                    ),
-                    onPressed: () {
-                      if (s.currentDate != null) {
-                        izin() {
-                          return s.absenIzin();
-                        }
-
-                        SplashController().showConfirmationDialog(
-                          "Izin",
-                          "Ajukan Izin Sekarang?",
-                          izin,
-                        );
-                      }
-                    },
-                  ),
-                )),
-          ],
         ),
         body: Container(
           padding: const EdgeInsets.only(top: 10, left: 20, right: 20),

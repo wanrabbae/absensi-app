@@ -53,7 +53,7 @@ class HomeSearchScreen extends StatelessWidget {
                             bottom: BorderSide(
                                 color: colorBluePrimary, width: 1.5))),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
                           IconButton(
@@ -80,7 +80,7 @@ class HomeSearchScreen extends StatelessWidget {
                                     borderSide:
                                         BorderSide(color: Colors.transparent)),
                                 contentPadding: EdgeInsets.only(
-                                    left: 20, right: 20, top: 10, bottom: 10),
+                                    left: 7, right: 10, top: 10, bottom: 10),
                                 hintText: "Pencarian",
                                 hintStyle: TextStyle(
                                     color: Color.fromRGBO(51, 51, 51, 0.5),
