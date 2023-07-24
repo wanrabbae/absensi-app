@@ -101,7 +101,7 @@ class AbsenController extends GetxController {
   }
 
   lokasiDetect() async {
-    // SplashController().loading("Memuat lokasi");
+    customSnackbarLoading("Sedang mendeteksi lokasi anda...");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       currentLocation = LatLng(position.latitude, position.longitude);
@@ -136,60 +136,83 @@ class AbsenController extends GetxController {
 
   mulaiSelesaiAbsen(context, idAbsen) {
     if (!klikAbsen) {
-      Get.defaultDialog(
-          backgroundColor: Colors.white,
-          title: "Verifikasi Wajah",
-          titleStyle:
-              const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          titlePadding: const EdgeInsets.all(10),
-          content: const Padding(
-            padding: EdgeInsets.all(5),
-            child: Text('Yuk selfie...',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-          ),
-          buttonColor: Colors.transparent,
-          cancelTextColor: colorBluePrimary,
-          confirmTextColor: colorBluePrimary,
-          textConfirm: "Oke",
-          textCancel: "Batal",
-          onConfirm: () {
-            Get.back();
-            ImagePicker()
-                .pickImage(
-                    source: ImageSource.camera,
-                    preferredCameraDevice: CameraDevice.front)
-                .then((value) {
-              if (value != null) {
-                formFoto = File(value.path);
-                update();
-                absenHadir();
-              } else {
-                Get.snackbar("Tidak Bisa Melakukan Absensi !!",
-                    "Tidak bisa melanjutkan tanpa foto");
-              }
-            });
-          });
+      SplashController()
+          .showConfirmationDialog2("Verifikasi Wajah", "Yuk selfie...", () {
+        Get.back();
+        ImagePicker()
+            .pickImage(
+                source: ImageSource.camera,
+                preferredCameraDevice: CameraDevice.front)
+            .then((value) {
+          if (value != null) {
+            formFoto = File(value.path);
+            update();
+            absenHadir();
+          } else {
+            Get.snackbar("Tidak Bisa Melakukan Absensi !!",
+                "Tidak bisa melanjutkan tanpa foto");
+          }
+        });
+      });
+      // Get.defaultDialog(
+      //     backgroundColor: Colors.white,
+      //     title: "Verifikasi Wajah",
+      //     titleStyle:
+      //         const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      //     titlePadding: const EdgeInsets.all(10),
+      //     content: const Padding(
+      //       padding: EdgeInsets.all(5),
+      //       child: Text('Yuk selfie...',
+      //           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+      //     ),
+      //     buttonColor: Colors.transparent,
+      //     cancelTextColor: colorBluePrimary,
+      //     confirmTextColor: colorBluePrimary,
+      //     textConfirm: "Oke",
+      //     textCancel: "Batal",
+      //     onConfirm: () {
+      //       Get.back();
+      //       ImagePicker()
+      //           .pickImage(
+      //               source: ImageSource.camera,
+      //               preferredCameraDevice: CameraDevice.front)
+      //           .then((value) {
+      //         if (value != null) {
+      //           formFoto = File(value.path);
+      //           update();
+      //           absenHadir();
+      //         } else {
+      //           Get.snackbar("Tidak Bisa Melakukan Absensi !!",
+      //               "Tidak bisa melanjutkan tanpa foto");
+      //         }
+      //       });
+      //     });
     } else {
-      Get.defaultDialog(
-        backgroundColor: Colors.white,
-        title: "Presensi",
-        titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-        titlePadding: const EdgeInsets.all(10),
-        content: const Padding(
-          padding: EdgeInsets.all(5),
-          child: Text('Anda ingin pulang?',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-        ),
-        buttonColor: Colors.transparent,
-        cancelTextColor: colorBluePrimary,
-        confirmTextColor: colorBluePrimary,
-        textConfirm: "Ya",
-        textCancel: "Tidak",
-        onConfirm: () {
-          Get.back();
-          absenPulang(true, idAbsen);
-        },
-      );
+      SplashController()
+          .showConfirmationDialog2("Presensi", "Anda ingin pulang?", () {
+        Get.back();
+        absenPulang(true, idAbsen);
+      });
+      // Get.defaultDialog(
+      //   backgroundColor: Colors.white,
+      //   title: "Presensi",
+      //   titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+      //   titlePadding: const EdgeInsets.all(10),
+      //   content: const Padding(
+      //     padding: EdgeInsets.all(5),
+      //     child: Text('Anda ingin pulang?',
+      //         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+      //   ),
+      //   buttonColor: Colors.transparent,
+      //   cancelTextColor: colorBluePrimary,
+      //   confirmTextColor: colorBluePrimary,
+      //   textConfirm: "Ya",
+      //   textCancel: "Tidak",
+      //   onConfirm: () {
+      //     Get.back();
+      //     absenPulang(true, idAbsen);
+      //   },
+      // );
     }
   }
 
@@ -213,7 +236,7 @@ class AbsenController extends GetxController {
 
   absenHadir() async {
     try {
-      SplashController().loading("Mengirim Absen...");
+      customSnackbarLoading("Mengirim Absen...");
       final forms = {
         'IDKaryawan': user?['idkaryawan'],
         'NamaKaryawan': user?['namaKaryawan'],
@@ -260,7 +283,7 @@ class AbsenController extends GetxController {
     print(idAbsen);
     try {
       if (status) {
-        SplashController().loading("Sedang Pulang...");
+        customSnackbarLoading("Sedang Pulang...");
       }
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen.toString(), 'tanggal': newDate}, {});
@@ -293,7 +316,7 @@ class AbsenController extends GetxController {
 
   absenIzin() async {
     try {
-      // SplashController().loading("Mengajukan surat izin...");
+      customSnackbarLoading("Mengajukan surat izin...");
       final FormData forms = FormData({
         'IDKaryawan': user?['idkaryawan'],
         'NamaKaryawan': user?['namaKaryawan'],

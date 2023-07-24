@@ -143,7 +143,11 @@ class ProfileScreen extends StatelessWidget {
                               menuProfile(
                                   context, "Keluar", FeatherIcons.logOut,
                                   onTap: () {
-                                s.keluar();
+                                SplashController().showConfirmationDialog2(
+                                    "Akun", "Anda ingin keluar?", () {
+                                  s.keluar();
+                                });
+                                // s.keluar();
                               }),
                             ],
                           )),

@@ -187,20 +187,38 @@ customSnackbarLoading(message) {
 
 Widget buildImageProfileBig(
     BuildContext context, String urlPhoto, bool isLocal, file) {
-  return Container(
-    width: 150,
-    height: 150,
-    decoration: BoxDecoration(
-      image:
-          (isLocal) ? localImage(urlPhoto, file) : networkImage(urlPhoto, file),
-      color: Colors.white,
-      shape: BoxShape.circle,
-    ),
-    child: Icon(
-      FeatherIcons.camera,
-      color: Colors.white,
-      size: 20,
-    ),
+  return Stack(
+    children: [
+      Container(
+        width: 150,
+        height: 150,
+        decoration: BoxDecoration(
+          image: (isLocal)
+              ? localImage(urlPhoto, file)
+              : networkImage(urlPhoto, file),
+          color: Colors.white,
+          shape: BoxShape.circle,
+        ),
+      ),
+      Positioned(
+        bottom: 1,
+        right: 1,
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(FeatherIcons.camera, color: Colors.white),
+          ),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                50,
+              ),
+            ),
+            color: Colors.black,
+          ),
+        ),
+      ),
+    ],
   );
 }
 

@@ -129,44 +129,49 @@ class ProfileController extends GetxController {
   }
 
   keluar() {
-    Get.defaultDialog(
-        title: "Akun",
-        titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        titlePadding: const EdgeInsets.all(10),
-        content: const Padding(
-          padding: EdgeInsets.all(5),
-          child: Text('Anda ingin keluar?', style: TextStyle(fontSize: 12)),
-        ),
-        buttonColor: Colors.transparent,
-        cancelTextColor: colorBluePrimary,
-        confirmTextColor: colorBluePrimary,
-        textCancel: "Tidak",
-        textConfirm: "Ya",
-        backgroundColor: Colors.white,
-        onConfirm: () {
-          SplashController().removeData();
-        });
+    SplashController().removeData();
+    // Get.defaultDialog(
+    //     title: "Akun",
+    //     titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    //     titlePadding: const EdgeInsets.all(10),
+    //     content: const Padding(
+    //       padding: EdgeInsets.all(5),
+    //       child: Text('Anda ingin keluar?', style: TextStyle(fontSize: 16)),
+    //     ),
+    //     buttonColor: Colors.transparent,
+    //     cancelTextColor: colorBluePrimary,
+    //     confirmTextColor: colorBluePrimary,
+    //     textCancel: "Tidak",
+    //     textConfirm: "Ya",
+    //     backgroundColor: Colors.white,
+    //     onConfirm: () {
+    //       SplashController().removeData();
+    //     });
   }
 
   hapusAkun() {
-    Get.defaultDialog(
-        title: "Profil",
-        titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-        titlePadding: const EdgeInsets.all(10),
-        content: const Padding(
-          padding: EdgeInsets.all(5),
-          child: Text('Anda ingin menghapus profil?',
-              style: TextStyle(fontSize: 12)),
-        ),
-        buttonColor: Colors.transparent,
-        cancelTextColor: colorBluePrimary,
-        confirmTextColor: colorBluePrimary,
-        backgroundColor: Colors.white,
-        textCancel: "Tidak",
-        textConfirm: "Ya",
-        onConfirm: () {
-          hapusData();
-        });
+    SplashController()
+        .showConfirmationDialog2("Profil", "Anda ingin menghapus profil?", () {
+      hapusData();
+    });
+    // Get.defaultDialog(
+    //     title: "Profil",
+    //     titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+    //     titlePadding: const EdgeInsets.all(10),
+    //     content: const Padding(
+    //       padding: EdgeInsets.all(5),
+    //       child: Text('Anda ingin menghapus profil?',
+    //           style: TextStyle(fontSize: 12)),
+    //     ),
+    //     buttonColor: Colors.transparent,
+    //     cancelTextColor: colorBluePrimary,
+    //     confirmTextColor: colorBluePrimary,
+    //     backgroundColor: Colors.white,
+    //     textCancel: "Tidak",
+    //     textConfirm: "Ya",
+    //     onConfirm: () {
+    //       hapusData();
+    //     });
   }
 
   dataProfile(mail) async {
