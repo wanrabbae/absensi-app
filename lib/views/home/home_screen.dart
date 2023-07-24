@@ -173,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
+                padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -236,7 +236,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              dataHome(context, s, hadirHighlight)
+              Expanded(child: dataHome(context, s, hadirHighlight)),
             ],
           ),
           floatingActionButton: hadirHighlight

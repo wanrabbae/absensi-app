@@ -5,7 +5,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
     margin: const EdgeInsets.symmetric(horizontal: 20),
     child: ListView.builder(
       shrinkWrap: true,
-      padding: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(bottom: 20),
       itemCount: isHadir ? s.absen?.length : s.izin?.length,
       itemBuilder: (ctx, index) => SizedBox(
         width: MediaQuery.of(context).size.width,

@@ -116,38 +116,44 @@ Widget formProfile(context, s) {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text("Jenis Kelamin"),
-                                  TextFormField(
-                                    key: Key(s.valueGender().toString()),
-                                    initialValue: s.valueGender(),
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(20),
-                                                  topRight:
-                                                      Radius.circular(20))),
-                                          context: context,
-                                          builder: (ctx) =>
-                                              dialogGender(context, s));
+                                  DropdownButtonFormField<String>(
+                                    value: s.user?["gender"],
+                                    icon: Icon(FeatherIcons.chevronDown),
+                                    onChanged: (newValue) {
+                                      // Update the selected value when the user chooses a gender
+                                      s.updateGender(newValue);
                                     },
-                                    readOnly: true,
-                                    decoration: const InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        enabledBorder: UnderlineInputBorder(),
-                                        focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: colorBluePrimary)),
-                                        errorBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.redAccent)),
-                                        suffixIcon: Padding(
-                                          padding: EdgeInsets.only(left: 50),
-                                          child:
-                                              Icon(FeatherIcons.moreVertical),
-                                        )),
-                                  ),
+                                    items: [
+                                      DropdownMenuItem(
+                                        value: 'pria',
+                                        child: Text(
+                                          'Pria',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      DropdownMenuItem(
+                                        value: 'wanita',
+                                        child: Text(
+                                          'Wanita',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ],
+                                    decoration: InputDecoration(
+                                      border: UnderlineInputBorder(),
+                                      enabledBorder: UnderlineInputBorder(),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: colorBluePrimary),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide:
+                                            BorderSide(color: Colors.redAccent),
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
@@ -162,37 +168,17 @@ Widget formProfile(context, s) {
                                     initialValue: s.user?['alamatEmail'],
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
-                                    readOnly: true,
-                                    onTap: () {
-                                      SplashController().showConfirmationDialog(
-                                          'Email', "Anda ingin mengubah email?",
-                                          () {
-                                        Get.toNamed(
-                                            RouteName.profileGantiemail);
-                                      });
-                                      // showModalBottomSheet(
-                                      //     shape: const RoundedRectangleBorder(
-                                      //         borderRadius: BorderRadius.only(
-                                      //             topLeft: Radius.circular(20),
-                                      //             topRight: Radius.circular(20))),
-                                      //     context: context,
-                                      //     builder: (ctx) =>
-                                      //         changeEmailLayout(context));
-                                    },
+                                    onChanged: (value) => s.emailBaru = value,
                                     decoration: const InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        enabledBorder: UnderlineInputBorder(),
-                                        focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: colorBluePrimary)),
-                                        errorBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.redAccent)),
-                                        suffixIcon: Padding(
-                                          padding: EdgeInsets.only(left: 50),
-                                          child:
-                                              Icon(FeatherIcons.moreVertical),
-                                        )),
+                                      border: UnderlineInputBorder(),
+                                      enabledBorder: UnderlineInputBorder(),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: colorBluePrimary)),
+                                      errorBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.redAccent)),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -209,35 +195,19 @@ Widget formProfile(context, s) {
                                     initialValue: s.profileAlamat,
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
-                                    onTap: () {
-                                      showModalBottomSheet(
-                                          shape: const RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.only(
-                                                  topLeft: Radius.circular(20),
-                                                  topRight:
-                                                      Radius.circular(20))),
-                                          context: context,
-                                          builder: (ctx) =>
-                                              const DialogDetectLocation());
-                                    },
-                                    readOnly: true,
                                     keyboardType: TextInputType.multiline,
                                     maxLines: 10,
                                     minLines: 3,
                                     decoration: const InputDecoration(
-                                        border: UnderlineInputBorder(),
-                                        enabledBorder: UnderlineInputBorder(),
-                                        focusedBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: colorBluePrimary)),
-                                        errorBorder: UnderlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.redAccent)),
-                                        suffixIcon: Padding(
-                                          padding: EdgeInsets.only(left: 50),
-                                          child:
-                                              Icon(FeatherIcons.moreVertical),
-                                        )),
+                                      border: UnderlineInputBorder(),
+                                      enabledBorder: UnderlineInputBorder(),
+                                      focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: colorBluePrimary)),
+                                      errorBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                              color: Colors.redAccent)),
+                                    ),
                                   ),
                                 ],
                               ),
