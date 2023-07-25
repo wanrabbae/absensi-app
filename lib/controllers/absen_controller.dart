@@ -57,8 +57,8 @@ class AbsenController extends GetxController {
   }
 
   cancelTimer() {
+    print("CANCEL TIMER ABSEN");
     timer?.cancel();
-    timer = null;
   }
 
   dataPerusahaan() {
@@ -288,6 +288,8 @@ class AbsenController extends GetxController {
       if (response.statusCode == 200) {
         Get.back();
         box.write(Base.klikAbsen, false);
+        await HomeController().cancelTimer();
+        await cancelTimer();
         if (status) {
           // Get.snackbar("Anda Sudah Pulang", "waktu telah dihentikan");
           Get.offAllNamed(RouteName.home);
@@ -332,12 +334,19 @@ class AbsenController extends GetxController {
         box.write(Base.izinAbsen, DateTime.now().toString());
         if (!klikAbsen) {
           Get.back();
-          // Get.snackbar("Mengajukan Izin Berhasil !!",
-          //     "Berhasil. Silahkan hubungi admin.");
           Get.offAllNamed(RouteName.home);
           await HomeController().dataHome();
         } else {
-          absenPulang(false, user?["idkaryawan"]);
+          DateTime dateCurrent = DateTime.now();
+          String formattedCurrentDate =
+              DateFormat("yyyy-MM-dd").format(dateCurrent);
+          var findData = await HomeController().absen?.firstWhere((element) =>
+              element?["idkaryawan"] == user?["idkaryawan"] &&
+              element['waktuCheckIn']
+                  .toString()
+                  .startsWith(formattedCurrentDate));
+
+          absenPulang(false, findData?["id"]);
         }
       } else if (response.statusCode == 401) {
         Get.back();
@@ -348,8 +357,26 @@ class AbsenController extends GetxController {
         //     'Gagal Menjalankan Fitur Ini !!', response.body.toString());
       }
     } catch (e) {
-      print(e);
-      customSnackbar1("Izin hari ini telah terisi.");
+      print("KE CATCH");
+      // print(e);
+      // customSnackbar1("Terjadi kesalahan");
+      box.write(Base.izinAbsen, DateTime.now().toString());
+      if (!klikAbsen) {
+        Get.back();
+        Get.offAllNamed(RouteName.home);
+        await HomeController().dataHome();
+      } else {
+        DateTime dateCurrent = DateTime.now();
+        String formattedCurrentDate =
+            DateFormat("yyyy-MM-dd").format(dateCurrent);
+        var findData = await HomeController().absen?.firstWhere((element) =>
+            element?["idkaryawan"] == user?["idkaryawan"] &&
+            element['waktuCheckIn']
+                .toString()
+                .startsWith(formattedCurrentDate));
+
+        absenPulang(false, findData?["id"]);
+      }
     }
   }
 }

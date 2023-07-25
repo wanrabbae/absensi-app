@@ -33,7 +33,7 @@ class ProfileScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Hai, \n${s.user?['namaKaryawan']}",
+                              "Hai, ${s.user?['namaKaryawan']}",
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold),

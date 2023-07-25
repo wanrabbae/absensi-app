@@ -117,7 +117,16 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                           'assets/icons/map-pin-filled.png',
                                           width: 16,
                                         )
-                                      : Container(),
+                                      : Container(
+                                          child: Text(s.izin[index]?["ijin"],
+                                              maxLines: 1,
+                                              softWrap: true,
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 11,
+                                                  color: Color.fromRGBO(
+                                                      51, 51, 51, 0.5))),
+                                        ),
                                 ),
                                 const SizedBox(
                                   width: 5,
@@ -147,8 +156,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                         isHadir
                                             ? s?.absen[index]['alamatLoc']
                                                 .toString() as String
-                                            : s?.izin[index]?['keterangan']
-                                                .toString() as String,
+                                            : "",
                                         maxLines: 1,
                                         softWrap: true,
                                         style: TextStyle(

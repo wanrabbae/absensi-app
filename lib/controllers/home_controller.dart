@@ -35,8 +35,6 @@ class HomeController extends GetxController {
     await startTimer();
     await dataPerusahaan();
     await dataHome();
-    checkIsAbsen();
-    checkIsIzin();
   }
 
   startTimer() {
@@ -53,8 +51,8 @@ class HomeController extends GetxController {
   }
 
   cancelTimer() {
+    print("CANCEL TIMER HOME");
     timer?.cancel();
-    timer = null;
   }
 
   absensi(context) async {
@@ -275,10 +273,20 @@ class HomeController extends GetxController {
     var idKaryawan = user?["idkaryawan"];
 
     var findData = absen?.where((element) =>
-        element?["idkaryawan"] == idKaryawan ||
+        element?["idkaryawan"] == idKaryawan &&
         element['waktuCheckIn'].toString().startsWith(formattedCurrentDate));
 
-    isPresentHadir = findData?.isNotEmpty;
+    var checkDate = absen?.where((element) {
+      DateTime waktuCheckIn = DateTime.parse(element['waktuCheckIn']);
+      DateTime currentDate = DateTime.parse(formattedCurrentDate);
+      return waktuCheckIn.isBefore(currentDate);
+    });
+
+    if (checkDate!.isNotEmpty) {
+      isPresentHadir = checkDate.isNotEmpty;
+    } else {
+      isPresentHadir = findData?.isNotEmpty ?? findData?.isNotEmpty;
+    }
   }
 
   checkIsIzin() {
@@ -287,9 +295,19 @@ class HomeController extends GetxController {
     var idKaryawan = user?["idkaryawan"];
 
     var findData = izin?.where((element) =>
-        element?["idkaryawan"] == idKaryawan ||
+        element?["idkaryawan"] == idKaryawan &&
         element['tanggalStart'].toString().startsWith(formattedCurrentDate));
 
-    isPresentIzin = findData?.isNotEmpty;
+    var checkDate = izin?.where((element) {
+      DateTime tglStart = DateTime.parse(element['tanggalStart']);
+      DateTime currentDate = DateTime.parse(formattedCurrentDate);
+      return tglStart.isBefore(currentDate);
+    });
+
+    if (checkDate!.isNotEmpty) {
+      isPresentIzin = checkDate.isNotEmpty;
+    } else {
+      isPresentIzin = findData?.isNotEmpty ?? findData?.isNotEmpty;
+    }
   }
 }
