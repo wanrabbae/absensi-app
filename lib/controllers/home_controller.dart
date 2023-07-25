@@ -16,6 +16,8 @@ class HomeController extends GetxController {
   List? perusahaanList = [];
   String? perusahaanTerpilih;
   bool klikAbsen = false;
+  bool? isPresentHadir = false;
+  bool? isPresentIzin = false;
   // ignore: prefer_typing_uninitialized_variables
   var timer;
   //search
@@ -33,6 +35,8 @@ class HomeController extends GetxController {
     await startTimer();
     await dataPerusahaan();
     await dataHome();
+    checkIsAbsen();
+    checkIsIzin();
   }
 
   startTimer() {
@@ -191,11 +195,12 @@ class HomeController extends GetxController {
         "tanggal": currentDate,
       });
       if (absens.statusCode == 200 && izins.statusCode == 200) {
-        print(izins.data);
         absen = absens.data;
         izin = izins.data;
         box.remove(Base.dataAbsen);
         box.write(Base.dataAbsen, jsonEncode(absen));
+        checkIsAbsen();
+        checkIsIzin();
         update();
       }
     } catch (e) {
@@ -234,6 +239,12 @@ class HomeController extends GetxController {
   }
 
   kirimUndangan() async {
+    var isValidEmail = isEmailValid(emailUndangan.toString());
+    if (!isValidEmail) {
+      customSnackbar1("Format email tidak valid");
+      return;
+    }
+
     try {
       customSnackbarLoading("Sedang mengirimkan undangan...");
       var response = await HomeServices().undanganPost({
@@ -256,5 +267,29 @@ class HomeController extends GetxController {
     } catch (e) {
       customSnackbar1("Anda offline.!");
     }
+  }
+
+  checkIsAbsen() {
+    DateTime dateCurrent = DateTime.now();
+    String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
+    var idKaryawan = user?["idkaryawan"];
+
+    var findData = absen?.where((element) =>
+        element?["idkaryawan"] == idKaryawan ||
+        element['waktuCheckIn'].toString().startsWith(formattedCurrentDate));
+
+    isPresentHadir = findData?.isNotEmpty;
+  }
+
+  checkIsIzin() {
+    DateTime dateCurrent = DateTime.now();
+    String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
+    var idKaryawan = user?["idkaryawan"];
+
+    var findData = izin?.where((element) =>
+        element?["idkaryawan"] == idKaryawan ||
+        element['tanggalStart'].toString().startsWith(formattedCurrentDate));
+
+    isPresentIzin = findData?.isNotEmpty;
   }
 }

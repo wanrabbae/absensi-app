@@ -1,6 +1,7 @@
 import 'package:app/global_resource.dart';
 
 Widget dataHome(BuildContext context, s, isHadir) {
+  print("IZIN: " + s.izin.length.toString());
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 20),
     child: ListView.builder(
@@ -81,8 +82,9 @@ Widget dataHome(BuildContext context, s, isHadir) {
                               ),
                               // for
                               Text(
-                                  getTimeFromDatetime(
-                                      s.absen[index]['waktuCheckIn']),
+                                  getTimeFromDatetime(isHadir
+                                      ? s.absen[index]['waktuCheckIn']
+                                      : s.izin[index]['tanggalStart']),
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 10,
@@ -101,19 +103,21 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                             builder: (ctx) => dialogGoogleMap(
                                                 ctx,
                                                 latLng: LatLng(
-                                                    DataHelper.absences()[0]
-                                                        .locationLat!,
-                                                    DataHelper.absences()[0]
-                                                        .locationLng!),
+                                                    double.parse(s?.absen[index]
+                                                        ?["alamatLatitude"]),
+                                                    double.parse(s?.absen[index]
+                                                        ?["alamatLongtitude"])),
                                                 updateLocation: false))
                                         : Get.toNamed(
                                             RouteName.absenIzinDownloaded,
                                             arguments: s.izin[index]);
                                   },
-                                  child: Image.asset(
-                                    'assets/icons/map-pin-filled.png',
-                                    width: 16,
-                                  ),
+                                  child: isHadir
+                                      ? Image.asset(
+                                          'assets/icons/map-pin-filled.png',
+                                          width: 16,
+                                        )
+                                      : Container(),
                                 ),
                                 const SizedBox(
                                   width: 5,
@@ -128,17 +132,23 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                               builder: (ctx) => dialogGoogleMap(
                                                   ctx,
                                                   latLng: LatLng(
-                                                      DataHelper.absences()[0]
-                                                          .locationLat!,
-                                                      DataHelper.absences()[0]
-                                                          .locationLng!),
+                                                      double.parse(s
+                                                              ?.absen[index]
+                                                          ?["alamatLatitude"]),
+                                                      double.parse(s
+                                                              ?.absen[index]?[
+                                                          "alamatLongtitude"])),
                                                   updateLocation: false))
                                           : Get.toNamed(
                                               RouteName.absenIzinDownloaded,
                                               arguments: s.izin[index]);
                                     },
                                     child: Text(
-                                        "${DataHelper.absences()[0].locationName}",
+                                        isHadir
+                                            ? s?.absen[index]['alamatLoc']
+                                                .toString() as String
+                                            : s?.izin[index]?['keterangan']
+                                                .toString() as String,
                                         maxLines: 1,
                                         softWrap: true,
                                         style: TextStyle(

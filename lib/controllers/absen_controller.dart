@@ -149,8 +149,7 @@ class AbsenController extends GetxController {
             update();
             absenHadir();
           } else {
-            Get.snackbar("Tidak Bisa Melakukan Absensi !!",
-                "Tidak bisa melanjutkan tanpa foto");
+            customSnackbar1("Tidak bisa melanjutkan tanpa foto");
           }
         });
       });
@@ -269,12 +268,11 @@ class AbsenController extends GetxController {
         // print("CODE: " + response.statusCode.toString());
       }
     } catch (e) {
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
       customSnackbar1("Anda offline.");
     }
   }
 
-  absenPulang(status, [idAbsen = null]) async {
+  absenPulang(status, idAbsen) async {
     var currentDate = DateTime.now();
     var newDate =
         new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
@@ -293,24 +291,27 @@ class AbsenController extends GetxController {
         if (status) {
           // Get.snackbar("Anda Sudah Pulang", "waktu telah dihentikan");
           Get.offAllNamed(RouteName.home);
+          await HomeController().dataHome();
         } else {
           // Get.snackbar("Mengajukan Izin Berhasil",
           //     "Berhasil mematikan absen sebelumnya. Berhasil mengirimkan izin. Silahkan hubungi admin.");
           Get.offAllNamed(RouteName.home);
+          await HomeController().dataHome();
         }
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
       } else if (response.statusCode == 400) {
         Get.back();
-        Get.snackbar('Ups', 'Terjadi kesalahan :(');
+        customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
       } else {
         Get.back();
-        Get.snackbar('Gagal Menjalankan Fitur Ini !!', response.toString());
+        customSnackbar1("Gagal Menjalankan Fitur Ini !!");
         print("INI PULANG: " + response.toString());
       }
     } catch (e) {
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      print(e);
+      customSnackbar1("Fitur Tidak Bisa Dijalankan !!");
     }
   }
 
@@ -334,8 +335,9 @@ class AbsenController extends GetxController {
           // Get.snackbar("Mengajukan Izin Berhasil !!",
           //     "Berhasil. Silahkan hubungi admin.");
           Get.offAllNamed(RouteName.home);
+          await HomeController().dataHome();
         } else {
-          absenPulang(false);
+          absenPulang(false, user?["idkaryawan"]);
         }
       } else if (response.statusCode == 401) {
         Get.back();

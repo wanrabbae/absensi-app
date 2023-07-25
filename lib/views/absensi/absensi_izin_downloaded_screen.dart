@@ -61,6 +61,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       TextFormField(
+                        readOnly: true,
                         onChanged: (value) => s.namaOrang = value,
                         initialValue: s.user?["namaKaryawan"] ?? "",
                         keyboardType: TextInputType.text,
@@ -85,9 +86,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       TextFormField(
-                        onTap: () {
-                          s.updateFile();
-                        },
+                        onTap: null,
                         readOnly: true,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
@@ -145,11 +144,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                                           ),
                                         ))
                                     .toList(),
-                                onChanged: (value) {
-                                  if (value != null) {
-                                    s.updateFormIzin(value);
-                                  }
-                                }),
+                                onChanged: (value) {}),
                           ),
                         ),
                       ),
@@ -161,6 +156,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                       SizedBox(
                         height: 120,
                         child: TextFormField(
+                          readOnly: true,
                           onChanged: (value) => s.formDeskripsi = value,
                           maxLength: null,
                           keyboardType: TextInputType.multiline,

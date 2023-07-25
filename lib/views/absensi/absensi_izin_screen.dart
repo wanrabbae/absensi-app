@@ -37,7 +37,7 @@ class AbsensiIzinScreen extends StatelessWidget {
                             return s.absenIzin();
                           }
 
-                          SplashController().showConfirmationDialog(
+                          SplashController().showConfirmationDialog2(
                             "Izin",
                             "Ajukan Izin Sekarang?",
                             izin,
@@ -82,6 +82,7 @@ class AbsensiIzinScreen extends StatelessWidget {
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       TextFormField(
+                        readOnly: true,
                         onChanged: (value) => s.namaOrang = value,
                         initialValue: s.user?["namaKaryawan"] ?? "",
                         keyboardType: TextInputType.text,

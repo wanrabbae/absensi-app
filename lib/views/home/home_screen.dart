@@ -245,9 +245,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: FloatingActionButton.extended(
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
-                    onPressed: () => s.absensi(context),
+                    onPressed: () {
+                      if (s.isPresentHadir!) {
+                        customSnackbar1("Anda sudah absen hari ini.");
+                      } else {
+                        s.absensi(context);
+                      }
+                    },
                     label: timerCount(context, s),
-                    backgroundColor: colorBluePrimary2,
+                    backgroundColor: s.isPresentHadir!
+                        ? Colors.grey.shade400
+                        : colorBluePrimary2,
                   ),
                 )
               : Container(
@@ -259,13 +267,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(50))),
-                        backgroundColor: Colors.white,
+                        backgroundColor: s.isPresentHadir!
+                            ? Colors.grey.shade400
+                            : Colors.white,
                         child: Icon(
                           FeatherIcons.paperclip,
                           color: colorBluePrimary,
                         ),
                         onPressed: () {
-                          if (izinAbs()) {
+                          if (s.isPresentIzin!) {
                             customSnackbar1("Izin hari ini telah terisi");
                           } else {
                             Get.toNamed(RouteName.absenIzin);
@@ -276,13 +286,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 20,
                       ),
                       FloatingActionButton(
-                        backgroundColor: colorBlueOpacity2,
+                        backgroundColor: s.isPresentHadir!
+                            ? Colors.grey.shade400
+                            : colorBlueOpacity2,
                         child: Icon(
                           FeatherIcons.camera,
                           color: Colors.black,
                         ),
                         onPressed: () {
-                          if (izinAbs()) {
+                          if (s.isPresentIzin!) {
                             customSnackbar1("Izin hari ini telah terisi");
                           } else {
                             ImagePicker()

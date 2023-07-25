@@ -340,34 +340,40 @@ AlertDialog dialogGoogleMap(BuildContext context,
         child: ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           child: GoogleMap(
-            initialCameraPosition: (updateLocation)
-                ? const CameraPosition(target: currentLatLng)
-                : CameraPosition(target: latLng),
-            mapType: MapType.normal,
-            myLocationEnabled: true,
-            myLocationButtonEnabled: false,
-            mapToolbarEnabled: false,
-            zoomControlsEnabled: false,
-            zoomGesturesEnabled: false,
-            onMapCreated: (mapController) async {
-              googleMapController.complete(mapController);
-              if (updateLocation) {
-                // location.onLocationChanged.listen((event) async {
-                //   await googleMapController.future.then((controller) {
-                //     controller.animateCamera(CameraUpdate.newCameraPosition(
-                //         CameraPosition(
-                //             target: LatLng(event.latitude!, event.longitude!),
-                //             zoom: 15)));
-                //   });
-                // });
-              } else {
-                await googleMapController.future.then((controller) {
-                  controller.animateCamera(CameraUpdate.newCameraPosition(
-                      CameraPosition(target: latLng, zoom: 15)));
-                });
-              }
-            },
-          ),
+              initialCameraPosition: (updateLocation)
+                  ? const CameraPosition(target: currentLatLng)
+                  : CameraPosition(target: latLng),
+              mapType: MapType.normal,
+              myLocationEnabled: true,
+              myLocationButtonEnabled: false,
+              mapToolbarEnabled: false,
+              zoomControlsEnabled: false,
+              zoomGesturesEnabled: false,
+              onMapCreated: (mapController) async {
+                googleMapController.complete(mapController);
+                if (updateLocation) {
+                  // location.onLocationChanged.listen((event) async {
+                  //   await googleMapController.future.then((controller) {
+                  //     controller.animateCamera(CameraUpdate.newCameraPosition(
+                  //         CameraPosition(
+                  //             target: LatLng(event.latitude!, event.longitude!),
+                  //             zoom: 15)));
+                  //   });
+                  // });
+                } else {
+                  await googleMapController.future.then((controller) {
+                    controller.animateCamera(CameraUpdate.newCameraPosition(
+                        CameraPosition(target: latLng, zoom: 15)));
+                  });
+                }
+              },
+              markers: {
+                Marker(
+                  markerId: const MarkerId("value1"),
+                  position: latLng,
+                  icon: BitmapDescriptor.defaultMarker,
+                )
+              }),
         ),
       ),
     ),

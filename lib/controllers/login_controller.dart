@@ -19,6 +19,13 @@ class LoginController extends GetxController {
 
   emailKirim(mail, status) async {
     emailForm = emailForm;
+
+    var isValidEmail = isEmailValid(emailForm.toString());
+    if (!isValidEmail) {
+      customSnackbar1("Format email tidak valid");
+      return;
+    }
+
     try {
       customSnackbarLoading("Sedang mengirimkan kode OTP...");
       var response = await AuthServices().sendLinkPost(mail ?? emailForm);

@@ -199,9 +199,9 @@ class ProfileController extends GetxController {
 
   editData() async {
     try {
-      // SplashController().loading("Menyimpan Data..");
+      customSnackbarLoading("Menyimpan data...");
       final FormData forms = FormData({
-        'AlamatEmail': user?['alamatEmail'],
+        'AlamatEmail': emailBaru ?? user?['alamatEmail'],
         'Idperusahaan': perusahaan?['idperusahaan'],
         'NamaPerusahaan': perusahaan?['namaPerusahaan'],
         'NamaKaryawan': profileNama ?? user?['namaKaryawan'],
@@ -222,8 +222,7 @@ class ProfileController extends GetxController {
       if (response.statusCode == 200) {
         customSnackbar1("Profil baru telah tersimpan");
         await dataProfile(user?['alamatEmail']);
-        Get.back();
-        Get.back();
+        Get.offAllNamed(RouteName.profile);
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
@@ -287,12 +286,12 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        Get.snackbar('Gagal Menjalankan Fitur Ini !!',
-            'Ada kesalahan dalam penginputan');
+        customSnackbar1("Gagal Menjalankan Fitur Ini !!");
       }
     } catch (e) {
+      print(e);
       Get.back();
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      customSnackbar1("Fitur Tidak Bisa Dijalankan !!");
     }
   }
 
