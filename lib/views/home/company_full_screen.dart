@@ -18,19 +18,12 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
       builder: (s) {
         print(s.perusahaan);
         return Scaffold(
-          body: Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(changeUrlImage(
-                      s.perusahaan?['logoPerusahaan'] ??
-                          'wwwroot/Images/CompanyLogo/logo_hora.png')),
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(top: 80, left: 20, right: 20),
+          extendBody: true,
+          extendBodyBehindAppBar: true,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            automaticallyImplyLeading: false,
+            title: Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,8 +43,8 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      SplashController().showOkDialog(
-                          "Tangkapan Layar", "Gambar Telah Tersimpan");
+                      SplashController().showOkDialog2(
+                          "Tangkapan Layar", "Gambar Telah Tersimpan", () {});
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -67,7 +60,19 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
                   ),
                 ],
               ),
-            ) /* add child content here */,
+            ),
+          ),
+          body: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(changeUrlImage(
+                      s.perusahaan?['logoPerusahaan'] ??
+                          'wwwroot/Images/CompanyLogo/logo_hora.png')),
+                  fit: BoxFit.cover,
+                  alignment: Alignment.center),
+            ), /* add child content here */
           ),
         );
       },

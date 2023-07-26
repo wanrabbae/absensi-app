@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (s) => Scaffold(
           backgroundColor: Colors.white,
           resizeToAvoidBottomInset: false,
-          bottomNavigationBar: customNavbar(0),
+          // bottomNavigationBar: customNavbar(0),
           body: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -246,17 +246,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     onPressed: () {
-                      if (s.isPresentHadir! && s.timer?.isActive == false) {
-                        customSnackbar1("Anda sudah absen hari ini.");
+                      if (s.isPresentHadir!) {
+                        customSnackbar1("Kehadiran hari ini telah terisi.");
                       } else {
                         s.absensi(context);
                       }
                     },
                     label: timerCount(context, s),
-                    backgroundColor:
-                        s.isPresentHadir! && s.timer?.isActive == false
-                            ? Colors.grey.shade400
-                            : colorBluePrimary2,
+                    backgroundColor: s.isPresentHadir!
+                        ? Colors.grey.shade400
+                        : colorBluePrimary2,
                   ),
                 )
               : Container(
@@ -268,16 +267,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(50))),
-                        backgroundColor:
-                            s.isPresentIzin! && s.timer?.isActive == false
-                                ? Colors.grey.shade400
-                                : Colors.white,
+                        backgroundColor: s.isPresentIzin!
+                            ? Colors.grey.shade400
+                            : Colors.white,
                         child: Icon(
                           FeatherIcons.paperclip,
                           color: colorBluePrimary,
                         ),
                         onPressed: () {
-                          if (s.isPresentIzin! && !s.timer?.isActive) {
+                          if (s.isPresentIzin!) {
                             customSnackbar1("Izin hari ini telah terisi");
                           } else {
                             Get.toNamed(RouteName.absenIzin);
@@ -288,16 +286,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 20,
                       ),
                       FloatingActionButton(
-                        backgroundColor:
-                            s.isPresentIzin! && s.timer?.isActive == false
-                                ? Colors.grey.shade400
-                                : colorBlueOpacity2,
+                        backgroundColor: s.isPresentIzin!
+                            ? Colors.grey.shade400
+                            : colorBlueOpacity2,
                         child: Icon(
                           FeatherIcons.camera,
                           color: Colors.black,
                         ),
                         onPressed: () {
-                          if (s.isPresentIzin! && s.timer?.isActive == false) {
+                          if (s.isPresentIzin!) {
                             customSnackbar1("Izin hari ini telah terisi");
                           } else {
                             ImagePicker()
@@ -322,49 +319,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
-// FloatingActionButton fabStar(BuildContext context, s) {
-//   return ;
-// }
-
-// FloatingActionButton fabReset(BuildContext context, s) {
-//   return FloatingActionButton.extended(
-//       shape: const RoundedRectangleBorder(
-//           borderRadius: BorderRadius.all(Radius.circular(20))),
-//       onPressed: () async {
-//         // if (canClicked) {
-//         //   showDialog(
-//         //       context: context,
-//         //       builder: (ctx) => customDialog(
-//         //           context,
-//         //           "Kehadiran hari ini telah diisi. Apakah anda ingin pulang ?",
-//         //           "Ok",
-//         //           onTap: () => Get.back())).then((value) {
-//         //     if (value) {
-//         //       // ref.read(timerProvider.notifier).reset();
-//         //       Get.toNamed(RouteName.absen);
-//         //     }
-//         //   });
-//         // } else {
-//         // if (await Permission.camera.isGranted &&
-//         //     await Permission.location.isGranted) {
-//         //   Get.toNamed(RouteName.absen);
-//         // } else {
-//         // showModalBottomSheet(
-//         //     shape: const RoundedRectangleBorder(
-//         //         borderRadius: BorderRadius.only(
-//         //             topLeft: Radius.circular(20),
-//         //             topRight: Radius.circular(20))),
-//         //     context: context,
-//         //     builder: (ctx) => const DialogPermission()).then((value) {
-//         //   if (value != null) {
-//         //     Get.toNamed(RouteName.absen);
-//         //   }
-//         // });
-//         // }
-//         // }
-//       },
-//       label: timerCount(context, s),
-//       backgroundColor: colorGrayPrimary);
-// }
-// }

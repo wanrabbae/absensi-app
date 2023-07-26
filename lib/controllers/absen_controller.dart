@@ -59,6 +59,7 @@ class AbsenController extends GetxController {
   cancelTimer() {
     print("CANCEL TIMER ABSEN");
     timer?.cancel();
+    timer = null;
   }
 
   dataPerusahaan() {
@@ -79,22 +80,35 @@ class AbsenController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      Get.snackbar('Lokasi Tidak Aktif !!',
-          'Lokasi Dinonaktifkan, Harap Aktifkan Lokasi');
+      customSnackbar1("Lokasi Tidak Aktif");
+      // Get.snackbar('Lokasi Tidak Aktif !!',
+      //     'Lokasi Dinonaktifkan, Harap Aktifkan Lokasi');
       return false;
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        Get.snackbar(
-            'Izin perangkat ditolak!', 'Aplikasi Tidak Mendapatkan izin ');
+        SplashController().showConfirmationDialog2(
+            "Izin Lokasi", "Aktifkan lokasi untuk melanjutkan", () {
+          // Redirect to allow location setting on phone
+          openAppSettings();
+        });
+        // customSnackbar1("Harap aktifkan lokasi anda");
+        // Get.snackbar(
+        //     'Harap aktifkan lokasi anda', 'Aplikasi Tidak Mendapatkan izin ');
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      Get.snackbar('Izin perangkat ditolak!',
-          'Lokasi tidak mendapatkan izin secara permanen');
+      SplashController().showConfirmationDialog2(
+          "Izin Lokasi", "Aktifkan lokasi untuk melanjutkan", () {
+        // Redirect to allow location setting on phone
+        openAppSettings();
+      });
+      // customSnackbar1("Harap aktifkan lokasi anda");
+      // Get.snackbar('Izin perangkat ditolak!',
+      //     'Lokasi tidak mendapatkan izin secara permanen');
       return false;
     }
     lokasiDetect();
@@ -284,7 +298,7 @@ class AbsenController extends GetxController {
         customSnackbarLoading("Sedang Pulang...");
       }
       var response = await AbsensiServices()
-          .pulangPut({'id': idAbsen.toString(), 'tanggal': newDate}, {});
+          .pulangPut({'id': idAbsen, 'tanggal': newDate}, {});
       if (response.statusCode == 200) {
         Get.back();
         box.write(Base.klikAbsen, false);
@@ -292,6 +306,7 @@ class AbsenController extends GetxController {
         await cancelTimer();
         if (status) {
           // Get.snackbar("Anda Sudah Pulang", "waktu telah dihentikan");
+          customSnackbar1("Kehadiran hari ini telah terisi.");
           Get.offAllNamed(RouteName.home);
           await HomeController().dataHome();
         } else {
@@ -337,14 +352,13 @@ class AbsenController extends GetxController {
           Get.offAllNamed(RouteName.home);
           await HomeController().dataHome();
         } else {
+          print(HomeController().absen);
           DateTime dateCurrent = DateTime.now();
           String formattedCurrentDate =
               DateFormat("yyyy-MM-dd").format(dateCurrent);
-          var findData = await HomeController().absen?.firstWhere((element) =>
-              element?["idkaryawan"] == user?["idkaryawan"] &&
-              element['waktuCheckIn']
-                  .toString()
-                  .startsWith(formattedCurrentDate));
+          var findData = await HomeController().absen?.firstWhere(
+              (element) => element?["idkaryawan"] == user?["idkaryawan"],
+              orElse: () => null);
 
           absenPulang(false, findData?["id"]);
         }
@@ -361,6 +375,7 @@ class AbsenController extends GetxController {
       // print(e);
       // customSnackbar1("Terjadi kesalahan");
       box.write(Base.izinAbsen, DateTime.now().toString());
+      print(HomeController().absen);
       if (!klikAbsen) {
         Get.back();
         Get.offAllNamed(RouteName.home);
@@ -369,11 +384,9 @@ class AbsenController extends GetxController {
         DateTime dateCurrent = DateTime.now();
         String formattedCurrentDate =
             DateFormat("yyyy-MM-dd").format(dateCurrent);
-        var findData = await HomeController().absen?.firstWhere((element) =>
-            element?["idkaryawan"] == user?["idkaryawan"] &&
-            element['waktuCheckIn']
-                .toString()
-                .startsWith(formattedCurrentDate));
+        var findData = await HomeController().absen?.firstWhere(
+            (element) => element?["idkaryawan"] == user?["idkaryawan"],
+            orElse: () => null);
 
         absenPulang(false, findData?["id"]);
       }

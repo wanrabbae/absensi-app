@@ -10,7 +10,7 @@ Widget formUndangan(s, context) {
           children: [
             Container(
               child: Text(
-                "Undangan Melalui Email",
+                "Undang melalui email",
                 style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,

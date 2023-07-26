@@ -35,6 +35,7 @@ class HomeController extends GetxController {
     await startTimer();
     await dataPerusahaan();
     await dataHome();
+    print(klikAbsen);
   }
 
   startTimer() {
@@ -53,6 +54,7 @@ class HomeController extends GetxController {
   cancelTimer() {
     print("CANCEL TIMER HOME");
     timer?.cancel();
+    timer = null;
   }
 
   absensi(context) async {
@@ -86,8 +88,11 @@ class HomeController extends GetxController {
           });
         }
       } else {
+        print(absen);
         var currentAbsen = absen?.firstWhere(
-            (element) => element['idkaryawan'] == user?['idkaryawan']);
+          (element) => element['idkaryawan'] == user?['idkaryawan'],
+          orElse: () => null,
+        );
         Get.back();
         Get.toNamed(RouteName.absen, arguments: {"dataAbsen": currentAbsen});
       }
@@ -267,47 +272,87 @@ class HomeController extends GetxController {
     }
   }
 
+  doneAbsensi() {
+    isPresentHadir = true;
+    isPresentIzin = true;
+    update();
+  }
+
   checkIsAbsen() {
+    print("CHECK ABS");
     DateTime dateCurrent = DateTime.now();
     String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
     var idKaryawan = user?["idkaryawan"];
 
-    var findData = absen?.where((element) =>
-        element?["idkaryawan"] == idKaryawan &&
-        element['waktuCheckIn'].toString().startsWith(formattedCurrentDate));
+    var findDataIzin = izin?.firstWhere(
+      (element) => element?["idkaryawan"] == idKaryawan,
+      orElse: () => null,
+    );
 
-    var checkDate = absen?.where((element) {
-      DateTime waktuCheckIn = DateTime.parse(element['waktuCheckIn']);
-      DateTime currentDate = DateTime.parse(formattedCurrentDate);
-      return waktuCheckIn.isBefore(currentDate);
-    });
+    var findData = absen?.firstWhere(
+      (element) =>
+          element?["idkaryawan"] == idKaryawan &&
+          element?["waktuCheckOut"] == null,
+      orElse: () => null,
+    );
 
-    if (checkDate!.isNotEmpty) {
-      isPresentHadir = checkDate.isNotEmpty;
+    var findDataPulang = absen?.firstWhere(
+      (element) =>
+          element?["idkaryawan"] == idKaryawan &&
+          element?["waktuCheckOut"] != null,
+      orElse: () => null,
+    );
+
+    if (findDataIzin != null) {
+      isPresentHadir = true;
+      update();
+    } else if (findData != null) {
+      isPresentHadir = false;
+      update();
+    } else if (findDataPulang != null) {
+      isPresentHadir = true;
+      update();
+    } else if (findData != null && findDataPulang != null) {
+      print("KESINI");
+      isPresentHadir = true;
+      update();
     } else {
-      isPresentHadir = findData?.isNotEmpty ?? findData?.isNotEmpty;
+      print("KESINI");
+      isPresentHadir = false;
+      update();
     }
   }
 
   checkIsIzin() {
+    print("CHECK izn");
     DateTime dateCurrent = DateTime.now();
     String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
     var idKaryawan = user?["idkaryawan"];
 
-    var findData = izin?.where((element) =>
-        element?["idkaryawan"] == idKaryawan &&
-        element['tanggalStart'].toString().startsWith(formattedCurrentDate));
+    var findData = izin?.firstWhere(
+      (element) => element?["idkaryawan"] == idKaryawan,
+      orElse: () => null,
+    );
 
-    var checkDate = izin?.where((element) {
-      DateTime tglStart = DateTime.parse(element['tanggalStart']);
-      DateTime currentDate = DateTime.parse(formattedCurrentDate);
-      return tglStart.isBefore(currentDate);
-    });
+    var findDataAbs = absen?.firstWhere(
+      (element) =>
+          element?["idkaryawan"] == idKaryawan &&
+          element?["waktuCheckOut"] != null,
+      orElse: () => null,
+    );
 
-    if (checkDate!.isNotEmpty) {
-      isPresentIzin = checkDate.isNotEmpty;
+    if (findData != null) {
+      isPresentIzin = true;
+      update();
+    } else if (findDataAbs != null) {
+      isPresentIzin = true;
+      update();
+    } else if (findData != null && findDataAbs != null) {
+      isPresentIzin = true;
+      update();
     } else {
-      isPresentIzin = findData?.isNotEmpty ?? findData?.isNotEmpty;
+      isPresentIzin = false;
+      update();
     }
   }
 }

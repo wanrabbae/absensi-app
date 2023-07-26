@@ -29,16 +29,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
                 GestureDetector(
                   onTap: () {
                     isHadir
-                        ? showDialog(
-                            context: context,
-                            builder: (ctx) => dialogViewImage(
-                                ctx,
-                                s.gambarAbsen(
-                                    isHadir ? s.absen[index] : s.izin[index],
-                                    1),
-                                s.gambarAbsen(
-                                    isHadir ? s.absen[index] : s.izin[index],
-                                    2)))
+                        ? Get.toNamed(RouteName.hasilHadirFullScreen,
+                            arguments: s.absen[index]?["fotoKaryawan"])
                         : Get.toNamed(RouteName.absenIzinDownloaded,
                             arguments: s.izin[index]);
                   },
@@ -166,6 +158,13 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                                 51, 51, 51, 0.5))),
                                   ),
                                 ),
+                                isHadir
+                                    ? Icon(
+                                        Icons.circle,
+                                        color: colorGreenPrimary2,
+                                        size: 10,
+                                      )
+                                    : Container()
                               ],
                             ),
                           ),

@@ -12,7 +12,7 @@ class ProfileScreen extends StatelessWidget {
       builder: (s) => Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
-        bottomNavigationBar: customNavbar(1),
+        // bottomNavigationBar: customNavbar(1),
         extendBodyBehindAppBar: false,
         body: CustomScrollView(
           slivers: [

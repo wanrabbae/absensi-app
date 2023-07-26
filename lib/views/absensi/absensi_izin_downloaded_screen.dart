@@ -1,20 +1,42 @@
+import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
+import 'dart:math' as math;
 
 class AbsensiIzinDownloadedScreen extends StatelessWidget {
   const AbsensiIzinDownloadedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AbsenController>(
-      init: AbsenController(),
+    return GetBuilder<IzinController>(
+      init: IzinController(),
       builder: (s) => Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Text(
-            'Surat Izin',
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          title: Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Surat Izin',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                Container(
+                  // padding: EdgeInsets.only(top: 5),
+                  child: IconButton(
+                    icon: Icon(
+                      FeatherIcons.download,
+                      color: colorBluePrimary,
+                    ),
+                    onPressed: () {
+                      customSnackbar1("Lampiran telah disimpan.");
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
           centerTitle: false,
           automaticallyImplyLeading: false,
@@ -24,19 +46,6 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
               Get.back();
             },
           ),
-          actions: [
-            Align(
-                alignment: Alignment.topRight,
-                child: IconButton(
-                  icon: Icon(
-                    FeatherIcons.download,
-                    color: colorBluePrimary,
-                  ),
-                  onPressed: () {
-                    customSnackbar1("Lampiran telah disimpan.");
-                  },
-                )),
-          ],
         ),
         body: Container(
           padding: const EdgeInsets.only(top: 10, left: 20, right: 20),

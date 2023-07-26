@@ -1,3 +1,4 @@
+import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
 import 'dart:math' as math;
 
@@ -6,8 +7,8 @@ class AbsensiIzinScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<AbsenController>(
-      init: AbsenController(),
+    return GetBuilder<IzinController>(
+      init: IzinController(),
       builder: (s) => Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,

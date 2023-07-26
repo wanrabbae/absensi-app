@@ -7,6 +7,7 @@ const colorBlueOpacity2 = Color(0xffE8F0FC);
 const colorBlueOpacity3 = Color(0xffAEC9F5);
 const colorGrayPrimary = Color.fromRGBO(238, 240, 244, 1);
 const colorGreenPrimary = Color.fromRGBO(0, 234, 37, 1);
+const colorGreenPrimary2 = Color(0xff18E22C);
 const LatLng currentLatLng = LatLng(-6.175221730228861, 106.827163526188);
 
 Widget modalSelectCompany(BuildContext context, s) {

@@ -28,7 +28,7 @@ Widget customNavbar(s) {
             FeatherIcons.user,
             size: 30,
           ),
-          label: "Profile",
+          label: "Profil",
         ),
       ],
       unselectedLabelStyle: const TextStyle(

@@ -1,6 +1,8 @@
 import 'package:app/global_resource.dart';
 import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
 import 'package:app/views/home/company_full_screen.dart';
+import 'package:app/views/home/hadir_result_selfie_screen.dart';
+import 'package:app/views/home/main_screen.dart';
 
 class Routes {
   static final pages = [
@@ -25,7 +27,7 @@ class Routes {
 
 //Start Home
     //Home
-    GetPage(name: RouteName.home, page: () => const HomeScreen()),
+    GetPage(name: RouteName.home, page: () => const MainScreen()),
     //Home
     GetPage(name: RouteName.homeSearch, page: () => const HomeSearchScreen()),
     //Home Undangan
@@ -34,6 +36,9 @@ class Routes {
     GetPage(
         name: RouteName.companyFullScreen,
         page: () => const CompanyFullScreen()),
+    GetPage(
+        name: RouteName.hasilHadirFullScreen,
+        page: () => const HasilHadirScreen()),
 //End Home
 
 //Start Profile
