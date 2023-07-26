@@ -44,7 +44,7 @@ Widget gantiEmail(context, s) {
                   padding: const EdgeInsets.only(right: 10),
                   child: GestureDetector(
                     onTap: () {
-                      s.ubahEmail("Mengirim Otp", 1);
+                      s.ubahEmail("Mengirim Otp...", 1);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

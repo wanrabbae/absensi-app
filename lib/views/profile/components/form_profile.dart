@@ -168,7 +168,23 @@ Widget formProfile(context, s) {
                                     initialValue: s.user?['alamatEmail'],
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
-                                    onChanged: (value) => s.emailBaru = value,
+                                    readOnly: true,
+                                    onTap: () {
+                                      SplashController()
+                                          .showConfirmationDialog2('Email',
+                                              "Anda ingin mengubah email?", () {
+                                        Get.toNamed(
+                                            RouteName.profileGantiemail);
+                                      });
+                                      // showModalBottomSheet(
+                                      //     shape: const RoundedRectangleBorder(
+                                      //         borderRadius: BorderRadius.only(
+                                      //             topLeft: Radius.circular(20),
+                                      //             topRight: Radius.circular(20))),
+                                      //     context: context,
+                                      //     builder: (ctx) =>
+                                      //         changeEmailLayout(context));
+                                    },
                                     decoration: const InputDecoration(
                                       border: UnderlineInputBorder(),
                                       enabledBorder: UnderlineInputBorder(),
@@ -183,35 +199,107 @@ Widget formProfile(context, s) {
                                 ],
                               ),
                             ),
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.only(top: 20, bottom: 2),
+                            //   child: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Text("Alamat e-mail"),
+                            //       TextFormField(
+                            //         initialValue: s.user?['alamatEmail'],
+                            //         style:
+                            //             TextStyle(fontWeight: FontWeight.bold),
+                            //         onChanged: (value) => s.emailBaru = value,
+                            //         decoration: const InputDecoration(
+                            //           border: UnderlineInputBorder(),
+                            //           enabledBorder: UnderlineInputBorder(),
+                            //           focusedBorder: UnderlineInputBorder(
+                            //               borderSide: BorderSide(
+                            //                   color: colorBluePrimary)),
+                            //           errorBorder: UnderlineInputBorder(
+                            //               borderSide: BorderSide(
+                            //                   color: Colors.redAccent)),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 20, bottom: 2),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Alamat tempat tinggal"),
-                                  TextFormField(
-                                    key: Key(s.profileAlamat.toString()),
-                                    initialValue: s.profileAlamat,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                    keyboardType: TextInputType.multiline,
-                                    maxLines: 10,
-                                    minLines: 3,
-                                    decoration: const InputDecoration(
-                                      border: UnderlineInputBorder(),
-                                      enabledBorder: UnderlineInputBorder(),
-                                      focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: colorBluePrimary)),
-                                      errorBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.redAccent)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                padding:
+                                    const EdgeInsets.only(top: 20, bottom: 2),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text("Alamat tempat tinggal"),
+                                      TextFormField(
+                                        key: Key(s.profileAlamat.toString()),
+                                        initialValue: s.profileAlamat,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                              shape:
+                                                  const RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              topLeft: Radius
+                                                                  .circular(20),
+                                                              topRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          20))),
+                                              context: context,
+                                              builder: (ctx) =>
+                                                  const DialogDetectLocation());
+                                        },
+                                        readOnly: true,
+                                        keyboardType: TextInputType.multiline,
+                                        maxLines: 10,
+                                        minLines: 3,
+                                        decoration: const InputDecoration(
+                                          border: UnderlineInputBorder(),
+                                          enabledBorder: UnderlineInputBorder(),
+                                          focusedBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: colorBluePrimary)),
+                                          errorBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Colors.redAccent)),
+                                        ),
+                                      ),
+                                    ])),
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.only(top: 20, bottom: 2),
+                            //   child: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Text("Alamat tempat tinggal"),
+                            //       TextFormField(
+                            //         key: Key(s.profileAlamat.toString()),
+                            //         initialValue: s.profileAlamat,
+                            //         style:
+                            //             TextStyle(fontWeight: FontWeight.bold),
+                            //         keyboardType: TextInputType.multiline,
+                            //         maxLines: 10,
+                            //         minLines: 3,
+                            //         decoration: const InputDecoration(
+                            //           border: UnderlineInputBorder(),
+                            //           enabledBorder: UnderlineInputBorder(),
+                            //           focusedBorder: UnderlineInputBorder(
+                            //               borderSide: BorderSide(
+                            //                   color: colorBluePrimary)),
+                            //           errorBorder: UnderlineInputBorder(
+                            //               borderSide: BorderSide(
+                            //                   color: Colors.redAccent)),
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),

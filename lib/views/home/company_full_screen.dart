@@ -63,8 +63,8 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
             ),
           ),
           body: Container(
-            width: double.infinity,
-            height: double.infinity,
+            // width: double.infinity,
+            // height: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(changeUrlImage(

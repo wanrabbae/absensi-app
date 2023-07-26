@@ -15,6 +15,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: Container(
+            // decoration: BoxDecoration(color: Colors.black),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -23,18 +24,18 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                   'Surat Izin',
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
-                Container(
-                  // padding: EdgeInsets.only(top: 5),
-                  child: IconButton(
-                    icon: Icon(
-                      FeatherIcons.download,
-                      color: colorBluePrimary,
-                    ),
-                    onPressed: () {
-                      customSnackbar1("Lampiran telah disimpan.");
-                    },
-                  ),
-                ),
+                // Container(
+                //   padding: EdgeInsets.all(0),
+                //   child: IconButton(
+                //     icon: Icon(
+                //       FeatherIcons.download,
+                //       color: colorBluePrimary,
+                //     ),
+                //     onPressed: () {
+                //       customSnackbar1("Lampiran telah disimpan.");
+                //     },
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -46,6 +47,20 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
               Get.back();
             },
           ),
+          actions: [
+            Container(
+              padding: EdgeInsets.all(0),
+              child: IconButton(
+                icon: Icon(
+                  FeatherIcons.download,
+                  color: colorBluePrimary,
+                ),
+                onPressed: () {
+                  customSnackbar1("Lampiran telah disimpan.");
+                },
+              ),
+            )
+          ],
         ),
         body: Container(
           padding: const EdgeInsets.only(top: 10, left: 20, right: 20),

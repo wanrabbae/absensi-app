@@ -4,7 +4,6 @@ export 'dart:convert';
 export 'package:get/get.dart';
 export 'dart:io' hide HeaderValue;
 // import 'package:location/location.dart';
-import 'package:app_settings/app_settings.dart';
 import 'package:open_settings/open_settings.dart';
 export 'package:flutter/gestures.dart';
 export 'package:flutter/material.dart';

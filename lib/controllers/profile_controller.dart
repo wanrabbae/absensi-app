@@ -228,12 +228,11 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        Get.snackbar(
-            'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        customSnackbar1("Gagal Menjalankan Fitur Ini !!");
       }
     } catch (e) {
       Get.back();
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      customSnackbar1("Gagal Menjalankan Fitur Ini !!");
     }
   }
 
@@ -253,18 +252,22 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        Get.snackbar(
-            'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        customSnackbar1("Gagal Menjalankan Fitur Ini !!");
       }
     } catch (e) {
       Get.back();
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      customSnackbar1("Gagal Menjalankan Fitur Ini !!");
     }
   }
 
   ubahEmail(msg, status) async {
+    var isValidEmail = isEmailValid(emailBaru.toString());
+    if (!isValidEmail) {
+      customSnackbar1("Format email tidak valid");
+      return;
+    }
     try {
-      SplashController().loading(msg);
+      customSnackbarLoading(msg);
       var response = await ProfileServices().ubahEmailPost({
         'email': user?['alamatEmail'],
         'perusahaan': perusahaan?['idperusahaan']
@@ -274,10 +277,11 @@ class ProfileController extends GetxController {
         'Idperusahaan': perusahaan?['idperusahaan'],
         'NamaPerusahaan': perusahaan?['namaPerusahaan'],
       });
+      print(response);
       if (response.statusCode == 200) {
         Get.back();
-
-        Get.snackbar("Otp Berhasil Dikirim !!", response.body.toString());
+        customSnackbar1("Otp berhasil dikirim");
+        // Get.snackbar("Otp Berhasil Dikirim !!", response.body.toString());
         if (status == 1) {
           Get.toNamed(RouteName.profileGantiemailOtp);
         }
@@ -297,7 +301,7 @@ class ProfileController extends GetxController {
 
   verifyUbahEmail() async {
     try {
-      SplashController().loading("Mengubah Email");
+      customSnackbarLoading("Mengubah email...");
       var response = await ProfileServices().ubahEmailVerifyPost({
         'email': emailBaru,
         'otp': otp,
@@ -305,22 +309,24 @@ class ProfileController extends GetxController {
         'idperusahaan': perusahaan?['idperusahaan'],
       });
       if (response.statusCode == 200) {
-        dataProfile(emailBaru);
+        await dataProfile(emailBaru);
         Get.back();
         Get.offAllNamed(RouteName.profile);
-        Get.toNamed(RouteName.profileForm);
-        Get.snackbar("Berhasil !!", "email telah dirubah");
+        // Get.snackbar("Berhasil !!", "email telah dirubah");
+        customSnackbar1("Email berhasil diubah");
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        Get.snackbar(
-            'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        // Get.snackbar(
+        //     'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        customSnackbar1("Gagal Menjalankan Fitur Ini !!");
       }
     } catch (e) {
       Get.back();
-      Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      // Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      customSnackbar1("Gagal Menjalankan Fitur Ini !!");
     }
   }
 }

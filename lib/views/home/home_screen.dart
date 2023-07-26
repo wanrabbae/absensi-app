@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         state.controller!.cancelTimer();
       },
       builder: (s) => Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: false,
           // bottomNavigationBar: customNavbar(0),
           body: Column(
