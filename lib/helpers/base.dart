@@ -72,6 +72,7 @@ abstract class RouteName {
   static const home = "/home_screen";
   static const companyFullScreen = "/company_full_screen";
   static const hasilHadirFullScreen = "/hasil_hadir_full_screen";
+  static const hasilLocationFullScreen = "/hasil_location_full_screen";
 
   //Home Search Screen
   static const homeSearch = "/home_search_screen";

@@ -8,7 +8,7 @@ class HomeSearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: colorBlueOpacity3,
+      backgroundColor: Colors.white,
       body: GetBuilder<HomeController>(
           init: HomeController(),
           dispose: (state) {

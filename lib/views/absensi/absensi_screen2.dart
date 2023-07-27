@@ -36,6 +36,11 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
       ),
       // Second page: Map layout
       GoogleMap(
+          onTap: (argument) {
+            // print(argument);
+            Get.toNamed(RouteName.hasilLocationFullScreen,
+                arguments: currentAbsen);
+          },
           initialCameraPosition: CameraPosition(
               target: LatLng(double.parse(currentAbsen?["alamatLatitude"]),
                   double.parse(currentAbsen?["alamatLongtitude"])),
@@ -115,7 +120,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
               bottom: 0,
               right: 0,
               left: 0,
-              top: 450,
+              top: 600,
               child: Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

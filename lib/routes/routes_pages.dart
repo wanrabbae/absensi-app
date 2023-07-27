@@ -3,6 +3,7 @@ import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
 import 'package:app/views/absensi/absensi_pulang_screen.dart';
 import 'package:app/views/absensi/absensi_screen2.dart';
 import 'package:app/views/home/company_full_screen.dart';
+import 'package:app/views/home/hadir_result_location_screen.dart';
 import 'package:app/views/home/hadir_result_selfie_screen.dart';
 import 'package:app/views/home/main_screen.dart';
 
@@ -41,6 +42,9 @@ class Routes {
     GetPage(
         name: RouteName.hasilHadirFullScreen,
         page: () => const HasilHadirScreen()),
+    GetPage(
+        name: RouteName.hasilLocationFullScreen,
+        page: () => const HadirLocationResult()),
 //End Home
 
 //Start Profile
