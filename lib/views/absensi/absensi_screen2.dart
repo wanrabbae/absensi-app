@@ -120,7 +120,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
               bottom: 0,
               right: 0,
               left: 0,
-              top: 600,
+              top: 620,
               child: Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
