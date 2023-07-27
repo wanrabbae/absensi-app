@@ -49,7 +49,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
           ),
           actions: [
             Container(
-              padding: EdgeInsets.all(0),
+              padding: EdgeInsets.only(right: 6),
               child: IconButton(
                 icon: Icon(
                   FeatherIcons.download,

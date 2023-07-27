@@ -18,7 +18,7 @@ void main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   // FlutterNativeSplash.preserve(widgetsBinding: binding);
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // final GoogleMapsFlutterPlatform mapsImplementation =
@@ -45,6 +45,6 @@ class MyApp extends HookConsumerWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MainTheme.materialApp(context, child: const SplashScreen());
+    return MainTheme.materialApp(context, child: SplashScreen());
   }
 }

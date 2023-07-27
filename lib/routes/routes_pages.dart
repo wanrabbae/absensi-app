@@ -1,5 +1,7 @@
 import 'package:app/global_resource.dart';
 import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
+import 'package:app/views/absensi/absensi_pulang_screen.dart';
+import 'package:app/views/absensi/absensi_screen2.dart';
 import 'package:app/views/home/company_full_screen.dart';
 import 'package:app/views/home/hadir_result_selfie_screen.dart';
 import 'package:app/views/home/main_screen.dart';
@@ -61,6 +63,11 @@ class Routes {
 //Start Absensi
     //Absen
     GetPage(name: RouteName.absen, page: () => const AbsensiScreen()),
+    GetPage(
+        name: RouteName.absenPulangView,
+        page: () => const AbsensiPulangScreenView()),
+    GetPage(
+        name: RouteName.absenViewMode, page: () => const AbsensiScreenView()),
     //Izin
     GetPage(name: RouteName.absenIzin, page: () => const AbsensiIzinScreen()),
     GetPage(

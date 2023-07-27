@@ -31,15 +31,15 @@ class HomeController extends GetxController {
     print("TOKEN: " + GetStorage().read("tokens"));
     super.onInit();
     user = box.read(Base.dataUser);
+    klikAbsen = GetStorage().read(Base.klikAbsen) ?? false;
     currentDate = now.toString();
     await startTimer();
     await dataPerusahaan();
     await dataHome();
-    print(klikAbsen);
   }
 
   startTimer() {
-    klikAbsen = box.read(Base.klikAbsen) ?? false;
+    // klikAbsen = box.read(Base.klikAbsen) ?? false;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (klikAbsen) {
         timerRecor = timerAbsen();
@@ -52,7 +52,6 @@ class HomeController extends GetxController {
   }
 
   cancelTimer() {
-    print("CANCEL TIMER HOME");
     timer?.cancel();
     timer = null;
   }
@@ -160,7 +159,7 @@ class HomeController extends GetxController {
       var response =
           await HomeServices().perusahaanGet({'email': user?['alamatEmail']});
       if (response.statusCode == 200) {
-        box.write(Base.dataPerusahaan, jsonEncode(response.body));
+        box.write(Base.dataPerusahaan, jsonEncode(response.data));
         perusahaanTerpilih = box.read(Base.perusahaanTerpilih);
         var hasil = jsonDecode(box.read(Base.dataPerusahaan));
         perusahaanList = hasil;
@@ -180,6 +179,7 @@ class HomeController extends GetxController {
         customSnackbar1("Anda offline.!");
       }
     } catch (e) {
+      print("ERROR PERUSAHAAN: " + e.toString());
       // SplashController().sessionHabis(user?['alamatEmail']);
       // Get.snackbar('Sesi habis', '');
       customSnackbar1("Anda offline.!");
@@ -189,14 +189,15 @@ class HomeController extends GetxController {
   dataHome() async {
     try {
       var absens = await HomeServices().absenGet({
-        "idperusahaan": perusahaan?['idperusahaan'],
-        "tanggal": currentDate,
+        "idperusahaan": user?['idperusahaan'].toString(),
+        "tanggal": currentDate.toString(),
       });
 
       var izins = await HomeServices().izinGet({
-        "idperusahaan": perusahaan?['idperusahaan'],
-        "tanggal": currentDate,
+        "idperusahaan": user?['idperusahaan'].toString(),
+        "tanggal": currentDate.toString(),
       });
+
       if (absens.statusCode == 200 && izins.statusCode == 200) {
         absen = absens.data;
         izin = izins.data;
@@ -208,7 +209,7 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       print(e);
-      // Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      // customSnackbar1("")
     }
   }
 
@@ -305,16 +306,19 @@ class HomeController extends GetxController {
 
     if (findDataIzin != null) {
       isPresentHadir = true;
+      cancelTimer();
       update();
     } else if (findData != null) {
       isPresentHadir = false;
       update();
     } else if (findDataPulang != null) {
       isPresentHadir = true;
+      cancelTimer();
       update();
     } else if (findData != null && findDataPulang != null) {
       print("KESINI");
       isPresentHadir = true;
+      cancelTimer();
       update();
     } else {
       print("KESINI");
@@ -343,12 +347,15 @@ class HomeController extends GetxController {
 
     if (findData != null) {
       isPresentIzin = true;
+      cancelTimer();
       update();
     } else if (findDataAbs != null) {
       isPresentIzin = true;
+      cancelTimer();
       update();
     } else if (findData != null && findDataAbs != null) {
       isPresentIzin = true;
+      cancelTimer();
       update();
     } else {
       isPresentIzin = false;

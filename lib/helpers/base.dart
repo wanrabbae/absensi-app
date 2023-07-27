@@ -96,6 +96,8 @@ abstract class RouteName {
 
   //Absen
   static const absen = "/absen_screen";
+  static const absenPulangView = "/absen_pulang_screen";
+  static const absenViewMode = "/absen_screen_view";
 
   //Absen Izin
   static const absenIzin = "/absen_izin_screen";

@@ -15,7 +15,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
           radius: 5,
           onTap: () {
             isHadir
-                ? print("hadir")
+                ? Get.toNamed(RouteName.absenViewMode,
+                    arguments: {"dataAbsen": s.absen[index]})
                 : Get.toNamed(RouteName.absenIzinDownloaded,
                     arguments: s.izin[index]);
           },
@@ -29,8 +30,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
                 GestureDetector(
                   onTap: () {
                     isHadir
-                        ? Get.toNamed(RouteName.hasilHadirFullScreen,
-                            arguments: s.absen[index]?["fotoKaryawan"])
+                        ? Get.toNamed(RouteName.absenViewMode,
+                            arguments: {"dataAbsen": s.absen[index]})
                         : Get.toNamed(RouteName.absenIzinDownloaded,
                             arguments: s.izin[index]);
                   },
@@ -90,16 +91,20 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                 GestureDetector(
                                   onTap: () {
                                     isHadir
-                                        ? showDialog(
-                                            context: context,
-                                            builder: (ctx) => dialogGoogleMap(
-                                                ctx,
-                                                latLng: LatLng(
-                                                    double.parse(s?.absen[index]
-                                                        ?["alamatLatitude"]),
-                                                    double.parse(s?.absen[index]
-                                                        ?["alamatLongtitude"])),
-                                                updateLocation: false))
+                                        ? Get.toNamed(RouteName.absenViewMode,
+                                            arguments: {
+                                                "dataAbsen": s.absen[index]
+                                              })
+                                        // showDialog(
+                                        //     context: context,
+                                        //     builder: (ctx) => dialogGoogleMap(
+                                        //         ctx,
+                                        //         latLng: LatLng(
+                                        //             double.parse(s?.absen[index]
+                                        //                 ?["alamatLatitude"]),
+                                        //             double.parse(s?.absen[index]
+                                        //                 ?["alamatLongtitude"])),
+                                        //         updateLocation: false))
                                         : Get.toNamed(
                                             RouteName.absenIzinDownloaded,
                                             arguments: s.izin[index]);
@@ -128,18 +133,22 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                   child: GestureDetector(
                                     onTap: () {
                                       isHadir
-                                          ? showDialog(
-                                              context: context,
-                                              builder: (ctx) => dialogGoogleMap(
-                                                  ctx,
-                                                  latLng: LatLng(
-                                                      double.parse(s
-                                                              ?.absen[index]
-                                                          ?["alamatLatitude"]),
-                                                      double.parse(s
-                                                              ?.absen[index]?[
-                                                          "alamatLongtitude"])),
-                                                  updateLocation: false))
+                                          ? Get.toNamed(RouteName.absenViewMode,
+                                              arguments: {
+                                                  "dataAbsen": s.absen[index]
+                                                })
+                                          // showDialog(
+                                          //     context: context,
+                                          //     builder: (ctx) => dialogGoogleMap(
+                                          //         ctx,
+                                          //         latLng: LatLng(
+                                          //             double.parse(s
+                                          //                     ?.absen[index]
+                                          //                 ?["alamatLatitude"]),
+                                          //             double.parse(s
+                                          //                     ?.absen[index]?[
+                                          //                 "alamatLongtitude"])),
+                                          //         updateLocation: false))
                                           : Get.toNamed(
                                               RouteName.absenIzinDownloaded,
                                               arguments: s.izin[index]);

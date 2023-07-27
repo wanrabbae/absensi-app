@@ -1,5 +1,7 @@
+import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'components/card_home.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -23,6 +25,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     Get.put(HomeController());
     return GetBuilder<HomeController>(
       init: HomeController(),
@@ -30,9 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
         state.controller!.cancelTimer();
       },
       builder: (s) => Scaffold(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.white,
           resizeToAvoidBottomInset: false,
           // bottomNavigationBar: customNavbar(0),
+          extendBodyBehindAppBar: false,
           body: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -303,7 +308,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     preferredCameraDevice: CameraDevice.front)
                                 .then((value) {
                               if (value != null) {
-                                formFotoIzin = File(value.path);
+                                final izinCtrl = Get.put(IzinController());
+                                izinCtrl.updateFileFromFoto(PlatformFile(
+                                  name: value.name,
+                                  path: value.path,
+                                  size: 0,
+                                ));
                               } else {
                                 customSnackbar1(
                                     "Silahkan tangkap foto terlebih dahulu");

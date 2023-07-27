@@ -75,27 +75,6 @@ Widget dataSearch(BuildContext context, s) {
                               padding: const EdgeInsets.only(top: 5),
                               child: Row(
                                 children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (ctx) => dialogGoogleMap(ctx,
-                                              latLng: LatLng(
-                                                  DataHelper.absences()[0]
-                                                      .locationLat!,
-                                                  DataHelper.absences()[0]
-                                                      .locationLng!),
-                                              updateLocation: false));
-                                    },
-                                    child: const Icon(
-                                      FeatherIcons.mapPin,
-                                      color: Color.fromRGBO(51, 51, 51, 0.5),
-                                      size: 16,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
                                   Expanded(
                                     flex: 1,
                                     child: GestureDetector(

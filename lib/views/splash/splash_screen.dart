@@ -1,10 +1,13 @@
 import 'package:app/global_resource.dart';
+import 'package:flutter/services.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return GetBuilder<SplashController>(
       init: SplashController(),
       builder: (s) => Scaffold(
