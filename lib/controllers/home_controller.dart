@@ -284,6 +284,7 @@ class HomeController extends GetxController {
     DateTime dateCurrent = DateTime.now();
     String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
     var idKaryawan = user?["idkaryawan"];
+    bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
 
     var findDataIzin = izin?.firstWhere(
       (element) => element?["idkaryawan"] == idKaryawan,
@@ -304,7 +305,10 @@ class HomeController extends GetxController {
       orElse: () => null,
     );
 
-    if (findDataIzin != null) {
+    if (isDateGreaterThanToday) {
+      isPresentHadir = isDateGreaterThanToday;
+      update();
+    } else if (findDataIzin != null) {
       isPresentHadir = true;
       cancelTimer();
       update();
@@ -332,6 +336,7 @@ class HomeController extends GetxController {
     DateTime dateCurrent = DateTime.now();
     String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
     var idKaryawan = user?["idkaryawan"];
+    bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
 
     var findData = izin?.firstWhere(
       (element) => element?["idkaryawan"] == idKaryawan,
@@ -345,7 +350,10 @@ class HomeController extends GetxController {
       orElse: () => null,
     );
 
-    if (findData != null) {
+    if (isDateGreaterThanToday) {
+      isPresentIzin = isDateGreaterThanToday;
+      update();
+    } else if (findData != null) {
       isPresentIzin = true;
       cancelTimer();
       update();

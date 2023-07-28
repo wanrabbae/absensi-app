@@ -35,6 +35,17 @@ changeUrlImage(data) {
   return data.replaceAll("wwwroot/", Base.url).toLowerCase();
 }
 
+bool isGreaterThanToday(String dateString) {
+  // Parse the given date string
+  DateTime parsedDate = DateTime.parse(dateString);
+
+  // Get the current date today
+  DateTime currentDate = DateTime.now();
+
+  // Compare the dates
+  return parsedDate.isAfter(currentDate);
+}
+
 timerAbsen() {
   var waktuAbsen = box.read(Base.waktuAbsen);
   var time = DateTime.parse(waktuAbsen!).difference(DateTime.now());
