@@ -81,8 +81,6 @@ class AbsenController extends GetxController {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       customSnackbar1("Lokasi Tidak Aktif");
-      // Get.snackbar('Lokasi Tidak Aktif !!',
-      //     'Lokasi Dinonaktifkan, Harap Aktifkan Lokasi');
       return false;
     }
     permission = await Geolocator.checkPermission();
@@ -90,25 +88,19 @@ class AbsenController extends GetxController {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         SplashController().showConfirmationDialog2(
-            "Izin Lokasi", "Aktifkan lokasi untuk melanjutkan", () {
+            "Perizinan", "Buka pengaturan perizinan perangkat?", () {
           // Redirect to allow location setting on phone
           openAppSettings();
         });
-        // customSnackbar1("Harap aktifkan lokasi anda");
-        // Get.snackbar(
-        //     'Harap aktifkan lokasi anda', 'Aplikasi Tidak Mendapatkan izin ');
         return false;
       }
     }
     if (permission == LocationPermission.deniedForever) {
       SplashController().showConfirmationDialog2(
-          "Izin Lokasi", "Aktifkan lokasi untuk melanjutkan", () {
+          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
         // Redirect to allow location setting on phone
         openAppSettings();
       });
-      // customSnackbar1("Harap aktifkan lokasi anda");
-      // Get.snackbar('Izin perangkat ditolak!',
-      //     'Lokasi tidak mendapatkan izin secara permanen');
       return false;
     }
     lokasiDetect();

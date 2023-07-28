@@ -1,5 +1,6 @@
 import 'package:app/global_resource.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'components/card_home.dart';
 
 class MainScreen extends StatefulWidget {
@@ -15,6 +16,8 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     PageController _pageViewController =
         PageController(initialPage: Get.arguments ?? 0);
 

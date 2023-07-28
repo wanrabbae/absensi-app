@@ -14,8 +14,7 @@ export 'package:image_picker/image_picker.dart';
 export 'package:google_fonts/google_fonts.dart';
 export 'package:webview_flutter/webview_flutter.dart';
 export 'package:geocoding/geocoding.dart';
-export 'package:permission_handler/permission_handler.dart'
-    hide PermissionStatus, ServiceStatus;
+export 'package:permission_handler/permission_handler.dart' hide ServiceStatus;
 export 'package:google_maps_flutter/google_maps_flutter.dart';
 export 'package:flutter_form_builder/flutter_form_builder.dart';
 export 'package:flutter_feather_icons/flutter_feather_icons.dart';

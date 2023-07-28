@@ -248,6 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ? Container(
                   // padding: EdgeInsets.only(bottom: 20),
                   child: FloatingActionButton.extended(
+                    heroTag: "btn1",
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     onPressed: () {
@@ -269,6 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       FloatingActionButton(
+                        heroTag: "btn2",
                         shape: const RoundedRectangleBorder(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(50))),
@@ -291,6 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 20,
                       ),
                       FloatingActionButton(
+                        heroTag: "btn3",
                         backgroundColor: s.isPresentIzin!
                             ? Colors.grey.shade400
                             : colorBlueOpacity2,

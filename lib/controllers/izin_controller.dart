@@ -41,7 +41,7 @@ class IzinController extends GetxController {
     user = await ProfileController().dataProfile(user?['alamatEmail']);
     startTimer();
     await dataPerusahaan();
-    // getCurrentLocation();
+    getCurrentLocation();
   }
 
   startTimer() {
@@ -75,43 +75,22 @@ class IzinController extends GetxController {
   }
 
   getCurrentLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      customSnackbar1("Lokasi Tidak Aktif");
-      // Get.snackbar('Lokasi Tidak Aktif !!',
-      //     'Lokasi Dinonaktifkan, Harap Aktifkan Lokasi');
-      return false;
-    }
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
+    PermissionStatus status = await Permission.storage.status;
+    if (!status.isGranted) {
+      // If permission is not granted, request it
+      status = await Permission.storage.request();
+      if (!status.isGranted) {
+        // If the user denies the permission, open app settings
         SplashController().showConfirmationDialog2(
-            "Izin Lokasi", "Aktifkan lokasi untuk melanjutkan", () {
+            "Perizinan", "Buka pengaturan perizinan perangkat?", () {
           // Redirect to allow location setting on phone
           openAppSettings();
         });
-        // customSnackbar1("Harap aktifkan lokasi anda");
-        // Get.snackbar(
-        //     'Harap aktifkan lokasi anda', 'Aplikasi Tidak Mendapatkan izin ');
         return false;
       }
     }
-    if (permission == LocationPermission.deniedForever) {
-      SplashController().showConfirmationDialog2(
-          "Izin Lokasi", "Aktifkan lokasi untuk melanjutkan", () {
-        // Redirect to allow location setting on phone
-        openAppSettings();
-      });
-      // customSnackbar1("Harap aktifkan lokasi anda");
-      // Get.snackbar('Izin perangkat ditolak!',
-      //     'Lokasi tidak mendapatkan izin secara permanen');
-      return false;
-    }
-    lokasiDetect();
+
+    // lokasiDetect();
   }
 
   lokasiDetect() async {

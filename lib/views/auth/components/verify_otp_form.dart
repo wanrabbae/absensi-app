@@ -14,12 +14,13 @@ class OTPForm extends StatefulWidget {
 class _OTPFormState extends State<OTPForm> {
   Duration _timerDuration = Duration(minutes: 5); // 5 minutes
   bool _isTimerRunning = false;
+  Timer? _timer;
 
   void startTimer() {
     if (_isTimerRunning) return;
     _isTimerRunning = true;
 
-    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
       setState(() {
         if (_timerDuration.inSeconds > 0) {
           _timerDuration -= Duration(seconds: 1);
@@ -40,6 +41,13 @@ class _OTPFormState extends State<OTPForm> {
   void initState() {
     super.initState();
     startTimer();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
