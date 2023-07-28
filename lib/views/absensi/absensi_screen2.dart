@@ -120,7 +120,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
               bottom: 0,
               right: 0,
               left: 0,
-              top: 600,
+              top: 590,
               child: Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -167,6 +167,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                       child: ElevatedButton(
                           onPressed: () {
                             // s.mulaiSelesaiAbsen(context, idAbsen);
+                            customSnackbar1("Kehadiran hari ini telah terisi.");
                           },
                           style: ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll(

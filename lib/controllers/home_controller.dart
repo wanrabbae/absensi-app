@@ -176,13 +176,13 @@ class HomeController extends GetxController {
       } else {
         // SplashController().sessionHabis(user?['alamatEmail']);
         // Get.snackbar('Sesi habis', '');
-        customSnackbar1("Anda offline.!");
+        customSnackbar1("Menghubungkan kembali...");
       }
     } catch (e) {
       print("ERROR PERUSAHAAN: " + e.toString());
       // SplashController().sessionHabis(user?['alamatEmail']);
       // Get.snackbar('Sesi habis', '');
-      customSnackbar1("Anda offline.!");
+      customSnackbar1("Menghubungkan kembali...");
     }
   }
 
@@ -266,10 +266,10 @@ class HomeController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1('Gagal Menjalankan Fitur Ini !!');
+        customSnackbar1('Terjadi gangguan sistem.');
       }
     } catch (e) {
-      customSnackbar1("Anda offline.!");
+      customSnackbar1("Menghubungkan kembali...");
     }
   }
 

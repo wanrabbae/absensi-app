@@ -224,12 +224,12 @@ class AbsenController extends GetxController {
         // SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        // Get.snackbar('Gagal Menjalankan Fitur Ini !!', response.toString());
+        // Get.snackbar('Terjadi gangguan sistem.', response.toString());
         // print("INI HADIR: " + (response as Response<dynamic>).toString());
         // print("CODE: " + response.statusCode.toString());
       }
     } catch (e) {
-      customSnackbar1("Anda offline.");
+      customSnackbar1("Menghubungkan kembali...");
     }
   }
 
@@ -270,7 +270,7 @@ class AbsenController extends GetxController {
         customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
       } else {
         Get.back();
-        customSnackbar1("Gagal Menjalankan Fitur Ini !!");
+        customSnackbar1("Terjadi gangguan sistem.");
         print("INI PULANG: " + response.toString());
       }
     } catch (e) {
@@ -315,7 +315,7 @@ class AbsenController extends GetxController {
       } else {
         Get.back();
         // Get.snackbar(
-        //     'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        //     'Terjadi gangguan sistem.', response.body.toString());
       }
     } catch (e) {
       print("KE CATCH");

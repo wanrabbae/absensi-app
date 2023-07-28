@@ -281,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         onPressed: () {
                           if (s.isPresentIzin!) {
-                            customSnackbar1("Izin hari ini telah terisi");
+                            customSnackbar1("Izin hari ini telah terisi.");
                           } else {
                             Get.toNamed(RouteName.absenIzin);
                           }
@@ -300,7 +300,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         onPressed: () {
                           if (s.isPresentIzin!) {
-                            customSnackbar1("Izin hari ini telah terisi");
+                            customSnackbar1("Izin hari ini telah terisi.");
                           } else {
                             ImagePicker()
                                 .pickImage(

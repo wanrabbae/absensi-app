@@ -23,7 +23,7 @@ class IzinController extends GetxController {
   //izin
   Map? perusahaan;
   List? perusahaanList;
-  String formIzin = 'Izin';
+  String? formIzin;
   String? formDeskripsi;
   String? namaOrang;
   List? izinList = [
@@ -211,7 +211,7 @@ class IzinController extends GetxController {
         customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
       } else {
         Get.back();
-        customSnackbar1("Gagal Menjalankan Fitur Ini !!");
+        customSnackbar1("Terjadi gangguan sistem.");
         print("INI PULANG: " + response.toString());
       }
     } catch (e) {
@@ -263,7 +263,7 @@ class IzinController extends GetxController {
       } else {
         Get.back();
         // Get.snackbar(
-        //     'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        //     'Terjadi gangguan sistem.', response.body.toString());
       }
     } catch (e) {
       print("KE CATCH");

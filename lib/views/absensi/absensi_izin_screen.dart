@@ -2,9 +2,15 @@ import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
 import 'dart:math' as math;
 
-class AbsensiIzinScreen extends StatelessWidget {
+class AbsensiIzinScreen extends StatefulWidget {
   const AbsensiIzinScreen({super.key});
 
+  @override
+  State<AbsensiIzinScreen> createState() => _AbsensiIzinScreenState();
+}
+
+class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
+  bool _validateAlasan = false;
   @override
   Widget build(BuildContext context) {
     return GetBuilder<IzinController>(
@@ -38,11 +44,19 @@ class AbsensiIzinScreen extends StatelessWidget {
                             return s.absenIzin();
                           }
 
-                          SplashController().showConfirmationDialog2(
-                            "Izin",
-                            "Ajukan Izin Sekarang?",
-                            izin,
-                          );
+                          setState(() {
+                            s.formIzin == null
+                                ? _validateAlasan = true
+                                : _validateAlasan = false;
+                          });
+
+                          if (_validateAlasan == false) {
+                            SplashController().showConfirmationDialog2(
+                              "Izin",
+                              "Ajukan Izin Sekarang?",
+                              izin,
+                            );
+                          }
                         }
                       },
                     ),
@@ -137,42 +151,63 @@ class AbsensiIzinScreen extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
-                      Container(
-                        height: 40,
-                        constraints: const BoxConstraints(minHeight: 60),
-                        decoration: const BoxDecoration(
-                            border: Border(
-                                bottom:
-                                    BorderSide(color: Colors.black, width: 1))),
-                        child: Center(
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                                icon: Icon(
-                                  FeatherIcons.chevronDown,
-                                  size: 20,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(20.0)),
-                                key: Key(s.formIzin),
-                                value: s.formIzin,
-                                isExpanded: true,
-                                items: s.izinList!
-                                    .map<DropdownMenuItem<String>>((value) =>
-                                        DropdownMenuItem<String>(
-                                          value: value["value"].toString(),
-                                          child: Text(
-                                            '${value["nama"]}',
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ))
-                                    .toList(),
-                                onChanged: (value) {
-                                  if (value != null) {
-                                    s.updateFormIzin(value);
-                                  }
-                                }),
+                      Center(
+                        child: FormField(
+                          builder: (c) => InputDecorator(
+                            decoration: InputDecoration(
+                              hintText: "Pilih alasan",
+                              hintStyle: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                              contentPadding: EdgeInsets.all(0),
+                              errorText: _validateAlasan ? "" : null,
+                              errorStyle:
+                                  TextStyle(height: 0, fontFamily: 'Rubik'),
+                              border: InputBorder.none,
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  width: 1,
+                                  color: Colors.black,
+                                ), //<-- SEE HERE
+                              ),
+                              errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 1.5,
+                                    color: Colors.red), //<-- SEE HERE
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 1.5)),
+                            ),
+                            isEmpty: s.formIzin == null,
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                  icon: Icon(
+                                    FeatherIcons.chevronDown,
+                                    size: 20,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(20.0)),
+                                  key: Key(s.formIzin ?? "Izin"),
+                                  value: s.formIzin,
+                                  isExpanded: true,
+                                  items: s.izinList!
+                                      .map<DropdownMenuItem<String>>((value) =>
+                                          DropdownMenuItem<String>(
+                                            value: value["value"].toString(),
+                                            child: Text(
+                                              '${value["nama"]}',
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ))
+                                      .toList(),
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      s.updateFormIzin(value);
+                                    }
+                                  }),
+                            ),
                           ),
                         ),
                       ),

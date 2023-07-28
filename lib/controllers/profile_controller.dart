@@ -187,14 +187,14 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         // SplashController().sessionHabis(user?['alamatEmail']);
-        customSnackbar1("Anda offline.!");
+        customSnackbar1("Menghubungkan kembali...");
         // Get.snackbar(
-        //     'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        //     'Terjadi gangguan sistem.', response.body.toString());
       }
     } catch (e) {
       // Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
       // SplashController().sessionHabis(user?['alamatEmail']);
-      customSnackbar1("Anda offline.!");
+      customSnackbar1("Menghubungkan kembali...");
     }
   }
 
@@ -231,11 +231,11 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1("Gagal Menjalankan Fitur Ini !!");
+        customSnackbar1("Terjadi gangguan sistem.");
       }
     } catch (e) {
       Get.back();
-      customSnackbar1("Gagal Menjalankan Fitur Ini !!");
+      customSnackbar1("Terjadi gangguan sistem.");
     }
   }
 
@@ -255,11 +255,11 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1("Gagal Menjalankan Fitur Ini !!");
+        customSnackbar1("Terjadi gangguan sistem.");
       }
     } catch (e) {
       Get.back();
-      customSnackbar1("Gagal Menjalankan Fitur Ini !!");
+      customSnackbar1("Terjadi gangguan sistem.");
     }
   }
 
@@ -295,7 +295,7 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1("Gagal Menjalankan Fitur Ini !!");
+        customSnackbar1("Terjadi gangguan sistem.");
       }
     } catch (e) {
       print(e);
@@ -325,7 +325,7 @@ class ProfileController extends GetxController {
       } else {
         Get.back();
         // Get.snackbar(
-        //     'Gagal Menjalankan Fitur Ini !!', response.body.toString());
+        //     'Terjadi gangguan sistem.', response.body.toString());
         customSnackbar1("Kode OTP tidak valid.");
       }
     } catch (e) {
