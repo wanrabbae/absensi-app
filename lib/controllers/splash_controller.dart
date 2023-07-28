@@ -15,7 +15,7 @@ class SplashController extends GetxController {
           Get.offAndToNamed(RouteName.greeting);
         }
       } else {
-        Get.offAndToNamed(RouteName.home);
+        Get.offAndToNamed(RouteName.home, arguments: 0);
       }
     });
   }

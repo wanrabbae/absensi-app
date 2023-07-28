@@ -11,10 +11,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  PageController _pageViewController = PageController();
-
-  int _activePage = 0;
-
   @override
   // void initState() {
   //   // TODO: implement initState
@@ -27,26 +23,41 @@ class _MainScreenState extends State<MainScreen> {
   //   super.initState();
   // }
 
-  @override
-  void dispose() {
-    _pageViewController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _pageViewController = PageController(initialPage: _activePage);
+  // }
+
+  // @override
+  // void dispose() {
+  //   _pageViewController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    PageController _pageViewController =
+        PageController(initialPage: Get.arguments ?? 0);
+    int _activePage = Get.arguments ?? 0;
     // setState(() {
     //   _activePage = widget.index != null ? widget.index!.toInt() : _activePage;
     // });
+    // print("ARGUMENTS: " + Get.arguments.toString());
+    // if (_pageViewController.hasClients) {
+    // if (Get.arguments != null) {
+    //   _pageViewController.jumpToPage(Get.arguments);
+    // }
+    // }
     return Scaffold(
       body: PageView(
         controller: _pageViewController,
-        children: <Widget>[HomeScreen(), ProfileScreen()],
+        children: [HomeScreen(), ProfileScreen()],
         onPageChanged: (index) {
-          print("TEST GESER");
+          // print("TEST GESER");
           setState(() {
             _activePage = index;
-            widget.index = null;
+            // widget.index = null;
           });
         },
       ),
@@ -97,9 +108,9 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: colorBlueOpacity2,
           // backgroundColor: colorBlueOpacity2,
           onTap: (index) {
-            setState(() {
-              widget.index = null;
-            });
+            // setState(() {
+            //   widget.index = null;
+            // });
             _pageViewController.animateToPage(index,
                 duration: Duration(milliseconds: 200), curve: Curves.easeIn);
           },

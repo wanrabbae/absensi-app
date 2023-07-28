@@ -194,12 +194,12 @@ class IzinController extends GetxController {
         if (status) {
           // Get.snackbar("Anda Sudah Pulang", "waktu telah dihentikan");
           customSnackbar1("Kehadiran hari ini telah terisi.");
-          Get.offAllNamed(RouteName.home);
+          Get.offAllNamed(RouteName.home, arguments: 0);
           await HomeController().dataHome();
         } else {
           // Get.snackbar("Mengajukan Izin Berhasil",
           //     "Berhasil mematikan absen sebelumnya. Berhasil mengirimkan izin. Silahkan hubungi admin.");
-          Get.offAllNamed(RouteName.home);
+          Get.offAllNamed(RouteName.home, arguments: 0);
           await HomeController().dataHome();
         }
       } else if (response.statusCode == 401) {
@@ -207,7 +207,7 @@ class IzinController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else if (response.statusCode == 400) {
         box.write(Base.klikAbsen, false);
-        Get.offAllNamed(RouteName.home);
+        Get.offAllNamed(RouteName.home, arguments: 0);
         customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
       } else {
         Get.back();
@@ -243,7 +243,7 @@ class IzinController extends GetxController {
         box.write(Base.izinAbsen, DateTime.now().toString());
         if (!klikAbsen) {
           Get.back();
-          Get.offAllNamed(RouteName.home);
+          Get.offAllNamed(RouteName.home, arguments: 0);
           await HomeController().doneAbsensi();
           await HomeController().dataHome();
         } else {
@@ -273,7 +273,7 @@ class IzinController extends GetxController {
       print(HomeController().absen);
       if (!klikAbsen) {
         Get.back();
-        Get.offAllNamed(RouteName.home);
+        Get.offAllNamed(RouteName.home, arguments: 0);
         await HomeController().doneAbsensi();
         await HomeController().dataHome();
       } else {

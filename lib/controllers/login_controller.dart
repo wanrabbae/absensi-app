@@ -65,7 +65,7 @@ class LoginController extends GetxController {
         var res = await ProfileController().dataProfile(email);
         Get.back();
         box.write(Base.dataUser, res);
-        Get.offAllNamed(RouteName.home);
+        Get.offAllNamed(RouteName.home, arguments: 0);
       } else {
         Get.back();
         customSnackbar1("Kode OTP tidak valid!");
