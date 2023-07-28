@@ -1,111 +1,103 @@
 import 'package:app/global_resource.dart';
 
-Widget gantiEmailOtp(context, s) {
-  return Center(
-    child: Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 40),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          customHeaderAuth(context, "Verifikasi", "E-mail baru"),
-          const SizedBox(
-            height: 40,
-          ),
-          TextFormField(
-            onChanged: (value) {
-              s.otp = value;
-              // if (value == "1234") {
-              //   ref.read(prefProvider).setIsLogin(true);
-              //   AppRoute.pop();
-              // } else {
-              //   showDialog(
-              //       context: context,
-              //       builder: (ctx) => customDialog(
-              //           context, "Periksa kembali kode OTP", "OK",
-              //           onTap: () => AppRoute.pop()));
-              // }
-            },
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: "Masukkan kode OTP",
-                contentPadding:
-                    const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                suffixIconConstraints:
-                    const BoxConstraints(minHeight: 30, minWidth: 30),
-                suffixIconColor: Colors.white,
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      s.verifyUbahEmail();
-                      // final loading = showDialog(
-                      //     context: context,
-                      //     builder: (ctx) {
-                      //       Future.delayed(const Duration(seconds: 2))
-                      //           .then((value) => Get.back());
-                      //       return customDialogLoading(
-                      //           ctx, "Mengirim kode OTP");
-                      //     });
-                      // loading.then((value) {
-                      // if (otpController.text == "1234") {
-                      //   ref.read(prefProvider).setIsLogin(true);
-                      //   AppRoute.pop();
-                      // } else {
-                      //   showDialog(
-                      //       context: context,
-                      //       builder: (ctx) => customDialog(
-                      //           context, "Periksa kembali kode OTP", "OK",
-                      //           onTap: () => AppRoute.pop()));
-                      // }
-                      // });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        "assets/icons/arrow_right_primary.png",
-                        width: 30,
-                        height: 30,
-                      ),
+class OTPForm extends StatefulWidget {
+  final s;
+
+  OTPForm({required this.s});
+  @override
+  _OTPFormState createState() => _OTPFormState();
+}
+
+class _OTPFormState extends State<OTPForm> {
+  Duration _timerDuration = Duration(minutes: 5); // 5 minutes
+  bool _isTimerRunning = false;
+
+  void startTimer() {
+    if (_isTimerRunning) return;
+    _isTimerRunning = true;
+
+    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+      setState(() {
+        if (_timerDuration.inSeconds > 0) {
+          _timerDuration -= Duration(seconds: 1);
+        } else {
+          _isTimerRunning = false;
+          timer.cancel();
+        }
+      });
+    });
+  }
+
+  void resendOTP() {
+    // TODO: Implement the logic for resending OTP here
+    // This method will be called when the "Resend OTP" button is pressed.
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    String formattedTimer =
+        '${_timerDuration.inMinutes.remainder(60)}:${(_timerDuration.inSeconds.remainder(60)).toString().padLeft(2, '0')}';
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 130, left: 20, right: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                child: Text(
+                  "Kode OTP",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: 60,
+                child: TextFormField(
+                  onChanged: (value) {
+                    widget.s.otp = value;
+                  },
+                  autofocus: true,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                    suffix: Text(
+                      formattedTimer,
+                      style: TextStyle(
+                          color: colorBluePrimary, fontWeight: FontWeight.w500),
                     ),
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 2)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: colorBluePrimary, width: 2)),
+                    hintText: "Masukkan 6 angka kode",
                   ),
-                )),
+                ),
+              ),
+              Container(
+                child: Text(
+                  "Temukan 6 angka kode OTP pada kotak masuk e-mail anda.",
+                  style: TextStyle(
+                      color: Colors.grey, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: customTextRich(
-                context, "Tidak menerima kode OTP ? ", "Kirim Ulang",
-                onTextClicked: () {
-              s.ubahEmail("Mengirim ulang kode OTP", 2);
-              //   final loading = showDialog(
-              //       context: context,
-              //       builder: (ctx) {
-              //         Future.delayed(const Duration(seconds: 2))
-              //             .then((value) => Get.back());
-              //         return customDialogLoading(ctx, "Mengirim ulang kode OTP");
-              //       });
-              //   loading.then((value) {
-              //     showDialog(
-              //         context: context,
-              //         builder: (ctx) {
-              //           Future.delayed(const Duration(seconds: 2))
-              //               .then((value) => Get.back());
-              //           return customDialogLoading(
-              //               ctx, "Kode OTP berhasil dikirim");
-              //         });
-              //   });
-            }),
-          ),
-          const SizedBox(
-            height: 220,
-          )
-        ],
-      ),
-    ),
-  );
+        ),
+      ],
+    );
+  }
+}
+
+Widget gantiEmailOtp(s, context) {
+  return OTPForm(s: s);
 }

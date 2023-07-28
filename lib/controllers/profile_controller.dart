@@ -200,7 +200,6 @@ class ProfileController extends GetxController {
 
   editData() async {
     try {
-      customSnackbarLoading("Menyimpan data...");
       final FormData forms = FormData({
         'AlamatEmail': emailBaru ?? user?['alamatEmail'],
         'Idperusahaan': perusahaan?['idperusahaan'],
@@ -284,10 +283,12 @@ class ProfileController extends GetxController {
       print(response);
       if (response.statusCode == 200) {
         Get.back();
-        customSnackbar1("Otp berhasil dikirim");
+        customSnackbar1("Berhasil mengirimkan kode OTP.");
         // Get.snackbar("Otp Berhasil Dikirim !!", response.body.toString());
         if (status == 1) {
           Get.toNamed(RouteName.profileGantiemailOtp);
+        } else {
+          Get.offAllNamed(RouteName.home, arguments: 1);
         }
       } else if (response.statusCode == 401) {
         Get.back();
@@ -315,9 +316,9 @@ class ProfileController extends GetxController {
       if (response.statusCode == 200) {
         await dataProfile(emailBaru);
         Get.back();
-        Get.offAllNamed(RouteName.profile);
+        Get.offAllNamed(RouteName.home, arguments: 1);
         // Get.snackbar("Berhasil !!", "email telah dirubah");
-        customSnackbar1("Email berhasil diubah");
+        customSnackbar1("Email berhasil diubah.");
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
@@ -325,12 +326,13 @@ class ProfileController extends GetxController {
         Get.back();
         // Get.snackbar(
         //     'Gagal Menjalankan Fitur Ini !!', response.body.toString());
-        customSnackbar1("Gagal Menjalankan Fitur Ini !!");
+        customSnackbar1("Kode OTP tidak valid.");
       }
     } catch (e) {
+      print(e);
       Get.back();
       // Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
-      customSnackbar1("Gagal Menjalankan Fitur Ini !!");
+      customSnackbar1("Kode OTP tidak valid.");
     }
   }
 }

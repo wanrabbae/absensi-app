@@ -11,44 +11,13 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   print("INIT MAIN SCREEN");
-  //   if (widget.index != null && _pageViewController.hasClients) {
-  //     _pageViewController.jumpToPage(
-  //       widget.index!.toInt(),
-  //     );
-  //   }
-  //   super.initState();
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _pageViewController = PageController(initialPage: _activePage);
-  // }
-
-  // @override
-  // void dispose() {
-  //   _pageViewController.dispose();
-  //   super.dispose();
-  // }
+  int _activePage = Get.arguments ?? 0;
 
   @override
   Widget build(BuildContext context) {
     PageController _pageViewController =
         PageController(initialPage: Get.arguments ?? 0);
-    int _activePage = Get.arguments ?? 0;
-    // setState(() {
-    //   _activePage = widget.index != null ? widget.index!.toInt() : _activePage;
-    // });
-    // print("ARGUMENTS: " + Get.arguments.toString());
-    // if (_pageViewController.hasClients) {
-    // if (Get.arguments != null) {
-    //   _pageViewController.jumpToPage(Get.arguments);
-    // }
-    // }
+
     return Scaffold(
       body: PageView(
         controller: _pageViewController,

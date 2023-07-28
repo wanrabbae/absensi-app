@@ -222,7 +222,7 @@ class IzinController extends GetxController {
 
   absenIzin() async {
     if (fileName == null) {
-      customSnackbar1("Lampiran wajib diisi.");
+      customSnackbar1("Lengkapi lampiran terlebih dahulu.");
       return;
     }
 

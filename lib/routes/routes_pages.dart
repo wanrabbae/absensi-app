@@ -33,7 +33,7 @@ class Routes {
     GetPage(
         name: RouteName.home,
         page: () => MainScreen(
-              index: Get.arguments,
+              index: Get.arguments ?? 0,
             )),
     //Home
     GetPage(name: RouteName.homeSearch, page: () => const HomeSearchScreen()),
@@ -74,10 +74,9 @@ class Routes {
     GetPage(
         name: RouteName.absenPulangView,
         page: () => const AbsensiPulangScreenView()),
-    GetPage(
-        name: RouteName.absenViewMode, page: () => const AbsensiScreenView()),
+    GetPage(name: RouteName.absenViewMode, page: () => AbsensiScreenView()),
     //Izin
-    GetPage(name: RouteName.absenIzin, page: () => const AbsensiIzinScreen()),
+    GetPage(name: RouteName.absenIzin, page: () => AbsensiIzinScreen()),
     GetPage(
         name: RouteName.absenIzinDownloaded,
         page: () => const AbsensiIzinDownloadedScreen()),

@@ -2,7 +2,6 @@ import 'package:app/global_resource.dart';
 
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:app/global_resource.dart';
 
 class OTPForm extends StatefulWidget {
   final s;

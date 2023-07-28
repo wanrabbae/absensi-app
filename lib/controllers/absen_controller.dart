@@ -196,7 +196,7 @@ class AbsenController extends GetxController {
 
   absenHadir() async {
     try {
-      customSnackbarLoading("Mengirim Absen...");
+      // customSnackbarLoading("Mengirim Absen...");
       final forms = {
         'IDKaryawan': user?['idkaryawan'],
         'NamaKaryawan': user?['namaKaryawan'],
@@ -215,7 +215,7 @@ class AbsenController extends GetxController {
       var response = await AbsensiServices().hadirPost(forms);
       if (response.statusCode == 200) {
         Get.back();
-        customSnackbar1("Anda sudah absen.");
+        // customSnackbar1("Anda sudah absen.");
         box.write(Base.waktuAbsen, DateTime.now().toString());
         box.write(Base.klikAbsen, true);
         Get.offAllNamed(RouteName.home, arguments: 0);
@@ -241,9 +241,9 @@ class AbsenController extends GetxController {
             .split(" ")[0];
     print(idAbsen);
     try {
-      if (status) {
-        customSnackbarLoading("Sedang Pulang...");
-      }
+      // if (status) {
+      //   customSnackbarLoading("Sedang Pulang...");
+      // }
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, {});
       if (response.statusCode == 200) {
@@ -281,7 +281,7 @@ class AbsenController extends GetxController {
 
   absenIzin() async {
     try {
-      customSnackbarLoading("Mengajukan surat izin...");
+      // customSnackbarLoading("Mengajukan surat izin...");
       final FormData forms = FormData({
         'IDKaryawan': user?['idkaryawan'],
         'NamaKaryawan': user?['namaKaryawan'],

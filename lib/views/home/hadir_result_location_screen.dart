@@ -22,45 +22,51 @@ class _HadirLocationResultState extends State<HadirLocationResult> {
           extendBody: true,
           extendBodyBehindAppBar: true,
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            automaticallyImplyLeading: false,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50.0)),
-                    padding: EdgeInsets.all(10),
-                    child: Icon(FeatherIcons.arrowLeft),
+              backgroundColor: Colors.transparent,
+              automaticallyImplyLeading: false,
+              actions: [
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  width: MediaQuery.of(context).size.width,
+                  color: Colors.transparent,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50.0)),
+                          padding: EdgeInsets.all(10),
+                          child: Icon(FeatherIcons.arrowLeft),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          customSnackbar1("Tangkapan layar telah disimpan.");
+                          // SplashController().showOkDialog2(
+                          //     "Tangkapan Layar", "Gambar Telah Tersimpan", () {});
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50.0)),
+                          padding: EdgeInsets.all(10),
+                          child: Image.asset(
+                            'assets/icons/ic_screen_shot.png',
+                            width: 24,
+                            height: 24,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    customSnackbar1("Tangkapan layar telah disimpan.");
-                    // SplashController().showOkDialog2(
-                    //     "Tangkapan Layar", "Gambar Telah Tersimpan", () {});
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50.0)),
-                    padding: EdgeInsets.all(10),
-                    child: Image.asset(
-                      'assets/icons/ic_screen_shot.png',
-                      width: 24,
-                      height: 24,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+                )
+              ]),
           body: Container(
             width: double.infinity,
             height: double.infinity,

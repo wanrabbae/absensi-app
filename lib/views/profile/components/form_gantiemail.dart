@@ -1,67 +1,56 @@
 import 'package:app/global_resource.dart';
 
-Widget gantiEmail(context, s) {
-  return Center(
-    child: Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 90),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          customHeaderAuth(context, "Ubah", "Alamat e-mail"),
-          const SizedBox(
-            height: 40,
-          ),
-          TextFormField(
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return "Anda belum memasukan alamat email";
-              }
-              return null;
-            },
-            onChanged: (value) => s.emailBaru = value,
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: "Masukkan e-mail tujuan",
-                contentPadding:
-                    const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-                border: OutlineInputBorder(
-                    borderSide: const BorderSide(color: colorBluePrimary),
-                    borderRadius: BorderRadius.circular(20)),
-                errorBorder:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        const BorderSide(color: colorBluePrimary, width: 2),
-                    borderRadius: BorderRadius.circular(20)),
-                suffixIconConstraints:
-                    const BoxConstraints(minHeight: 30, minWidth: 30),
-                suffixIconColor: Colors.white,
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 10),
-                  child: GestureDetector(
-                    onTap: () {
-                      s.ubahEmail("Mengirim Otp...", 1);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.asset(
-                        "assets/icons/arrow_right_primary.png",
-                        width: 30,
-                        height: 30,
-                      ),
-                    ),
+Widget gantiEmail(s, context) {
+  return Column(
+    children: [
+      Padding(
+        padding: const EdgeInsets.only(top: 130, left: 20, right: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              child: Text(
+                "Mengubah email",
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: 60,
+              child: TextFormField(
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Anda belum memasukan alamat email";
+                  }
+                  return null;
+                },
+                onChanged: (value) => s.emailBaru = value,
+                keyboardType: TextInputType.emailAddress,
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                decoration: InputDecoration(
+                  hintText: "email anda",
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black, width: 1.5),
                   ),
-                )),
-          ),
-          const SizedBox(
-            height: 220,
-          )
-        ],
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: colorBluePrimary, width: 1.5),
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              child: Text(
+                "Masuk menggunakan e-mail baru anda.",
+                style:
+                    TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
+              ),
+            )
+          ],
+        ),
       ),
-    ),
+    ],
   );
 }
