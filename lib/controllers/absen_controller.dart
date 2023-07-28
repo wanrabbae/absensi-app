@@ -12,7 +12,7 @@ class AbsenController extends GetxController {
   BitmapDescriptor customMarker = BitmapDescriptor.defaultMarker;
   Completer<GoogleMapController> googleMapController =
       Completer<GoogleMapController>();
-  String? timerRecor = "00:00";
+  String? timerRecor = "00:00:00";
   String? waktuAbsen;
   File? formFoto;
   File? formFotoIzin;
@@ -49,7 +49,7 @@ class AbsenController extends GetxController {
       if (klikAbsen) {
         timerRecor = timerAbsen();
       } else {
-        timerRecor = "00:00";
+        timerRecor = "00:00:00";
         cancelTimer();
       }
       update();

@@ -1,8 +1,23 @@
 import 'package:app/global_resource.dart';
 import 'components/menu.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  final _pageViewController = PageController();
+
+  int _activePage = 1;
+
+  @override
+  void dispose() {
+    _pageViewController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +27,9 @@ class ProfileScreen extends StatelessWidget {
       builder: (s) => Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
-        // bottomNavigationBar: customNavbar(1),
+        // bottomNavigationBar: Get.arguments == "isRedirect"
+        //     ? customNavbar(_pageViewController, _activePage)
+        //     : null,
         extendBodyBehindAppBar: false,
         body: CustomScrollView(
           slivers: [

@@ -68,11 +68,11 @@ class LoginController extends GetxController {
         Get.offAllNamed(RouteName.home);
       } else {
         Get.back();
-        customSnackbar1("Otp tidak valid!");
+        customSnackbar1("Kode OTP tidak valid!");
       }
     } catch (e) {
       Get.back();
-      customSnackbar1("Otp tidak valid!");
+      customSnackbar1("Kode OTP tidak valid!");
     }
   }
 }

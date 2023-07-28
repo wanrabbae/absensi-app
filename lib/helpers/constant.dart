@@ -42,8 +42,8 @@ timerAbsen() {
       '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
   var hours = waktu.hour < 10 ? '0${waktu.hour}' : waktu.hour;
   var munite = waktu.minute < 10 ? '0${waktu.minute}' : waktu.minute;
-  // var second = waktu.second < 10 ? '0${waktu.second}' : waktu.second;
-  return "$hours:$munite";
+  var second = waktu.second < 10 ? '0${waktu.second}' : waktu.second;
+  return "$hours:$munite:$second";
 }
 
 izinAbs() {
@@ -68,4 +68,27 @@ bool isEmailValid(String email) {
   );
 
   return emailRegExp.hasMatch(email);
+}
+
+String getDuration(String checkIn, String? checkOut) {
+  DateTime checkInDateTime = DateTime.parse(checkIn);
+  DateTime checkOutDateTime;
+
+  if (checkOut != null) {
+    checkOutDateTime = DateTime.parse(checkOut);
+  } else {
+    checkOutDateTime = DateTime.now();
+  }
+
+  Duration duration = checkOutDateTime.difference(checkInDateTime);
+
+  return formatDuration(duration);
+}
+
+String formatDuration(Duration duration) {
+  final hours = duration.inHours;
+  final minutes = duration.inMinutes.remainder(60);
+  final seconds = duration.inSeconds.remainder(60);
+
+  return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
 }

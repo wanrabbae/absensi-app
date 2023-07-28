@@ -3,7 +3,7 @@ import 'package:app/global_resource.dart';
 
 Widget timerCount(BuildContext context, s) {
   return Container(
-    child: s.timerRecor != "00:00"
+    child: s.timerRecor != "00:00:00"
         ? buildDisable(context, s.timerRecor)
         : buildEnable(context, s.timerRecor, s),
   );

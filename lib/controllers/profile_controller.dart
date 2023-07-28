@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:app/views/home/main_screen.dart';
 
 class ProfileController extends GetxController {
   //Global
@@ -223,6 +224,9 @@ class ProfileController extends GetxController {
         customSnackbar1("Profil baru telah tersimpan");
         await dataProfile(user?['alamatEmail']);
         Get.offAllNamed(RouteName.profile);
+        // Get.offAll(() => MainScreen(
+        //       index: 1,
+        //     ));
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);

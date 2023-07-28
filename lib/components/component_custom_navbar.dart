@@ -1,6 +1,6 @@
 import 'package:app/global_resource.dart';
 
-Widget customNavbar(s) {
+Widget customNavbar(_pageViewController, _activePage) {
   return Container(
     // padding: EdgeInsets.all(10),
     decoration: const BoxDecoration(boxShadow: [
@@ -37,7 +37,7 @@ Widget customNavbar(s) {
         color: Colors.black,
       ),
       unselectedItemColor: Colors.black,
-      currentIndex: s ?? 0,
+      currentIndex: _activePage,
       elevation: 10,
       selectedLabelStyle: const TextStyle(
         fontWeight: FontWeight.w300,
@@ -48,16 +48,8 @@ Widget customNavbar(s) {
       backgroundColor: colorBlueOpacity2,
       // backgroundColor: colorBlueOpacity2,
       onTap: (index) {
-        switch (index) {
-          case 0:
-            Get.offAllNamed(RouteName.home);
-            break;
-          case 1:
-            Get.offAllNamed(RouteName.profile);
-            break;
-          default:
-            Get.offAllNamed(RouteName.home);
-        }
+        _pageViewController?.animateToPage(index,
+            duration: Duration(milliseconds: 200), curve: Curves.easeIn);
       },
     ),
   );

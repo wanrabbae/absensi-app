@@ -15,7 +15,7 @@ class GreetingScreen extends StatelessWidget {
           children: [
             Positioned(
                 top: 60,
-                child: customHeaderAuth(context, "HORA", "Selamat datang")),
+                child: customHeaderAuth(context, "HORA", "Selamat Datang")),
             Center(
                 child: Image.asset(
               "assets/icons/logo/main_logo.png",

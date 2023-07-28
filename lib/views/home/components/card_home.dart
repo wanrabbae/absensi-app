@@ -76,7 +76,9 @@ Widget dataHome(BuildContext context, s, isHadir) {
                               // for
                               Text(
                                   getTimeFromDatetime(isHadir
-                                      ? s.absen[index]['waktuCheckIn']
+                                      ? s.absen[index]["waktuCheckOut"] == null
+                                          ? s.absen[index]['waktuCheckIn']
+                                          : s.absen[index]["waktuCheckOut"]
                                       : s.izin[index]['tanggalStart']),
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
@@ -168,11 +170,13 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                   ),
                                 ),
                                 isHadir
-                                    ? Icon(
-                                        Icons.circle,
-                                        color: colorGreenPrimary2,
-                                        size: 10,
-                                      )
+                                    ? s.absen[index]["waktuCheckOut"] == null
+                                        ? Icon(
+                                            Icons.circle,
+                                            color: colorGreenPrimary2,
+                                            size: 10,
+                                          )
+                                        : Text("")
                                     : Container()
                               ],
                             ),

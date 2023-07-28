@@ -63,7 +63,13 @@ Widget dataSearch(BuildContext context, s) {
                                   ),
                                 ),
                                 Text(
-                                    "${DataHelper.absences()[0].lastAbsenceRemark}",
+                                    changeFormatDate(
+                                        3,
+                                        s.searchHasil?[index]["joinDate"] !=
+                                                null
+                                            ? s.searchHasil?[index]?["joinDate"]
+                                                .toString()
+                                            : DateTime.now().toString()),
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontSize: 10,

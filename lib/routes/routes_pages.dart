@@ -30,7 +30,11 @@ class Routes {
 
 //Start Home
     //Home
-    GetPage(name: RouteName.home, page: () => const MainScreen()),
+    GetPage(
+        name: RouteName.home,
+        page: () => MainScreen(
+              index: Get.arguments,
+            )),
     //Home
     GetPage(name: RouteName.homeSearch, page: () => const HomeSearchScreen()),
     //Home Undangan

@@ -120,7 +120,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
               bottom: 0,
               right: 0,
               left: 0,
-              top: 620,
+              top: 600,
               child: Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -173,7 +173,9 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                   // s.klikAbsen
                                   //     ? colorGrayPrimary
                                   //     : colorBluePrimary
-                                  colorBluePrimary),
+                                  currentAbsen?["waktuCheckOut"] == null
+                                      ? colorBluePrimary
+                                      : Colors.grey.shade400),
                               shape: const MaterialStatePropertyAll(
                                   (RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
@@ -194,10 +196,8 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                   width: 8,
                                 ),
                                 Text(
-                                  currentAbsen?["waktuCheckOut"] != null
-                                      ? getTimeFromDatetime(
-                                          currentAbsen?["waktuCheckOut"])
-                                      : "00:00",
+                                  getDuration(currentAbsen?["waktuCheckIn"],
+                                      currentAbsen?["waktuCheckOut"]),
                                   style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w500,

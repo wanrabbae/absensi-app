@@ -3,16 +3,29 @@ import 'package:flutter/cupertino.dart';
 import 'components/card_home.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+  int? index;
+  MainScreen({this.index});
 
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final _pageViewController = PageController();
+  PageController _pageViewController = PageController();
 
   int _activePage = 0;
+
+  @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   print("INIT MAIN SCREEN");
+  //   if (widget.index != null && _pageViewController.hasClients) {
+  //     _pageViewController.jumpToPage(
+  //       widget.index!.toInt(),
+  //     );
+  //   }
+  //   super.initState();
+  // }
 
   @override
   void dispose() {
@@ -22,13 +35,18 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // setState(() {
+    //   _activePage = widget.index != null ? widget.index!.toInt() : _activePage;
+    // });
     return Scaffold(
       body: PageView(
         controller: _pageViewController,
         children: <Widget>[HomeScreen(), ProfileScreen()],
         onPageChanged: (index) {
+          print("TEST GESER");
           setState(() {
             _activePage = index;
+            widget.index = null;
           });
         },
       ),
@@ -68,7 +86,7 @@ class _MainScreenState extends State<MainScreen> {
             color: Colors.black,
           ),
           unselectedItemColor: Colors.black,
-          currentIndex: _activePage ?? 0,
+          currentIndex: _activePage,
           elevation: 10,
           selectedLabelStyle: const TextStyle(
             fontWeight: FontWeight.w300,
@@ -79,6 +97,9 @@ class _MainScreenState extends State<MainScreen> {
           backgroundColor: colorBlueOpacity2,
           // backgroundColor: colorBlueOpacity2,
           onTap: (index) {
+            setState(() {
+              widget.index = null;
+            });
             _pageViewController.animateToPage(index,
                 duration: Duration(milliseconds: 200), curve: Curves.easeIn);
           },

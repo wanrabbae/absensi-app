@@ -121,7 +121,7 @@ Widget formProfile(context, s) {
                                     icon: Icon(FeatherIcons.chevronDown),
                                     onChanged: (newValue) {
                                       // Update the selected value when the user chooses a gender
-                                      s.updateGender(newValue);
+                                      s.selectedGender = newValue;
                                     },
                                     items: [
                                       DropdownMenuItem(
@@ -236,26 +236,11 @@ Widget formProfile(context, s) {
                                       Text("Alamat tempat tinggal"),
                                       TextFormField(
                                         key: Key(s.profileAlamat.toString()),
+                                        onChanged: (value) =>
+                                            s.profileAlamat = value,
                                         initialValue: s.profileAlamat,
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold),
-                                        onTap: () {
-                                          showModalBottomSheet(
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              topLeft: Radius
-                                                                  .circular(20),
-                                                              topRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                          20))),
-                                              context: context,
-                                              builder: (ctx) =>
-                                                  const DialogDetectLocation());
-                                        },
-                                        readOnly: true,
                                         keyboardType: TextInputType.multiline,
                                         maxLines: 10,
                                         minLines: 3,
