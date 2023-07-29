@@ -1,5 +1,6 @@
 import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/helpers/notification_local.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'components/card_home.dart';
@@ -27,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     Get.put(HomeController());
     return GetBuilder<HomeController>(
       init: HomeController(),
@@ -251,7 +253,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     heroTag: "btn1",
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
-                    onPressed: () {
+                    onPressed: () async {
+                      // print("NOTIF");
+                      // await NotificationHelper.initializeNotifications();
+                      // NotificationHelper.showNotification(
+                      //   'Notification Title',
+                      //   'Notification Body',
+                      // );
                       if (s.isPresentHadir!) {
                         customSnackbar1("Kehadiran hari ini telah terisi.");
                       } else {

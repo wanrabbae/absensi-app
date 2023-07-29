@@ -46,6 +46,17 @@ bool isGreaterThanToday(String dateString) {
   return parsedDate.isAfter(currentDate);
 }
 
+bool isSmallerThanToday(String dateString) {
+  // Parse the given date string
+  DateTime parsedDate = DateTime.parse(dateString);
+
+  // Get the current date today
+  DateTime currentDate = DateTime.now();
+  DateTime addedOneDay = parsedDate.add(Duration(days: 1));
+  // Compare the dates
+  return addedOneDay.isBefore(currentDate);
+}
+
 timerAbsen() {
   var waktuAbsen = box.read(Base.waktuAbsen);
   var time = DateTime.parse(waktuAbsen!).difference(DateTime.now());

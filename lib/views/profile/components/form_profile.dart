@@ -171,7 +171,7 @@ Widget formProfile(context, s) {
                                     readOnly: true,
                                     onTap: () {
                                       SplashController()
-                                          .showConfirmationDialog2('Email',
+                                          .showConfirmationDialogEmail('Email',
                                               "Anda ingin mengubah email?", () {
                                         Get.toNamed(
                                             RouteName.profileGantiemail);

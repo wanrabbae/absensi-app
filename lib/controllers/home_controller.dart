@@ -93,7 +93,8 @@ class HomeController extends GetxController {
           orElse: () => null,
         );
         Get.back();
-        Get.toNamed(RouteName.absen, arguments: {"dataAbsen": currentAbsen});
+        Get.toNamed(RouteName.absenPulangView,
+            arguments: {"dataAbsen": currentAbsen});
       }
     }
   }
@@ -285,6 +286,7 @@ class HomeController extends GetxController {
     String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
     var idKaryawan = user?["idkaryawan"];
     bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
+    bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
 
     var findDataIzin = izin?.firstWhere(
       (element) => element?["idkaryawan"] == idKaryawan,
@@ -307,6 +309,9 @@ class HomeController extends GetxController {
 
     if (isDateGreaterThanToday) {
       isPresentHadir = isDateGreaterThanToday;
+      update();
+    } else if (isDateSmallerThanToday) {
+      isPresentHadir = isDateSmallerThanToday;
       update();
     } else if (findDataIzin != null) {
       isPresentHadir = true;
@@ -337,6 +342,7 @@ class HomeController extends GetxController {
     String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
     var idKaryawan = user?["idkaryawan"];
     bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
+    bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
 
     var findData = izin?.firstWhere(
       (element) => element?["idkaryawan"] == idKaryawan,
@@ -352,6 +358,9 @@ class HomeController extends GetxController {
 
     if (isDateGreaterThanToday) {
       isPresentIzin = isDateGreaterThanToday;
+      update();
+    } else if (isDateSmallerThanToday) {
+      isPresentIzin = isDateSmallerThanToday;
       update();
     } else if (findData != null) {
       isPresentIzin = true;

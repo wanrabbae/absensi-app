@@ -155,7 +155,8 @@ class AbsenController extends GetxController {
         ImagePicker()
             .pickImage(
                 source: ImageSource.camera,
-                preferredCameraDevice: CameraDevice.front)
+                preferredCameraDevice: CameraDevice.front,
+                imageQuality: 50)
             .then((value) {
           if (value != null) {
             formFoto = File(value.path);
@@ -266,7 +267,7 @@ class AbsenController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else if (response.statusCode == 400) {
         Get.back();
-        customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
+        customSnackbar1("Terjadi gangguan sistem.");
       } else {
         Get.back();
         customSnackbar1("Terjadi gangguan sistem.");
@@ -274,7 +275,7 @@ class AbsenController extends GetxController {
       }
     } catch (e) {
       print(e);
-      customSnackbar1("Fitur Tidak Bisa Dijalankan !!");
+      customSnackbar1("Terjadi gangguan sistem.");
     }
   }
 

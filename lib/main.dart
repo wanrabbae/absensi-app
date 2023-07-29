@@ -1,6 +1,7 @@
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
 import 'package:app/data/local/base_preference.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // import 'package:app/firebase_options.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -45,6 +46,9 @@ class MyApp extends HookConsumerWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return MainTheme.materialApp(context, child: SplashScreen());
   }
 }

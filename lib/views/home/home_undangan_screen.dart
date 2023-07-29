@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:flutter/services.dart';
 import 'components/form_undangan.dart';
 import 'dart:math' as math;
 
@@ -7,6 +8,9 @@ class HomeUndanganScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
       backgroundColor: colorBlueOpacity,
       resizeToAvoidBottomInset: false,
