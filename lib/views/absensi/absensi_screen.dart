@@ -192,15 +192,19 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                         padding: const EdgeInsets.only(
                             top: 3, bottom: 20, left: 20, right: 20),
                         child: ElevatedButton(
-                            onPressed: () {
-                              s.mulaiSelesaiAbsen(context, idAbsen);
-                            },
+                            onPressed: s.disableButton
+                                ? null
+                                : () {
+                                    s.mulaiSelesaiAbsen(context, idAbsen);
+                                  },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll(
                                     // s.klikAbsen
                                     //     ? colorGrayPrimary
                                     //     : colorBluePrimary
-                                    colorBluePrimary),
+                                    s.disableButton
+                                        ? Colors.grey.shade400
+                                        : colorBluePrimary),
                                 shape: const MaterialStatePropertyAll(
                                     (RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(

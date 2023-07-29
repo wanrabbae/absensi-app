@@ -53,7 +53,7 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                           if (_validateAlasan == false) {
                             SplashController().showConfirmationDialog2(
                               "Izin",
-                              "Ajukan Izin Sekarang?",
+                              "Ajukan izin sekarang?",
                               izin,
                             );
                           }
@@ -117,7 +117,7 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                         height: 20,
                       ),
                       Text(
-                        "Lampiran",
+                        "Lampiran (Harus terisi)",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
@@ -147,7 +147,7 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                         height: 20,
                       ),
                       Text(
-                        "Alasan",
+                        "Alasan (Harus terisi)",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),

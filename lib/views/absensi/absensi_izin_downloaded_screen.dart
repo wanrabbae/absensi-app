@@ -105,7 +105,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
-                        "Lampiran",
+                        "Lampiran (Harus terisi)",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),
@@ -133,7 +133,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                         height: 20,
                       ),
                       Text(
-                        "Alasan",
+                        "Alasan (Harus terisi)",
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500),
                       ),

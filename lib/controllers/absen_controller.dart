@@ -16,6 +16,7 @@ class AbsenController extends GetxController {
   String? waktuAbsen;
   File? formFoto;
   File? formFotoIzin;
+  bool disableButton = false;
   bool klikAbsen = false;
   String? alamatLoc;
   // ignore: prefer_typing_uninitialized_variables
@@ -77,6 +78,7 @@ class AbsenController extends GetxController {
   getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
+    disableButton = true;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -103,10 +105,13 @@ class AbsenController extends GetxController {
       });
       return false;
     }
+    disableButton = false;
+    update();
     lokasiDetect();
   }
 
   lokasiDetect() async {
+    disableButton = true;
     customSnackbarLoading("Sedang mendeteksi lokasi anda...");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
@@ -124,8 +129,10 @@ class AbsenController extends GetxController {
                 zoom: 15),
           ),
         );
+        disableButton = false;
       });
       // Get.back();
+
       update();
     });
   }
@@ -188,7 +195,7 @@ class AbsenController extends GetxController {
 
   absenHadir() async {
     try {
-      // customSnackbarLoading("Mengirim Absen...");
+      customSnackbarLoading("Mendaftarkan kehadiran...");
       final forms = {
         'IDKaryawan': user?['idkaryawan'],
         'NamaKaryawan': user?['namaKaryawan'],
@@ -273,7 +280,7 @@ class AbsenController extends GetxController {
 
   absenIzin() async {
     try {
-      // customSnackbarLoading("Mengajukan surat izin...");
+      customSnackbarLoading("Mengajukan surat izin...");
       final FormData forms = FormData({
         'IDKaryawan': user?['idkaryawan'],
         'NamaKaryawan': user?['namaKaryawan'],

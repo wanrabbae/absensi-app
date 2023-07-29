@@ -308,7 +308,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ImagePicker()
                                 .pickImage(
                                     source: ImageSource.camera,
-                                    preferredCameraDevice: CameraDevice.front)
+                                    preferredCameraDevice: CameraDevice.front,
+                                    imageQuality: 50)
                                 .then((value) {
                               if (value != null) {
                                 final izinCtrl = Get.put(IzinController());

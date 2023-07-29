@@ -57,7 +57,7 @@ class LoginController extends GetxController {
 
   otpKirim(email) async {
     try {
-      customSnackbarLoading("Mengkonfirmasi Masuk...");
+      customSnackbarLoading("Mengonfirmasi masuk...");
       var response = await AuthServices().verifyOtpGet(
           {"email": user?['alamatEmail'] ?? email, "otp": otpForm});
       if (response.statusCode == 200) {
