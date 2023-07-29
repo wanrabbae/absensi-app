@@ -170,3 +170,184 @@ class DialogPermission extends HookConsumerWidget {
     );
   }
 }
+
+class DialogPresensi extends HookConsumerWidget {
+  var dataPresensi, isHadir;
+  DialogPresensi({@required this.dataPresensi, @required this.isHadir});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Wrap(
+      children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width,
+          // height: 500,
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            // height: 500,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20,
+                  child: Row(
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: ovalCardIcon(context, FeatherIcons.x,
+                            onTaped: () => Get.back()),
+                      ),
+                    ],
+                  ),
+                ),
+                const Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "Riwayat",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                        color: Color.fromRGBO(51, 51, 51, 1)),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Tanggal",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                TextFormField(
+                  readOnly: true,
+                  initialValue: isHadir
+                      ? changeFormatDate(5, dataPresensi["tanggalAbsensi"])
+                      : changeFormatDate(5, dataPresensi["tanggalCuti"]),
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  decoration: InputDecoration(
+                    hintText: "Ketikkan disini",
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 1)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.black, width: 1.5)),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Status",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                TextFormField(
+                  readOnly: true,
+                  initialValue: isHadir
+                      ? dataPresensi["waktuCheckOut"] == null
+                          ? "Aktif"
+                          : "Tidak Aktif"
+                      : "Tidak aktif",
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: isHadir
+                          ? dataPresensi["waktuCheckOut"] == null
+                              ? Colors.green
+                              : null
+                          : null),
+                  decoration: InputDecoration(
+                    hintText: "Ketikkan disini",
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 1)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.black, width: 1.5)),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Hadir",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                TextFormField(
+                  readOnly: true,
+                  initialValue: isHadir
+                      ? dataPresensi["waktuCheckIn"] != null
+                          ? getTimeFullFromDatetime(
+                              dataPresensi["waktuCheckIn"])
+                          : "-"
+                      : "-",
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  decoration: InputDecoration(
+                    hintText: "Ketikkan disini",
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 1)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.black, width: 1.5)),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Pulang",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                TextFormField(
+                  readOnly: true,
+                  initialValue: isHadir
+                      ? dataPresensi["waktuCheckOut"] != null
+                          ? getTimeFullFromDatetime(
+                              dataPresensi["waktuCheckOut"])
+                          : "-"
+                      : "-",
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  decoration: InputDecoration(
+                    hintText: "Ketikkan disini",
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 1)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.black, width: 1.5)),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  "Izin",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+                TextFormField(
+                  readOnly: true,
+                  initialValue: isHadir
+                      ? "-"
+                      : getTimeFullFromDatetime(dataPresensi?["tanggalAkhir"]),
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  decoration: InputDecoration(
+                    hintText: "Ketikkan disini",
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 1)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.black, width: 1.5)),
+                  ),
+                ),
+                Padding(padding: EdgeInsets.only(bottom: 50))
+              ],
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}

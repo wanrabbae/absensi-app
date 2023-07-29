@@ -11,6 +11,15 @@ String getTimeFromDatetime(String createdAt) {
   return formattedTime;
 }
 
+String getTimeFullFromDatetime(String createdAt) {
+  DateTime dateTime = DateTime.parse(createdAt);
+
+  String formattedTime =
+      "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}";
+
+  return formattedTime;
+}
+
 changeFormatDate(status, date) {
   DateFormat f;
   if (status == 1) {
@@ -21,6 +30,8 @@ changeFormatDate(status, date) {
     f = DateFormat('dd MMMM yyyy');
   } else if (status == 4) {
     f = DateFormat('ddMMyyyy');
+  } else if (status == 5) {
+    f = DateFormat('dd/MM/yyyy');
   } else {
     f = DateFormat('yyyy-MM-dd  hh:mm');
   }

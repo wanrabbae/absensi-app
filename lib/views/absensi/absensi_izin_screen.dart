@@ -2,6 +2,8 @@ import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
 import 'dart:math' as math;
 
+import 'package:flutter/services.dart';
+
 class AbsensiIzinScreen extends StatefulWidget {
   const AbsensiIzinScreen({super.key});
 
@@ -11,8 +13,12 @@ class AbsensiIzinScreen extends StatefulWidget {
 
 class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
   bool _validateAlasan = false;
+  bool _validateLampiran = false;
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return GetBuilder<IzinController>(
       init: IzinController(),
       builder: (s) => Scaffold(
@@ -48,9 +54,13 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                             s.formIzin == null
                                 ? _validateAlasan = true
                                 : _validateAlasan = false;
+                            s.fileName == null
+                                ? _validateLampiran = true
+                                : _validateLampiran = false;
                           });
 
-                          if (_validateAlasan == false) {
+                          if (_validateAlasan == false &&
+                              _validateLampiran == false) {
                             SplashController().showConfirmationDialog2(
                               "Izin",
                               "Ajukan izin sekarang?",
@@ -133,6 +143,16 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                           hintText: (s.fileName == null)
                               ? "File_surat_sakit.docx"
                               : s.fileName,
+                          errorText: _validateLampiran ? "" : null,
+                          errorStyle: TextStyle(height: 0, fontFamily: "Rubik"),
+                          errorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 1.5, color: Colors.red), //<-- SEE HERE
+                          ),
+                          focusedErrorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 1.5, color: Colors.red), //<-- SEE HERE
+                          ),
                           hintStyle: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                           enabledBorder: UnderlineInputBorder(

@@ -2,11 +2,16 @@ import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
 import 'dart:math' as math;
 
+import 'package:flutter/services.dart';
+
 class AbsensiIzinDownloadedScreen extends StatelessWidget {
   const AbsensiIzinDownloadedScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return GetBuilder<IzinController>(
       init: IzinController(),
       builder: (s) => Scaffold(

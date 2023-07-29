@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
@@ -12,6 +13,9 @@ class HasilHadirScreen extends StatefulWidget {
 class _HasilHadirScreenState extends State<HasilHadirScreen> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     Get.put(HomeController());
     return GetBuilder<HomeController>(
       init: HomeController(),

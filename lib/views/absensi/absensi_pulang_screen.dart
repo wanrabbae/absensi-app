@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:flutter/services.dart';
 import 'components/layout_map.dart';
 
 class AbsensiPulangScreenView extends StatefulWidget {
@@ -16,6 +17,9 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     var currentAbsen = Get.arguments?["dataAbsen"] ?? {};
     var idAbsen = Get.arguments?["dataAbsen"]?["id"] ?? null;
 

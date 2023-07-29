@@ -1,7 +1,6 @@
 import 'package:app/global_resource.dart';
 
 Widget dataHome(BuildContext context, s, isHadir) {
-  print("IZIN: " + s.izin.length.toString());
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 20),
     child: ListView.builder(
@@ -13,6 +12,38 @@ Widget dataHome(BuildContext context, s, isHadir) {
         child: InkWell(
           // splashColor: colorBlueOpacity3,
           radius: 5,
+          onLongPress: () {
+            isHadir
+                ? showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20))),
+                    context: context,
+                    builder: (ctx) => DialogPresensi(
+                          dataPresensi: s.absen[index],
+                          isHadir: isHadir,
+                        )).then((value) {
+                    if (value != null) {
+                      Get.back();
+                      Get.toNamed(RouteName.absen);
+                    }
+                  })
+                : showModalBottomSheet(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20))),
+                    context: context,
+                    builder: (ctx) => DialogPresensi(
+                        dataPresensi: s.izin[index],
+                        isHadir: isHadir)).then((value) {
+                    if (value != null) {
+                      Get.back();
+                      Get.toNamed(RouteName.absen);
+                    }
+                  });
+          },
           onTap: () {
             isHadir
                 ? Get.toNamed(RouteName.absenViewMode,
@@ -83,7 +114,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w400,
                                       fontSize: 10,
-                                      color: Color.fromRGBO(51, 51, 51, 0.5))),
+                                      color: Colors.black)),
                             ],
                           ),
                           Padding(
@@ -123,8 +154,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                               style: TextStyle(
                                                   fontWeight: FontWeight.w400,
                                                   fontSize: 11,
-                                                  color: Color.fromRGBO(
-                                                      51, 51, 51, 0.5))),
+                                                  color: Colors.black)),
                                         ),
                                 ),
                                 const SizedBox(
@@ -165,8 +195,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                         style: TextStyle(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 11,
-                                            color: Color.fromRGBO(
-                                                51, 51, 51, 0.5))),
+                                            color: Colors.black)),
                                   ),
                                 ),
                                 isHadir
