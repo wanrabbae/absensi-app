@@ -79,6 +79,16 @@ timerAbsen() {
   return "$hours:$munite:$second";
 }
 
+timerAbsen2(waktuAbsen) {
+  var time = DateTime.parse(waktuAbsen!).difference(DateTime.now());
+  var waktu = DateTime.parse(
+      '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
+  var hours = waktu.hour < 10 ? '0${waktu.hour}' : waktu.hour;
+  var munite = waktu.minute < 10 ? '0${waktu.minute}' : waktu.minute;
+  var second = waktu.second < 10 ? '0${waktu.second}' : waktu.second;
+  return "$hours:$munite:$second";
+}
+
 izinAbs() {
   var izinAbse = box.read(Base.izinAbsen);
   var sekarang = DateTime.now();
@@ -116,6 +126,22 @@ String getDuration(String checkIn, String? checkOut) {
   Duration duration = checkOutDateTime.difference(checkInDateTime);
 
   return formatDuration(duration);
+}
+
+int parseTimeToSeconds(String time) {
+  List<String> timeComponents = time.split(':');
+  int hours = int.parse(timeComponents[0]);
+  int minutes = int.parse(timeComponents[1]);
+  int seconds = int.parse(timeComponents[2]);
+  return (hours * 3600) + (minutes * 60) + seconds;
+}
+
+void printTime(int timeInSeconds) {
+  int hours = timeInSeconds ~/ 3600;
+  int minutes = (timeInSeconds % 3600) ~/ 60;
+  int seconds = timeInSeconds % 60;
+  print(
+      '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}');
 }
 
 String formatDuration(Duration duration) {

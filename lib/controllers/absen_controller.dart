@@ -40,15 +40,25 @@ class AbsenController extends GetxController {
     klikAbsen = box.read(Base.klikAbsen) ?? false;
     currentDate = DateTime.now().toString();
     user = await ProfileController().dataProfile(user?['alamatEmail']);
-    startTimer();
     await dataPerusahaan();
+    startTimer();
     getCurrentLocation();
   }
 
   startTimer() {
+    final homeCtrl = Get.put(HomeController());
+    var findData = homeCtrl.absen?.firstWhere(
+      (element) =>
+          element?["idkaryawan"] == user?["idkaryawan"] &&
+          element?["waktuCheckOut"] == null,
+      orElse: () => null,
+    );
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (klikAbsen) {
         timerRecor = timerAbsen();
+      } else if (findData != null) {
+        timerRecor = timerAbsen2(findData?["waktuCheckIn"]);
+        update();
       } else {
         timerRecor = "00:00:00";
         cancelTimer();

@@ -14,7 +14,7 @@ Widget formData(s, context) {
                 style: TextStyle(
                     fontSize: 20,
                     color: Colors.black,
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.w800),
               ),
             ),
             SizedBox(

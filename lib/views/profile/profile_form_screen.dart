@@ -13,6 +13,10 @@ class ProfileFormScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.white,
+          title: Text(
+            'Sunting',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+          ),
           leading: Container(
             padding: EdgeInsets.only(left: 3),
             child: Row(

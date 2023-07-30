@@ -27,7 +27,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
               children: [
                 Text(
                   'Surat Izin',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
                 ),
                 // Container(
                 //   padding: EdgeInsets.all(0),

@@ -29,20 +29,35 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     print("TOKEN: " + GetStorage().read("tokens"));
+    print("KLIK ABSEN: " + klikAbsen.toString());
     super.onInit();
     user = box.read(Base.dataUser);
     klikAbsen = GetStorage().read(Base.klikAbsen) ?? false;
     currentDate = now.toString();
-    await startTimer();
     await dataPerusahaan();
     await dataHome();
+    await startTimer();
+    await checkIsAbsen();
   }
 
   startTimer() {
+    var findData = absen?.firstWhere(
+      (element) =>
+          element?["idkaryawan"] == user?["idkaryawan"] &&
+          element?["waktuCheckOut"] == null,
+      orElse: () => null,
+    );
+
     // klikAbsen = box.read(Base.klikAbsen) ?? false;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (klikAbsen) {
         timerRecor = timerAbsen();
+      } else if (findData != null) {
+        timerRecor = timerAbsen2(findData?["waktuCheckIn"]);
+        box.write(Base.waktuAbsen, findData?["waktuCheckIn"].toString());
+        box.write(Base.klikAbsen, true);
+        klikAbsen = GetStorage().read(Base.klikAbsen);
+        update();
       } else {
         timerRecor = "00:00:00";
         cancelTimer();
@@ -89,7 +104,9 @@ class HomeController extends GetxController {
       } else {
         print(absen);
         var currentAbsen = absen?.firstWhere(
-          (element) => element['idkaryawan'] == user?['idkaryawan'],
+          (element) =>
+              element['idkaryawan'] == user?['idkaryawan'] &&
+              element?["waktuCheckOut"] == null,
           orElse: () => null,
         );
         Get.back();
@@ -318,6 +335,7 @@ class HomeController extends GetxController {
       cancelTimer();
       update();
     } else if (findData != null) {
+      print("KESEINI");
       isPresentHadir = false;
       update();
     } else if (findDataPulang != null) {

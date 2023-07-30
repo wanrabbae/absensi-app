@@ -53,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               "Hai, ${s.user?['namaKaryawan']}",
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+                                  fontSize: 16, fontWeight: FontWeight.w800),
                             ),
                           ],
                         ),

@@ -84,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontWeight: FontWeight.w500,
+                                      fontWeight: FontWeight.w700,
                                       fontFamily: 'Rubik'),
                                 )
                               ],
@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Hadir",
                           style: TextStyle(
                               color: Colors.black,
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w700,
                               fontFamily: 'Rubik'),
                         )),
                     SizedBox(
@@ -173,7 +173,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Izin",
                           style: TextStyle(
                             color: Colors.black,
-                            fontWeight: FontWeight.w500,
+                            fontFamily: "Rubik",
+                            fontWeight: FontWeight.w700,
                           ),
                         )),
                   ],

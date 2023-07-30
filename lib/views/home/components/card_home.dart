@@ -112,8 +112,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                           : s.absen[index]["waktuCheckOut"]
                                       : s.izin[index]['tanggalStart']),
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 11,
                                       color: Colors.black)),
                             ],
                           ),
@@ -152,8 +152,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                               maxLines: 1,
                                               softWrap: true,
                                               style: TextStyle(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 11,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 12,
                                                   color: Colors.black)),
                                         ),
                                 ),
@@ -193,8 +193,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                         maxLines: 1,
                                         softWrap: true,
                                         style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 11,
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 12,
                                             color: Colors.black)),
                                   ),
                                 ),

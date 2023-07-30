@@ -11,7 +11,7 @@ Widget customHeaderAuth(BuildContext context, String title, String subTitle) {
         Text(
           title,
           style: const TextStyle(
-              fontWeight: FontWeight.bold, fontSize: 24, letterSpacing: 1.5),
+              fontWeight: FontWeight.w800, fontSize: 24, letterSpacing: 1.5),
         ),
         Text(
           subTitle,
