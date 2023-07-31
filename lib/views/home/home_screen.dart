@@ -3,6 +3,7 @@ import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'components/card_home.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -255,12 +256,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     onPressed: () async {
-                      // print("NOTIF");
-                      // await NotificationHelper.initializeNotifications();
-                      // NotificationHelper.showNotification(
-                      //   'Notification Title',
-                      //   'Notification Body',
-                      // );
+                      // await NotificationService().showNotification(
+                      //     title: "Hello World", body: "lorem ipsum dolor sit");
+
                       if (s.isPresentHadir!) {
                         customSnackbar1("Kehadiran hari ini telah terisi.");
                       } else {

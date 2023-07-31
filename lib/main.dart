@@ -1,7 +1,7 @@
 import 'package:app/global_resource.dart';
+import 'package:app/helpers/notification_local.dart';
 import 'package:flutter/services.dart';
 import 'package:app/data/local/base_preference.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 // import 'package:app/firebase_options.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -27,8 +27,15 @@ void main() async {
   // if (mapsImplementation is GoogleMapsFlutterAndroid) {
   //   mapsImplementation.useAndroidViewSurface = true;
   // }
+  await Permission.notification.isDenied.then((value) {
+    if (value) {
+      Permission.notification.request();
+    }
+  });
   await GetStorage.init();
   await BasePreference.init();
+  WidgetsFlutterBinding.ensureInitialized();
+  NotificationService().initNotification();
   runApp(ProviderScope(
     child: EasyLocalization(
       supportedLocales: const [Locale("id", "ID"), Locale("en", "US")],
