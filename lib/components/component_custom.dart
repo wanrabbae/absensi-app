@@ -59,8 +59,10 @@ Widget customTextRich2(BuildContext context, String text1, String text2) {
       ]));
 }
 
-Widget customTextRichWithLink(BuildContext context, String text1, String text2,
-    {required VoidCallback onTextClicked}) {
+Widget customTextRichWithLink(
+  BuildContext context,
+  String text1,
+) {
   return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
@@ -72,14 +74,40 @@ Widget customTextRichWithLink(BuildContext context, String text1, String text2,
           ),
           children: [
             TextSpan(
-                text: text2,
+                text: "Kebijakan Hora ",
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   // fontSize: 16,
-                  color: Colors.grey.shade500,
+                  color: colorBluePrimary2,
                   // decoration: TextDecoration.underline,
                 ),
-                recognizer: TapGestureRecognizer()..onTap = onTextClicked)
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    Get.toNamed(RouteName.webview,
+                        arguments: "https://docs.horaapp.id/#kebijakan");
+                  }),
+            TextSpan(
+              text: "dan ",
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                // fontSize: 16,
+                color: Colors.grey.shade500,
+                // decoration: TextDecoration.underline,
+              ),
+            ),
+            TextSpan(
+                text: "Privasi Pengguna",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  // fontSize: 16,
+                  color: colorBluePrimary2,
+                  // decoration: TextDecoration.underline,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    Get.toNamed(RouteName.webview,
+                        arguments: "https://docs.horaapp.id/#privasi");
+                  }),
           ]));
 }
 
@@ -203,18 +231,22 @@ Widget buildImageProfileBig(
       Positioned(
         bottom: 1,
         right: 1,
-        child: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(FeatherIcons.camera, color: Colors.white),
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                50,
+        child: Center(
+          child: Container(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Icon(FeatherIcons.camera, color: Colors.white),
               ),
             ),
-            color: Colors.black,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  50,
+                ),
+              ),
+              color: Colors.black,
+            ),
           ),
         ),
       ),

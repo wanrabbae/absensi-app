@@ -245,7 +245,28 @@ class _HomeScreenState extends State<HomeScreen> {
                   ],
                 ),
               ),
-              Expanded(child: dataHome(context, s, hadirHighlight)),
+              Expanded(
+                  child: s.absen!.length == 0 && hadirHighlight
+                      ? Container(
+                          padding: EdgeInsets.only(bottom: 70),
+                          child: Center(
+                              child: Image.asset(
+                            'assets/icons/absen-ilus.png',
+                            width: 321,
+                            height: 321,
+                          )),
+                        )
+                      : s.izin!.length == 0 && izinHighlight
+                          ? Container(
+                              padding: EdgeInsets.only(bottom: 70),
+                              child: Center(
+                                  child: Image.asset(
+                                'assets/icons/aizin-ilus.png',
+                                width: 321,
+                                height: 321,
+                              )),
+                            )
+                          : dataHome(context, s, hadirHighlight)),
             ],
           ),
           floatingActionButton: hadirHighlight

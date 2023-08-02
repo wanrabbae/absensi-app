@@ -129,7 +129,7 @@ class AbsenController extends GetxController {
       getAddressFromLatLng();
       await googleMapController.future.then((newController) {
         BitmapDescriptor.fromAssetImage(
-                const ImageConfiguration(size: Size(800, 800)),
+                const ImageConfiguration(textDirection: TextDirection.ltr),
                 "assets/icons/map-pin.png")
             .then((value) => customMarker = value);
         newController.animateCamera(

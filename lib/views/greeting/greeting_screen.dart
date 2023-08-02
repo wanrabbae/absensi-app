@@ -42,14 +42,8 @@ class GreetingScreen extends StatelessWidget {
                         // const SizedBox(
                         //   height: 5,
                         // ),
-                        customTextRichWithLink(
-                            context,
-                            "Tekan “SETUJU DAN LANJUTKAN” untuk menyetujui ",
-                            "Kebijakan Hora dan Privasi Pengguna",
-                            onTextClicked: () {
-                          Get.toNamed(RouteName.webview,
-                              arguments: "https://docs.horaapp.id/#privasi");
-                        }),
+                        customTextRichWithLink(context,
+                            "Tekan “SETUJU DAN LANJUTKAN” untuk menyetujui "),
                         buttonGreen(
                           "SETUJU DAN LANJUTKAN",
                           onTap: () {

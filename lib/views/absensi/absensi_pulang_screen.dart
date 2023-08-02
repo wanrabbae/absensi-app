@@ -14,6 +14,7 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
   PageController _pageController = PageController();
   int _currentPageIndex = 0;
   var isDrag = true;
+  Set<Marker> _markers = {};
 
   @override
   Widget build(BuildContext context) {
@@ -41,24 +42,41 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
       ),
       // Second page: Map layout
       GoogleMap(
-          initialCameraPosition: CameraPosition(
-              target: LatLng(double.parse(currentAbsen?["alamatLatitude"]),
-                  double.parse(currentAbsen?["alamatLongtitude"])),
-              zoom: 15),
-          mapType: MapType.normal,
-          myLocationEnabled: true,
-          myLocationButtonEnabled: false,
-          mapToolbarEnabled: false,
-          zoomControlsEnabled: false,
-          zoomGesturesEnabled: false,
-          markers: {
-            Marker(
-              markerId: const MarkerId("value1"),
-              position: LatLng(double.parse(currentAbsen?["alamatLatitude"]),
-                  double.parse(currentAbsen?["alamatLongtitude"])),
-              icon: BitmapDescriptor.defaultMarker,
-            )
-          }),
+        initialCameraPosition: CameraPosition(
+            target: LatLng(double.parse(currentAbsen?["alamatLatitude"]),
+                double.parse(currentAbsen?["alamatLongtitude"])),
+            zoom: 15),
+        mapType: MapType.normal,
+        myLocationEnabled: true,
+        myLocationButtonEnabled: false,
+        mapToolbarEnabled: false,
+        zoomControlsEnabled: false,
+        zoomGesturesEnabled: false,
+        markers: _markers,
+        onMapCreated: (GoogleMapController controller) async {
+          // Wait for the marker icon to be retrieved and then update the marker.
+          BitmapDescriptor bitmapDescriptor =
+              await BitmapDescriptor.fromAssetImage(
+            const ImageConfiguration(textDirection: TextDirection.ltr),
+            "assets/icons/map-pin.png",
+          );
+
+          Marker updatedMarker = Marker(
+            markerId: const MarkerId("value1"),
+            position: LatLng(
+              double.parse(currentAbsen?["alamatLatitude"]),
+              double.parse(currentAbsen?["alamatLongtitude"]),
+            ),
+            icon: bitmapDescriptor,
+          );
+
+          setState(() {
+            // Add the updated marker to the map.
+            _markers.clear();
+            _markers.add(updatedMarker);
+          });
+        },
+      ),
     ];
 
     return GetBuilder<AbsenController>(
