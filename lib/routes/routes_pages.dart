@@ -33,7 +33,7 @@ class Routes {
     GetPage(
         name: RouteName.home,
         page: () => MainScreen(
-              index: Get.arguments ?? 0,
+              index: 0,
             )),
     //Home
     GetPage(name: RouteName.homeSearch, page: () => const HomeSearchScreen()),

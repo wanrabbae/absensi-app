@@ -52,6 +52,15 @@ class SplashController extends GetxController {
         });
   }
 
+  loadingWithAsset(msg, asset) {
+    showDialog(
+        context: Get.overlayContext!,
+        barrierDismissible: false,
+        builder: (ctx) {
+          return customDialogLoadingImage(ctx, msg, asset);
+        });
+  }
+
   loadingLocation(msg) {
     showDialog(
         context: Get.overlayContext!,

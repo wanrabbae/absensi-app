@@ -122,7 +122,17 @@ class AbsenController extends GetxController {
 
   lokasiDetect() async {
     disableButton = true;
-    customSnackbarLoading("Sedang mendeteksi lokasi anda...");
+    customSnackbarLoadingAsset(
+        "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
+    Future.delayed(Duration(seconds: 3), () {
+      Get.back();
+      customSnackbarLoadingAsset(
+          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
+      Future.delayed(Duration(seconds: 2), () {
+        Get.back();
+      });
+    });
+    // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       currentLocation = LatLng(position.latitude, position.longitude);
@@ -141,8 +151,6 @@ class AbsenController extends GetxController {
         );
         disableButton = false;
       });
-      // Get.back();
-
       update();
     });
   }

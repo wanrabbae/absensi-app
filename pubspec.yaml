@@ -113,6 +113,9 @@ flutter:
     - assets/icons/
     - assets/icons/logo/
     - assets/lang/
+    - images/map-pin-gif.gif
+    - images/check-gif.gif
+    - images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -220,6 +220,47 @@ Widget customDialogLoading(BuildContext context, String msg) {
       ));
 }
 
+Widget customDialogLoadingImage(
+    BuildContext context, String msg, String asset) {
+  return AlertDialog(
+      insetPadding: EdgeInsets.zero,
+      actionsPadding: EdgeInsets.zero,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      titlePadding: EdgeInsets.zero,
+      content: Container(
+        height: 300,
+        child: Column(
+          children: [
+            Container(
+              height: 130,
+              width: 150,
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              child: Center(
+                child: Image.asset(
+                  asset,
+                  height: 70,
+                  width: 70,
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 20),
+              child: Text(
+                msg,
+                style: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontFamily: 'Rubik',
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+      ));
+}
+
 Widget customDialogOk(BuildContext context, String msg) {
   return AlertDialog(
       insetPadding: EdgeInsets.zero,

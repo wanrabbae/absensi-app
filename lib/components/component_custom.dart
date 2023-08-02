@@ -213,6 +213,15 @@ customSnackbarLoading(message) {
       margin: EdgeInsets.symmetric(horizontal: 20));
 }
 
+customSnackbarLoadingAsset(message, asset) {
+  showDialog(
+      context: Get.overlayContext!,
+      barrierDismissible: false,
+      builder: (ctx) {
+        return customDialogLoadingImage(ctx, message, asset);
+      });
+}
+
 Widget buildImageProfileBig(
     BuildContext context, String urlPhoto, bool isLocal, file) {
   return Stack(
