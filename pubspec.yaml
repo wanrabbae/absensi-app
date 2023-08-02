@@ -56,11 +56,11 @@ dependencies:
   freezed_annotation: ^2.2.0
   retrofit: ^3.0.1+1
   url_launcher: ^6.1.11
+  awesome_notifications: ^0.6.19
   json_annotation: ^4.6.0
   webview_flutter: ^3.0.4
   flutter_local_notifications: ^13.0.0
   syncfusion_flutter_datepicker: ^20.3.60
-  native_screenshot: ^1.0.0
   intl: ^0.18.0
   easy_localization: ^3.0.1
 

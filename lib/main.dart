@@ -1,5 +1,6 @@
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/services.dart';
 import 'package:app/data/local/base_preference.dart';
 
@@ -36,6 +37,7 @@ void main() async {
   await BasePreference.init();
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService().initNotification();
+  AwesomeNotificationService().initNotification();
   runApp(ProviderScope(
     child: EasyLocalization(
       supportedLocales: const [Locale("id", "ID"), Locale("en", "US")],
