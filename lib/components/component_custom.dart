@@ -329,7 +329,7 @@ Widget buildImageList(BuildContext context, String url, bool local) {
     width: 60,
     height: 60,
     decoration: BoxDecoration(
-        color: Colors.blue,
+        color: Colors.white,
         image: img,
         borderRadius: const BorderRadius.all(Radius.circular(50))),
   );

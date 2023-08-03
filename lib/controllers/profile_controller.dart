@@ -189,10 +189,10 @@ class ProfileController extends GetxController {
         // SplashController().sessionHabis(user?['alamatEmail']);
         customSnackbar1("Menghubungkan kembali...");
         // Get.snackbar(
-        //     'Terjadi gangguan sistem.', response.body.toString());
+        //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
       }
     } catch (e) {
-      // Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      // Get.snackbar('Oops.. terjadi kesalahan sistem.', e.toString());
       // SplashController().sessionHabis(user?['alamatEmail']);
       customSnackbar1("Menghubungkan kembali...");
     }
@@ -231,11 +231,11 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1("Terjadi gangguan sistem.");
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
       }
     } catch (e) {
       Get.back();
-      customSnackbar1("Terjadi gangguan sistem.");
+      customSnackbar1("Oops.. terjadi kesalahan sistem.");
     }
   }
 
@@ -255,11 +255,11 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1("Terjadi gangguan sistem.");
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
       }
     } catch (e) {
       Get.back();
-      customSnackbar1("Terjadi gangguan sistem.");
+      customSnackbar1("Oops.. terjadi kesalahan sistem.");
     }
   }
 
@@ -295,12 +295,12 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1("Terjadi gangguan sistem.");
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
       }
     } catch (e) {
       print(e);
       Get.back();
-      customSnackbar1("Fitur Tidak Bisa Dijalankan !!");
+      customSnackbar1("Oops.. terjadi kesalahan sistem.");
     }
   }
 
@@ -325,13 +325,13 @@ class ProfileController extends GetxController {
       } else {
         Get.back();
         // Get.snackbar(
-        //     'Terjadi gangguan sistem.', response.body.toString());
+        //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
         customSnackbar1("Kode OTP tidak valid.");
       }
     } catch (e) {
       print(e);
       Get.back();
-      // Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      // Get.snackbar('Oops.. terjadi kesalahan sistem.', e.toString());
       customSnackbar1("Kode OTP tidak valid.");
     }
   }

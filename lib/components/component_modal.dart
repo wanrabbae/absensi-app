@@ -41,7 +41,7 @@ Widget modalSelectCompany(BuildContext context, s) {
                 child: SingleChildScrollView(
                   physics: NeverScrollableScrollPhysics(),
                   child: ListView.separated(
-                    itemCount: s.perusahaanList?.length,
+                    itemCount: 1,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     // scrollDirection: Axis.horizontal,
@@ -75,13 +75,13 @@ Widget modalSelectCompany(BuildContext context, s) {
                               ),
                               buildImageSizeIconNetwork(
                                   context,
-                                  s.gambarPerusahaan(s.perusahaanList[pos], 1),
-                                  s.gambarPerusahaan(s.perusahaanList[pos], 2)),
+                                  s.gambarPerusahaan(s.perusahaanList[0], 1),
+                                  s.gambarPerusahaan(s.perusahaanList[0], 2)),
                               const SizedBox(
                                 height: 20,
                               ),
                               Text(
-                                "${s.perusahaanList[pos]['namaPerusahaan']}",
+                                "${s.perusahaanList[0]['namaPerusahaan']}",
                                 style: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   fontSize: 16,

@@ -38,8 +38,7 @@ class Routes {
     //Home
     GetPage(name: RouteName.homeSearch, page: () => const HomeSearchScreen()),
     //Home Undangan
-    GetPage(
-        name: RouteName.homeUndangan, page: () => const HomeUndanganScreen()),
+    GetPage(name: RouteName.homeUndangan, page: () => HomeUndanganScreen()),
     GetPage(
         name: RouteName.companyFullScreen,
         page: () => const CompanyFullScreen()),

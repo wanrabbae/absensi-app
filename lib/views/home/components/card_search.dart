@@ -62,53 +62,7 @@ Widget dataSearch(BuildContext context, s) {
                                             ['namaKaryawan']),
                                   ),
                                 ),
-                                Text(
-                                    changeFormatDate(
-                                        3,
-                                        s.searchHasil?[index]["joinDate"] !=
-                                                null
-                                            ? s.searchHasil?[index]?["joinDate"]
-                                                .toString()
-                                            : DateTime.now().toString()),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 10,
-                                        color:
-                                            Color.fromRGBO(51, 51, 51, 0.5))),
                               ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 1,
-                                    child: GestureDetector(
-                                      // onTap: () {
-                                      //   showDialog(
-                                      //       context: context,
-                                      //       builder: (ctx) => dialogGoogleMap(
-                                      //           ctx,
-                                      //           latLng: LatLng(
-                                      //               DataHelper.absences()[index]
-                                      //                   .locationLat!,
-                                      //               DataHelper.absences()[index]
-                                      //                   .locationLng!),
-                                      //           updateLocation: false));
-                                      // },
-                                      child: Text(
-                                          "${s.searchHasil?[index]['status']}",
-                                          maxLines: 1,
-                                          softWrap: true,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 14,
-                                              color: Color.fromRGBO(
-                                                  51, 51, 51, 0.5))),
-                                    ),
-                                  ),
-                                ],
-                              ),
                             ),
                           ],
                         ),

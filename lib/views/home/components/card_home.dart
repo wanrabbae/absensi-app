@@ -12,38 +12,38 @@ Widget dataHome(BuildContext context, s, isHadir) {
         child: InkWell(
           // splashColor: colorBlueOpacity3,
           radius: 5,
-          onLongPress: () {
-            isHadir
-                ? showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20))),
-                    context: context,
-                    builder: (ctx) => DialogPresensi(
-                          dataPresensi: s.absen[index],
-                          isHadir: isHadir,
-                        )).then((value) {
-                    if (value != null) {
-                      Get.back();
-                      Get.toNamed(RouteName.absen);
-                    }
-                  })
-                : showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(20),
-                            topRight: Radius.circular(20))),
-                    context: context,
-                    builder: (ctx) => DialogPresensi(
-                        dataPresensi: s.izin[index],
-                        isHadir: isHadir)).then((value) {
-                    if (value != null) {
-                      Get.back();
-                      Get.toNamed(RouteName.absen);
-                    }
-                  });
-          },
+          // onLongPress: () {
+          //   isHadir
+          //       ? showModalBottomSheet(
+          //           shape: const RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.only(
+          //                   topLeft: Radius.circular(20),
+          //                   topRight: Radius.circular(20))),
+          //           context: context,
+          //           builder: (ctx) => DialogPresensi(
+          //                 dataPresensi: s.absen[index],
+          //                 isHadir: isHadir,
+          //               )).then((value) {
+          //           if (value != null) {
+          //             Get.back();
+          //             Get.toNamed(RouteName.absen);
+          //           }
+          //         })
+          //       : showModalBottomSheet(
+          //           shape: const RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.only(
+          //                   topLeft: Radius.circular(20),
+          //                   topRight: Radius.circular(20))),
+          //           context: context,
+          //           builder: (ctx) => DialogPresensi(
+          //               dataPresensi: s.izin[index],
+          //               isHadir: isHadir)).then((value) {
+          //           if (value != null) {
+          //             Get.back();
+          //             Get.toNamed(RouteName.absen);
+          //           }
+          //         });
+          // },
           onTap: () {
             isHadir
                 ? Get.toNamed(RouteName.absenViewMode,

@@ -34,9 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
     Get.put(HomeController());
     return GetBuilder<HomeController>(
       init: HomeController(),
-      dispose: (state) {
-        state.controller!.cancelTimer();
-      },
+      // dispose: (state) {
+      //   state.controller!.cancelTimer();
+      // },
       builder: (s) => Scaffold(
           backgroundColor: Colors.white,
           resizeToAvoidBottomInset: false,

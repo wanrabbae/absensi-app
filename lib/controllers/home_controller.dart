@@ -53,6 +53,7 @@ class HomeController extends GetxController {
       if (klikAbsen) {
         timerRecor = timerAbsen();
       } else if (findData != null) {
+        print("KE ELSE IF");
         timerRecor = timerAbsen2(findData?["waktuCheckIn"]);
         box.write(Base.waktuAbsen, findData?["waktuCheckIn"].toString());
         box.write(Base.klikAbsen, true);
@@ -60,13 +61,14 @@ class HomeController extends GetxController {
         update();
       } else {
         timerRecor = "00:00:00";
-        cancelTimer();
+        // cancelTimer();
       }
       update();
     });
   }
 
   cancelTimer() {
+    print("CANCEL TIMER HOME");
     timer?.cancel();
     timer = null;
   }
@@ -139,7 +141,14 @@ class HomeController extends GetxController {
   }
 
   gambarAbsen(data, status) {
-    if (data['fotoKaryawan'] != null) {
+    if (data['fotoPulang'] != null) {
+      if (status == 1) {
+        return changeUrlImage(
+            data['fotoPulang'] ?? 'assets/icons/logo/hora.png');
+      } else {
+        return data['fotoPulang'] == null ? true : false;
+      }
+    } else if (data['fotoKaryawan'] != null) {
       if (status == 1) {
         return changeUrlImage(
             data['fotoKaryawan'] ?? 'assets/icons/logo/hora.png');
@@ -256,7 +265,7 @@ class HomeController extends GetxController {
       // }
     } catch (e) {
       // print(e);
-      // Get.snackbar('Fitur Tidak Bisa Dijalankan !!', e.toString());
+      // Get.snackbar('Oops.. terjadi kesalahan sistem.', e.toString());
     }
   }
 
@@ -284,7 +293,7 @@ class HomeController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1('Terjadi gangguan sistem.');
+        customSnackbar1('Oops.. terjadi kesalahan sistem.');
       }
     } catch (e) {
       customSnackbar1("Menghubungkan kembali...");
@@ -332,7 +341,7 @@ class HomeController extends GetxController {
       update();
     } else if (findDataIzin != null) {
       isPresentHadir = true;
-      cancelTimer();
+      // cancelTimer();
       update();
     } else if (findData != null) {
       print("KESEINI");
@@ -340,12 +349,12 @@ class HomeController extends GetxController {
       update();
     } else if (findDataPulang != null) {
       isPresentHadir = true;
-      cancelTimer();
+      // cancelTimer();
       update();
     } else if (findData != null && findDataPulang != null) {
       print("KESINI");
       isPresentHadir = true;
-      cancelTimer();
+      // cancelTimer();
       update();
     } else {
       print("KESINI");
@@ -382,15 +391,15 @@ class HomeController extends GetxController {
       update();
     } else if (findData != null) {
       isPresentIzin = true;
-      cancelTimer();
+      // cancelTimer();
       update();
     } else if (findDataAbs != null) {
       isPresentIzin = true;
-      cancelTimer();
+      // cancelTimer();
       update();
     } else if (findData != null && findDataAbs != null) {
       isPresentIzin = true;
-      cancelTimer();
+      // cancelTimer();
       update();
     } else {
       isPresentIzin = false;

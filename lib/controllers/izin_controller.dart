@@ -1,4 +1,7 @@
 import 'package:app/global_resource.dart';
+import 'dart:core';
+
+import 'package:flutter/services.dart';
 
 class IzinController extends GetxController {
   //global
@@ -163,9 +166,25 @@ class IzinController extends GetxController {
       if (status) {
         customSnackbarLoading("Sedang Pulang...");
       }
+
+      String assetFilePath = 'assets/icons/logo/hora.png';
+      File tempFile = await readAssetFileImg(assetFilePath, 'horas.png');
+
+      final forms = {
+        'LatitiudePuang': "user.zin",
+        'LongtitudePulang': "user.izin",
+        'NamaKaryawan': user?['namaKaryawan'],
+        'Foto': {
+          'filePath': tempFile.path,
+          'fileName': tempFile.path.split("/").last
+        },
+        'AlamatPulang': "Jl kenangan",
+      };
+      print("FORM: " + forms.toString());
       var response = await AbsensiServices()
-          .pulangPut({'id': idAbsen, 'tanggal': newDate}, {});
+          .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       if (response.statusCode == 200) {
+        tempFile.delete();
         Get.back();
         box.write(Base.klikAbsen, false);
         await HomeController().cancelTimer();
@@ -189,13 +208,13 @@ class IzinController extends GetxController {
         Get.offAllNamed(RouteName.home, arguments: 0);
         customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
       } else {
-        Get.back();
-        customSnackbar1("Terjadi gangguan sistem.");
         print("INI PULANG: " + response.toString());
+        Get.back();
+        customSnackbar1("Oops.. terjadi kesalahan sistem Pulang.");
       }
     } catch (e) {
       print(e);
-      customSnackbar1("Fitur Tidak Bisa Dijalankan !!");
+      customSnackbar1("Oops.. terjadi kesalahan sistem Pulang.");
     }
   }
 
@@ -226,6 +245,7 @@ class IzinController extends GetxController {
           await HomeController().doneAbsensi();
           await HomeController().dataHome();
         } else {
+          print("KE ELESE");
           final homeCtrl = Get.put(HomeController());
           DateTime dateCurrent = DateTime.now();
           String formattedCurrentDate =
@@ -242,7 +262,7 @@ class IzinController extends GetxController {
       } else {
         Get.back();
         // Get.snackbar(
-        //     'Terjadi gangguan sistem.', response.body.toString());
+        //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
       }
     } catch (e) {
       print("KE CATCH");

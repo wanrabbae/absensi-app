@@ -15,6 +15,7 @@ class AbsenController extends GetxController {
   String? timerRecor = "00:00:00";
   String? waktuAbsen;
   File? formFoto;
+  File? formFotoPulang;
   File? formFotoIzin;
   bool disableButton = false;
   bool klikAbsen = false;
@@ -189,7 +190,20 @@ class AbsenController extends GetxController {
       SplashController()
           .showConfirmationDialog2("Presensi", "Anda ingin pulang?", () {
         Get.back();
-        absenPulang(true, idAbsen);
+        ImagePicker()
+            .pickImage(
+                source: ImageSource.camera,
+                preferredCameraDevice: CameraDevice.front,
+                imageQuality: 50)
+            .then((value) {
+          if (value != null) {
+            formFotoPulang = File(value.path);
+            update();
+            absenPulang(true, idAbsen);
+          } else {
+            customSnackbar1("Tidak bisa melanjutkan tanpa foto");
+          }
+        });
       });
     }
   }
@@ -242,7 +256,7 @@ class AbsenController extends GetxController {
         // SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        // Get.snackbar('Terjadi gangguan sistem.', response.toString());
+        // Get.snackbar('Oops.. terjadi kesalahan sistem.', response.toString());
         // print("INI HADIR: " + (response as Response<dynamic>).toString());
         // print("CODE: " + response.statusCode.toString());
       }
@@ -262,8 +276,18 @@ class AbsenController extends GetxController {
       // if (status) {
       //   customSnackbarLoading("Sedang Pulang...");
       // }
+      final forms = {
+        'LatitiudePuang': currentLocation.latitude,
+        'LongtitudePulang': currentLocation.longitude,
+        'NamaKaryawan': user?['namaKaryawan'],
+        'Foto': {
+          'filePath': formFotoPulang!.path,
+          'fileName': formFotoPulang!.path.split('/').last
+        },
+        'AlamatPulang': alamatLoc,
+      };
       var response = await AbsensiServices()
-          .pulangPut({'id': idAbsen, 'tanggal': newDate}, {});
+          .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       if (response.statusCode == 200) {
         Get.back();
         box.write(Base.klikAbsen, false);
@@ -285,15 +309,15 @@ class AbsenController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else if (response.statusCode == 400) {
         Get.back();
-        customSnackbar1("Terjadi gangguan sistem.");
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
       } else {
         Get.back();
-        customSnackbar1("Terjadi gangguan sistem.");
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
         print("INI PULANG: " + response.toString());
       }
     } catch (e) {
       print(e);
-      customSnackbar1("Terjadi gangguan sistem.");
+      customSnackbar1("Oops.. terjadi kesalahan sistem.");
     }
   }
 
@@ -333,7 +357,7 @@ class AbsenController extends GetxController {
       } else {
         Get.back();
         // Get.snackbar(
-        //     'Terjadi gangguan sistem.', response.body.toString());
+        //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
       }
     } catch (e) {
       print("KE CATCH");

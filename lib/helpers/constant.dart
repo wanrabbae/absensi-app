@@ -1,4 +1,9 @@
 import 'package:app/global_resource.dart';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'package:dio/dio.dart';
 
 final box = GetStorage();
 
@@ -40,6 +45,38 @@ changeFormatDate(status, date) {
   } else {
     return null;
   }
+}
+
+Future<File> readAssetFileImg(String assetFilePath, String fileName) async {
+  // Load the image file from the assets using rootBundle
+  ByteData? byteData = await rootBundle.load(assetFilePath);
+  Uint8List bytes = byteData!.buffer.asUint8List();
+
+  // Get the temporary directory path using the path_provider package
+  Directory tempDir = await getTemporaryDirectory();
+  String tempPath = tempDir.path;
+
+  // Create a temporary File
+  File tempFile = File('$tempPath/$fileName');
+
+  // Write the image bytes into the temporary File
+  await tempFile.writeAsBytes(bytes);
+
+  return tempFile;
+}
+
+Future<File> readAssetFile(String assetContent, String fileName) async {
+  // Get the temporary directory path using the path_provider package
+  Directory tempDir = await getTemporaryDirectory();
+  String tempPath = tempDir.path;
+
+  // Create a temporary File
+  File tempFile = File('$tempPath/$fileName');
+
+  // Write the asset content into the temporary File
+  await tempFile.writeAsString(assetContent);
+
+  return tempFile;
 }
 
 changeUrlImage(data) {
@@ -150,4 +187,43 @@ String formatDuration(Duration duration) {
   final seconds = duration.inSeconds.remainder(60);
 
   return "${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}";
+}
+
+Future<void> downloadImage(String imageUrl) async {
+  try {
+    Dio dio = Dio();
+    var response = await dio.get(imageUrl,
+        options: Options(responseType: ResponseType.bytes));
+
+    // Get the default Download directory path using the path_provider package
+    Directory downloadDir = await getDownloadsDirectory() as Directory;
+
+    // Extract the image name from the URL
+    String imageName = imageUrl.split('/').last;
+
+    // Create a File object to save the image in the default Download directory
+    File imageFile = File('${downloadDir.path}/$imageName');
+
+    // Write the image data to the file
+    await imageFile.writeAsBytes(response.data);
+
+    print('Image downloaded successfully. File path: ${imageFile.path}');
+  } catch (e) {
+    print('Error downloading the image: $e');
+  }
+}
+
+Future<String> createFolder(String cow) async {
+  final folderName = cow;
+  final path = Directory("storage/emulated/0/$folderName");
+  var status = await Permission.storage.status;
+  if (!status.isGranted) {
+    await Permission.storage.request();
+  }
+  if ((await path.exists())) {
+    return path.path;
+  } else {
+    path.create();
+    return path.path;
+  }
 }

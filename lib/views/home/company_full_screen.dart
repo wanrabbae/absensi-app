@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -47,9 +48,17 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
+                      // try {
+                      // print("HORA PATH: " + createFolder("Hora").toString());
+                      // await downloadImage(changeUrlImage(
+                      //     s.perusahaan?['logoPerusahaan'] ??
+                      //         'wwwroot/Images/CompanyLogo/logo_hora.png'));
                       SplashController().showOkDialog2(
                           "Tangkapan Layar", "Gambar Telah Tersimpan", () {});
+                      // } on DioError catch (error) {
+                      //   print(error);
+                      // }
                     },
                     child: Container(
                       decoration: BoxDecoration(
