@@ -181,10 +181,10 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                             Text(
                               "Foto",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Container(
                               height: 320,
@@ -237,10 +237,10 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                             Text(
                               "Jam",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -279,10 +279,10 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                             Text(
                               "Lokasi",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -359,10 +359,10 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                             Text(
                               "Foto",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Container(
                               height: 320,
@@ -415,10 +415,10 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                             Text(
                               "Jam",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -457,10 +457,10 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                             Text(
                               "Lokasi",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -595,7 +595,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                         currentAbsen?["waktuCheckOut"]),
                                     style: const TextStyle(
                                         color: Colors.white,
-                                        fontWeight: FontWeight.w500,
+                                        fontWeight: FontWeight.w700,
                                         fontSize: 16),
                                   ),
                                 ],

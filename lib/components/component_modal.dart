@@ -66,7 +66,7 @@ Widget modalSelectCompany(BuildContext context, s) {
                               Text(
                                 "Perusahaan",
                                 style: const TextStyle(
-                                  fontWeight: FontWeight.w700,
+                                  fontWeight: FontWeight.w900,
                                   fontSize: 16,
                                 ),
                               ),

@@ -184,10 +184,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                             Text(
                               "Foto",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Container(
                               height: 320,
@@ -251,10 +251,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                             Text(
                               "Jam",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -293,10 +293,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                             Text(
                               "Lokasi",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -384,10 +384,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                             Text(
                               "Foto",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Container(
                               height: 320,
@@ -451,10 +451,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                             Text(
                               "Jam",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -493,10 +493,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                             Text(
                               "Lokasi",
                               style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 16),
+                                  fontWeight: FontWeight.w700, fontSize: 16),
                             ),
                             SizedBox(
-                              height: 10,
+                              height: 5,
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,

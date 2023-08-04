@@ -33,7 +33,7 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
               children: [
                 Text(
                   'Surat Izin',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
                 ),
                 Container(
                   // padding: EdgeInsets.only(top: 5),

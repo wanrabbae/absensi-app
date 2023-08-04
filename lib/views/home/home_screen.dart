@@ -308,7 +308,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             : Colors.white,
                         child: Icon(
                           FeatherIcons.paperclip,
-                          color: colorBluePrimary,
+                          color: Colors.black,
                         ),
                         onPressed: () {
                           if (s.isPresentIzin!) {

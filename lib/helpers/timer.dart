@@ -28,7 +28,7 @@ Widget buildEnable(BuildContext context, timer, s) {
         Text(
           timer,
           style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
+              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 16),
         ),
       ],
     ),
@@ -54,7 +54,7 @@ Widget buildDisable(BuildContext context, timer) {
         Text(
           timer,
           style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 16),
+              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 16),
         ),
       ],
     ),

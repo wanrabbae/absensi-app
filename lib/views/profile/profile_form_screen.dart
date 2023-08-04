@@ -15,7 +15,7 @@ class ProfileFormScreen extends StatelessWidget {
           backgroundColor: Colors.white,
           title: Text(
             'Sunting',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
           ),
           leading: Container(
             padding: EdgeInsets.only(left: 3),
