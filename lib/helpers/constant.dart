@@ -1,6 +1,7 @@
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -237,4 +238,9 @@ Future<void> openMap(double latitude, double longitude) async {
   } else {
     throw 'Could not open the map.';
   }
+}
+
+saveNetworkImage(url) async {
+  String path = url.toString();
+  GallerySaver.saveImage(path, albumName: 'Hora');
 }

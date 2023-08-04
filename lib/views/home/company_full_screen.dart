@@ -49,6 +49,9 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
                   ),
                   GestureDetector(
                     onTap: () async {
+                      saveNetworkImage(changeUrlImage(
+                          s.perusahaan?['logoPerusahaan'] ??
+                              'wwwroot/Images/CompanyLogo/logo_hora.png'));
                       // try {
                       // print("HORA PATH: " + createFolder("Hora").toString());
                       // await downloadImage(changeUrlImage(

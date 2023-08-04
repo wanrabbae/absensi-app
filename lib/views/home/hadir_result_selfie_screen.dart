@@ -50,6 +50,9 @@ class _HasilHadirScreenState extends State<HasilHadirScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          saveNetworkImage(changeUrlImage(
+                              Get.arguments.toString() ??
+                                  'wwwroot/Images/CompanyLogo/logo_hora.png'));
                           customSnackbar1("Tangkapan layar telah disimpan.");
                           // SplashController().showOkDialog2(
                           //     "Tangkapan Layar", "Gambar Telah Tersimpan", () {});
