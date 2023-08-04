@@ -4,9 +4,6 @@ import 'package:flutter/services.dart';
 import 'components/card_home.dart';
 
 class MainScreen extends StatefulWidget {
-  int? index;
-  MainScreen({this.index});
-
   @override
   State<MainScreen> createState() => _MainScreenState();
 }

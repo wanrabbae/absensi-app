@@ -6,6 +6,7 @@ class AbsenController extends GetxController {
   String? currentDate;
   String? fileName;
   PlatformFile? file;
+  int changePageScreen = 0;
   Map? user;
   //absen
   LatLng currentLocation = const LatLng(5.880241, 95.336574);
@@ -36,6 +37,13 @@ class AbsenController extends GetxController {
 
   @override
   void onInit() async {
+    final homeCtrl = Get.put(HomeController());
+    var findData = homeCtrl.absen?.firstWhere(
+      (element) =>
+          element?["idkaryawan"] == user?["idkaryawan"] &&
+          element?["waktuCheckOut"] != null,
+      orElse: () => null,
+    );
     super.onInit();
     user = box.read(Base.dataUser);
     klikAbsen = box.read(Base.klikAbsen) ?? false;
@@ -43,7 +51,7 @@ class AbsenController extends GetxController {
     user = await ProfileController().dataProfile(user?['alamatEmail']);
     await dataPerusahaan();
     startTimer();
-    getCurrentLocation();
+    if (!klikAbsen && findData != null) getCurrentLocation();
   }
 
   startTimer() {
@@ -89,7 +97,6 @@ class AbsenController extends GetxController {
   getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
-    disableButton = true;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -116,13 +123,11 @@ class AbsenController extends GetxController {
       });
       return false;
     }
-    disableButton = false;
     update();
     lokasiDetect();
   }
 
   lokasiDetect() async {
-    disableButton = true;
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
     Future.delayed(Duration(seconds: 3), () {
@@ -131,6 +136,7 @@ class AbsenController extends GetxController {
           "Titik lokasi anda ditemukan.", "images/check-gif.gif");
       Future.delayed(Duration(seconds: 2), () {
         Get.back();
+        mulaiAbsen();
       });
     });
     // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
@@ -150,7 +156,73 @@ class AbsenController extends GetxController {
                 zoom: 15),
           ),
         );
-        disableButton = false;
+      });
+      update();
+    });
+  }
+
+  getCurrentLocationPulang(idAbsen) async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      customSnackbar1("Lokasi Tidak Aktif");
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        SplashController().showConfirmationDialog2(
+            "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+          // Redirect to allow location setting on phone
+          openAppSettings();
+        });
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      SplashController().showConfirmationDialog2(
+          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+        // Redirect to allow location setting on phone
+        openAppSettings();
+      });
+      return false;
+    }
+    update();
+    lokasiDetectPulang(idAbsen);
+  }
+
+  lokasiDetectPulang(idAbsen) async {
+    customSnackbarLoadingAsset(
+        "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
+    Future.delayed(Duration(seconds: 3), () {
+      Get.back();
+      customSnackbarLoadingAsset(
+          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
+      Future.delayed(Duration(seconds: 2), () {
+        Get.back();
+        mulaiPulangAct(idAbsen);
+      });
+    });
+    // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) async {
+      currentLocation = LatLng(position.latitude, position.longitude);
+      getAddressFromLatLng();
+      await googleMapController.future.then((newController) {
+        BitmapDescriptor.fromAssetImage(
+                const ImageConfiguration(textDirection: TextDirection.ltr),
+                "assets/icons/map-pin.png")
+            .then((value) => customMarker = value);
+        newController.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+                target: LatLng(position.latitude, position.longitude),
+                zoom: 15),
+          ),
+        );
       });
       update();
     });
@@ -206,6 +278,57 @@ class AbsenController extends GetxController {
         });
       });
     }
+  }
+
+  mulaiAbsen() async {
+    SplashController()
+        .showConfirmationDialog3("Verifikasi Wajah", "Yuk selfie...", () {
+      // Get.back();
+      ImagePicker()
+          .pickImage(
+              source: ImageSource.camera,
+              preferredCameraDevice: CameraDevice.front,
+              imageQuality: 50)
+          .then((value) {
+        if (value != null) {
+          formFoto = File(value.path);
+          update();
+          absenHadir();
+        } else {
+          customSnackbar1("Tidak bisa melanjutkan tanpa foto");
+        }
+      });
+    });
+  }
+
+  mulaiPulang(context, idAbsen) {
+    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?",
+        () async {
+      // Get.back();
+      // changePageScreen = 1;
+      // update();
+      await getCurrentLocationPulang(idAbsen);
+    });
+  }
+
+  mulaiPulangAct(idAbsen) {
+    SplashController()
+        .showConfirmationDialog3("Verifikasi Wajah", "Yuk selfie...", () {
+      ImagePicker()
+          .pickImage(
+              source: ImageSource.camera,
+              preferredCameraDevice: CameraDevice.front,
+              imageQuality: 50)
+          .then((value) {
+        if (value != null) {
+          formFotoPulang = File(value.path);
+          update();
+          absenPulang(true, idAbsen);
+        } else {
+          customSnackbar1("Tidak bisa melanjutkan tanpa foto");
+        }
+      });
+    });
   }
 
   updateFile() async {
@@ -266,12 +389,13 @@ class AbsenController extends GetxController {
   }
 
   absenPulang(status, idAbsen) async {
+    print("PULANG YOYY");
     var currentDate = DateTime.now();
     var newDate =
         new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
             .toString()
             .split(" ")[0];
-    print(idAbsen);
+    print("ID ABSEN PULANG: " + idAbsen.toString());
     try {
       // if (status) {
       //   customSnackbarLoading("Sedang Pulang...");
@@ -288,6 +412,7 @@ class AbsenController extends GetxController {
       };
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
+      print(response);
       if (response.statusCode == 200) {
         Get.back();
         box.write(Base.klikAbsen, false);

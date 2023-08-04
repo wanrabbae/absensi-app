@@ -105,6 +105,7 @@ class HomeController extends GetxController {
         }
       } else {
         print(absen);
+        print("KE PULANG");
         var currentAbsen = absen?.firstWhere(
           (element) =>
               element['idkaryawan'] == user?['idkaryawan'] &&
@@ -112,8 +113,7 @@ class HomeController extends GetxController {
           orElse: () => null,
         );
         Get.back();
-        Get.toNamed(RouteName.absenPulangView,
-            arguments: {"dataAbsen": currentAbsen});
+        Get.toNamed(RouteName.absen, arguments: {"dataAbsen": currentAbsen});
       }
     }
   }

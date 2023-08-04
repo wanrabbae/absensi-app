@@ -92,7 +92,8 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                       TextFormField(
                         readOnly: true,
                         onChanged: (value) => s.namaOrang = value,
-                        initialValue: s.user?["namaKaryawan"] ?? "",
+                        initialValue:
+                            Get.arguments?["namaKaryawan"].toString() ?? "",
                         keyboardType: TextInputType.text,
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),

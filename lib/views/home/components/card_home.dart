@@ -46,7 +46,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
           // },
           onTap: () {
             isHadir
-                ? Get.toNamed(RouteName.absenViewMode,
+                ? Get.toNamed(RouteName.absen,
                     arguments: {"dataAbsen": s.absen[index]})
                 : Get.toNamed(RouteName.absenIzinDownloaded,
                     arguments: s.izin[index]);
@@ -61,7 +61,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                 GestureDetector(
                   onTap: () {
                     isHadir
-                        ? Get.toNamed(RouteName.absenViewMode,
+                        ? Get.toNamed(RouteName.absen,
                             arguments: {"dataAbsen": s.absen[index]})
                         : Get.toNamed(RouteName.absenIzinDownloaded,
                             arguments: s.izin[index]);
@@ -124,7 +124,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                 GestureDetector(
                                   onTap: () {
                                     isHadir
-                                        ? Get.toNamed(RouteName.absenViewMode,
+                                        ? Get.toNamed(RouteName.absen,
                                             arguments: {
                                                 "dataAbsen": s.absen[index]
                                               })
@@ -165,7 +165,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                   child: GestureDetector(
                                     onTap: () {
                                       isHadir
-                                          ? Get.toNamed(RouteName.absenViewMode,
+                                          ? Get.toNamed(RouteName.absen,
                                               arguments: {
                                                   "dataAbsen": s.absen[index]
                                                 })
