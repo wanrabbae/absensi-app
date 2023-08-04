@@ -230,9 +230,11 @@ Future<String> createFolder(String cow) async {
   }
 }
 
-Future<void> openMap(double latitude, double longitude) async {
+Future<void> openMap(String? latitude, String? longitude) async {
+  double latitude2 = double.parse(latitude.toString());
+  double longitude2 = double.parse(longitude.toString());
   String googleUrl =
-      'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+      'https://www.google.com/maps/search/?api=1&query=$latitude2,$longitude2';
   if (await canLaunch(googleUrl)) {
     await launch(googleUrl);
   } else {

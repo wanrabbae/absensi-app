@@ -51,7 +51,11 @@ class AbsenController extends GetxController {
     user = await ProfileController().dataProfile(user?['alamatEmail']);
     await dataPerusahaan();
     startTimer();
-    if (!klikAbsen && findData != null) getCurrentLocation();
+
+    if (!klikAbsen && findData == null) {
+      print("BELUM ABSEN");
+      getCurrentLocation();
+    }
   }
 
   startTimer() {

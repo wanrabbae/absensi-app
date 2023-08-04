@@ -61,6 +61,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                   color: colorBluePrimary,
                 ),
                 onPressed: () {
+                  saveNetworkImage(changeUrlImage(Get.arguments?["dokumen"]));
                   customSnackbar1("Lampiran telah disimpan.");
                 },
               ),

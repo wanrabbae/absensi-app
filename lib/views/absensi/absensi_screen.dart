@@ -321,7 +321,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                     Container(
                                       width: 130,
                                       child: Text(
-                                        "${currentAbsen['alamatLoc'] != null ? currentAbsen['alamatLoc'] : s.alamatLoc}",
+                                        "${currentAbsen?['alamatLoc'] != null ? currentAbsen['alamatLoc'] : s.alamatLoc}",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -342,8 +342,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                             currentAbsen?['alamatLongtitude']);
                                       } else {
                                         await openMap(
-                                            s.currentLocation.latitude,
-                                            s.currentLocation.longitude);
+                                            s.currentLocation.latitude
+                                                .toString(),
+                                            s.currentLocation.longitude
+                                                .toString());
                                       }
                                     },
                                     style: ButtonStyle(
@@ -519,7 +521,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                     Container(
                                       width: 130,
                                       child: Text(
-                                        "${currentAbsen['alamatPulang'] != null ? currentAbsen['alamatPulang'] : s.alamatLoc}",
+                                        "${currentAbsen?['alamatPulang'] == null ? '-' : currentAbsen['alamatPulang']}",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: TextStyle(
@@ -590,23 +592,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                             top: 3, bottom: 20, left: 20, right: 20),
                         child: ElevatedButton(
                             onPressed: () {
-                              if (currentAbsen?['waktuCheckOut'] == null) {
-                                if (!s.klikAbsen) {
-                                  s.mulaiAbsen();
-                                } else {
-                                  if (currentAbsen?["idkaryawan"] ==
-                                      s.user?["idkaryawan"]) {
-                                    s.mulaiPulang(context, idAbsen);
-                                  } else {
-                                    customSnackbar1(
-                                        "Kehadiran hari ini telah terisi.");
-                                    return;
-                                  }
-                                }
+                              if (!s.klikAbsen) {
+                                s.mulaiAbsen();
                               } else {
-                                customSnackbar1(
-                                    "Kehadiran hari ini telah terisi.");
-                                return;
+                                s.mulaiPulang(context, idAbsen);
                               }
                             },
                             style: ButtonStyle(
@@ -614,45 +603,12 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                     // s.klikAbsen
                                     //     ? colorGrayPrimary
                                     //     : colorBluePrimary
-                                    currentAbsen?["waktuCheckOut"] == null
-                                        ? colorBluePrimary
-                                        : Colors.grey.shade400),
+                                    colorBluePrimary),
                                 shape: const MaterialStatePropertyAll(
                                     (RoundedRectangleBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(20)))))),
-                            child: currentAbsen?["waktuCheckOut"] != null
-                                ? Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 20, bottom: 20),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Icon(
-                                          FeatherIcons.clock,
-                                          size: 18,
-                                          color: Colors.white,
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          getDuration(
-                                              currentAbsen?["waktuCheckIn"],
-                                              currentAbsen?["waktuCheckOut"]),
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                : timerCount(context, s)),
+                            child: timerCount(context, s)),
                       )
                     ],
                   ),
