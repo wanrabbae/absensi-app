@@ -128,6 +128,24 @@ timerAbsen2(waktuAbsen) {
   return "$hours:$munite:$second";
 }
 
+timerAbsen3(waktuCheckIn, String? checkOut) {
+  DateTime checkOutDateTime;
+
+  if (checkOut != null) {
+    checkOutDateTime = DateTime.parse(checkOut);
+  } else {
+    checkOutDateTime = DateTime.now();
+  }
+
+  var time = DateTime.parse(waktuCheckIn!).difference(checkOutDateTime);
+  var waktu = DateTime.parse(
+      '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
+  var hours = waktu.hour < 10 ? '0${waktu.hour}' : waktu.hour;
+  var munite = waktu.minute < 10 ? '0${waktu.minute}' : waktu.minute;
+  var second = waktu.second < 10 ? '0${waktu.second}' : waktu.second;
+  return "$hours:$munite:$second";
+}
+
 izinAbs() {
   var izinAbse = box.read(Base.izinAbsen);
   var sekarang = DateTime.now();

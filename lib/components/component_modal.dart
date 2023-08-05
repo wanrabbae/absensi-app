@@ -240,8 +240,8 @@ Widget customDialogLoadingImage(
               child: Center(
                 child: Image.asset(
                   asset,
-                  height: 70,
-                  width: 70,
+                  height: asset == "images/check-gif.gif" ? 140 : 90,
+                  width: asset == "images/check-gif.gif" ? 140 : 90,
                 ),
               ),
             ),

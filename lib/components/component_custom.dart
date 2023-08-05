@@ -323,8 +323,16 @@ Widget buildImageSizeIconNetwork(BuildContext context, String url, bool local) {
 
 Widget buildImageList(BuildContext context, String url, bool local) {
   var img = local
-      ? DecorationImage(image: AssetImage(url), fit: BoxFit.cover)
-      : DecorationImage(image: NetworkImage(url), fit: BoxFit.cover);
+      ? DecorationImage(
+          image: AssetImage(url),
+          onError: (exception, stackTrace) =>
+              AssetImage('assets/icons/logo/hora.png'),
+          fit: BoxFit.cover)
+      : DecorationImage(
+          image: NetworkImage(url),
+          onError: (exception, stackTrace) =>
+              AssetImage('assets/icons/logo/hora.png'),
+          fit: BoxFit.cover);
   return Container(
     width: 60,
     height: 60,

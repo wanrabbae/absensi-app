@@ -11,15 +11,26 @@ class AbsensiScreenView extends StatefulWidget {
 
 class _AbsensiScreenViewState extends State<AbsensiScreenView> {
   var isDrag = true;
+  Map<String, dynamic>? izinData;
 
   @override
   Widget build(BuildContext context) {
+    final homeCtrl = Get.put(HomeController());
+
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     var currentAbsen = Get.arguments?["dataAbsen"] ?? {};
     var idAbsen = Get.arguments?["dataAbsen"]?["id"] ?? null;
-    print("ID ABSE: " + idAbsen.toString());
+
+    var findDataIzin = homeCtrl.izin?.firstWhere(
+      (element) => element?["idkaryawan"] == currentAbsen?["idkaryawan"],
+      orElse: () => null,
+    );
+    if (findDataIzin != null)
+      setState(() {
+        izinData = findDataIzin;
+      });
 
     return DefaultTabController(
       initialIndex: 0,
@@ -66,97 +77,6 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                   ]),
             ),
             backgroundColor: Colors.white,
-            // actions: [
-            //   Container(
-            //     padding: const EdgeInsets.only(left: 20, right: 20),
-            //     width: MediaQuery.of(context).size.width,
-            //     color: Colors.transparent,
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //       crossAxisAlignment: CrossAxisAlignment.center,
-            //       mainAxisSize: MainAxisSize.max,
-            //       children: [
-            //         GestureDetector(
-            //           onTap: () {
-            //             Get.back();
-            //           },
-            //           child: Container(
-            //               padding: EdgeInsets.all(10),
-            //               decoration: BoxDecoration(
-            //                   color: Colors.white,
-            //                   borderRadius: BorderRadius.circular(50.0)),
-            //               child: Icon(FeatherIcons.arrowLeft)),
-            //         ),
-            //         Align(
-            //           alignment: Alignment.topRight,
-            //           child: Row(
-            //             mainAxisAlignment: MainAxisAlignment.start,
-            //             crossAxisAlignment: CrossAxisAlignment.center,
-            //             mainAxisSize: MainAxisSize.max,
-            //             children: [
-            //               // ovalCardIcon(context, FeatherIcons.mapPin,
-            //               //     onTaped: () async {
-            //               //   s.lokasiDetect();
-            //               //   showDialog(
-            //               //     context: context,
-            //               //     builder: (ctx) => dialogGoogleMap(context,
-            //               //         latLng: s.currentLocation,
-            //               //         updateLocation: true),
-            //               //   );
-            //               // }),
-            //               // const SizedBox(width: 20),
-            //               // ovalCardIconAsset(
-            //               //     context, "assets/icons/ic_screen_shot.png",
-            //               //     onTaped: () async {
-            //               // final storagePermission = await [
-            //               //   Permission.storage,
-            //               //   Permission.manageExternalStorage
-            //               // ].request();
-            //               // Permission.manageExternalStorage.isGranted
-            //               //     .then((_) async {
-            //               //   await NativeScreenshot.takeScreenshot().then((value) {
-            //               //     if (value != null) {
-            //               //       showDialog(
-            //               //           context: context,
-            //               //           builder: (ctx) => customDialog(
-            //               //               context, "File save in $value", "OK",
-            //               //               onTap: () => AppRoute.pop()));
-            //               //     }
-            //               //   }).catchError((err) {
-            //               //     showDialog(
-            //               //         context: context,
-            //               //         builder: (ctx) => customDialog(
-            //               //             context, "msg ${err.toString()}", "OK",
-            //               //             onTap: () => AppRoute.pop()));
-            //               //   });
-            //               // });
-            //               // }),
-            //               // const SizedBox(width: 10),
-            //               // ovalCardIcon(
-            //               //   context,
-            //               //   FeatherIcons.mail,
-            //               //   onTaped: () {
-            //               //     showDialog(
-            //               //       context: context,
-            //               //       builder: (ctx) => customDialog(
-            //               //         context,
-            //               //         "Anda ingin izin hari ini?",
-            //               //         "Ok",
-            //               //         onTap: () {
-            //               //           Get.back();
-            //               //           Get.toNamed(RouteName.absenIzin);
-            //               //         },
-            //               //       ),
-            //               //     );
-            //               //   },
-            //               // )
-            //             ],
-            //           ),
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            // ],
           ),
           body: Container(
             width: MediaQuery.of(context).size.width,
@@ -345,6 +265,85 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                     ))
                               ],
                             ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "Izin",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700, fontSize: 16),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                          color: colorBlueOpacity2,
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      child: Icon(
+                                        FeatherIcons.paperclip,
+                                        color: colorBluePrimary2,
+                                        size: 20,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Container(
+                                      width: 130,
+                                      child: Text(
+                                        "${izinData?['ijin'] == null ? '-' : izinData?['ijin']}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                ElevatedButton(
+                                    onPressed: () async {
+                                      if (izinData?['ijin'] != null) {
+                                        Get.toNamed(
+                                            RouteName.absenIzinDownloaded,
+                                            arguments: izinData);
+                                      } else {
+                                        return;
+                                      }
+                                    },
+                                    style: ButtonStyle(
+                                        elevation: MaterialStatePropertyAll(0),
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                Colors.transparent),
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                side: BorderSide(
+                                                    color: colorBluePrimary2,
+                                                    width: 2)))),
+                                    child: Text(
+                                      "Buka Izin",
+                                      style: TextStyle(
+                                          color: colorBluePrimary2,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -381,8 +380,37 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                         borderRadius: BorderRadius.circular(20),
                                         child: Image.network(
                                           changeUrlImage(
-                                              currentAbsen?['fotoPulang']),
-                                          fit: BoxFit.fill,
+                                            currentAbsen?['fotoPulang'],
+                                          ),
+                                          errorBuilder: (BuildContext context,
+                                              Object exception,
+                                              StackTrace? stackTrace) {
+                                            return Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: 40,
+                                                  height: 40,
+                                                  decoration: BoxDecoration(
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                            color:
+                                                                colorBlueOpacity2)
+                                                      ],
+                                                      // color: colorBlueOpacity2,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  child: Image.asset(
+                                                      'assets/icons/image.png'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                          fit: BoxFit.contain,
                                         ),
                                       ),
                                     )
@@ -530,6 +558,85 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                     ))
                               ],
                             ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "Izin",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700, fontSize: 16),
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: 40,
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                          color: colorBlueOpacity2,
+                                          borderRadius:
+                                              BorderRadius.circular(50)),
+                                      child: Icon(
+                                        FeatherIcons.paperclip,
+                                        color: colorBluePrimary2,
+                                        size: 20,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Container(
+                                      width: 130,
+                                      child: Text(
+                                        "${izinData?['ijin'] == null ? '-' : izinData?['ijin']}",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                ElevatedButton(
+                                    onPressed: () async {
+                                      if (izinData?['ijin'] != null) {
+                                        Get.toNamed(
+                                            RouteName.absenIzinDownloaded,
+                                            arguments: izinData);
+                                      } else {
+                                        return;
+                                      }
+                                    },
+                                    style: ButtonStyle(
+                                        elevation: MaterialStatePropertyAll(0),
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                Colors.transparent),
+                                        shape: MaterialStateProperty.all<
+                                                RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                side: BorderSide(
+                                                    color: colorBluePrimary2,
+                                                    width: 2)))),
+                                    child: Text(
+                                      "Buka Izin",
+                                      style: TextStyle(
+                                          color: colorBluePrimary2,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -591,7 +698,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                     width: 8,
                                   ),
                                   Text(
-                                    getDuration(currentAbsen?["waktuCheckIn"],
+                                    timerAbsen3(currentAbsen?["waktuCheckIn"],
                                         currentAbsen?["waktuCheckOut"]),
                                     style: const TextStyle(
                                         color: Colors.white,

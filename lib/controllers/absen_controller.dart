@@ -8,6 +8,7 @@ class AbsenController extends GetxController {
   PlatformFile? file;
   int changePageScreen = 0;
   Map? user;
+  Map<String, dynamic>? izinData;
   //absen
   LatLng currentLocation = const LatLng(5.880241, 95.336574);
   BitmapDescriptor customMarker = BitmapDescriptor.defaultMarker;
@@ -44,6 +45,10 @@ class AbsenController extends GetxController {
           element?["waktuCheckOut"] != null,
       orElse: () => null,
     );
+    var findDataIzin = homeCtrl.izin?.firstWhere(
+      (element) => element?["idkaryawan"] == user?["idkaryawan"],
+      orElse: () => null,
+    );
     super.onInit();
     user = box.read(Base.dataUser);
     klikAbsen = box.read(Base.klikAbsen) ?? false;
@@ -51,6 +56,8 @@ class AbsenController extends GetxController {
     user = await ProfileController().dataProfile(user?['alamatEmail']);
     await dataPerusahaan();
     startTimer();
+
+    if (findDataIzin != null) izinData = findDataIzin;
 
     if (!klikAbsen && findData == null) {
       print("BELUM ABSEN");

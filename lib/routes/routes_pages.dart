@@ -74,7 +74,7 @@ class Routes {
     GetPage(name: RouteName.absenIzin, page: () => AbsensiIzinScreen()),
     GetPage(
         name: RouteName.absenIzinDownloaded,
-        page: () => const AbsensiIzinDownloadedScreen()),
+        page: () => AbsensiIzinDownloadedScreen()),
 //End Absensi
 
 //Start WebView
