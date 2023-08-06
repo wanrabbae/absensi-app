@@ -282,7 +282,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       // AwesomeNotificationService().showNotificationAbsen();
                       // print("TESTN OTIF");
                       if (s.isPresentHadir!) {
-                        customSnackbar1("Kehadiran hari ini telah terisi.");
+                        print("test");
+                        // customSnackbar1("Kehadiran hari ini telah terisi.");
                       } else {
                         s.absensi(context);
                       }

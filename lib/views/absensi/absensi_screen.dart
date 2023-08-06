@@ -404,7 +404,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                           borderRadius:
                                               BorderRadius.circular(20),
                                           child: Image.file(
-                                            File(s.formFoto!.path),
+                                            File(s.formFotoPulang!.path),
                                             fit: BoxFit.fill,
                                           ),
                                         )
@@ -529,6 +529,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                             currentAbsen?['latitudePulang'],
                                             currentAbsen?['longtitudePulang']);
                                       } else {
+                                        print("kesini");
                                         return;
                                       }
                                     },

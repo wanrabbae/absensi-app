@@ -110,10 +110,7 @@ class AbsenController extends GetxController {
     LocationPermission permission;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      customSnackbar1("Lokasi Tidak Aktif");
-      return false;
-    }
+
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
@@ -132,6 +129,11 @@ class AbsenController extends GetxController {
         // Redirect to allow location setting on phone
         openAppSettings();
       });
+      return false;
+    }
+    if (!serviceEnabled) {
+      Get.back();
+      customSnackbar1("Lokasi Tidak Aktif");
       return false;
     }
     update();
@@ -421,6 +423,7 @@ class AbsenController extends GetxController {
         },
         'AlamatPulang': alamatLoc,
       };
+
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       print(response);

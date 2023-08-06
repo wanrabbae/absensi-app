@@ -124,7 +124,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                         child: Image.network(
                                           changeUrlImage(
                                               currentAbsen?['fotoKaryawan']),
-                                          fit: BoxFit.fill,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                     )
@@ -410,7 +410,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                               ],
                                             );
                                           },
-                                          fit: BoxFit.contain,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
                                     )
@@ -525,6 +525,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                 ),
                                 ElevatedButton(
                                     onPressed: () async {
+                                      print(currentAbsen);
                                       if (currentAbsen?['longtitudePulang'] !=
                                               null &&
                                           currentAbsen?['latitudePulang'] !=
@@ -533,6 +534,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                             currentAbsen?['latitudePulang'],
                                             currentAbsen?['longtitudePulang']);
                                       } else {
+                                        print("kesini");
                                         return;
                                       }
                                     },
@@ -663,8 +665,8 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                             top: 3, bottom: 20, left: 20, right: 20),
                         child: ElevatedButton(
                             onPressed: () {
-                              customSnackbar1(
-                                  "Kehadiran hari ini telah terisi.");
+                              // customSnackbar1(
+                              //     "Kehadiran hari ini telah terisi.");
                             },
                             style: ButtonStyle(
                                 backgroundColor: MaterialStatePropertyAll(
