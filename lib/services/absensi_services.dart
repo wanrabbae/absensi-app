@@ -40,7 +40,7 @@ class AbsensiServices extends GetConnect implements GetxService {
 
     dio.FormData formData = dio.FormData.fromMap({
       'LongtitudePulang': body?['LongtitudePulang'],
-      'LatitiudePuang': body?['LatitiudePuang'],
+      'LatitudePulang': body?['LatitudePulang'],
       'AlamatPulang': body?['AlamatPulang'],
       'NamaKaryawan': body?['NamaKaryawan'],
       "Foto": await dio.MultipartFile.fromFile(body?['Foto']?['filePath'],

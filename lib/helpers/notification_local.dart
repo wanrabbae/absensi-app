@@ -59,6 +59,7 @@ class AwesomeNotificationService {
         enableVibration: true,
         defaultColor: colorBluePrimary2,
         ledColor: colorBluePrimary2,
+        playSound: true,
       ),
     ]);
   }
@@ -84,5 +85,9 @@ class AwesomeNotificationService {
           NotificationActionButton(
               key: "open", label: "Buka Aplikasi", color: colorBluePrimary2),
         ]);
+  }
+
+  Future<void> removeNotification() async {
+    await AwesomeNotifications().cancelAll();
   }
 }

@@ -1,5 +1,7 @@
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
+import 'package:dio/dio.dart';
+import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -263,4 +265,41 @@ Future<void> openMap(String? latitude, String? longitude) async {
 saveNetworkImage(url) async {
   String path = url.toString();
   GallerySaver.saveImage(path, albumName: 'Hora');
+}
+
+saveNetworkFile(url) async {
+  PermissionStatus status = await Permission.storage.status;
+  print(status.isGranted);
+  if (!status.isGranted) {
+    // If permission is not granted, request it
+    status = await Permission.storage.request();
+    if (!status.isGranted) {
+      // If the user denies the permission, open app settings
+      SplashController().showConfirmationDialog2(
+          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+        // Redirect to allow location setting on phone
+        openAppSettings();
+      });
+      return false;
+    }
+  }
+
+  var dir = await DownloadsPathProvider.downloadsDirectory;
+  if (dir != null) {
+    String savename = url.toString().split("/").last;
+    String savePath = dir.path + "/$savename";
+    print(savePath);
+
+    try {
+      await Dio().download(url, savePath, onReceiveProgress: (received, total) {
+        if (total != -1) {
+          print((received / total * 100).toStringAsFixed(0) + "%");
+          //you can build progressbar feature too
+        }
+      });
+      print("File is saved to download folder.");
+    } on DioError catch (e) {
+      print(e.message);
+    }
+  }
 }

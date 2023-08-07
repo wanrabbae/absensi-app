@@ -65,7 +65,21 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                 color: colorBluePrimary,
               ),
               onPressed: () {
-                saveNetworkImage(changeUrlImage(Get.arguments?["dokumen"]));
+                var fileType = Get.arguments?["dokumen"]
+                    .toString()
+                    .split("/")
+                    .last
+                    .split(".")
+                    .last;
+
+                if (fileType == "jpg" ||
+                    fileType == "png" ||
+                    fileType == "jpeg") {
+                  saveNetworkImage(changeUrlImage(Get.arguments?["dokumen"]));
+                } else {
+                  saveNetworkFile(changeUrlImage(Get.arguments?["dokumen"]));
+                  print("FILE DOK YOYY");
+                }
                 customSnackbar1("Lampiran telah disimpan.");
               },
             ),

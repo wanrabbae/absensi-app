@@ -43,6 +43,7 @@ dependencies:
   dio: any
   file_picker: ^5.2.2
   image_picker: ^0.8.6
+  downloads_path_provider_28: ^0.1.2
   camera: ^0.10.0+4
   permission_handler: ^10.2.0
   open_settings: ^2.0.2

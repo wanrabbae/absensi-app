@@ -171,7 +171,7 @@ class IzinController extends GetxController {
       File tempFile = await readAssetFileImg(assetFilePath, 'horas.png');
 
       final forms = {
-        'LatitiudePuang': "user.zin",
+        'LatitudePulang': "user.zin",
         'LongtitudePulang': "user.izin",
         'NamaKaryawan': user?['namaKaryawan'],
         'Foto': {

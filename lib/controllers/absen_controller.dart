@@ -414,7 +414,7 @@ class AbsenController extends GetxController {
       //   customSnackbarLoading("Sedang Pulang...");
       // }
       final forms = {
-        'LatitiudePuang': currentLocation.latitude,
+        'LatitudePulang': currentLocation.latitude,
         'LongtitudePulang': currentLocation.longitude,
         'NamaKaryawan': user?['namaKaryawan'],
         'Foto': {
