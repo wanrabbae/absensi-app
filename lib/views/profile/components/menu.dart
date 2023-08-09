@@ -37,7 +37,7 @@ Widget menuProfile(BuildContext context, String title, IconData iconData,
                         child: Text(
                           title,
                           style: TextStyle(
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
                               fontSize: 16,
                               color: title == "Keluar"
                                   ? colorBluePrimary2

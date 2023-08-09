@@ -61,7 +61,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ],
           unselectedLabelStyle: const TextStyle(
-            fontWeight: FontWeight.w300,
+            fontWeight: FontWeight.w600,
             fontSize: 12,
             color: Colors.black,
           ),
@@ -69,7 +69,7 @@ class _MainScreenState extends State<MainScreen> {
           currentIndex: _activePage,
           elevation: 10,
           selectedLabelStyle: const TextStyle(
-            fontWeight: FontWeight.w300,
+            fontWeight: FontWeight.w600,
             fontSize: 12,
             color: colorBluePrimary,
           ),

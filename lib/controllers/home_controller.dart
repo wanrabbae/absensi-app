@@ -314,6 +314,18 @@ class HomeController extends GetxController {
     bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
     bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
 
+    bool isMidnight = dateCurrent.hour == 0 &&
+        dateCurrent.minute == 0 &&
+        dateCurrent.second == 0;
+
+    if (isMidnight) {
+      isPresentHadir = true;
+      isPresentIzin = true;
+      cancelTimer();
+      update();
+      return false;
+    }
+
     var findDataIzin = izin?.firstWhere(
       (element) => element?["idkaryawan"] == idKaryawan,
       orElse: () => null,

@@ -140,11 +140,11 @@ class DialogPermission extends HookConsumerWidget {
                           Map<Permission, PermissionStatus> statuses = await [
                             Permission.camera,
                             Permission.location,
-                            Permission.bluetooth,
+                            // Permission.bluetooth,
                             Permission.storage,
-                            Permission.bluetoothScan,
-                            Permission.bluetoothAdvertise,
-                            Permission.bluetoothConnect,
+                            // Permission.bluetoothScan,
+                            // Permission.bluetoothAdvertise,
+                            // Permission.bluetoothConnect,
                           ].request();
 
                           if (statuses[Permission.camera] ==
