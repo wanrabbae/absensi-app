@@ -39,7 +39,7 @@ class HomeSearchScreen extends StatelessWidget {
                   //       Text("Karyawan perusahaan",
                   //           style: TextStyle(
                   //               fontSize: 16,
-                  //               fontWeight: FontWeight.w400,
+                  //               fontWeight: FontWeight.w500,
                   //               color: Color.fromRGBO(51, 51, 51, 0.5))),
                   //     ],
                   //   ),

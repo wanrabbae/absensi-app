@@ -1,5 +1,6 @@
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/services.dart';
 import 'package:app/data/local/base_preference.dart';
 
@@ -54,6 +55,15 @@ class MyApp extends HookConsumerWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // AwesomeNotifications().actionStream.listen((action) {
+    //   if (action.buttonKeyPressed == "open") {
+    //     print("Open button is pressed");
+    //   } else if (action.buttonKeyPressed == "close") {
+    //     AwesomeNotifications().cancelAll();
+    //   } else {
+    //     print(action.payload); //notification was pressed
+    //   }
+    // });
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);

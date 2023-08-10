@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:app/helpers/notification_local.dart';
 import 'dart:core';
 
 import 'package:flutter/services.dart';
@@ -184,9 +185,11 @@ class IzinController extends GetxController {
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       if (response.statusCode == 200) {
+        await AwesomeNotificationService().removeNotification();
         tempFile.delete();
-        Get.back();
+        // Get.back();
         box.write(Base.klikAbsen, false);
+        box.remove(Base.waktuAbsen);
         await HomeController().cancelTimer();
         await cancelTimer();
         if (status) {

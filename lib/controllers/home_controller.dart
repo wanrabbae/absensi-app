@@ -1,3 +1,4 @@
+import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -48,9 +49,29 @@ class HomeController extends GetxController {
       orElse: () => null,
     );
 
-    // klikAbsen = box.read(Base.klikAbsen) ?? false;
-    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (klikAbsen) {
+    if (findData != null)
+      box.write(Base.waktuAbsen, findData?["waktuCheckIn"].toString());
+
+    DateTime startAbsen = DateTime.parse(GetStorage().read(Base.waktuAbsen));
+
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      print("TIMER: " + timer.toString());
+
+      Duration timeDifference = DateTime.now().difference(startAbsen);
+      bool moreThan8HoursPassed =
+          timeDifference.inHours > 11; // waktu kerja sudah > dari 12 jam
+
+      if (findData != null && moreThan8HoursPassed) {
+        timerRecor = "00:00:00";
+        cancelTimer();
+        isPresentHadir = true;
+        isPresentIzin = true;
+        var findData = await absen?.firstWhere(
+            (element) => element?["idkaryawan"] == user?["idkaryawan"],
+            orElse: () => null);
+
+        await IzinController().absenPulang(false, findData?["id"]);
+      } else if (klikAbsen) {
         timerRecor = timerAbsen();
       } else if (findData != null) {
         print("KE ELSE IF");
@@ -61,7 +82,7 @@ class HomeController extends GetxController {
         update();
       } else {
         timerRecor = "00:00:00";
-        // cancelTimer();
+        cancelTimer();
       }
       update();
     });

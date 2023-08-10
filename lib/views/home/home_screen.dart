@@ -278,9 +278,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     onPressed: () async {
-                      // print("KESINI notif");
-                      // AwesomeNotificationService().showNotificationAbsen();
-                      // print("TESTN OTIF");
                       if (s.isPresentHadir!) {
                         print("test");
                         // customSnackbar1("Kehadiran hari ini telah terisi.");
@@ -301,12 +298,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       FloatingActionButton(
                         heroTag: "btn2",
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(50))),
+                        // shape: const RoundedRectangleBorder(
+                        //     borderRadius:
+                        //         BorderRadius.all(Radius.circular(20))),
                         backgroundColor: s.isPresentIzin!
                             ? Colors.grey.shade400
-                            : Colors.white,
+                            : colorBlueOpacity2,
                         child: Icon(
                           FeatherIcons.paperclip,
                           color: Colors.black,

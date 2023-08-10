@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:app/helpers/notification_local.dart';
 
 class AbsenController extends GetxController {
   //global
@@ -254,7 +255,7 @@ class AbsenController extends GetxController {
   mulaiSelesaiAbsen(context, idAbsen) {
     if (!klikAbsen) {
       SplashController()
-          .showConfirmationDialog2("Verifikasi Wajah", "Yuk selfie...", () {
+          .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
         Get.back();
         ImagePicker()
             .pickImage(
@@ -295,7 +296,7 @@ class AbsenController extends GetxController {
 
   mulaiAbsen() async {
     SplashController()
-        .showConfirmationDialog3("Verifikasi Wajah", "Yuk selfie...", () {
+        .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
       // Get.back();
       ImagePicker()
           .pickImage(
@@ -326,7 +327,7 @@ class AbsenController extends GetxController {
 
   mulaiPulangAct(idAbsen) {
     SplashController()
-        .showConfirmationDialog3("Verifikasi Wajah", "Yuk selfie...", () {
+        .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
       ImagePicker()
           .pickImage(
               source: ImageSource.camera,
@@ -387,6 +388,7 @@ class AbsenController extends GetxController {
         box.write(Base.waktuAbsen, DateTime.now().toString());
         box.write(Base.klikAbsen, true);
         Get.offAllNamed(RouteName.home, arguments: 0);
+        await AwesomeNotificationService().showNotificationAbsen();
       } else if (response.statusCode == 401) {
         Get.back();
         // SplashController().sessionHabis(user?['alamatEmail']);
@@ -428,10 +430,13 @@ class AbsenController extends GetxController {
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       print(response);
       if (response.statusCode == 200) {
+        await AwesomeNotificationService().removeNotification();
         Get.back();
         box.write(Base.klikAbsen, false);
+        box.remove(Base.waktuAbsen);
         await HomeController().cancelTimer();
         await cancelTimer();
+        await AwesomeNotificationService().showNotificationAbsenDone();
         if (status) {
           // Get.snackbar("Anda Sudah Pulang", "waktu telah dihentikan");
           customSnackbar1("Kehadiran hari ini telah terisi.");

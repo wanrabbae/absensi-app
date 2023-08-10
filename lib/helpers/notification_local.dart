@@ -58,7 +58,7 @@ class AwesomeNotificationService {
         importance: NotificationImportance.High,
         enableVibration: true,
         defaultColor: colorBluePrimary2,
-        ledColor: colorBluePrimary2,
+        ledColor: Colors.white,
         playSound: true,
       ),
     ]);
@@ -68,12 +68,12 @@ class AwesomeNotificationService {
       {int id = 0, String? title, String? body, String? payLoad}) async {
     AwesomeNotifications().createNotification(
         content: NotificationContent(
-          backgroundColor: colorBluePrimary,
-          color: colorBluePrimary,
+          backgroundColor: colorBluePrimary2,
+          color: colorBluePrimary2,
           //simgple notification
           id: 123,
           channelKey: 'basic', //set configuration wuth key "basic"
-          title: 'Waktu kehadiran sedang berjalan.',
+          title: 'Waktu kehadiran sedang berjalan. (${timerAbsen()})',
           body: 'Sentuh untuk membuka aplikasi.',
           payload: {"name": "FlutterCampus"},
           autoDismissible: false,
@@ -81,9 +81,44 @@ class AwesomeNotificationService {
           displayOnForeground: true,
           locked: true,
         ),
+        // schedule: NotificationAndroidCrontab.hourly(
+        //     referenceDateTime: referenceDateTime),
         actionButtons: [
           NotificationActionButton(
               key: "open", label: "Buka Aplikasi", color: colorBluePrimary2),
+        ]);
+  }
+
+  Future showNotificationAbsenDone(
+      {int id = 0, String? title, String? body, String? payLoad}) async {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+          backgroundColor: colorBluePrimary2,
+          color: colorBluePrimary2,
+          //simgple notification
+          id: 321,
+          channelKey: 'basic', //set configuration wuth key "basic"
+          title: 'Waktu kehadiran berhenti otomatis.',
+          body: 'Sentuh untuk membuka aplikasi.',
+          payload: {"name": "FlutterCampus"},
+          // autoDismissible: false,
+          displayOnBackground: true,
+          displayOnForeground: true,
+          // locked: true,
+        ),
+        // schedule: NotificationAndroidCrontab.hourly(
+        //     referenceDateTime: referenceDateTime),
+        actionButtons: [
+          NotificationActionButton(
+              key: "open", label: "Buka", color: colorBluePrimary2),
+          NotificationActionButton(
+            key: "close",
+            label: "Abaikan",
+            color: colorBluePrimary2,
+            autoDismissible: true,
+            buttonType: ActionButtonType.DisabledAction,
+            // isDangerousOption: true,
+          ),
         ]);
   }
 

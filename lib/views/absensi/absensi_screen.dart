@@ -652,7 +652,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                         "Tekan tombol untuk masuk/pulang",
                         style: TextStyle(
                             fontSize: 12,
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                             color: Color.fromRGBO(51, 51, 51, 0.5)),
                       ),
                       Padding(

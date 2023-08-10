@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:app/helpers/notification_local.dart';
 
 class SplashController extends GetxController {
   final box = GetStorage();
@@ -34,6 +35,7 @@ class SplashController extends GetxController {
     box.remove(Base.klikAbsen);
     box.remove(Base.dataPerusahaan);
     box.remove(Base.perusahaanTerpilih);
+    AwesomeNotificationService().removeNotification();
     Get.offAllNamed(RouteName.greeting);
   }
 
