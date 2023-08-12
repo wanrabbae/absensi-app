@@ -72,6 +72,10 @@
         <meta-data
         android:name="com.dexterous.flutterlocalnotifications.DEFAULT_ICON"
         android:resource="@drawable/ic_launcher" /> 
+        <service 
+        android:name="com.dexterous.flutterlocalnotifications.ForegroundService"
+        android:exported="false"
+        android:stopWithTask="false"/>
 
    </application>
 </manifest>

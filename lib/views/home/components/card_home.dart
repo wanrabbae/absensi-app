@@ -196,9 +196,24 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                       },
                                       child: Text(
                                           isHadir
-                                              ? s?.absen[index]['alamatLoc']
-                                                  .toString() as String
-                                              : "",
+                                              ? s?.absen[index]['alamatPulang'].toString()
+                                                              as String ==
+                                                          "null" &&
+                                                      s?.absen[index]['alamatLoc']
+                                                                  .toString()
+                                                              as String ==
+                                                          "null"
+                                                  ? "-"
+                                                  : s?.absen[index]['alamatPulang']
+                                                                  .toString()
+                                                              as String !=
+                                                          "null"
+                                                      ? s?.absen[index]
+                                                              ['alamatPulang']
+                                                          .toString() as String
+                                                      : s?.absen[index]['alamatLoc']
+                                                          .toString() as String
+                                              : "-",
                                           maxLines: 1,
                                           softWrap: true,
                                           style: TextStyle(

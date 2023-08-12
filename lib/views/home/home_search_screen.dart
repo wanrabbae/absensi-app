@@ -72,6 +72,7 @@ class HomeSearchScreen extends StatelessWidget {
                                 //     .then((d) => s.searchFunc(value));
                               },
                               focusNode: s.focus,
+                              style: TextStyle(fontWeight: FontWeight.w600),
                               decoration: const InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                     borderSide:

@@ -38,6 +38,36 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService().initNotification();
   AwesomeNotificationService().initNotification();
+
+  AwesomeNotifications().actionStream.listen((action) {
+    print("CHANEL KEY: " + action.channelKey.toString());
+    if (action.channelKey == "basic" && action.buttonKeyPressed == "open") {
+      var homeCtrl = Get.put(HomeController());
+      var currentAbsen = homeCtrl.absen?.firstWhere(
+        (element) =>
+            element['idkaryawan'] == homeCtrl.user?['idkaryawan'] &&
+            element?["waktuCheckOut"] == null,
+        orElse: () => null,
+      );
+      // Get.back();
+      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": currentAbsen});
+      print("Open button is pressed");
+    } else if (action.buttonKeyPressed == "close") {
+      AwesomeNotifications().cancelAll();
+    } else if (action.channelKey == "basic") {
+      var homeCtrl = Get.put(HomeController());
+      var currentAbsen = homeCtrl.absen?.firstWhere(
+        (element) =>
+            element['idkaryawan'] == homeCtrl.user?['idkaryawan'] &&
+            element?["waktuCheckOut"] == null,
+        orElse: () => null,
+      );
+      // Get.back();
+      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": currentAbsen});
+    } else {
+      print("action.payload"); //notification was pressed
+    }
+  });
   runApp(ProviderScope(
     child: EasyLocalization(
       supportedLocales: const [Locale("id", "ID"), Locale("en", "US")],
@@ -55,15 +85,6 @@ class MyApp extends HookConsumerWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // AwesomeNotifications().actionStream.listen((action) {
-    //   if (action.buttonKeyPressed == "open") {
-    //     print("Open button is pressed");
-    //   } else if (action.buttonKeyPressed == "close") {
-    //     AwesomeNotifications().cancelAll();
-    //   } else {
-    //     print(action.payload); //notification was pressed
-    //   }
-    // });
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);

@@ -69,10 +69,20 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                   indicatorSize: TabBarIndicatorSize.tab,
                   tabs: [
                     Tab(
-                      child: Text('Hadir'),
+                      child: Text('Hadir',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 16,
+                              fontFamily: 'Rubik')),
                     ),
                     Tab(
-                      child: Text('Pulang'),
+                      child: Text(
+                        'Pulang',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            fontFamily: 'Rubik'),
+                      ),
                     ),
                   ]),
             ),
@@ -647,7 +657,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                 ),
                 Container(
                   color: Colors.white,
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  padding: const EdgeInsets.only(top: 20, bottom: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -661,8 +671,8 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                             color: Color.fromRGBO(51, 51, 51, 0.5)),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            top: 3, bottom: 20, left: 20, right: 20),
+                        padding:
+                            const EdgeInsets.only(top: 3, left: 20, right: 20),
                         child: ElevatedButton(
                             onPressed: () {
                               // customSnackbar1(

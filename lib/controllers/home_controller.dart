@@ -48,6 +48,7 @@ class HomeController extends GetxController {
           element?["waktuCheckOut"] == null,
       orElse: () => null,
     );
+    print(findData);
 
     if (findData != null)
       box.write(Base.waktuAbsen, findData?["waktuCheckIn"].toString());
@@ -72,9 +73,10 @@ class HomeController extends GetxController {
 
         await IzinController().absenPulang(false, findData?["id"]);
       } else if (klikAbsen) {
+        print("KE ELSE IF 1");
         timerRecor = timerAbsen();
       } else if (findData != null) {
-        print("KE ELSE IF");
+        print("KE ELSE IF 2");
         timerRecor = timerAbsen2(findData?["waktuCheckIn"]);
         box.write(Base.waktuAbsen, findData?["waktuCheckIn"].toString());
         box.write(Base.klikAbsen, true);

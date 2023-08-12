@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                  margin: EdgeInsets.only(top: 60, left: 20, right: 20),
+                  margin: EdgeInsets.only(top: 50, left: 20, right: 20),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -192,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Text(
                       curentDate,
                       style: const TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w600,
                           fontSize: 16,
                           color: Colors.black),
                     ),
@@ -296,26 +296,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      FloatingActionButton(
-                        heroTag: "btn2",
-                        // shape: const RoundedRectangleBorder(
-                        //     borderRadius:
-                        //         BorderRadius.all(Radius.circular(20))),
-                        backgroundColor: s.isPresentIzin!
-                            ? Colors.grey.shade400
-                            : colorBlueOpacity2,
-                        child: Icon(
-                          FeatherIcons.paperclip,
-                          color: Colors.black,
+                      SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: FittedBox(
+                          child: FloatingActionButton(
+                            heroTag: "btn2",
+                            // shape: const RoundedRectangleBorder(
+                            //     borderRadius:
+                            //         BorderRadius.all(Radius.circular(20))),
+                            backgroundColor: s.isPresentIzin!
+                                ? Colors.grey.shade400
+                                : colorBlueOpacity2,
+                            child: Icon(
+                              FeatherIcons.paperclip,
+                              color: Colors.black,
+                              size: 20,
+                            ),
+                            onPressed: () {
+                              if (s.isPresentIzin!) {
+                                print("test");
+                                // customSnackbar1("Izin hari ini telah terisi.");
+                              } else {
+                                Get.toNamed(RouteName.absenIzin);
+                              }
+                            },
+                          ),
                         ),
-                        onPressed: () {
-                          if (s.isPresentIzin!) {
-                            print("test");
-                            // customSnackbar1("Izin hari ini telah terisi.");
-                          } else {
-                            Get.toNamed(RouteName.absenIzin);
-                          }
-                        },
                       ),
                       SizedBox(
                         height: 20,
@@ -328,6 +335,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Icon(
                           FeatherIcons.camera,
                           color: Colors.black,
+                          size: 25,
                         ),
                         onPressed: () {
                           if (s.isPresentIzin!) {
@@ -349,7 +357,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ));
                               } else {
                                 customSnackbar1(
-                                    "Silahkan tangkap foto terlebih dahulu");
+                                    "Tidak bisa melanjutkan tanpa foto");
                               }
                             });
                             Get.toNamed(RouteName.absenIzin);

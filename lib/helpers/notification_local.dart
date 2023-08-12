@@ -58,7 +58,19 @@ class AwesomeNotificationService {
         importance: NotificationImportance.High,
         enableVibration: true,
         defaultColor: colorBluePrimary2,
-        ledColor: Colors.white,
+        ledColor: colorBluePrimary2,
+        playSound: true,
+      ),
+      NotificationChannel(
+        channelGroupKey: 'basic_test',
+        channelKey: 'basic2',
+        channelName: 'Basic notifications',
+        channelDescription: 'Notification channel for basic tests',
+        channelShowBadge: true,
+        importance: NotificationImportance.High,
+        enableVibration: true,
+        defaultColor: colorBluePrimary2,
+        ledColor: colorBluePrimary2,
         playSound: true,
       ),
     ]);
@@ -73,7 +85,7 @@ class AwesomeNotificationService {
           //simgple notification
           id: 123,
           channelKey: 'basic', //set configuration wuth key "basic"
-          title: 'Waktu kehadiran sedang berjalan. (${timerAbsen()})',
+          title: 'Waktu kehadiran sedang berjalan.',
           body: 'Sentuh untuk membuka aplikasi.',
           payload: {"name": "FlutterCampus"},
           autoDismissible: false,
@@ -85,7 +97,11 @@ class AwesomeNotificationService {
         //     referenceDateTime: referenceDateTime),
         actionButtons: [
           NotificationActionButton(
-              key: "open", label: "Buka Aplikasi", color: colorBluePrimary2),
+              key: "open",
+              label: "Buka Aplikasi",
+              color: colorBluePrimary2,
+              autoDismissible: false,
+              isDangerousOption: false),
         ]);
   }
 
@@ -97,7 +113,7 @@ class AwesomeNotificationService {
           color: colorBluePrimary2,
           //simgple notification
           id: 321,
-          channelKey: 'basic', //set configuration wuth key "basic"
+          channelKey: 'basic2', //set configuration wuth key "basic"
           title: 'Waktu kehadiran berhenti otomatis.',
           body: 'Sentuh untuk membuka aplikasi.',
           payload: {"name": "FlutterCampus"},

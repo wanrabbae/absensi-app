@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'components/card_home.dart';
