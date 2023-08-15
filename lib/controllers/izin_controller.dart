@@ -213,11 +213,11 @@ class IzinController extends GetxController {
       } else {
         print("INI PULANG: " + response.toString());
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem Pulang.");
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
       }
     } catch (e) {
       print(e);
-      customSnackbar1("Oops.. terjadi kesalahan sistem Pulang.");
+      customSnackbar1("Oops.. terjadi kesalahan sistem.");
     }
   }
 

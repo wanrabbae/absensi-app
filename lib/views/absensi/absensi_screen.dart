@@ -688,7 +688,8 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                   ),
                   Container(
                     color: Colors.white,
-                    padding: const EdgeInsets.only(top: 20, bottom: 20),
+                    padding: const EdgeInsets.only(
+                        top: 10, left: 20, right: 20, bottom: 20),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -701,29 +702,28 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                               fontWeight: FontWeight.w500,
                               color: Color.fromRGBO(51, 51, 51, 0.5)),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, left: 20, right: 20),
-                          child: ElevatedButton(
-                              onPressed: () {
-                                if (!s.klikAbsen) {
-                                  s.mulaiAbsen();
-                                } else {
-                                  s.mulaiPulang(context, idAbsen);
-                                }
-                              },
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
-                                      // s.klikAbsen
-                                      //     ? colorGrayPrimary
-                                      //     : colorBluePrimary
-                                      colorBluePrimary),
-                                  shape: const MaterialStatePropertyAll(
-                                      (RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20)))))),
-                              child: timerCount(context, s)),
-                        )
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              if (!s.klikAbsen) {
+                                s.mulaiAbsen();
+                              } else {
+                                s.mulaiPulang(context, idAbsen);
+                              }
+                            },
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(
+                                    // s.klikAbsen
+                                    //     ? colorGrayPrimary
+                                    //     : colorBluePrimary
+                                    colorBluePrimary),
+                                shape: const MaterialStatePropertyAll(
+                                    (RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(20)))))),
+                            child: timerCount(context, s))
                       ],
                     ),
                   )

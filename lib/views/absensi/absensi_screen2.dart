@@ -657,7 +657,8 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                 ),
                 Container(
                   color: Colors.white,
-                  padding: const EdgeInsets.only(top: 20, bottom: 20),
+                  padding: const EdgeInsets.only(
+                      top: 10, left: 20, right: 20, bottom: 20),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -670,57 +671,55 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                             fontWeight: FontWeight.w500,
                             color: Color.fromRGBO(51, 51, 51, 0.5)),
                       ),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(top: 3, left: 20, right: 20),
-                        child: ElevatedButton(
-                            onPressed: () {
-                              // customSnackbar1(
-                              //     "Kehadiran hari ini telah terisi.");
-                            },
-                            style: ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll(
-                                    // s.klikAbsen
-                                    //     ? colorGrayPrimary
-                                    //     : colorBluePrimary
-                                    currentAbsen?["idkaryawan"] !=
-                                            s.user?['idkaryawan']
-                                        ? Colors.grey.shade400
-                                        : currentAbsen?['waktuCheckOut'] != null
-                                            ? Colors.grey.shade400
-                                            : colorBluePrimary),
-                                shape: const MaterialStatePropertyAll(
-                                    (RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20)))))),
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 20, bottom: 20),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Icon(
-                                    FeatherIcons.clock,
-                                    size: 18,
-                                    color: Colors.white,
-                                  ),
-                                  const SizedBox(
-                                    width: 8,
-                                  ),
-                                  Text(
-                                    timerAbsen3(currentAbsen?["waktuCheckIn"],
-                                        currentAbsen?["waktuCheckOut"]),
-                                    style: const TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 16),
-                                  ),
-                                ],
-                              ),
-                            )),
-                      )
+                      SizedBox(
+                        height: 10,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            // customSnackbar1(
+                            //     "Kehadiran hari ini telah terisi.");
+                          },
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStatePropertyAll(
+                                  // s.klikAbsen
+                                  //     ? colorGrayPrimary
+                                  //     : colorBluePrimary
+                                  currentAbsen?["idkaryawan"] !=
+                                          s.user?['idkaryawan']
+                                      ? Colors.grey.shade400
+                                      : currentAbsen?['waktuCheckOut'] != null
+                                          ? Colors.grey.shade400
+                                          : colorBluePrimary),
+                              shape: const MaterialStatePropertyAll(
+                                  (RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20)))))),
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 20, bottom: 20),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Icon(
+                                  FeatherIcons.clock,
+                                  size: 18,
+                                  color: Colors.white,
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Text(
+                                  timerAbsen3(currentAbsen?["waktuCheckIn"],
+                                      currentAbsen?["waktuCheckOut"]),
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ))
                     ],
                   ),
                 )
