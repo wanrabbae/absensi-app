@@ -140,11 +140,21 @@ timerAbsen3(waktuCheckIn, String? checkOut) {
   }
 
   var time = DateTime.parse(waktuCheckIn!).difference(checkOutDateTime);
+  Duration timeDifference =
+      DateTime.parse(waktuCheckIn!).difference(checkOutDateTime);
+  print(timeDifference.inHours);
   var waktu = DateTime.parse(
       '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
-  var hours = waktu.hour < 10 ? '0${waktu.hour}' : waktu.hour;
-  var munite = waktu.minute < 10 ? '0${waktu.minute}' : waktu.minute;
-  var second = waktu.second < 10 ? '0${waktu.second}' : waktu.second;
+
+  var hours = timeDifference.inHours.abs() < 10
+      ? '0${timeDifference.inHours.abs()}'
+      : timeDifference.inHours.abs();
+  var munite = timeDifference.inMinutes.remainder(60).abs() < 10
+      ? '0${timeDifference.inMinutes.remainder(60).abs()}'
+      : timeDifference.inMinutes.remainder(60).abs();
+  var second = timeDifference.inSeconds.remainder(60).abs() < 10
+      ? '0${timeDifference.inSeconds.remainder(60).abs()}'
+      : timeDifference.inSeconds.remainder(60).abs();
   return "$hours:$munite:$second";
 }
 

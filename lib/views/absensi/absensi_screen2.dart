@@ -22,7 +22,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     var currentAbsen = Get.arguments?["dataAbsen"] ?? {};
     var idAbsen = Get.arguments?["dataAbsen"]?["id"] ?? null;
-
+    print("ID ABS: " + idAbsen.toString());
     var findDataIzin = homeCtrl.izin?.firstWhere(
       (element) => element?["idkaryawan"] == currentAbsen?["idkaryawan"],
       orElse: () => null,
@@ -343,12 +343,16 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                                 borderRadius:
                                                     BorderRadius.circular(20),
                                                 side: BorderSide(
-                                                    color: colorBluePrimary2,
+                                                    color: izinData != null
+                                                        ? colorBluePrimary2
+                                                        : Colors.grey.shade400,
                                                     width: 2)))),
                                     child: Text(
                                       "Buka Izin",
                                       style: TextStyle(
-                                          color: colorBluePrimary2,
+                                          color: izinData != null
+                                              ? colorBluePrimary2
+                                              : Colors.grey.shade400,
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold),
                                     )),
@@ -559,12 +563,24 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                                 borderRadius:
                                                     BorderRadius.circular(20),
                                                 side: BorderSide(
-                                                    color: colorBluePrimary2,
+                                                    color: currentAbsen?['longtitudePulang'] !=
+                                                                null &&
+                                                            currentAbsen?['latitudePulang'] !=
+                                                                null
+                                                        ? colorBluePrimary2
+                                                        : Colors.grey.shade400,
                                                     width: 2)))),
                                     child: Text(
                                       "Buka Peta",
                                       style: TextStyle(
-                                          color: colorBluePrimary2,
+                                          color: currentAbsen?[
+                                                          'longtitudePulang'] !=
+                                                      null &&
+                                                  currentAbsen?[
+                                                          'latitudePulang'] !=
+                                                      null
+                                              ? colorBluePrimary2
+                                              : Colors.grey.shade400,
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold),
                                     ))
@@ -638,12 +654,16 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                                 borderRadius:
                                                     BorderRadius.circular(20),
                                                 side: BorderSide(
-                                                    color: colorBluePrimary2,
+                                                    color: izinData != null
+                                                        ? colorBluePrimary2
+                                                        : Colors.grey.shade400,
                                                     width: 2)))),
                                     child: Text(
                                       "Buka Izin",
                                       style: TextStyle(
-                                          color: colorBluePrimary2,
+                                          color: izinData != null
+                                              ? colorBluePrimary2
+                                              : Colors.grey.shade400,
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold),
                                     )),
@@ -684,12 +704,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                   // s.klikAbsen
                                   //     ? colorGrayPrimary
                                   //     : colorBluePrimary
-                                  currentAbsen?["idkaryawan"] !=
-                                          s.user?['idkaryawan']
-                                      ? Colors.grey.shade400
-                                      : currentAbsen?['waktuCheckOut'] != null
-                                          ? Colors.grey.shade400
-                                          : colorBluePrimary),
+                                  Colors.grey.shade400),
                               shape: const MaterialStatePropertyAll(
                                   (RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(

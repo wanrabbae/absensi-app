@@ -385,12 +385,17 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                   side: BorderSide(
-                                                      color: colorBluePrimary2,
+                                                      color: s.izinData != null
+                                                          ? colorBluePrimary2
+                                                          : Colors
+                                                              .grey.shade400,
                                                       width: 2)))),
                                       child: Text(
                                         "Buka Izin",
                                         style: TextStyle(
-                                            color: colorBluePrimary2,
+                                            color: s.izinData != null
+                                                ? colorBluePrimary2
+                                                : Colors.grey.shade400,
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       )),
@@ -578,21 +583,29 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                       style: ButtonStyle(
                                           elevation:
                                               MaterialStatePropertyAll(0),
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  Colors.transparent),
+                                          backgroundColor: MaterialStatePropertyAll(
+                                              Colors.transparent),
                                           shape: MaterialStateProperty.all<
                                                   RoundedRectangleBorder>(
                                               RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                   side: BorderSide(
-                                                      color: colorBluePrimary2,
+                                                      color: currentAbsen?[
+                                                                  "waktuCheckOut"] !=
+                                                              null
+                                                          ? colorBluePrimary2
+                                                          : Colors
+                                                              .grey.shade400,
                                                       width: 2)))),
                                       child: Text(
                                         "Buka Peta",
                                         style: TextStyle(
-                                            color: colorBluePrimary2,
+                                            color: currentAbsen?[
+                                                        "waktuCheckOut"] !=
+                                                    null
+                                                ? colorBluePrimary2
+                                                : Colors.grey.shade400,
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       )),
@@ -669,12 +682,17 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                   side: BorderSide(
-                                                      color: colorBluePrimary2,
+                                                      color: s.izinData != null
+                                                          ? colorBluePrimary2
+                                                          : Colors
+                                                              .grey.shade400,
                                                       width: 2)))),
                                       child: Text(
                                         "Buka Izin",
                                         style: TextStyle(
-                                            color: colorBluePrimary2,
+                                            color: s.izinData != null
+                                                ? colorBluePrimary2
+                                                : Colors.grey.shade400,
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       )),
