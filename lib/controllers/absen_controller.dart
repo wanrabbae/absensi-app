@@ -144,11 +144,11 @@ class AbsenController extends GetxController {
   lokasiDetect() async {
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 2), () {
       Get.back();
       customSnackbarLoadingAsset(
           "Titik lokasi anda ditemukan.", "images/check-gif.gif");
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(Duration(seconds: 1), () {
         Get.back();
         mulaiAbsen();
       });
@@ -211,11 +211,11 @@ class AbsenController extends GetxController {
   lokasiDetectPulang(idAbsen) async {
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 2), () {
       Get.back();
       customSnackbarLoadingAsset(
           "Titik lokasi anda ditemukan.", "images/check-gif.gif");
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(Duration(seconds: 1), () {
         Get.back();
         mulaiPulangAct(idAbsen);
       });
