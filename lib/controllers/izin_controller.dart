@@ -221,6 +221,62 @@ class IzinController extends GetxController {
     }
   }
 
+  absenPulangLogOut(status, idAbsen) async {
+    var currentDate = DateTime.now();
+    var newDate =
+        new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
+            .toString()
+            .split(" ")[0];
+    print("ID ABSEN: " + idAbsen.toString());
+    try {
+      if (status) {
+        customSnackbarLoading("Sedang Pulang...");
+      }
+
+      String assetFilePath = 'assets/icons/logo/hora.png';
+      File tempFile = await readAssetFileImg(assetFilePath, 'horas.png');
+
+      final forms = {
+        'LatitudePulang': "user.zin",
+        'LongtitudePulang': "user.izin",
+        'NamaKaryawan': user?['namaKaryawan'],
+        'Foto': {
+          'filePath': tempFile.path,
+          'fileName': tempFile.path.split("/").last
+        },
+        'AlamatPulang': "Jl kenangan",
+      };
+      print("FORM: " + forms.toString());
+      var response = await AbsensiServices()
+          .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
+      if (response.statusCode == 200) {
+        await AwesomeNotificationService().removeNotification();
+        tempFile.delete();
+        // Get.back();
+        box.write(Base.klikAbsen, false);
+        box.remove(Base.waktuAbsen);
+        await HomeController().cancelTimer();
+        await cancelTimer();
+        print("KELUARRR");
+        ProfileController().keluar();
+      } else if (response.statusCode == 401) {
+        Get.back();
+        SplashController().sessionHabis(user?['alamatEmail']);
+      } else if (response.statusCode == 400) {
+        box.write(Base.klikAbsen, false);
+        Get.offAllNamed(RouteName.home, arguments: 0);
+        customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
+      } else {
+        print("INI PULANG: " + response.toString());
+        Get.back();
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      }
+    } catch (e) {
+      print(e);
+      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+    }
+  }
+
   absenIzin() async {
     if (fileName == null) {
       customSnackbar1("Lengkapi lampiran terlebih dahulu.");
