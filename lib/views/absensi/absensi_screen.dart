@@ -19,11 +19,9 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     var currentAbsen = Get.arguments?["dataAbsen"] ?? {};
     var idAbsen = Get.arguments?["dataAbsen"]?["id"] ?? null;
-    print("ID ABSE: " + idAbsen.toString());
-    print(currentAbsen);
 
     return DefaultTabController(
-      initialIndex: 0,
+      initialIndex: Get.arguments?["pulang"] ?? 0,
       length: 2,
       child: GetBuilder<AbsenController>(
         init: AbsenController(),

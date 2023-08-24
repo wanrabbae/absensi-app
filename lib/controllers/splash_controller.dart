@@ -35,7 +35,7 @@ class SplashController extends GetxController {
     box.remove(Base.klikAbsen);
     box.remove(Base.dataPerusahaan);
     box.remove(Base.perusahaanTerpilih);
-    AwesomeNotificationService().removeNotification();
+    // AwesomeNotificationService().removeNotification();
     Get.offAllNamed(RouteName.greeting);
   }
 

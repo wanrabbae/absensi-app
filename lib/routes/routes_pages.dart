@@ -65,7 +65,7 @@ class Routes {
 
 //Start Absensi
     //Absen
-    GetPage(name: RouteName.absen, page: () => const AbsensiScreen()),
+    GetPage(name: RouteName.absen, page: () => AbsensiScreen()),
     GetPage(
         name: RouteName.absenPulangView,
         page: () => const AbsensiPulangScreenView()),

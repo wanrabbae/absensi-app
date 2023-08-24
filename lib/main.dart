@@ -33,6 +33,13 @@ void main() async {
       Permission.notification.request();
     }
   });
+
+  await Permission.location.serviceStatus.isEnabled.then((value) {
+    if (value) {
+      Permission.location.request();
+    }
+  });
+
   await GetStorage.init();
   await BasePreference.init();
   WidgetsFlutterBinding.ensureInitialized();

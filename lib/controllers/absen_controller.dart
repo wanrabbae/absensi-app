@@ -74,6 +74,18 @@ class AbsenController extends GetxController {
           element?["waktuCheckOut"] == null,
       orElse: () => null,
     );
+
+    var checkData = homeCtrl.absen?.firstWhere(
+      (element) => element?["idkaryawan"] == user?["idkaryawan"],
+      orElse: () => null,
+    );
+
+    if (checkData == null) {
+      box.remove(Base.klikAbsen);
+      box.remove(Base.waktuAbsen);
+      cancelTimer();
+    }
+
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (klikAbsen) {
         timerRecor = timerAbsen();
@@ -144,20 +156,23 @@ class AbsenController extends GetxController {
   lokasiDetect() async {
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
-    Future.delayed(Duration(seconds: 2), () {
-      Get.back();
-      customSnackbarLoadingAsset(
-          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
-      Future.delayed(Duration(seconds: 1), () {
-        Get.back();
-        mulaiAbsen();
-      });
-    });
+    // print("========== TEST TOST YOYYYY =======");
     // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       currentLocation = LatLng(position.latitude, position.longitude);
       getAddressFromLatLng();
+
+      Get.back();
+      customSnackbarLoadingAsset(
+          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
+      Future.delayed(
+        Duration(seconds: 2),
+        () {
+          Get.back();
+          mulaiAbsen();
+        },
+      );
       await googleMapController.future.then((newController) {
         BitmapDescriptor.fromAssetImage(
                 const ImageConfiguration(textDirection: TextDirection.ltr),
@@ -208,23 +223,88 @@ class AbsenController extends GetxController {
     lokasiDetectPulang(idAbsen);
   }
 
+  getCurrentLocationPulang2(idAbsen) async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      customSnackbar1("Lokasi Tidak Aktif");
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        SplashController().showConfirmationDialog2(
+            "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+          // Redirect to allow location setting on phone
+          openAppSettings();
+        });
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      SplashController().showConfirmationDialog2(
+          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+        // Redirect to allow location setting on phone
+        openAppSettings();
+      });
+      return false;
+    }
+    update();
+    lokasiDetectPulang2(idAbsen);
+  }
+
   lokasiDetectPulang(idAbsen) async {
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
-    Future.delayed(Duration(seconds: 2), () {
-      Get.back();
-      customSnackbarLoadingAsset(
-          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
-      Future.delayed(Duration(seconds: 1), () {
-        Get.back();
-        mulaiPulangAct(idAbsen);
-      });
-    });
     // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       currentLocation = LatLng(position.latitude, position.longitude);
       getAddressFromLatLng();
+      Get.back();
+      customSnackbarLoadingAsset(
+          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
+      Future.delayed(Duration(seconds: 2), () {
+        Get.back();
+        mulaiPulangAct(idAbsen);
+      });
+      await googleMapController.future.then((newController) {
+        BitmapDescriptor.fromAssetImage(
+                const ImageConfiguration(textDirection: TextDirection.ltr),
+                "assets/icons/map-pin.png")
+            .then((value) => customMarker = value);
+        newController.animateCamera(
+          CameraUpdate.newCameraPosition(
+            CameraPosition(
+                target: LatLng(position.latitude, position.longitude),
+                zoom: 15),
+          ),
+        );
+      });
+      update();
+    });
+  }
+
+  lokasiDetectPulang2(idAbsen) async {
+    customSnackbarLoadingAsset(
+        "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
+
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) async {
+      currentLocation = LatLng(position.latitude, position.longitude);
+      getAddressFromLatLng();
+
+      Get.back();
+      customSnackbarLoadingAsset(
+          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
+      Future.delayed(Duration(seconds: 2), () {
+        Get.back();
+        mulaiPulangAct2(idAbsen);
+      });
+
       await googleMapController.future.then((newController) {
         BitmapDescriptor.fromAssetImage(
                 const ImageConfiguration(textDirection: TextDirection.ltr),
@@ -325,6 +405,19 @@ class AbsenController extends GetxController {
     });
   }
 
+  mulaiPulang2(context, idAbsen) {
+    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?",
+        () async {
+      // Get.back();
+      // changePageScreen = 1;
+      // update();
+      Get.toNamed(RouteName.absen,
+          arguments: {"dataAbsen": idAbsen, "pulang": 1});
+
+      await getCurrentLocationPulang2(idAbsen?["id"]);
+    });
+  }
+
   mulaiPulangAct(idAbsen) {
     SplashController()
         .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
@@ -338,6 +431,26 @@ class AbsenController extends GetxController {
           formFotoPulang = File(value.path);
           update();
           absenPulang(true, idAbsen);
+        } else {
+          customSnackbar1("Tidak bisa melanjutkan tanpa foto");
+        }
+      });
+    });
+  }
+
+  mulaiPulangAct2(idAbsen) {
+    SplashController()
+        .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
+      ImagePicker()
+          .pickImage(
+              source: ImageSource.camera,
+              preferredCameraDevice: CameraDevice.front,
+              imageQuality: 50)
+          .then((value) {
+        if (value != null) {
+          formFotoPulang = File(value.path);
+          update();
+          absenPulang2(true, idAbsen);
         } else {
           customSnackbar1("Tidak bisa melanjutkan tanpa foto");
         }
@@ -448,6 +561,57 @@ class AbsenController extends GetxController {
           Get.offAllNamed(RouteName.home, arguments: 0);
           await HomeController().dataHome();
         }
+      } else if (response.statusCode == 401) {
+        Get.back();
+        SplashController().sessionHabis(user?['alamatEmail']);
+      } else if (response.statusCode == 400) {
+        Get.back();
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      } else {
+        Get.back();
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        print("INI PULANG: " + response.toString());
+      }
+    } catch (e) {
+      print(e);
+      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+    }
+  }
+
+  absenPulang2(status, idAbsen) async {
+    print("PULANG YOYY");
+    var currentDate = DateTime.now();
+    var newDate =
+        new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
+            .toString()
+            .split(" ")[0];
+    print("ID ABSEN PULANG: " + idAbsen.toString());
+    try {
+      // if (status) {
+      //   customSnackbarLoading("Sedang Pulang...");
+      // }
+      final forms = {
+        'LatitudePulang': currentLocation.latitude,
+        'LongtitudePulang': currentLocation.longitude,
+        'NamaKaryawan': user?['namaKaryawan'],
+        'Foto': {
+          'filePath': formFotoPulang!.path,
+          'fileName': formFotoPulang!.path.split('/').last
+        },
+        'AlamatPulang': alamatLoc,
+      };
+
+      var response = await AbsensiServices()
+          .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
+      print(response);
+      if (response.statusCode == 200) {
+        await AwesomeNotificationService().removeNotification();
+        box.write(Base.klikAbsen, false);
+        box.remove(Base.waktuAbsen);
+        await HomeController().cancelTimer();
+        await cancelTimer();
+        await AwesomeNotificationService().showNotificationAbsenDone();
+        ProfileController().keluar();
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);

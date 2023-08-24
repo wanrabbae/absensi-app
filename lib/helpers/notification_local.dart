@@ -114,7 +114,7 @@ class AwesomeNotificationService {
           //simgple notification
           id: 321,
           channelKey: 'basic2', //set configuration wuth key "basic"
-          title: 'Waktu kehadiran berhenti otomatis.',
+          title: 'Waktu kehadiran telah dihentikan.',
           body: 'Sentuh untuk membuka aplikasi.',
           payload: {"name": "FlutterCampus"},
           // autoDismissible: false,
@@ -162,7 +162,7 @@ class AwesomeNotificationService {
               isDangerousOption: true)
         ],
         schedule: NotificationAndroidCrontab.fromDate(
-            date: DateTime.now().add(const Duration(hours: 4))));
+            date: DateTime.now().add(const Duration(hours: 12))));
   }
 
   Future<void> removeNotification() async {

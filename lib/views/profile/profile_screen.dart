@@ -160,25 +160,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               }),
                               menuProfile(
                                   context, "Keluar", FeatherIcons.logOut,
-                                  onTap: () {
+                                  onTap: () async {
                                 final homeCtrl = Get.put(HomeController());
 
                                 if (homeCtrl.timer != null &&
                                     homeCtrl.timer?.isActive) {
-                                  final izinCtrl = Get.put(IzinController());
-                                  SplashController().showConfirmationDialog2(
-                                      "Presensi", "Anda ingin pulang?",
-                                      () async {
-                                    var findData = await homeCtrl.absen
-                                        ?.firstWhere(
-                                            (element) =>
-                                                element?["idkaryawan"] ==
-                                                s.user?["idkaryawan"],
-                                            orElse: () => null);
+                                  final absenCtrl = Get.put(AbsenController());
+                                  var findData = await homeCtrl.absen
+                                      ?.firstWhere(
+                                          (element) =>
+                                              element?["idkaryawan"] ==
+                                              s.user?["idkaryawan"],
+                                          orElse: () => null);
+                                  var findData2 = await homeCtrl.absen
+                                      ?.firstWhere(
+                                          (element) =>
+                                              element?["idkaryawan"] ==
+                                              s.user?["idkaryawan"],
+                                          orElse: () => null);
 
-                                    izinCtrl.absenPulangLogOut(
-                                        false, findData?["id"]);
-                                  });
+                                  await absenCtrl.mulaiPulang2(
+                                      context, findData);
                                 } else {
                                   SplashController().showConfirmationDialog2(
                                       "Akun", "Anda ingin keluar?", () {

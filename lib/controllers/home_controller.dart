@@ -48,7 +48,16 @@ class HomeController extends GetxController {
           element?["waktuCheckOut"] == null,
       orElse: () => null,
     );
-    print(findData);
+    var checkData = absen?.firstWhere(
+      (element) => element?["idkaryawan"] == user?["idkaryawan"],
+      orElse: () => null,
+    );
+
+    if (checkData == null) {
+      box.remove(Base.klikAbsen);
+      box.remove(Base.waktuAbsen);
+      cancelTimer();
+    }
 
     if (findData != null)
       box.write(Base.waktuAbsen, findData?["waktuCheckIn"].toString());
@@ -59,10 +68,10 @@ class HomeController extends GetxController {
       print("TIMER: " + timer.toString());
 
       Duration timeDifference = DateTime.now().difference(startAbsen);
-      bool moreThan8HoursPassed =
+      bool moreThan12HoursPassed =
           timeDifference.inHours > 11; // waktu kerja sudah > dari 12 jam
 
-      if (findData != null && moreThan8HoursPassed) {
+      if (findData != null && moreThan12HoursPassed) {
         timerRecor = "00:00:00";
         cancelTimer();
         isPresentHadir = true;
@@ -72,6 +81,10 @@ class HomeController extends GetxController {
             orElse: () => null);
 
         await IzinController().absenPulang(false, findData?["id"]);
+      } else if (moreThan12HoursPassed) {
+        cancelTimer();
+        box.remove(Base.klikAbsen);
+        box.remove(Base.waktuAbsen);
       } else if (klikAbsen) {
         print("KE ELSE IF 1");
         timerRecor = timerAbsen();
