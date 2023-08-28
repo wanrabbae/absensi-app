@@ -122,6 +122,13 @@ class AbsenController extends GetxController {
     bool serviceEnabled;
     LocationPermission permission;
 
+    await Permission.location.serviceStatus.isEnabled.then((value) {
+      print("LOCATION: " + value.toString());
+      if (!value) {
+        Permission.location.request();
+      }
+    });
+
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
 
     permission = await Geolocator.checkPermission();
@@ -145,7 +152,7 @@ class AbsenController extends GetxController {
       return false;
     }
     if (!serviceEnabled) {
-      Get.back();
+      Get.offAllNamed(RouteName.home);
       customSnackbar1("Lokasi Tidak Aktif");
       return false;
     }
@@ -405,7 +412,7 @@ class AbsenController extends GetxController {
     });
   }
 
-  mulaiPulang2(context, idAbsen) {
+  mulaiPulang2(idAbsen) {
     SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?",
         () async {
       // Get.back();
@@ -415,6 +422,13 @@ class AbsenController extends GetxController {
           arguments: {"dataAbsen": idAbsen, "pulang": 1});
 
       await getCurrentLocationPulang2(idAbsen?["id"]);
+    });
+  }
+
+  mulaiPulangFromNotif(idAbsen) {
+    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?",
+        () async {
+      await getCurrentLocationPulang(idAbsen?["id"]);
     });
   }
 
@@ -502,6 +516,7 @@ class AbsenController extends GetxController {
         box.write(Base.klikAbsen, true);
         Get.offAllNamed(RouteName.home, arguments: 0);
         await AwesomeNotificationService().showNotificationAbsen();
+        await AwesomeNotificationService().showNotificationAfter12Hours();
       } else if (response.statusCode == 401) {
         Get.back();
         // SplashController().sessionHabis(user?['alamatEmail']);

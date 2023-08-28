@@ -34,11 +34,11 @@ void main() async {
     }
   });
 
-  await Permission.location.serviceStatus.isEnabled.then((value) {
-    if (value) {
-      Permission.location.request();
-    }
-  });
+  // await Permission.location.serviceStatus.isEnabled.then((value) {
+  //   if (value) {
+  //     Permission.location.request();
+  //   }
+  // });
 
   await GetStorage.init();
   await BasePreference.init();
@@ -71,6 +71,27 @@ void main() async {
       );
       // Get.back();
       Get.toNamed(RouteName.absen, arguments: {"dataAbsen": currentAbsen});
+    } else if (action.channelKey == "basic3") {
+      var absenCtrl = Get.put(AbsenController());
+      var homeCtrl = Get.put(HomeController());
+      var currentAbsen = homeCtrl.absen?.firstWhere(
+        (element) => element['idkaryawan'] == homeCtrl.user?['idkaryawan'],
+        orElse: () => null,
+      );
+      Get.toNamed(RouteName.absen,
+          arguments: {"dataAbsen": currentAbsen, "pulang": 1});
+      absenCtrl.mulaiPulangFromNotif(currentAbsen);
+    } else if (action.channelKey == "basic3" &&
+        action.buttonKeyPressed == "pulang") {
+      var absenCtrl = Get.put(AbsenController());
+      var homeCtrl = Get.put(HomeController());
+      var currentAbsen = homeCtrl.absen?.firstWhere(
+        (element) => element['idkaryawan'] == homeCtrl.user?['idkaryawan'],
+        orElse: () => null,
+      );
+      Get.toNamed(RouteName.absen,
+          arguments: {"dataAbsen": currentAbsen, "pulang": 1});
+      absenCtrl.mulaiPulangFromNotif(currentAbsen);
     } else {
       print("action.payload"); //notification was pressed
     }

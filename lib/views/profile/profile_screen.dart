@@ -179,8 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               s.user?["idkaryawan"],
                                           orElse: () => null);
 
-                                  await absenCtrl.mulaiPulang2(
-                                      context, findData);
+                                  await absenCtrl.mulaiPulang2(findData);
                                 } else {
                                   SplashController().showConfirmationDialog2(
                                       "Akun", "Anda ingin keluar?", () {

@@ -36,7 +36,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
               icon: Icon(FeatherIcons.arrowLeft),
               onPressed: () {
                 SplashController().showConfirmationDialog4(
-                    "Hadir", "Batal mengisi kehadiran?", () {
+                    "Hadir",
+                    s.timer != null
+                        ? "Anda batal pulang?"
+                        : "Batal mengisi kehadiran?", () {
                   Get.back();
                 });
               },
@@ -88,8 +91,11 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
               // Return true to allow the default back button behavior or false to perform custom actions
               // For example, you can show a confirmation dialog here
               bool confirmExit = await SplashController()
-                  .showConfirmationDialog4("Hadir", "Batal mengisi kehadiran?",
-                      () {
+                  .showConfirmationDialog4(
+                      "Hadir",
+                      s.timer != null
+                          ? "Anda batal pulang?"
+                          : "Batal mengisi kehadiran?", () {
                 Get.back();
               });
 

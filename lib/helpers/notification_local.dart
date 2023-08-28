@@ -73,6 +73,18 @@ class AwesomeNotificationService {
         ledColor: colorBluePrimary2,
         playSound: true,
       ),
+      NotificationChannel(
+        channelGroupKey: 'basic_test',
+        channelKey: 'basic3',
+        channelName: 'Basic notifications',
+        channelDescription: 'Notification channel for basic tests',
+        channelShowBadge: true,
+        importance: NotificationImportance.High,
+        enableVibration: true,
+        defaultColor: colorBluePrimary2,
+        ledColor: colorBluePrimary2,
+        playSound: true,
+      ),
     ]);
   }
 
@@ -138,30 +150,35 @@ class AwesomeNotificationService {
         ]);
   }
 
-  Future showNotificationAfter4Hours() async {
+  Future showNotificationAfter12Hours() async {
     await AwesomeNotifications().createNotification(
         content: NotificationContent(
-            id: 231, // -1 is replaced by a random number
-            channelKey: 'basic2',
-            title: "Huston! The eagle has landed!",
-            body:
-                "A small step for a man, but a giant leap to Flutter's community!",
-            bigPicture: 'https://storage.googleapis.com/cms-storage-bucket/d406c736e7c4c57f5f61.png',
-            largeIcon: 'https://storage.googleapis.com/cms-storage-bucket/0dbfcc7a59cd1cf16282.png',
-            //'asset://assets/images/balloons-in-sky.jpg',
-            notificationLayout: NotificationLayout.BigPicture,
-            payload: {
-              'notificationId': '1234567890'
-            }),
+          backgroundColor: colorBluePrimary2,
+          color: colorBluePrimary2,
+          //simgple notification
+          id: 543,
+          channelKey: 'basic3', //set configuration wuth key "basic"
+          title: 'Waktu kehadiran melebihi 12 jam.',
+          body: 'Anda ingin pulang?',
+          payload: {"name": "FlutterCampus"},
+          // autoDismissible: false,
+          displayOnBackground: true,
+          displayOnForeground: true,
+          // locked: true,
+        ),
         actionButtons: [
-          NotificationActionButton(key: 'REDIRECT', label: 'Redirect'),
           NotificationActionButton(
-              key: 'DISMISS',
-              label: 'Dismiss',
-              // actionType: ActionType.DismissAction,
-              isDangerousOption: true)
+              key: "pulang", label: "Pulang", color: colorBluePrimary2),
+          NotificationActionButton(
+            key: "close",
+            label: "Abaikan",
+            color: colorBluePrimary2,
+            autoDismissible: true,
+            buttonType: ActionButtonType.DisabledAction,
+            // isDangerousOption: true,
+          ),
         ],
-        schedule: NotificationAndroidCrontab.fromDate(
+        schedule: NotificationCalendar.fromDate(
             date: DateTime.now().add(const Duration(hours: 12))));
   }
 
