@@ -165,7 +165,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                                 if (homeCtrl.timer != null &&
                                     homeCtrl.timer?.isActive) {
-                                  final absenCtrl = Get.put(AbsenController());
                                   var findData = await homeCtrl.absen
                                       ?.firstWhere(
                                           (element) =>
@@ -179,7 +178,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               s.user?["idkaryawan"],
                                           orElse: () => null);
 
-                                  await absenCtrl.mulaiPulang2(findData);
+                                  SplashController().showConfirmationDialog2(
+                                      "Presensi", "Anda ingin pulang?",
+                                      () async {
+                                    // Get.back();
+                                    // changePageScreen = 1;
+                                    // update();
+                                    Get.toNamed(RouteName.absen, arguments: {
+                                      "dataAbsen": findData,
+                                      "pulang": 1
+                                    });
+
+                                    await AbsenController()
+                                        .getCurrentLocationPulang2(
+                                            findData?["id"]);
+                                  });
                                 } else {
                                   SplashController().showConfirmationDialog2(
                                       "Akun", "Anda ingin keluar?", () {

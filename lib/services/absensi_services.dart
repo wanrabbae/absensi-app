@@ -33,6 +33,23 @@ class AbsensiServices extends GetConnect implements GetxService {
     }
   }
 
+  Future findIndiv(idKaryawan, tanggal) async {
+    var tokens = box.read(Base.token);
+    final header = {'Authorization': '$tokens'};
+    final options = dio.Options(headers: header);
+
+    try {
+      var test = await dio.Dio().get(
+          Base.url +
+              Base.absenIndie +
+              "?idkaryawan=${idKaryawan}&tanggal=${tanggal}",
+          options: options);
+      return test;
+    } catch (e) {
+      return [];
+    }
+  }
+
   Future pulangPut(param, body) async {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};

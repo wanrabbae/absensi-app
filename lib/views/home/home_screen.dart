@@ -28,15 +28,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Permission.location.serviceStatus.isEnabled.then((value) {
+      print("LOCATION: " + value.toString());
+      if (!value) {
+        Permission.location.request();
+      }
+    });
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     Get.put(HomeController());
     return GetBuilder<HomeController>(
       init: HomeController(),
-      // dispose: (state) {
-      //   state.controller!.cancelTimer();
-      // },
+      dispose: (state) {
+        state.controller!.onInit();
+      },
       builder: (s) => Scaffold(
           backgroundColor: Colors.white,
           resizeToAvoidBottomInset: false,

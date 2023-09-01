@@ -298,21 +298,33 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                       style: ButtonStyle(
                                           elevation:
                                               MaterialStatePropertyAll(0),
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  Colors.transparent),
+                                          backgroundColor: MaterialStatePropertyAll(
+                                              Colors.transparent),
                                           shape: MaterialStateProperty.all<
                                                   RoundedRectangleBorder>(
                                               RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                   side: BorderSide(
-                                                      color: colorBluePrimary2,
+                                                      color: currentAbsen?['alamatLongtitude'] != null &&
+                                                                  currentAbsen?['alamatLatitude'] !=
+                                                                      null ||
+                                                              s.alamatLoc != null
+                                                          ? colorBluePrimary2
+                                                          : Colors.grey.shade400,
                                                       width: 2)))),
                                       child: Text(
                                         "Buka Peta",
                                         style: TextStyle(
-                                            color: colorBluePrimary2,
+                                            color: currentAbsen?[
+                                                                'alamatLongtitude'] !=
+                                                            null &&
+                                                        currentAbsen?[
+                                                                'alamatLatitude'] !=
+                                                            null ||
+                                                    s.alamatLoc != null
+                                                ? colorBluePrimary2
+                                                : Colors.grey.shade400,
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       ))
@@ -559,7 +571,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                       Container(
                                         width: 130,
                                         child: Text(
-                                          "${currentAbsen?['alamatPulang'] == null ? '-' : currentAbsen['alamatPulang']}",
+                                          "${currentAbsen?['alamatPulang'] != null ? currentAbsen['alamatPulang'] : s.alamatLocPulang == null ? '-' : s.alamatLocPulang}",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
@@ -581,7 +593,15 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                                   'longtitudePulang']);
                                         } else {
                                           print("kesini");
-                                          return;
+                                          s.alamatLocPulang == null
+                                              ? print("TEST")
+                                              : await openMap(
+                                                  s.currentLocationPulang
+                                                      .latitude
+                                                      .toString(),
+                                                  s.currentLocationPulang
+                                                      .longitude
+                                                      .toString());
                                         }
                                       },
                                       style: ButtonStyle(
@@ -595,19 +615,23 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                                   borderRadius:
                                                       BorderRadius.circular(20),
                                                   side: BorderSide(
-                                                      color: currentAbsen?[
-                                                                  "waktuCheckOut"] !=
-                                                              null
+                                                      color: currentAbsen?['longtitudePulang'] != null &&
+                                                                  currentAbsen?['latitudePulang'] !=
+                                                                      null ||
+                                                              s.alamatLocPulang != null
                                                           ? colorBluePrimary2
-                                                          : Colors
-                                                              .grey.shade400,
+                                                          : Colors.grey.shade400,
                                                       width: 2)))),
                                       child: Text(
                                         "Buka Peta",
                                         style: TextStyle(
                                             color: currentAbsen?[
-                                                        "waktuCheckOut"] !=
-                                                    null
+                                                                'longtitudePulang'] !=
+                                                            null &&
+                                                        currentAbsen?[
+                                                                'latitudePulang'] !=
+                                                            null ||
+                                                    s.alamatLocPulang != null
                                                 ? colorBluePrimary2
                                                 : Colors.grey.shade400,
                                             fontSize: 16,

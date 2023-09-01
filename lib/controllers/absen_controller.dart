@@ -12,6 +12,7 @@ class AbsenController extends GetxController {
   Map<String, dynamic>? izinData;
   //absen
   LatLng currentLocation = const LatLng(5.880241, 95.336574);
+  LatLng currentLocationPulang = const LatLng(5.880241, 95.336574);
   BitmapDescriptor customMarker = BitmapDescriptor.defaultMarker;
   Completer<GoogleMapController> googleMapController =
       Completer<GoogleMapController>();
@@ -23,6 +24,7 @@ class AbsenController extends GetxController {
   bool disableButton = false;
   bool klikAbsen = false;
   String? alamatLoc;
+  String? alamatLocPulang;
   // ignore: prefer_typing_uninitialized_variables
   var timer;
   //izin
@@ -46,6 +48,7 @@ class AbsenController extends GetxController {
           element?["waktuCheckOut"] != null,
       orElse: () => null,
     );
+
     var findDataIzin = homeCtrl.izin?.firstWhere(
       (element) => element?["idkaryawan"] == user?["idkaryawan"],
       orElse: () => null,
@@ -63,6 +66,17 @@ class AbsenController extends GetxController {
     if (!klikAbsen && findData == null) {
       print("BELUM ABSEN");
       getCurrentLocation();
+    }
+
+    var findDataOnCheckIn = homeCtrl.absen?.firstWhere(
+      (element) => element?["idkaryawan"] == user?["idkaryawan"],
+      orElse: () => null,
+    );
+
+    if (klikAbsen && timer?.isActive) {
+      print("TEST TOAST");
+      print("DATA CHECKIN: " + findDataOnCheckIn.toString());
+      mulaiPulangRevisi1(findDataOnCheckIn?['id']);
     }
   }
 
@@ -264,13 +278,14 @@ class AbsenController extends GetxController {
   }
 
   lokasiDetectPulang(idAbsen) async {
+    print("ID ABSEN FROM DETECTED: " + idAbsen.toString());
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
     // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
-      currentLocation = LatLng(position.latitude, position.longitude);
-      getAddressFromLatLng();
+      currentLocationPulang = LatLng(position.latitude, position.longitude);
+      getAddressFromLatLngPulang();
       Get.back();
       customSnackbarLoadingAsset(
           "Titik lokasi anda ditemukan.", "images/check-gif.gif");
@@ -301,8 +316,8 @@ class AbsenController extends GetxController {
 
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
-      currentLocation = LatLng(position.latitude, position.longitude);
-      getAddressFromLatLng();
+      currentLocationPulang = LatLng(position.latitude, position.longitude);
+      getAddressFromLatLngPulang();
 
       Get.back();
       customSnackbarLoadingAsset(
@@ -334,6 +349,16 @@ class AbsenController extends GetxController {
             currentLocation.latitude, currentLocation.longitude)
         .then((List<Placemark> placemarks) {
       alamatLoc =
+          "${placemarks[0].street}, ${placemarks[0].subLocality}, ${placemarks[0].locality}, ${placemarks[0].subAdministrativeArea}, ${placemarks[0].administrativeArea}, ${placemarks[0].postalCode} ";
+      update();
+    });
+  }
+
+  getAddressFromLatLngPulang() async {
+    await placemarkFromCoordinates(
+            currentLocationPulang.latitude, currentLocationPulang.longitude)
+        .then((List<Placemark> placemarks) {
+      alamatLocPulang =
           "${placemarks[0].street}, ${placemarks[0].subLocality}, ${placemarks[0].locality}, ${placemarks[0].subAdministrativeArea}, ${placemarks[0].administrativeArea}, ${placemarks[0].postalCode} ";
       update();
     });
@@ -410,6 +435,10 @@ class AbsenController extends GetxController {
       // update();
       await getCurrentLocationPulang(idAbsen);
     });
+  }
+
+  mulaiPulangRevisi1(idAbsen) async {
+    await getCurrentLocationPulang(idAbsen);
   }
 
   mulaiPulang2(idAbsen) {
@@ -519,15 +548,40 @@ class AbsenController extends GetxController {
         await AwesomeNotificationService().showNotificationAfter12Hours();
       } else if (response.statusCode == 401) {
         Get.back();
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
         // SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
         // Get.snackbar('Oops.. terjadi kesalahan sistem.', response.toString());
         // print("INI HADIR: " + (response as Response<dynamic>).toString());
         // print("CODE: " + response.statusCode.toString());
       }
     } catch (e) {
-      customSnackbar1("Menghubungkan kembali...");
+      // customSnackbar1("Menghubungkan kembali...");
+      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+    }
+  }
+
+  findIndie(idKaryawan) async {
+    try {
+      var response = await AbsensiServices().hadirPost(idKaryawan);
+      if (response.statusCode == 200) {
+        return response.data;
+      } else if (response.statusCode == 401) {
+        // Get.back();
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        // SplashController().sessionHabis(user?['alamatEmail']);
+      } else {
+        // Get.back();
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        // Get.snackbar('Oops.. terjadi kesalahan sistem.', response.toString());
+        // print("INI HADIR: " + (response as Response<dynamic>).toString());
+        // print("CODE: " + response.statusCode.toString());
+      }
+    } catch (e) {
+      // customSnackbar1("Menghubungkan kembali...");
+      customSnackbar1("Oops.. terjadi kesalahan sistem.");
     }
   }
 
@@ -544,14 +598,14 @@ class AbsenController extends GetxController {
       //   customSnackbarLoading("Sedang Pulang...");
       // }
       final forms = {
-        'LatitudePulang': currentLocation.latitude,
-        'LongtitudePulang': currentLocation.longitude,
+        'LatitudePulang': currentLocationPulang.latitude,
+        'LongtitudePulang': currentLocationPulang.longitude,
         'NamaKaryawan': user?['namaKaryawan'],
         'Foto': {
           'filePath': formFotoPulang!.path,
           'fileName': formFotoPulang!.path.split('/').last
         },
-        'AlamatPulang': alamatLoc,
+        'AlamatPulang': alamatLocPulang,
       };
 
       var response = await AbsensiServices()
@@ -605,17 +659,18 @@ class AbsenController extends GetxController {
       // if (status) {
       //   customSnackbarLoading("Sedang Pulang...");
       // }
+      print(user);
       final forms = {
-        'LatitudePulang': currentLocation.latitude,
-        'LongtitudePulang': currentLocation.longitude,
+        'LatitudePulang': currentLocationPulang.latitude,
+        'LongtitudePulang': currentLocationPulang.longitude,
         'NamaKaryawan': user?['namaKaryawan'],
         'Foto': {
           'filePath': formFotoPulang!.path,
           'fileName': formFotoPulang!.path.split('/').last
         },
-        'AlamatPulang': alamatLoc,
+        'AlamatPulang': alamatLocPulang,
       };
-
+      print("FORMS PULANG 2: " + forms.toString());
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       print(response);

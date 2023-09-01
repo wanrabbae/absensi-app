@@ -32,6 +32,7 @@ abstract class Base {
   static const String absenHadir = "api/absensi";
   static const String absenPulang = "api/absensi/pulang";
   static const String absenIzin = "api/absensi/Izin";
+  static const String absenIndie = "api/absensi/indie";
 //End Absensi
 
 //Start data auth
