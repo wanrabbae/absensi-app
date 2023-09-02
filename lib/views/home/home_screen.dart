@@ -42,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
       init: HomeController(),
       dispose: (state) {
         state.controller!.onInit();
+        state.controller!.checkAnyAbsen();
       },
       builder: (s) => Scaffold(
           backgroundColor: Colors.white,

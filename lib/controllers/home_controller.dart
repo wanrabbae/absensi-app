@@ -74,7 +74,7 @@ class HomeController extends GetxController {
       Duration timeDifference = DateTime.now().difference(startAbsen);
       bool moreThan12HoursPassed =
           timeDifference.inHours > 11; // waktu kerja sudah > dari 12 jam
-      checkAnyAbsen();
+      // checkAnyAbsen();
       // if (findData != null && moreThan12HoursPassed) {
       //   timerRecor = "00:00:00";
       //   cancelTimer();
@@ -190,6 +190,8 @@ class HomeController extends GetxController {
 
   checkAnyAbsen() async {
     var tanggal = currentDate.toString().split(" ")[0];
+    bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
+    bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
 
     try {
       var response =
@@ -198,14 +200,39 @@ class HomeController extends GetxController {
       if (response.data.length == 1 &&
           response.data?[0]["waktuCheckOut"] == null) {
         print("ABSEN JALAN YOYY");
-        timerRecor = timerAbsen2(response.data[0]?["waktuCheckIn"]);
+
         box.write(Base.waktuAbsen, response.data[0]?["waktuCheckIn"]);
         box.write(Base.klikAbsen, true);
         klikAbsen = GetStorage().read(Base.klikAbsen);
+        timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+          print("===== TEST TIMER ========");
+          timerRecor = timerAbsen2(response.data[0]?["waktuCheckIn"]);
+          update();
+        });
+      } else if (response.data.length == 0 && isDateGreaterThanToday ||
+          isDateSmallerThanToday) {
+        timer.cancel();
+        print("ABSEN GK JALAN YOYY");
+        timerRecor = "00:00:00";
+        timer = null;
+        cancelTimer();
+        box.remove(Base.waktuAbsen);
+        box.write(Base.klikAbsen, false);
+        klikAbsen = GetStorage().read(Base.klikAbsen);
+        update();
+      } else {
+        timer = null;
+        timerRecor = "00:00:00";
+        box.remove(Base.waktuAbsen);
+        box.write(Base.klikAbsen, false);
+        klikAbsen = GetStorage().read(Base.klikAbsen);
+        cancelTimer();
+        isPresentHadir = isDateGreaterThanToday || isDateSmallerThanToday;
+        isPresentIzin = isDateGreaterThanToday || isDateSmallerThanToday;
         update();
       }
     } catch (e) {
-      customSnackbar1('Oops.. terjadi kesalahan sistem.');
+      // customSnackbar1('Oops.. terjadi kesalahan sistem.');
       print(e);
     }
   }
@@ -381,8 +408,6 @@ class HomeController extends GetxController {
     DateTime dateCurrent = DateTime.now();
     String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
     var idKaryawan = user?["idkaryawan"];
-    bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
-    bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
 
     var findDataIzin = izin?.firstWhere(
       (element) => element?["idkaryawan"] == idKaryawan,
@@ -403,13 +428,7 @@ class HomeController extends GetxController {
       orElse: () => null,
     );
 
-    if (isDateGreaterThanToday) {
-      isPresentHadir = isDateGreaterThanToday;
-      update();
-    } else if (isDateSmallerThanToday) {
-      isPresentHadir = isDateSmallerThanToday;
-      update();
-    } else if (findDataIzin != null) {
+    if (findDataIzin != null) {
       isPresentHadir = true;
       // cancelTimer();
       update();
@@ -453,13 +472,7 @@ class HomeController extends GetxController {
       orElse: () => null,
     );
 
-    if (isDateGreaterThanToday) {
-      isPresentIzin = isDateGreaterThanToday;
-      update();
-    } else if (isDateSmallerThanToday) {
-      isPresentIzin = isDateSmallerThanToday;
-      update();
-    } else if (findData != null) {
+    if (findData != null) {
       isPresentIzin = true;
       // cancelTimer();
       update();
