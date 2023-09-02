@@ -179,7 +179,7 @@ class IzinController extends GetxController {
           'filePath': tempFile.path,
           'fileName': tempFile.path.split("/").last
         },
-        'AlamatPulang': "Jl kenangan",
+        'AlamatPulang': "izin",
       };
       print("FORM: " + forms.toString());
       var response = await AbsensiServices()
@@ -244,7 +244,7 @@ class IzinController extends GetxController {
           'filePath': tempFile.path,
           'fileName': tempFile.path.split("/").last
         },
-        'AlamatPulang': "Jl kenangan",
+        'AlamatPulang': "izin",
       };
       print("FORM: " + forms.toString());
       var response = await AbsensiServices()

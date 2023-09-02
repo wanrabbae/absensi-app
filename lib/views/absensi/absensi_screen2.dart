@@ -399,30 +399,87 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                           errorBuilder: (BuildContext context,
                                               Object exception,
                                               StackTrace? stackTrace) {
-                                            return Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width: 40,
-                                                  height: 40,
-                                                  decoration: BoxDecoration(
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                            color:
-                                                                colorBlueOpacity2)
-                                                      ],
-                                                      // color: colorBlueOpacity2,
+                                            return izinData != null
+                                                ? GestureDetector(
+                                                    onTap: () => Get.toNamed(
+                                                        RouteName
+                                                            .hasilHadirFullScreen,
+                                                        arguments: izinData?[
+                                                            "iconIjin"]),
+                                                    child: ClipRRect(
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              20)),
-                                                  child: Image.asset(
-                                                      'assets/icons/image.png'),
-                                                ),
-                                              ],
-                                            );
+                                                              20),
+                                                      child: Image.network(
+                                                        changeUrlImage(
+                                                          izinData?['iconIjin'],
+                                                        ),
+                                                        errorBuilder:
+                                                            (BuildContext
+                                                                    context,
+                                                                Object
+                                                                    exception,
+                                                                StackTrace?
+                                                                    stackTrace) {
+                                                          return Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Container(
+                                                                width: 40,
+                                                                height: 40,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                        boxShadow: [
+                                                                      BoxShadow(
+                                                                          color:
+                                                                              colorBlueOpacity2)
+                                                                    ],
+                                                                        // color: colorBlueOpacity2,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(20)),
+                                                                child: Image.asset(
+                                                                    'assets/icons/image.png'),
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                  )
+                                                : Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: 40,
+                                                        height: 40,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                boxShadow: [
+                                                              BoxShadow(
+                                                                  color:
+                                                                      colorBlueOpacity2)
+                                                            ],
+                                                                // color: colorBlueOpacity2,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20)),
+                                                        child: Image.asset(
+                                                            'assets/icons/image.png'),
+                                                      ),
+                                                    ],
+                                                  );
                                           },
                                           fit: BoxFit.cover,
                                         ),
@@ -544,9 +601,15 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                               null &&
                                           currentAbsen?['latitudePulang'] !=
                                               null) {
-                                        await openMap(
-                                            currentAbsen?['latitudePulang'],
-                                            currentAbsen?['longtitudePulang']);
+                                        if (izinData != null) {
+                                          print(izinData);
+                                          print("disabled");
+                                        } else {
+                                          await openMap(
+                                              currentAbsen?['latitudePulang'],
+                                              currentAbsen?[
+                                                  'longtitudePulang']);
+                                        }
                                       } else {
                                         print("kesini");
                                         return;
@@ -563,11 +626,16 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                                 borderRadius:
                                                     BorderRadius.circular(20),
                                                 side: BorderSide(
-                                                    color: currentAbsen?['longtitudePulang'] !=
+                                                    color: currentAbsen?[
+                                                                    'longtitudePulang'] !=
                                                                 null &&
-                                                            currentAbsen?['latitudePulang'] !=
+                                                            currentAbsen?[
+                                                                    'latitudePulang'] !=
                                                                 null
-                                                        ? colorBluePrimary2
+                                                        ? izinData == null
+                                                            ? colorBluePrimary2
+                                                            : Colors
+                                                                .grey.shade400
                                                         : Colors.grey.shade400,
                                                     width: 2)))),
                                     child: Text(
@@ -579,7 +647,9 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                                   currentAbsen?[
                                                           'latitudePulang'] !=
                                                       null
-                                              ? colorBluePrimary2
+                                              ? izinData == null
+                                                  ? colorBluePrimary2
+                                                  : Colors.grey.shade400
                                               : Colors.grey.shade400,
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold),

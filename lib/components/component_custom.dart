@@ -322,17 +322,24 @@ Widget buildImageSizeIconNetwork(BuildContext context, String url, bool local) {
 }
 
 Widget buildImageList(BuildContext context, String url, bool local) {
+  print("LOCAL: " + local.toString());
   var img = local
       ? DecorationImage(
           image: AssetImage(url),
           onError: (exception, stackTrace) =>
               AssetImage('assets/icons/logo/hora.png'),
           fit: BoxFit.cover)
-      : DecorationImage(
-          image: NetworkImage(url),
-          onError: (exception, stackTrace) =>
-              AssetImage('assets/icons/logo/hora.png'),
-          fit: BoxFit.cover);
+      : url.contains("pulang_horas.png")
+          ? DecorationImage(
+              image: AssetImage('assets/icons/logo/hora.png'),
+              onError: (exception, stackTrace) =>
+                  AssetImage('assets/icons/logo/hora.png'),
+              fit: BoxFit.cover)
+          : DecorationImage(
+              image: NetworkImage(url),
+              onError: (exception, stackTrace) =>
+                  AssetImage('assets/icons/logo/hora.png'),
+              fit: BoxFit.cover);
   return Container(
     width: 60,
     height: 60,
