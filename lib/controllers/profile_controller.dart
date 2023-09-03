@@ -220,7 +220,7 @@ class ProfileController extends GetxController {
         'perusahaan': perusahaan?['idperusahaan']
       }, forms);
       if (response.statusCode == 200) {
-        customSnackbar1("Profil baru telah tersimpan");
+        customSnackbar1("Profil baru telah tersimpan.");
         await dataProfile(user?['alamatEmail']);
         Get.offAllNamed(RouteName.home, arguments: 1);
         // Get.offAll(() => MainScreen(
