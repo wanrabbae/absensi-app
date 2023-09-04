@@ -25,6 +25,35 @@ Widget customHeaderAuth(BuildContext context, String title, String subTitle) {
   );
 }
 
+Widget customHeaderAuth2(BuildContext context, String title, String subTitle) {
+  return SizedBox(
+    width: MediaQuery.of(context).size.width,
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 24,
+              letterSpacing: 1.5),
+        ),
+        Text(
+          subTitle,
+          style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              // color: Color.fromRGBO(33, 33, 33, 80),
+              fontSize: 20.0),
+        )
+      ],
+    ),
+  );
+}
+
 Widget customTextRich(BuildContext context, String text1, String text2,
     {required VoidCallback onTextClicked}) {
   return SizedBox(
@@ -111,6 +140,58 @@ Widget customTextRichWithLink(
           ]));
 }
 
+Widget customTextRichWithLink2(
+  BuildContext context,
+  String text1,
+) {
+  return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+          text: text1,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontFamily: 'Rubik',
+            color: Colors.grey.shade500,
+          ),
+          children: [
+            TextSpan(
+                text: "Kebijakan Hora ",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  // fontSize: 16,
+                  color: Colors.black,
+                  // decoration: TextDecoration.underline,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    Get.toNamed(RouteName.webview,
+                        arguments: "https://docs.horaapp.id/#kebijakan");
+                  }),
+            TextSpan(
+              text: "dan ",
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                // fontSize: 16,
+                color: Colors.grey.shade500,
+                // decoration: TextDecoration.underline,
+              ),
+            ),
+            TextSpan(
+                text: "Privasi Pengguna",
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  // fontSize: 16,
+                  color: colorBluePrimary2,
+                  // decoration: TextDecoration.underline,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    Get.toNamed(RouteName.webview,
+                        arguments: "https://docs.horaapp.id/#privasi");
+                  }),
+          ]));
+}
+
 Widget buttonGreen(String title, {VoidCallback? onTap}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
@@ -128,6 +209,28 @@ Widget buttonGreen(String title, {VoidCallback? onTap}) {
             title,
             style: const TextStyle(
                 color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        )),
+  );
+}
+
+Widget buttonWhite(String title, {VoidCallback? onTap}) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: ElevatedButton(
+        onPressed: onTap,
+        style: ButtonStyle(
+            backgroundColor:
+                const MaterialStatePropertyAll<Color>(Colors.white),
+            shape: MaterialStatePropertyAll<OutlinedBorder>(
+                RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)))),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Text(
+            title,
+            style: const TextStyle(
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
           ),
         )),
   );

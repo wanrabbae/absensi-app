@@ -13,10 +13,10 @@ class SplashController extends GetxController {
         if (splashScreen == null) {
           Get.offAndToNamed(RouteName.tutorial);
         } else {
-          Get.offAndToNamed(RouteName.greeting);
+          Get.offAndToNamed(RouteName.tutorial);
         }
       } else {
-        Get.offAndToNamed(RouteName.home, arguments: 0);
+        Get.offAndToNamed(RouteName.tutorial, arguments: 0);
       }
     });
   }
