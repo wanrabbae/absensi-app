@@ -222,6 +222,9 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                               color: Colors.black)),
                                     ),
                                   ),
+                                  SizedBox(
+                                    width: 20,
+                                  ),
                                   isHadir
                                       ? s.absen[index]["waktuCheckOut"] == null
                                           ? Icon(

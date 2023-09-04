@@ -266,7 +266,7 @@ class ProfileController extends GetxController {
   ubahEmail(msg, status) async {
     var isValidEmail = isEmailValid(emailBaru.toString());
     if (!isValidEmail) {
-      customSnackbar1("Format email tidak valid");
+      customSnackbar1("Silakan masuk kembali.");
       return;
     }
     try {

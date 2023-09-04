@@ -22,7 +22,7 @@ class LoginController extends GetxController {
 
     var isValidEmail = isEmailValid(emailForm.toString());
     if (!isValidEmail) {
-      customSnackbar1("Format email tidak valid");
+      customSnackbar1("Silakan masuk kembali.");
       return;
     }
 
@@ -40,12 +40,12 @@ class LoginController extends GetxController {
           }
         } else {
           Get.back();
-          customSnackbar1("Silahkan Cek Email Anda Untuk Melanjutkan");
+          customSnackbar1("Periksa kotak masuk email anda.");
         }
       } else {
         print("EMAIL KIRIM ERROR: " + response.toString());
         Get.back();
-        customSnackbar1("Masuk gagal!");
+        customSnackbar1("Oops.. terjadi kesalahan sistem.");
       }
     } catch (e) {
       print("CATCH EMAIL KIRIM: " + e.toString());

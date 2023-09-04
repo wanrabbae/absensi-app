@@ -369,7 +369,7 @@ class HomeController extends GetxController {
   kirimUndangan() async {
     var isValidEmail = isEmailValid(emailUndangan.toString());
     if (!isValidEmail) {
-      customSnackbar1("Format email tidak valid");
+      customSnackbar1("Silakan masuk kembali.");
       return;
     }
 

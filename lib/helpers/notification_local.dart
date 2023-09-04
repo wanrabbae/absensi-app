@@ -126,7 +126,7 @@ class AwesomeNotificationService {
           //simgple notification
           id: 321,
           channelKey: 'basic2', //set configuration wuth key "basic"
-          title: 'Waktu kehadiran telah dihentikan.',
+          title: 'Waktu kehadiran telah berhenti.',
           body: 'Sentuh untuk membuka aplikasi.',
           payload: {"name": "FlutterCampus"},
           // autoDismissible: false,
@@ -138,15 +138,7 @@ class AwesomeNotificationService {
         //     referenceDateTime: referenceDateTime),
         actionButtons: [
           NotificationActionButton(
-              key: "open", label: "Buka", color: colorBluePrimary2),
-          NotificationActionButton(
-            key: "close",
-            label: "Abaikan",
-            color: colorBluePrimary2,
-            autoDismissible: true,
-            buttonType: ActionButtonType.DisabledAction,
-            // isDangerousOption: true,
-          ),
+              key: "open", label: "Buka Aplikasi", color: colorBluePrimary2),
         ]);
   }
 
