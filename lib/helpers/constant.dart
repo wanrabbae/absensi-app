@@ -122,6 +122,7 @@ timerAbsen() {
 
 timerAbsen2(waktuAbsen) {
   var time = DateTime.parse(waktuAbsen!).difference(DateTime.now());
+  print(time.inHours);
   var waktu = DateTime.parse(
       '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
   var hours = waktu.hour < 10 ? '0${waktu.hour}' : waktu.hour;

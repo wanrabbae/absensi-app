@@ -230,7 +230,10 @@ Widget buttonWhite(String title, {VoidCallback? onTap}) {
           child: Text(
             title,
             style: const TextStyle(
-                color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Rubik'),
           ),
         )),
   );
