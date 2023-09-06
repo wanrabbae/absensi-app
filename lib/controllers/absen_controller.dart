@@ -95,6 +95,7 @@ class AbsenController extends GetxController {
     );
 
     if (checkData == null) {
+      print("===== CHECK DATA NULL ====");
       box.remove(Base.klikAbsen);
       box.remove(Base.waktuAbsen);
       cancelTimer();
@@ -102,7 +103,8 @@ class AbsenController extends GetxController {
 
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (klikAbsen) {
-        timerRecor = timerAbsen();
+        print("KE IF TIMER 1");
+        timerRecor = timerAbsen4();
       } else if (findData != null) {
         timerRecor = timerAbsen3(findData?["waktuCheckIn"], null);
         update();

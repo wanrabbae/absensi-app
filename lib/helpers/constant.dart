@@ -111,6 +111,7 @@ bool isSmallerThanToday(String dateString) {
 
 timerAbsen() {
   var waktuAbsen = box.read(Base.waktuAbsen);
+  print(waktuAbsen);
   var time = DateTime.parse(waktuAbsen!).difference(DateTime.now());
   var waktu = DateTime.parse(
       '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
@@ -143,6 +144,29 @@ timerAbsen3(waktuCheckIn, String? checkOut) {
   var time = DateTime.parse(waktuCheckIn!).difference(checkOutDateTime);
   Duration timeDifference =
       DateTime.parse(waktuCheckIn!).difference(checkOutDateTime);
+  print(timeDifference.inHours);
+  var waktu = DateTime.parse(
+      '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
+
+  var hours = timeDifference.inHours.abs() < 10
+      ? '0${timeDifference.inHours.abs()}'
+      : timeDifference.inHours.abs();
+  var munite = timeDifference.inMinutes.remainder(60).abs() < 10
+      ? '0${timeDifference.inMinutes.remainder(60).abs()}'
+      : timeDifference.inMinutes.remainder(60).abs();
+  var second = timeDifference.inSeconds.remainder(60).abs() < 10
+      ? '0${timeDifference.inSeconds.remainder(60).abs()}'
+      : timeDifference.inSeconds.remainder(60).abs();
+  return "$hours:$munite:$second";
+}
+
+timerAbsen4() {
+  var waktuAbsen = box.read(Base.waktuAbsen);
+  print(waktuAbsen);
+  var time = DateTime.parse(waktuAbsen!).difference(DateTime.now());
+
+  Duration timeDifference =
+      DateTime.parse(waktuAbsen!).difference(DateTime.now());
   print(timeDifference.inHours);
   var waktu = DateTime.parse(
       '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
