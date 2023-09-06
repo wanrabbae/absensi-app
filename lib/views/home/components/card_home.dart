@@ -203,7 +203,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                                                   .toString()
                                                               as String ==
                                                           "null"
-                                                  ? "-"
+                                                  ? ""
                                                   : s?.absen[index]['alamatPulang']
                                                                   .toString()
                                                               as String !=
@@ -213,7 +213,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                                           .toString() as String
                                                       : s?.absen[index]['alamatLoc']
                                                           .toString() as String
-                                              : "-",
+                                              : "",
                                           maxLines: 1,
                                           softWrap: true,
                                           style: TextStyle(

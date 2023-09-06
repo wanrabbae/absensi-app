@@ -135,6 +135,7 @@ class IzinController extends GetxController {
     // FilePicker
     await FilePicker.platform.pickFiles(
         type: FileType.custom,
+        allowCompression: true,
         allowedExtensions: ['jpg', 'png', 'jpeg', 'pdf', 'doc']).then((result) {
       if (result != null) {
         file = result.files.first;
@@ -320,31 +321,14 @@ class IzinController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
+        customSnackbar1('Oops.. terjadi kesalahan sistem.');
         // Get.snackbar(
         //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
       }
     } catch (e) {
-      print("KE CATCH");
-      // print(e);
-      // customSnackbar1("Terjadi kesalahan");
-      box.write(Base.izinAbsen, DateTime.now().toString());
-      print(HomeController().absen);
-      if (!klikAbsen) {
-        Get.back();
-        Get.offAllNamed(RouteName.home, arguments: 0);
-        await HomeController().doneAbsensi();
-        await HomeController().dataHome();
-      } else {
-        final homeCtrl = Get.put(HomeController());
-        DateTime dateCurrent = DateTime.now();
-        String formattedCurrentDate =
-            DateFormat("yyyy-MM-dd").format(dateCurrent);
-        var findData = await homeCtrl.absen?.firstWhere(
-            (element) => element?["idkaryawan"] == user?["idkaryawan"],
-            orElse: () => null);
-
-        absenPulang(false, findData?["id"]);
-      }
+      print("KE CATCH FITUR IZIN");
+      Get.back();
+      customSnackbar1('Oops.. terjadi kesalahan sistem.');
     }
   }
 }

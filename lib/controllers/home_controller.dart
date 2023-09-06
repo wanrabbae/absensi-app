@@ -194,6 +194,11 @@ class HomeController extends GetxController {
     bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
     bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
 
+    var findData = izin?.firstWhere(
+      (element) => element?["idkaryawan"] == user?['idkaryawan'],
+      orElse: () => null,
+    );
+
     if (isDateSmallerThanToday == false) {
       isPresentHadir = false;
       isPresentIzin = false;
@@ -269,12 +274,20 @@ class HomeController extends GetxController {
         update();
       }
     } catch (e) {
-      print(isDateGreaterThanToday);
-      print(isDateSmallerThanToday);
       // customSnackbar1('Oops.. terjadi kesalahan sistem.');
       print("KE CATCH CHECK ANY ABSEN");
       print(e);
     }
+
+    if (findData != null) {
+      print("IZIN DATA: " + findData.toString());
+      isPresentHadir = true;
+      isPresentIzin = true;
+      update();
+    }
+
+    print("IS HADIR: " + isPresentHadir.toString());
+    print("IS IZIN: " + isPresentIzin.toString());
   }
 
   gambarAbsen(data, status) {
