@@ -128,12 +128,8 @@ class HomeController extends GetxController {
         var response =
             await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
         print("DATA ABSEN: " + response.data.length.toString());
-        // var currentAbsen = absen?.firstWhere(
-        //   (element) =>
-        //       element['idkaryawan'] == user?['idkaryawan'] &&
-        //       element?["waktuCheckOut"] == null,
-        //   orElse: () => null,
-        // );
+
+        box.write(Base.waktuAbsen, response.data?[0]["waktuCheckIn"]);
         Get.back();
         Get.toNamed(RouteName.absen,
             arguments: {"dataAbsen": response.data?[0], "pulang": 1});
