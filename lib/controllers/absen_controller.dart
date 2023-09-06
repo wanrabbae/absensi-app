@@ -104,7 +104,7 @@ class AbsenController extends GetxController {
       if (klikAbsen) {
         timerRecor = timerAbsen();
       } else if (findData != null) {
-        timerRecor = timerAbsen2(findData?["waktuCheckIn"]);
+        timerRecor = timerAbsen3(findData?["waktuCheckIn"], null);
         update();
       } else {
         timerRecor = "00:00:00";

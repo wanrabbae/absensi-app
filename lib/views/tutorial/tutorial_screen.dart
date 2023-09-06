@@ -81,7 +81,7 @@ class TutorialScreen extends StatelessWidget {
                             ),
                           ),
                           buttonWhite(
-                            "Saya mengerti",
+                            "SAYA MENGERTI",
                             onTap: () {
                               Get.toNamed(RouteName.greeting);
                             },
