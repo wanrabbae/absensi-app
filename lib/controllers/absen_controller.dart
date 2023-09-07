@@ -596,7 +596,6 @@ class AbsenController extends GetxController {
   }
 
   absenPulang(status, idAbsen) async {
-    print("PULANG YOYY");
     var currentDate = DateTime.now();
     var newDate =
         new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
@@ -644,6 +643,7 @@ class AbsenController extends GetxController {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
       } else if (response.statusCode == 400) {
+        print("STATUS CODE 400");
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
       } else {

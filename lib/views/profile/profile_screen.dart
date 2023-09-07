@@ -165,18 +165,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                                 if (homeCtrl.timer != null &&
                                     homeCtrl.timer?.isActive) {
-                                  var findData = await homeCtrl.absen
-                                      ?.firstWhere(
-                                          (element) =>
-                                              element?["idkaryawan"] ==
-                                              s.user?["idkaryawan"],
-                                          orElse: () => null);
-                                  var findData2 = await homeCtrl.absen
-                                      ?.firstWhere(
-                                          (element) =>
-                                              element?["idkaryawan"] ==
-                                              s.user?["idkaryawan"],
-                                          orElse: () => null);
+                                  var tanggal = homeCtrl.currentDate
+                                      .toString()
+                                      .split(" ")[0];
+                                  var findData = await AbsensiServices()
+                                      .findIndiv(
+                                          s.user?["idkaryawan"], tanggal);
 
                                   SplashController().showConfirmationDialog2(
                                       "Presensi", "Anda ingin pulang?",
@@ -185,13 +179,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     // changePageScreen = 1;
                                     // update();
                                     Get.toNamed(RouteName.absen, arguments: {
-                                      "dataAbsen": findData,
+                                      "dataAbsen": findData.data?[0],
                                       "pulang": 1
                                     });
 
-                                    await AbsenController()
-                                        .getCurrentLocationPulang2(
-                                            findData?["id"]);
+                                    // await AbsenController()
+                                    //     .getCurrentLocationPulang2(
+                                    //         findData?["id"]);
                                   });
                                 } else {
                                   SplashController().showConfirmationDialog2(
