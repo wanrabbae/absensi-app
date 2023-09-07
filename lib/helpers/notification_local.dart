@@ -98,7 +98,7 @@ class AwesomeNotificationService {
           id: 123,
           channelKey: 'basic', //set configuration wuth key "basic"
           title: 'Waktu kehadiran sedang berjalan.',
-          body: 'Sentuh untuk membuka aplikasi.',
+          body: 'Sentuh untuk pulang.',
           payload: {"name": "FlutterCampus"},
           autoDismissible: false,
           displayOnBackground: true,
@@ -110,7 +110,7 @@ class AwesomeNotificationService {
         actionButtons: [
           NotificationActionButton(
               key: "open",
-              label: "Buka Aplikasi",
+              label: "Pulang Sekarang",
               color: colorBluePrimary2,
               autoDismissible: false,
               isDangerousOption: false),

@@ -46,52 +46,47 @@ void main() async {
   NotificationService().initNotification();
   AwesomeNotificationService().initNotification();
 
-  AwesomeNotifications().actionStream.listen((action) {
+  AwesomeNotifications().actionStream.listen((action) async {
     print("CHANEL KEY: " + action.channelKey.toString());
     if (action.channelKey == "basic" && action.buttonKeyPressed == "open") {
       var homeCtrl = Get.put(HomeController());
-      var currentAbsen = homeCtrl.absen?.firstWhere(
-        (element) =>
-            element['idkaryawan'] == homeCtrl.user?['idkaryawan'] &&
-            element?["waktuCheckOut"] == null,
-        orElse: () => null,
-      );
-      // Get.back();
-      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": currentAbsen});
-      print("Open button is pressed");
+      var tanggal = homeCtrl.currentDate.toString().split(" ")[0];
+
+      var response = await AbsensiServices()
+          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
+
+      Get.toNamed(RouteName.absen,
+          arguments: {"dataAbsen": response.data?[0], "pulang": 1});
     } else if (action.buttonKeyPressed == "close") {
       AwesomeNotifications().cancelAll();
     } else if (action.channelKey == "basic") {
       var homeCtrl = Get.put(HomeController());
-      var currentAbsen = homeCtrl.absen?.firstWhere(
-        (element) =>
-            element['idkaryawan'] == homeCtrl.user?['idkaryawan'] &&
-            element?["waktuCheckOut"] == null,
-        orElse: () => null,
-      );
-      // Get.back();
-      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": currentAbsen});
-    } else if (action.channelKey == "basic3") {
-      var absenCtrl = Get.put(AbsenController());
-      var homeCtrl = Get.put(HomeController());
-      var currentAbsen = homeCtrl.absen?.firstWhere(
-        (element) => element['idkaryawan'] == homeCtrl.user?['idkaryawan'],
-        orElse: () => null,
-      );
+      var tanggal = homeCtrl.currentDate.toString().split(" ")[0];
+
+      var response = await AbsensiServices()
+          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
+
       Get.toNamed(RouteName.absen,
-          arguments: {"dataAbsen": currentAbsen, "pulang": 1});
-      absenCtrl.mulaiPulangFromNotif(currentAbsen);
+          arguments: {"dataAbsen": response.data?[0], "pulang": 1});
+    } else if (action.channelKey == "basic3") {
+      // var absenCtrl = Get.put(AbsenController());
+      var homeCtrl = Get.put(HomeController());
+      var tanggal = homeCtrl.currentDate.toString().split(" ")[0];
+
+      var response = await AbsensiServices()
+          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
+      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": response.data?[0]});
+      // absenCtrl.mulaiPulangFromNotif(currentAbsen);
     } else if (action.channelKey == "basic3" &&
         action.buttonKeyPressed == "pulang") {
-      var absenCtrl = Get.put(AbsenController());
+      // var absenCtrl = Get.put(AbsenController());
       var homeCtrl = Get.put(HomeController());
-      var currentAbsen = homeCtrl.absen?.firstWhere(
-        (element) => element['idkaryawan'] == homeCtrl.user?['idkaryawan'],
-        orElse: () => null,
-      );
-      Get.toNamed(RouteName.absen,
-          arguments: {"dataAbsen": currentAbsen, "pulang": 1});
-      absenCtrl.mulaiPulangFromNotif(currentAbsen);
+      var tanggal = homeCtrl.currentDate.toString().split(" ")[0];
+
+      var response = await AbsensiServices()
+          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
+      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": response.data?[0]});
+      // absenCtrl.mulaiPulangFromNotif(currentAbsen);
     } else {
       print("action.payload"); //notification was pressed
     }

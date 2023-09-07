@@ -33,6 +33,7 @@ class AbsenController extends GetxController {
   String formIzin = 'Izin';
   String? formDeskripsi;
   String? namaOrang;
+  String? statusState;
   List? izinList = [
     {"nama": "Izin", "value": "Izin"},
     {"nama": "Sakit", "value": "Sakit"},
@@ -76,8 +77,15 @@ class AbsenController extends GetxController {
     if (klikAbsen && timer?.isActive) {
       print("TEST TOAST");
       print("DATA CHECKIN: " + findDataOnCheckIn.toString());
+      print("STATUS STATE: " + statusState.toString());
       mulaiPulangRevisi1(findDataOnCheckIn?['id']);
     }
+  }
+
+  updateStatusStateFromNotif() {
+    print("UPDATE STATE YOYY");
+    statusState = "dariNotif";
+    update();
   }
 
   startTimer() {

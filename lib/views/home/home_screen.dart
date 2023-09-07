@@ -287,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     onPressed: () async {
                       if (s.isPresentHadir!) {
                         print("test");
-                        // customSnackbar1("Kehadiran hari ini telah terisi.");
+                        customSnackbar1("Kehadiran hari ini telah terisi.");
                       } else {
                         s.absensi(context);
                       }
@@ -323,7 +323,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             onPressed: () {
                               if (s.isPresentIzin!) {
                                 print("test");
-                                // customSnackbar1("Izin hari ini telah terisi.");
+                                customSnackbar1(
+                                    "Kehadiran hari ini telah terisi.");
                               } else {
                                 Get.toNamed(RouteName.absenIzin);
                               }
@@ -347,7 +348,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () {
                           if (s.isPresentIzin!) {
                             print("test");
-                            // customSnackbar1("Izin hari ini telah terisi.");
+                            customSnackbar1("Kehadiran hari ini telah terisi.");
                           } else {
                             ImagePicker()
                                 .pickImage(
