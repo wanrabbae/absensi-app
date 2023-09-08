@@ -1,4 +1,4 @@
-package com.sares.app
+package com.hora.app
 
 import io.flutter.embedding.android.FlutterActivity
 
