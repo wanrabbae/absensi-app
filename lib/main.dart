@@ -50,7 +50,7 @@ void main() async {
     print("CHANEL KEY: " + action.channelKey.toString());
     if (action.channelKey == "basic" && action.buttonKeyPressed == "open") {
       var homeCtrl = Get.put(HomeController());
-      var tanggal = homeCtrl.currentDate.toString().split(" ")[0];
+      var tanggal = action.payload?["datepresence"]?.split(" ")[0];
 
       var response = await AbsensiServices()
           .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
@@ -61,7 +61,7 @@ void main() async {
       AwesomeNotifications().cancelAll();
     } else if (action.channelKey == "basic") {
       var homeCtrl = Get.put(HomeController());
-      var tanggal = homeCtrl.currentDate.toString().split(" ")[0];
+      var tanggal = action.payload?["datepresence"]?.split(" ")[0];
 
       var response = await AbsensiServices()
           .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
@@ -71,7 +71,7 @@ void main() async {
     } else if (action.channelKey == "basic3") {
       // var absenCtrl = Get.put(AbsenController());
       var homeCtrl = Get.put(HomeController());
-      var tanggal = homeCtrl.currentDate.toString().split(" ")[0];
+      var tanggal = action.payload?["datepresence"]?.split(" ")[0];
 
       var response = await AbsensiServices()
           .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
@@ -81,7 +81,7 @@ void main() async {
         action.buttonKeyPressed == "pulang") {
       // var absenCtrl = Get.put(AbsenController());
       var homeCtrl = Get.put(HomeController());
-      var tanggal = homeCtrl.currentDate.toString().split(" ")[0];
+      var tanggal = action.payload?["datepresence"]?.split(" ")[0];
 
       var response = await AbsensiServices()
           .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);

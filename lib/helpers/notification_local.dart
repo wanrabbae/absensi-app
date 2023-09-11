@@ -88,8 +88,7 @@ class AwesomeNotificationService {
     ]);
   }
 
-  Future showNotificationAbsen(
-      {int id = 0, String? title, String? body, String? payLoad}) async {
+  Future showNotificationAbsen(datePresence) async {
     AwesomeNotifications().createNotification(
         content: NotificationContent(
           backgroundColor: colorBluePrimary2,
@@ -99,7 +98,7 @@ class AwesomeNotificationService {
           channelKey: 'basic', //set configuration wuth key "basic"
           title: 'Waktu kehadiran sedang berjalan.',
           body: 'Sentuh untuk pulang.',
-          payload: {"name": "FlutterCampus"},
+          payload: {"datepresence": datePresence.toString()},
           autoDismissible: false,
           displayOnBackground: true,
           displayOnForeground: true,
@@ -142,7 +141,7 @@ class AwesomeNotificationService {
         ]);
   }
 
-  Future showNotificationAfter12Hours() async {
+  Future showNotificationAfter12Hours(datePresence) async {
     await AwesomeNotifications().createNotification(
         content: NotificationContent(
           backgroundColor: colorBluePrimary2,
@@ -152,7 +151,7 @@ class AwesomeNotificationService {
           channelKey: 'basic3', //set configuration wuth key "basic"
           title: 'Waktu kehadiran melebihi 12 jam.',
           body: 'Anda ingin pulang?',
-          payload: {"name": "FlutterCampus"},
+          payload: {"datepresence": datePresence.toString()},
           // autoDismissible: false,
           displayOnBackground: true,
           displayOnForeground: true,

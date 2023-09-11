@@ -554,8 +554,10 @@ class AbsenController extends GetxController {
         box.write(Base.waktuAbsen, DateTime.now().toString());
         box.write(Base.klikAbsen, true);
         Get.offAllNamed(RouteName.home, arguments: 0);
-        await AwesomeNotificationService().showNotificationAbsen();
-        await AwesomeNotificationService().showNotificationAfter12Hours();
+        await AwesomeNotificationService()
+            .showNotificationAbsen(DateTime.now().toString());
+        await AwesomeNotificationService()
+            .showNotificationAfter12Hours(DateTime.now().toString());
       } else if (response.statusCode == 401) {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
