@@ -19,7 +19,7 @@ Widget buildEnable(BuildContext context, timer, s) {
       children: [
         const Icon(
           FeatherIcons.clock,
-          size: 18,
+          size: 24,
           color: Colors.white,
         ),
         const SizedBox(
@@ -28,7 +28,7 @@ Widget buildEnable(BuildContext context, timer, s) {
         Text(
           timer,
           style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 16),
+              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 24),
         ),
       ],
     ),

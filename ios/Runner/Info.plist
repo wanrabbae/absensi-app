@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>App</string>
+	<string>Hora</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -27,13 +27,13 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Need to upload image</string>
+	<string>The app accesses the camera to take photos/selfies while recording attendance of the user.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Privacy - Location always and when In Use Usage Description</string>
+	<string>The app detects location to obtain and records position information of the user while recording the attendance of the user.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>your description</string>
+	<string>The app detects location to obtain and records position information of the user while recording the attendance of the user.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Privacy - Location always Usage Description</string>
+	<string>The app detects location to obtain and records position information of the user while recording the attendance of the user.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Need to upload image</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>

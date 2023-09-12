@@ -8,6 +8,32 @@ class WebviewScreen extends StatelessWidget {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         backgroundColor: colorGrayPrimary,
+        appBar: AppBar(
+          backgroundColor: colorBluePrimary2,
+          title: Container(
+            color: colorBluePrimary2,
+            child: Text(
+              Get.arguments.toString(),
+              style: TextStyle(
+                fontFamily: 'Rubik',
+                fontSize: 14,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+              ),
+            ),
+          ),
+          centerTitle: false,
+          leading: IconButton(
+            style: ButtonStyle(
+                iconColor: MaterialStatePropertyAll(Colors.white),
+                textStyle:
+                    MaterialStatePropertyAll(TextStyle(color: Colors.white))),
+            icon: Icon(FeatherIcons.x),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+        ),
         body: SafeArea(
           bottom: false,
           child: Scaffold(
