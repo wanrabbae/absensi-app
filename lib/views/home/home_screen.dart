@@ -339,10 +339,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         heroTag: "btn3",
                         backgroundColor: s.isPresentIzin!
                             ? Colors.grey.shade400
-                            : colorBlueOpacity2,
+                            : colorBlackPrimary,
                         child: Icon(
                           FeatherIcons.camera,
-                          color: Colors.black,
+                          color: Colors.white,
                           size: 24,
                         ),
                         onPressed: () {
