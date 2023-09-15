@@ -75,9 +75,33 @@ class AbsensiServices extends GetConnect implements GetxService {
     }
   }
 
-  Future izinPost(body) {
+  Future izinPost(body) async {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};
-    return post(Base.url + Base.absenIzin, headers: header, body);
+    print(body);
+    print(body?["DokumenIjin"]["path"].toString());
+    print(body?["DokumenIjin"]["name"].toString());
+    dio.FormData formData = dio.FormData.fromMap({
+      'IDKaryawan': body?['idkaryawan'],
+      'NamaKaryawan': body?['namaKaryawan'],
+      'Keterangan': body?["Keterangan"],
+      'Ijin': body?["Ijin"],
+      'DokumenIjin': await dio.MultipartFile.fromFile(
+          body?["DokumenIjin"]["path"],
+          filename: body?["DokumenIjin"]["name"]),
+      'IDPerusahaan': body?['idperusahaan'],
+      'NamaPerusahaan': body?['namaPerusahaan']
+    });
+
+    final options = dio.Options(headers: header);
+
+    try {
+      var test = await dio.Dio()
+          .post(Base.url + Base.absenIzin, data: formData, options: options);
+      return test;
+    } on dio.DioError catch (e) {
+      print(e.response?.data.toString());
+      return [];
+    }
   }
 }

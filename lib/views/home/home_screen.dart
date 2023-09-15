@@ -342,7 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             : colorBlackPrimary,
                         child: Icon(
                           FeatherIcons.camera,
-                          color: Colors.white,
+                          color: s.isPresentIzin! ? Colors.black : Colors.white,
                           size: 24,
                         ),
                         onPressed: () {

@@ -286,16 +286,20 @@ class IzinController extends GetxController {
 
     try {
       customSnackbarLoading("Mengajukan surat izin...");
-      final FormData forms = FormData({
-        'IDKaryawan': user?['idkaryawan'],
-        'NamaKaryawan': user?['namaKaryawan'],
+      var forms = {
+        'idkaryawan': user?['idkaryawan'],
+        'namaKaryawan': user?['namaKaryawan'],
         'Keterangan': formDeskripsi,
         'Ijin': formIzin,
-        'DokumenIjin': MultipartFile(file!.path, filename: file!.name),
-        'IDPerusahaan': perusahaan?['idperusahaan'],
-        'NamaPerusahaan': perusahaan?['namaPerusahaan']
-      });
+        'DokumenIjin': {
+          "path": file!.path,
+          "name": file!.name,
+        },
+        'idperusahaan': perusahaan?['idperusahaan'],
+        'namaPerusahaan': perusahaan?['namaPerusahaan']
+      };
       var response = await AbsensiServices().izinPost(forms);
+      print("RESPONSE: " + response.toString());
       if (response.statusCode == 200) {
         print("RESPON 200");
         box.write(Base.izinAbsen, DateTime.now().toString());
@@ -326,6 +330,7 @@ class IzinController extends GetxController {
         //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
       }
     } catch (e) {
+      print(e.toString());
       print("KE CATCH FITUR IZIN");
       Get.back();
       customSnackbar1('Oops.. terjadi kesalahan sistem.');
