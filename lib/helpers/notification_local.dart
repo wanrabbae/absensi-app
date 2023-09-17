@@ -85,6 +85,30 @@ class AwesomeNotificationService {
         ledColor: colorBluePrimary2,
         playSound: true,
       ),
+      NotificationChannel(
+        channelGroupKey: 'basic_test',
+        channelKey: 'downloadedFile',
+        channelName: 'Basic notifications',
+        channelDescription: 'Notification channel for basic tests',
+        channelShowBadge: true,
+        importance: NotificationImportance.High,
+        enableVibration: true,
+        // defaultColor: colorBluePrimary2,
+        // ledColor: colorBluePrimary2,
+        playSound: true,
+      ),
+      NotificationChannel(
+        channelGroupKey: 'basic_test',
+        channelKey: 'downloadedImage',
+        channelName: 'Basic notifications',
+        channelDescription: 'Notification channel for basic tests',
+        channelShowBadge: true,
+        importance: NotificationImportance.High,
+        enableVibration: true,
+        // defaultColor: colorBluePrimary2,
+        // ledColor: colorBluePrimary2,
+        playSound: true,
+      ),
     ]);
   }
 
@@ -171,6 +195,78 @@ class AwesomeNotificationService {
         ],
         schedule: NotificationCalendar.fromDate(
             date: DateTime.now().add(const Duration(hours: 12))));
+  }
+
+  Future showNotificationDownloadedFile(
+      {int id = 0,
+      String? title,
+      String? body,
+      String? payLoad,
+      String? path}) async {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        // backgroundColor: colorBluePrimary2,
+        // color: colorBluePrimary2,
+        //simgple notification
+        id: 329,
+        channelKey: 'downloadedFile', //set configuration wuth key "basic"
+        title: "Dokumen tersimpan",
+        body: "Sentuh untuk membuka dokumen",
+        icon: "resource://drawable/hora",
+        payload: {"path": path.toString()},
+        // autoDismissible: false,
+        displayOnBackground: true,
+        displayOnForeground: true,
+        // locked: true,
+      ),
+      // schedule: NotificationAndroidCrontab.hourly(
+      //     referenceDateTime: referenceDateTime),
+      actionButtons: [
+        NotificationActionButton(
+            key: "open", label: "Buka", color: colorBluePrimary2),
+        NotificationActionButton(
+          key: "close",
+          label: "Hapus",
+          color: colorBluePrimary2,
+          autoDismissible: true,
+        ),
+      ],
+    );
+  }
+
+  Future showNotificationCapture(
+      {int id = 0,
+      String? title,
+      String? body,
+      String? payLoad,
+      String? path}) async {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        //simgple notification
+        id: 326,
+        channelKey: 'downloadedImage', //set configuration wuth key "basic"
+        title: "Tangkapan layar tersimpan",
+        body: "Sentuh untuk membuka galeri",
+        payload: {"path": path.toString()},
+        // autoDismissible: false,
+        displayOnBackground: true,
+        icon: "resource://drawable/hora",
+        displayOnForeground: true,
+        // locked: true,
+      ),
+      // schedule: NotificationAndroidCrontab.hourly(
+      //     referenceDateTime: referenceDateTime),
+      actionButtons: [
+        NotificationActionButton(
+            key: "open", label: "Buka", color: colorBluePrimary2),
+        NotificationActionButton(
+          key: "close",
+          label: "Hapus",
+          color: colorBluePrimary2,
+          autoDismissible: true,
+        ),
+      ],
+    );
   }
 
   Future<void> removeNotification() async {

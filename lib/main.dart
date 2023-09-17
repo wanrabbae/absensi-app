@@ -2,6 +2,7 @@ import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/services.dart';
+import 'package:open_file_plus/open_file_plus.dart';
 import 'package:app/data/local/base_preference.dart';
 
 // import 'package:app/firebase_options.dart';
@@ -87,6 +88,26 @@ void main() async {
           .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
       Get.toNamed(RouteName.absen, arguments: {"dataAbsen": response.data?[0]});
       // absenCtrl.mulaiPulangFromNotif(currentAbsen);
+    } else if (action.channelKey == "downloadedFile" &&
+        action.buttonKeyPressed == "open") {
+      print("KE DOWNLOAD FILE NOTIF");
+      print("PATH FROM NOTIF: ${action.payload?["path"]}");
+      OpenFile.open(action.payload?["path"]);
+      print("BERHASIL OPEN");
+    } else if (action.channelKey == "downloadedFile") {
+      print("KE DOWNLOAD FILE NOTIF");
+      OpenFile.open(action.payload?["path"]);
+      print("BERHASIL OPEN");
+    } else if (action.channelKey == "downloadedImage" &&
+        action.buttonKeyPressed == "open") {
+      print("KE DOWNLOAD IMAGE NOTIF");
+      print("PATH DR IMAGE NET: ${action.payload?["path"].toString()}");
+      OpenFile.open(action.payload?["path"]);
+    } else if (action.channelKey == "downloadedImage") {
+      print("KE DOWNLOAD IMAGE NOTIF");
+      print("PATH DR IMAGE NET: ${action.payload?["path"].toString()}");
+      OpenFile.open(action.payload?["path"]);
+      print("BERHASIL OPEN");
     } else {
       print("action.payload"); //notification was pressed
     }

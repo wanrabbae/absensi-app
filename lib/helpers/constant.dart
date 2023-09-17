@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:app/helpers/notification_local.dart';
 import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
@@ -299,12 +300,51 @@ Future<void> openMap(String? latitude, String? longitude) async {
 
 saveNetworkImage(url) async {
   String path = url.toString();
-  GallerySaver.saveImage(path, albumName: 'Hora');
+  var dir = await DownloadsPathProvider.downloadsDirectory;
+
+  PermissionStatus status = await Permission.storage.status;
+
+  if (!status.isGranted) {
+    // If permission is not granted, request it
+    status = await Permission.storage.request();
+    if (!status.isGranted) {
+      // If the user denies the permission, open app settings
+      SplashController().showConfirmationDialog2(
+          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+        // Redirect to allow location setting on phone
+        openAppSettings();
+      });
+      return false;
+    }
+  }
+
+  var dir2 = await getApplicationDocumentsDirectory();
+  if (dir != null || dir2 != null) {
+    String savename = url.toString().split("/").last;
+    String savePath = Platform.isIOS
+        ? dir2.path + "/$savename"
+        : "${dir?.path.toString()}/Hora/$savename";
+
+    try {
+      await Dio().download(url, savePath, onReceiveProgress: (received, total) {
+        if (total != -1) {
+          print((received / total * 100).toStringAsFixed(0) + "%");
+          //you can build progressbar feature too
+        }
+      });
+      print("File is saved to download folder.");
+      await AwesomeNotificationService()
+          .showNotificationCapture(path: savePath);
+    } on DioError catch (e) {
+      print(e.message);
+      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+    }
+  }
 }
 
 saveNetworkFile(url) async {
   PermissionStatus status = await Permission.storage.status;
-  print(status.isGranted);
+
   if (!status.isGranted) {
     // If permission is not granted, request it
     status = await Permission.storage.request();
@@ -320,10 +360,12 @@ saveNetworkFile(url) async {
   }
 
   var dir = await DownloadsPathProvider.downloadsDirectory;
-  if (dir != null) {
+  var dir2 = await getApplicationDocumentsDirectory();
+  if (dir != null || dir2 != null) {
     String savename = url.toString().split("/").last;
-    String savePath = dir.path + "/$savename";
-    print(savePath);
+    String savePath = Platform.isIOS
+        ? dir2.path + "/$savename"
+        : "${dir?.path}/Hora/$savename";
 
     try {
       await Dio().download(url, savePath, onReceiveProgress: (received, total) {
@@ -333,8 +375,11 @@ saveNetworkFile(url) async {
         }
       });
       print("File is saved to download folder.");
+      await AwesomeNotificationService()
+          .showNotificationDownloadedFile(path: savePath.toString());
     } on DioError catch (e) {
       print(e.message);
+      customSnackbar1("Oops.. terjadi kesalahan sistem.");
     }
   }
 }

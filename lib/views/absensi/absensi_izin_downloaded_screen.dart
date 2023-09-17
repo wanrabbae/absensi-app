@@ -75,7 +75,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                 if (fileType == "jpg" ||
                     fileType == "png" ||
                     fileType == "jpeg") {
-                  saveNetworkImage(changeUrlImage(Get.arguments?["dokumen"]));
+                  saveNetworkFile(changeUrlImage(Get.arguments?["dokumen"]));
                 } else {
                   saveNetworkFile(changeUrlImage(Get.arguments?["dokumen"]));
                   print("FILE DOK YOYY");

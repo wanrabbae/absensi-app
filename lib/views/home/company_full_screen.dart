@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:app/helpers/notification_local.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -58,7 +59,11 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
                       //     s.perusahaan?['logoPerusahaan'] ??
                       //         'wwwroot/Images/CompanyLogo/logo_hora.png'));
                       SplashController().showOkDialog2(
-                          "Tangkapan Layar", "Gambar Telah Tersimpan", () {});
+                          "Tangkapan Layar", "Gambar Telah Tersimpan", () {
+                        print("YOYY");
+                      });
+                      // await AwesomeNotificationService()
+                      //     .showNotificationDownloadedFile();
                       // } on DioError catch (error) {
                       //   print(error);
                       // }
