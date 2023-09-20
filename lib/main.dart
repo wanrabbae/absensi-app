@@ -129,6 +129,7 @@ class MyApp extends HookConsumerWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    AwesomeNotificationService().removeNotificationUnUsed();
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);

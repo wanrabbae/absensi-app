@@ -326,13 +326,15 @@ saveNetworkImage(url) async {
         : "${dir?.path.toString()}/Hora/$savename";
 
     try {
+      customSnackbarLoading("Mengunduh dokumen...");
       await Dio().download(url, savePath, onReceiveProgress: (received, total) {
         if (total != -1) {
           print((received / total * 100).toStringAsFixed(0) + "%");
-          //you can build progressbar feature too
+          // create progress bar
         }
       });
       print("File is saved to download folder.");
+      customSnackbar1("Tangkapan layar telah disimpan.");
       await AwesomeNotificationService()
           .showNotificationCapture(path: savePath);
     } on DioError catch (e) {
@@ -368,13 +370,17 @@ saveNetworkFile(url) async {
         : "${dir?.path}/Hora/$savename";
 
     try {
+      customSnackbarLoading("Mengunduh dokumen...");
       await Dio().download(url, savePath, onReceiveProgress: (received, total) {
         if (total != -1) {
           print((received / total * 100).toStringAsFixed(0) + "%");
-          //you can build progressbar feature too
+          // create progress bar
+          // loadingBar();
         }
       });
+      // Get.back();
       print("File is saved to download folder.");
+      customSnackbar1("Lampiran telah disimpan.");
       await AwesomeNotificationService()
           .showNotificationDownloadedFile(path: savePath.toString());
     } on DioError catch (e) {

@@ -80,7 +80,6 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                   saveNetworkFile(changeUrlImage(Get.arguments?["dokumen"]));
                   print("FILE DOK YOYY");
                 }
-                customSnackbar1("Lampiran telah disimpan.");
               },
             ),
           )

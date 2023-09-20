@@ -58,10 +58,10 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
                       // await downloadImage(changeUrlImage(
                       //     s.perusahaan?['logoPerusahaan'] ??
                       //         'wwwroot/Images/CompanyLogo/logo_hora.png'));
-                      SplashController().showOkDialog2(
-                          "Tangkapan Layar", "Gambar Telah Tersimpan", () {
-                        print("YOYY");
-                      });
+                      // SplashController().showOkDialog2(
+                      //     "Tangkapan Layar", "Gambar Telah Tersimpan", () {
+                      //   print("YOYY");
+                      // });
                       // await AwesomeNotificationService()
                       //     .showNotificationDownloadedFile();
                       // } on DioError catch (error) {

@@ -53,7 +53,7 @@ class _HasilHadirScreenState extends State<HasilHadirScreen> {
                           saveNetworkImage(changeUrlImage(
                               Get.arguments.toString() ??
                                   'wwwroot/Images/CompanyLogo/logo_hora.png'));
-                          customSnackbar1("Tangkapan layar telah disimpan.");
+                          // customSnackbar1("Tangkapan layar telah disimpan.");
                           // SplashController().showOkDialog2(
                           //     "Tangkapan Layar", "Gambar Telah Tersimpan", () {});
                         },

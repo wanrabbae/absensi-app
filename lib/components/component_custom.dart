@@ -305,6 +305,22 @@ customSnackbar1(message) {
       margin: EdgeInsets.symmetric(horizontal: 20));
 }
 
+loadingBar() {
+  return Center(
+    child: Container(
+      width: 50,
+      height: 50,
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(20)),
+      child: const Center(
+        child: CircularProgressIndicator(
+          color: Colors.blue,
+        ),
+      ),
+    ),
+  );
+}
+
 customSnackbarLoading(message) {
   Get.rawSnackbar(
       messageText: Text(

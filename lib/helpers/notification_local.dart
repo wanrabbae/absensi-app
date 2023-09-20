@@ -93,8 +93,8 @@ class AwesomeNotificationService {
         channelShowBadge: true,
         importance: NotificationImportance.High,
         enableVibration: true,
-        // defaultColor: colorBluePrimary2,
-        // ledColor: colorBluePrimary2,
+        defaultColor: colorBluePrimary2,
+        ledColor: colorBluePrimary2,
         playSound: true,
       ),
       NotificationChannel(
@@ -105,8 +105,8 @@ class AwesomeNotificationService {
         channelShowBadge: true,
         importance: NotificationImportance.High,
         enableVibration: true,
-        // defaultColor: colorBluePrimary2,
-        // ledColor: colorBluePrimary2,
+        defaultColor: colorBluePrimary2,
+        ledColor: colorBluePrimary2,
         playSound: true,
       ),
     ]);
@@ -205,14 +205,14 @@ class AwesomeNotificationService {
       String? path}) async {
     AwesomeNotifications().createNotification(
       content: NotificationContent(
-        // backgroundColor: colorBluePrimary2,
-        // color: colorBluePrimary2,
+        backgroundColor: colorBluePrimary2,
+        color: colorBluePrimary2,
         //simgple notification
         id: 329,
         channelKey: 'downloadedFile', //set configuration wuth key "basic"
         title: "Dokumen tersimpan",
         body: "Sentuh untuk membuka dokumen",
-        icon: "resource://drawable/hora",
+        // icon: "resource://drawable/hora",
         payload: {"path": path.toString()},
         // autoDismissible: false,
         displayOnBackground: true,
@@ -242,7 +242,8 @@ class AwesomeNotificationService {
       String? path}) async {
     AwesomeNotifications().createNotification(
       content: NotificationContent(
-        //simgple notification
+        backgroundColor: colorBluePrimary2,
+        color: colorBluePrimary2,
         id: 326,
         channelKey: 'downloadedImage', //set configuration wuth key "basic"
         title: "Tangkapan layar tersimpan",
@@ -250,7 +251,7 @@ class AwesomeNotificationService {
         payload: {"path": path.toString()},
         // autoDismissible: false,
         displayOnBackground: true,
-        icon: "resource://drawable/hora",
+        // icon: "resource://drawable/hora",
         displayOnForeground: true,
         // locked: true,
       ),
@@ -271,5 +272,17 @@ class AwesomeNotificationService {
 
   Future<void> removeNotification() async {
     await AwesomeNotifications().cancelAll();
+  }
+
+  Future<void> removeNotificationById(id) async {
+    await AwesomeNotifications().cancel(id);
+  }
+
+  Future<void> removeNotificationUnUsed() async {
+    print("HAPUS UN USED");
+    await AwesomeNotifications().cancel(329);
+    await AwesomeNotifications().cancel(326);
+    await AwesomeNotifications().cancel(543);
+    await AwesomeNotifications().cancel(321);
   }
 }
