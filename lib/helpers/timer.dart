@@ -12,25 +12,27 @@ Widget timerCount(BuildContext context, s) {
 Widget buildEnable(BuildContext context, timer, s) {
   return Padding(
     padding: const EdgeInsets.only(top: 20, bottom: 20),
-    child: Row(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(
-          FeatherIcons.clock,
-          size: 24,
-          color: Colors.white,
-        ),
-        const SizedBox(
-          width: 8,
-        ),
-        Text(
-          timer,
-          style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
-        ),
-      ],
+    child: Container(
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(
+            FeatherIcons.clock,
+            size: 24,
+            color: Colors.white,
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Text(
+            timer,
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
+          ),
+        ],
+      ),
     ),
   );
 }

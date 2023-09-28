@@ -49,7 +49,17 @@ void main() async {
 
   AwesomeNotifications().actionStream.listen((action) async {
     print("CHANEL KEY: " + action.channelKey.toString());
-    if (action.channelKey == "basic" && action.buttonKeyPressed == "open") {
+    if (action.channelKey == "basic") {
+      var homeCtrl = Get.put(HomeController());
+      var tanggal = action.payload?["datepresence"]?.split(" ")[0];
+
+      var response = await AbsensiServices()
+          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
+
+      Get.toNamed(RouteName.absen,
+          arguments: {"dataAbsen": response.data?[0], "pulang": 1});
+    } else if (action.channelKey == "basic" &&
+        action.buttonKeyPressed == "open") {
       var homeCtrl = Get.put(HomeController());
       var tanggal = action.payload?["datepresence"]?.split(" ")[0];
 

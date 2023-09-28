@@ -444,7 +444,7 @@ class HomeController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1('Oops.. terjadi kesalahan sistem.');
+        customSnackbar1('Email telah terdaftar');
       }
     } catch (e) {
       customSnackbar1("Menghubungkan kembali...");

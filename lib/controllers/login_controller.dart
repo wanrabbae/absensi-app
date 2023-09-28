@@ -45,7 +45,7 @@ class LoginController extends GetxController {
       } else {
         print("EMAIL KIRIM ERROR: " + response.toString());
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1("Email telah terdaftar");
       }
     } catch (e) {
       print("CATCH EMAIL KIRIM: " + e.toString());

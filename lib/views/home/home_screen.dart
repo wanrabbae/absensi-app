@@ -280,6 +280,7 @@ class _HomeScreenState extends State<HomeScreen> {
           floatingActionButton: hadirHighlight
               ? Container(
                   // padding: EdgeInsets.only(bottom: 20),
+                  width: 150,
                   child: FloatingActionButton.extended(
                     heroTag: "btn1",
                     shape: const RoundedRectangleBorder(

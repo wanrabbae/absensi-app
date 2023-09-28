@@ -120,8 +120,8 @@ class AwesomeNotificationService {
           //simgple notification
           id: 123,
           channelKey: 'basic', //set configuration wuth key "basic"
-          title: 'Waktu kehadiran sedang berjalan.',
-          body: 'Sentuh untuk pulang.',
+          title: 'Sedang mengisi kehadiran',
+          body: 'Sentuh untuk membuka',
           payload: {"datepresence": datePresence.toString()},
           autoDismissible: false,
           displayOnBackground: true,
@@ -133,7 +133,7 @@ class AwesomeNotificationService {
         actionButtons: [
           NotificationActionButton(
               key: "open",
-              label: "Pulang Sekarang",
+              label: "Buka Aplikasi",
               color: colorBluePrimary2,
               autoDismissible: false,
               isDangerousOption: false),
@@ -149,8 +149,8 @@ class AwesomeNotificationService {
           //simgple notification
           id: 321,
           channelKey: 'basic2', //set configuration wuth key "basic"
-          title: 'Waktu kehadiran telah berhenti.',
-          body: 'Sentuh untuk membuka aplikasi.',
+          title: 'Kehadiran dihentikan',
+          body: 'Sentuh untuk membuka',
           payload: {"name": "FlutterCampus"},
           // autoDismissible: false,
           displayOnBackground: true,
@@ -173,8 +173,8 @@ class AwesomeNotificationService {
           //simgple notification
           id: 543,
           channelKey: 'basic3', //set configuration wuth key "basic"
-          title: 'Waktu kehadiran melebihi 12 jam.',
-          body: 'Anda ingin pulang?',
+          title: 'Kehadiran melebihi 12 jam',
+          body: 'Hentikan kehadiran?',
           payload: {"datepresence": datePresence.toString()},
           // autoDismissible: false,
           displayOnBackground: true,
@@ -183,7 +183,7 @@ class AwesomeNotificationService {
         ),
         actionButtons: [
           NotificationActionButton(
-              key: "pulang", label: "Pulang", color: colorBluePrimary2),
+              key: "pulang", label: "Hentikan", color: colorBluePrimary2),
           NotificationActionButton(
             key: "close",
             label: "Abaikan",
@@ -211,7 +211,7 @@ class AwesomeNotificationService {
         id: 329,
         channelKey: 'downloadedFile', //set configuration wuth key "basic"
         title: "Dokumen tersimpan",
-        body: "Sentuh untuk membuka dokumen",
+        body: "Sentuh untuk membuka",
         // icon: "resource://drawable/hora",
         payload: {"path": path.toString()},
         // autoDismissible: false,
@@ -247,7 +247,7 @@ class AwesomeNotificationService {
         id: 326,
         channelKey: 'downloadedImage', //set configuration wuth key "basic"
         title: "Tangkapan layar tersimpan",
-        body: "Sentuh untuk membuka galeri",
+        body: "Sentuh untuk membuka",
         payload: {"path": path.toString()},
         // autoDismissible: false,
         displayOnBackground: true,
