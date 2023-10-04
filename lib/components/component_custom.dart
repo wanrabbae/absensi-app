@@ -293,6 +293,7 @@ Widget buildImageProfilePage(BuildContext context, String? url, bool local) {
 }
 
 customSnackbar1(message) {
+  message = message.toString().replaceAll('.', '');
   Get.rawSnackbar(
       messageText: Text(
         message ?? "Success action",
