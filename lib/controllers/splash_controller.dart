@@ -145,6 +145,71 @@ class SplashController extends GetxController {
     });
   }
 
+  showConfirmationDialog5(
+      String title, String message, VoidCallback? actionFunc) {
+    showDialog(
+      context: Get.overlayContext!,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.all(5),
+          backgroundColor: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          ),
+          content: Container(
+            height: 70,
+            child: Column(
+              children: [
+                Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    TextButton(
+                      child: Text(
+                        'Tidak',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: () {
+                        Get.back(); // Returns false when canceled
+                      },
+                    ),
+                    TextButton(
+                      child: Text('Ya',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pop(true); // Returns true when confirmed
+                      },
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          // actionsAlignment: MainAxisAlignment.spaceAround,
+          // actions: <Widget>[
+
+          // ],
+        );
+      },
+    ).then((value) {
+      if (value == true) {
+        actionFunc!();
+      } else {
+        // Get.back();
+        return false;
+      }
+    });
+  }
+
   showConfirmationDialog3(
       String title, String message, VoidCallback? actionFunc) {
     showDialog(

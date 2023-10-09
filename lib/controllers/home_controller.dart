@@ -29,12 +29,12 @@ class HomeController extends GetxController {
 
   @override
   void onInit() async {
-    await Permission.location.serviceStatus.isEnabled.then((value) {
-      print("LOCATION: " + value.toString());
-      if (!value) {
-        Permission.location.request();
-      }
-    });
+    // await Permission.location.serviceStatus.isEnabled.then((value) {
+    //   print("LOCATION: " + value.toString());
+    //   if (!value) {
+    //     Permission.location.request();
+    //   }
+    // });
     print("TOKEN: " + GetStorage().read("tokens"));
     print("KLIK ABSEN: " + klikAbsen.toString());
     super.onInit();
@@ -143,7 +143,7 @@ class HomeController extends GetxController {
           //   customSnackbar1("Kehadiran hari ini telah terisi.");
           // } else {
           // Get.back();
-          print("TEST KE IF 1");
+          print("TEST KE IF 1 YOYYYY");
           Get.toNamed(RouteName.absen);
           // }
         } else {
@@ -153,12 +153,7 @@ class HomeController extends GetxController {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20))),
               context: context,
-              builder: (ctx) => const DialogPermission()).then((value) {
-            if (value != null) {
-              Get.back();
-              Get.toNamed(RouteName.absen);
-            }
-          });
+              builder: (ctx) => const DialogPermission());
         }
       }
     }

@@ -20,6 +20,7 @@ class SplashScreen extends StatelessWidget {
               children: const [
                 Image(
                   image: AssetImage("assets/icons/logo/hora.png"),
+                  width: 100,
                 ),
                 // Text(
                 //   'Hora',

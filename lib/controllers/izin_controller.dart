@@ -210,7 +210,7 @@ class IzinController extends GetxController {
       } else if (response.statusCode == 400) {
         box.write(Base.klikAbsen, false);
         Get.offAllNamed(RouteName.home, arguments: 0);
-        customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
+        // customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
       } else {
         print("INI PULANG: " + response.toString());
         Get.back();

@@ -89,7 +89,7 @@ class ProfileController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      Get.snackbar('Lokasi Tidak Aktif !!',
+      Get.snackbar('Mohon aktifkan lokasi !!',
           'Lokasi Dinonaktifkan, Harap Aktifkan Lokasi');
       return false;
     }

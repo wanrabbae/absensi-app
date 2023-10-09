@@ -135,20 +135,17 @@ class DialogPermission extends HookConsumerWidget {
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(20))))),
                         onPressed: () async {
-                          Get.back();
-                          Get.toNamed(RouteName.absen);
                           Map<Permission, PermissionStatus> statuses = await [
                             Permission.camera,
                             Permission.location,
-                            // Permission.bluetooth,
-                            Permission.storage,
-                            // Permission.bluetoothScan,
-                            // Permission.bluetoothAdvertise,
-                            // Permission.bluetoothConnect,
+                            // Permission.storage,
                           ].request();
 
                           if (statuses[Permission.camera] ==
-                              PermissionStatus.granted) {
+                                  PermissionStatus.granted &&
+                              statuses[Permission.location] ==
+                                  PermissionStatus.granted) {
+                            print("KE THEN DIALOG PERMISSION");
                             Get.back();
                             Get.toNamed(RouteName.absen);
                           }

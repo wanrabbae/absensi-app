@@ -143,44 +143,6 @@ class AbsenController extends GetxController {
   }
 
   getCurrentLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    await Permission.location.serviceStatus.isEnabled.then((value) {
-      print("LOCATION: " + value.toString());
-      if (!value) {
-        Permission.location.request();
-      }
-    });
-
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        SplashController().showConfirmationDialog2(
-            "Perizinan", "Buka pengaturan perizinan perangkat?", () {
-          // Redirect to allow location setting on phone
-          openAppSettings();
-        });
-        return false;
-      }
-    }
-    if (permission == LocationPermission.deniedForever) {
-      SplashController().showConfirmationDialog2(
-          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
-        // Redirect to allow location setting on phone
-        openAppSettings();
-      });
-      return false;
-    }
-    if (!serviceEnabled) {
-      Get.offAllNamed(RouteName.home);
-      customSnackbar1("Lokasi Tidak Aktif");
-      return false;
-    }
-    update();
     lokasiDetect();
   }
 

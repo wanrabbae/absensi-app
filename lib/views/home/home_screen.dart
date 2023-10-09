@@ -28,12 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Permission.location.serviceStatus.isEnabled.then((value) {
-      print("LOCATION: " + value.toString());
-      if (!value) {
-        Permission.location.request();
-      }
-    });
+    // Permission.location.serviceStatus.isEnabled.then((value) {
+    //   print("LOCATION: " + value.toString());
+    //   if (!value) {
+    //     Permission.location.request();
+    //   }
+    // });
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
