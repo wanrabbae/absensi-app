@@ -153,8 +153,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 Get.toNamed(RouteName.webview,
                                     arguments: "https://docs.horaapp.id/#faq");
                               }),
-                              menuProfile(context, "v01.03.04 (Agus)",
-                                  FeatherIcons.info, onTap: () {
+                              menuProfile(
+                                  context, "v1.8.1 (Agus)", FeatherIcons.info,
+                                  onTap: () {
                                 Get.toNamed(RouteName.webview,
                                     arguments: "https://horaapp.id/#contact");
                               }),
