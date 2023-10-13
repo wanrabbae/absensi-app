@@ -4,6 +4,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/services.dart';
 import 'package:open_file_plus/open_file_plus.dart';
 import 'package:app/data/local/base_preference.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 
 // import 'package:app/firebase_options.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -140,6 +141,7 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AwesomeNotificationService().removeNotificationUnUsed();
+    FlutterAppBadger.removeBadge();
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);

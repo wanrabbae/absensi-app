@@ -21,6 +21,9 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return GetBuilder<IzinController>(
       init: IzinController(),
+      dispose: (state) {
+        state.controller!.clearFile();
+      },
       builder: (s) => Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
@@ -148,7 +151,7 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                         ),
                         TextFormField(
                           onTap: () {
-                            s.updateFile();
+                            s.updateFile(Get.arguments["isFoto"]);
                           },
                           readOnly: true,
                           // initialValue: ,

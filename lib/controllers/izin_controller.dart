@@ -131,24 +131,50 @@ class IzinController extends GetxController {
     });
   }
 
-  updateFile() async {
+  updateFile(isFoto) async {
     // FilePicker
-    await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowCompression: true,
-        allowedExtensions: ['jpg', 'png', 'jpeg', 'pdf', 'doc']).then((result) {
-      if (result != null) {
-        file = result.files.first;
-        fileName = "${file?.name} (${file?.size})";
-        update();
-      }
-    });
+    if (isFoto == true) {
+      await ImagePicker()
+          .pickImage(source: ImageSource.camera, imageQuality: 50)
+          .then((value) {
+        if (value != null) {
+          updateFileFromFoto(PlatformFile(
+            name: value.name,
+            path: value.path,
+            size: 0,
+          ));
+        }
+      });
+    } else {
+      await FilePicker.platform.pickFiles(
+          type: FileType.custom,
+          allowCompression: true,
+          allowedExtensions: [
+            'jpg',
+            'png',
+            'jpeg',
+            'pdf',
+            'doc'
+          ]).then((result) {
+        if (result != null) {
+          file = result.files.first;
+          fileName = "${file?.name} (${file?.size})";
+          update();
+        }
+      });
+    }
   }
 
   updateFileFromFoto(foto) async {
     // FilePicker
     file = foto as PlatformFile;
     fileName = "${file?.name}";
+    update();
+  }
+
+  clearFile() async {
+    file = null;
+    fileName = null;
     update();
   }
 

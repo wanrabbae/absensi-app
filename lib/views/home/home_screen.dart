@@ -327,7 +327,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 customSnackbar1(
                                     "Kehadiran hari ini telah terisi.");
                               } else {
-                                Get.toNamed(RouteName.absenIzin);
+                                Get.toNamed(RouteName.absenIzin, arguments: {
+                                  "isFoto": false,
+                                });
                               }
                             },
                           ),
@@ -364,12 +366,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                   path: value.path,
                                   size: 0,
                                 ));
+                                Get.toNamed(RouteName.absenIzin, arguments: {
+                                  "isFoto": true,
+                                });
                               } else {
                                 customSnackbar1(
                                     "Tidak bisa melanjutkan tanpa foto");
                               }
                             });
-                            Get.toNamed(RouteName.absenIzin);
                           }
                         },
                       ),

@@ -40,6 +40,8 @@ PODS:
     - DKImagePickerController/PhotoGallery
     - Flutter
   - Flutter (1.0.0)
+  - flutter_app_badger (1.3.0):
+    - Flutter
   - flutter_local_notifications (0.0.1):
     - Flutter
   - gallery_saver (0.0.1):
@@ -87,6 +89,7 @@ DEPENDENCIES:
   - downloads_path_provider_28 (from `.symlinks/plugins/downloads_path_provider_28/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - Flutter (from `Flutter`)
+  - flutter_app_badger (from `.symlinks/plugins/flutter_app_badger/ios`)
   - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - gallery_saver (from `.symlinks/plugins/gallery_saver/ios`)
   - geocoding_ios (from `.symlinks/plugins/geocoding_ios/ios`)
@@ -121,6 +124,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/file_picker/ios"
   Flutter:
     :path: Flutter
+  flutter_app_badger:
+    :path: ".symlinks/plugins/flutter_app_badger/ios"
   flutter_local_notifications:
     :path: ".symlinks/plugins/flutter_local_notifications/ios"
   gallery_saver:
@@ -158,6 +163,7 @@ SPEC CHECKSUMS:
   downloads_path_provider_28: 7425048683ec0b86238361bd93795e91c2bc61a2
   file_picker: ce3938a0df3cc1ef404671531facef740d03f920
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_app_badger: b87fc231847b03b92ce1412aa351842e7e97932f
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   gallery_saver: 9fc173c9f4fcc48af53b2a9ebea1b643255be542
   geocoding_ios: a389ea40f6f548de6e63006a2e31bf66ff80769a
