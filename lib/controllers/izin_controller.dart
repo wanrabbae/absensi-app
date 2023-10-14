@@ -192,7 +192,7 @@ class IzinController extends GetxController {
     print("ID ABSEN: " + idAbsen.toString());
     try {
       if (status) {
-        customSnackbarLoading("Sedang Pulang...");
+        // customSnackbarLoading("Sedang Pulang...");
       }
 
       String assetFilePath = 'assets/icons/logo/hora.png';
@@ -257,7 +257,7 @@ class IzinController extends GetxController {
     print("ID ABSEN: " + idAbsen.toString());
     try {
       if (status) {
-        customSnackbarLoading("Sedang Pulang...");
+        // customSnackbarLoading("Sedang Pulang...");
       }
 
       String assetFilePath = 'assets/icons/logo/hora.png';

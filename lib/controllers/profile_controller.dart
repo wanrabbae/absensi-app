@@ -89,7 +89,7 @@ class ProfileController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      Get.snackbar('Mohon aktifkan lokasi !!',
+      Get.snackbar('Mohon aktifkan lokasi anda',
           'Lokasi Dinonaktifkan, Harap Aktifkan Lokasi');
       return false;
     }
@@ -241,7 +241,7 @@ class ProfileController extends GetxController {
 
   hapusData() async {
     try {
-      customSnackbarLoading("Menghapus Akun...");
+      customSnackbarLoading("Menghapus akun...");
       var response = await ProfileServices().profileDeletePut({
         'email': user?['alamatEmail'],
         'perusahaan': perusahaan?['idperusahaan']
@@ -283,7 +283,7 @@ class ProfileController extends GetxController {
       print(response);
       if (response.statusCode == 200) {
         Get.back();
-        customSnackbar1("Berhasil mengirimkan kode OTP.");
+        customSnackbar1("Kode OTP terkirim.");
         // Get.snackbar("Otp Berhasil Dikirim !!", response.body.toString());
         if (status == 1) {
           Get.toNamed(RouteName.profileGantiemailOtp);

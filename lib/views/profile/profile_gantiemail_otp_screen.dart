@@ -99,7 +99,7 @@ class ProfileGantiemailScreen extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              s.ubahEmail("Sedang mengirimkan kode OTP...", 1);
+                              s.ubahEmail("Mengirimkan kode OTP...", 1);
                             },
                             child: Container(
                               padding: EdgeInsets.all(15),

@@ -423,7 +423,7 @@ class HomeController extends GetxController {
     }
 
     try {
-      customSnackbarLoading("Sedang mengirimkan undangan...");
+      customSnackbarLoading("Mengirimkan undangan...");
       var response = await HomeServices().undanganPost({
         'receiver': emailUndangan,
         'sender': user?['alamatEmail'],
@@ -433,7 +433,7 @@ class HomeController extends GetxController {
       if (response.statusCode == 200) {
         Get.back();
         Get.back();
-        customSnackbar1('Berhasil mengirimkan undangan.');
+        customSnackbar1('Undangan terkirim.');
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);

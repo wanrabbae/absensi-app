@@ -223,7 +223,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                 ],
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 2,
                               ),
                               Divider(
                                 color: colorBlueOpacity2,
@@ -296,25 +296,19 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                         }
                                       },
                                       style: ButtonStyle(
-                                          elevation:
-                                              MaterialStatePropertyAll(0),
-                                          backgroundColor: MaterialStatePropertyAll(
-                                              Colors.transparent),
-                                          shape: MaterialStateProperty.all<
-                                                  RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  side: BorderSide(
-                                                      color: currentAbsen?['alamatLongtitude'] != null &&
-                                                                  currentAbsen?['alamatLatitude'] !=
-                                                                      null ||
-                                                              s.alamatLoc != null
-                                                          ? colorBluePrimary2
-                                                          : Colors.grey.shade400,
-                                                      width: 2)))),
+                                        elevation: MaterialStatePropertyAll(0),
+                                        backgroundColor: MaterialStatePropertyAll(
+                                            currentAbsen?['alamatLongtitude'] !=
+                                                            null &&
+                                                        currentAbsen?[
+                                                                'alamatLatitude'] !=
+                                                            null ||
+                                                    s.alamatLoc != null
+                                                ? colorBlueOpacity2
+                                                : colorBlueOpacity4),
+                                      ),
                                       child: Text(
-                                        "Buka Peta",
+                                        "Buka",
                                         style: TextStyle(
                                             color: currentAbsen?[
                                                                 'alamatLongtitude'] !=
@@ -324,14 +318,21 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                                             null ||
                                                     s.alamatLoc != null
                                                 ? colorBluePrimary2
-                                                : Colors.grey.shade400,
+                                                : colorBluePrimary3
+                                                    .withOpacity(0.5),
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       ))
                                 ],
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 2,
+                              ),
+                              Divider(
+                                color: colorBlueOpacity2,
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               Text(
                                 "Izin",
@@ -390,32 +391,30 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                         }
                                       },
                                       style: ButtonStyle(
-                                          elevation:
-                                              MaterialStatePropertyAll(0),
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  Colors.transparent),
-                                          shape: MaterialStateProperty.all<
-                                                  RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  side: BorderSide(
-                                                      color: s.izinData != null
-                                                          ? colorBluePrimary2
-                                                          : Colors
-                                                              .grey.shade400,
-                                                      width: 2)))),
+                                        elevation: MaterialStatePropertyAll(0),
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                s.izinData != null
+                                                    ? colorBlueOpacity2
+                                                    : colorBlueOpacity4),
+                                      ),
                                       child: Text(
-                                        "Buka Izin",
+                                        "Buka",
                                         style: TextStyle(
                                             color: s.izinData != null
                                                 ? colorBluePrimary2
-                                                : Colors.grey.shade400,
+                                                : colorBluePrimary3
+                                                    .withOpacity(0.5),
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       )),
                                 ],
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Divider(
+                                color: colorBlueOpacity2,
                               ),
                             ],
                           ),
@@ -530,7 +529,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                 ],
                               ),
                               SizedBox(
-                                height: 10,
+                                height: 2,
                               ),
                               Divider(
                                 color: colorBlueOpacity2,
@@ -605,25 +604,19 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                         }
                                       },
                                       style: ButtonStyle(
-                                          elevation:
-                                              MaterialStatePropertyAll(0),
-                                          backgroundColor: MaterialStatePropertyAll(
-                                              Colors.transparent),
-                                          shape: MaterialStateProperty.all<
-                                                  RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  side: BorderSide(
-                                                      color: currentAbsen?['longtitudePulang'] != null &&
-                                                                  currentAbsen?['latitudePulang'] !=
-                                                                      null ||
-                                                              s.alamatLocPulang != null
-                                                          ? colorBluePrimary2
-                                                          : Colors.grey.shade400,
-                                                      width: 2)))),
+                                        elevation: MaterialStatePropertyAll(0),
+                                        backgroundColor: MaterialStatePropertyAll(
+                                            currentAbsen?['longtitudePulang'] !=
+                                                            null &&
+                                                        currentAbsen?[
+                                                                'latitudePulang'] !=
+                                                            null ||
+                                                    s.alamatLocPulang != null
+                                                ? colorBlueOpacity2
+                                                : colorBlueOpacity4),
+                                      ),
                                       child: Text(
-                                        "Buka Peta",
+                                        "Buka",
                                         style: TextStyle(
                                             color: currentAbsen?[
                                                                 'longtitudePulang'] !=
@@ -633,14 +626,21 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                                             null ||
                                                     s.alamatLocPulang != null
                                                 ? colorBluePrimary2
-                                                : Colors.grey.shade400,
+                                                : colorBluePrimary3
+                                                    .withOpacity(0.5),
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       )),
                                 ],
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 2,
+                              ),
+                              Divider(
+                                color: colorBlueOpacity2,
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               Text(
                                 "Izin",
@@ -699,32 +699,30 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                         }
                                       },
                                       style: ButtonStyle(
-                                          elevation:
-                                              MaterialStatePropertyAll(0),
-                                          backgroundColor:
-                                              MaterialStatePropertyAll(
-                                                  Colors.transparent),
-                                          shape: MaterialStateProperty.all<
-                                                  RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  side: BorderSide(
-                                                      color: s.izinData != null
-                                                          ? colorBluePrimary2
-                                                          : Colors
-                                                              .grey.shade400,
-                                                      width: 2)))),
+                                        elevation: MaterialStatePropertyAll(0),
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(
+                                                s.izinData != null
+                                                    ? colorBlueOpacity2
+                                                    : colorBlueOpacity4),
+                                      ),
                                       child: Text(
-                                        "Buka Izin",
+                                        "Buka",
                                         style: TextStyle(
                                             color: s.izinData != null
                                                 ? colorBluePrimary2
-                                                : Colors.grey.shade400,
+                                                : colorBluePrimary3
+                                                    .withOpacity(0.5),
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       )),
                                 ],
+                              ),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Divider(
+                                color: colorBlueOpacity2,
                               ),
                             ],
                           ),
@@ -732,8 +730,19 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                       ),
                     ]),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
-                    color: Colors.white,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: colorBlueOpacity3.withOpacity(0.5),
+                            blurRadius: 3,
+                            offset: const Offset(0, -2))
+                      ],
+                    ),
                     padding: const EdgeInsets.only(
                         top: 10, left: 20, right: 20, bottom: 20),
                     child: Column(
