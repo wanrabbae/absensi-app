@@ -140,12 +140,26 @@ class DialogPermission extends HookConsumerWidget {
                             Permission.location,
                             // Permission.storage,
                           ].request();
-
+                          print(statuses);
                           if (statuses[Permission.camera] ==
                                   PermissionStatus.granted &&
                               statuses[Permission.location] ==
                                   PermissionStatus.granted) {
                             print("KE THEN DIALOG PERMISSION");
+                            Get.back();
+                            Get.toNamed(RouteName.absen);
+                          } else if (statuses[Permission.camera] ==
+                                  PermissionStatus.permanentlyDenied &&
+                              statuses[Permission.location] ==
+                                  PermissionStatus.permanentlyDenied) {
+                            print("KE ELSE IF DIALOG PERMISSION");
+                            Get.back();
+                            if (Platform.isIOS) {
+                              Get.toNamed(RouteName.absen);
+                            }
+                            // openAppSettings();
+                            // await Permission.location.request();
+                          } else if (Platform.isIOS) {
                             Get.back();
                             Get.toNamed(RouteName.absen);
                           }
