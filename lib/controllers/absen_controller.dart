@@ -1,5 +1,8 @@
+import 'package:app/cubits/live_location_cubit/live_location_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
+import 'package:app/models/user_model/user_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AbsenController extends GetxController {
   //global
@@ -14,8 +17,7 @@ class AbsenController extends GetxController {
   LatLng currentLocation = const LatLng(5.880241, 95.336574);
   LatLng currentLocationPulang = const LatLng(5.880241, 95.336574);
   BitmapDescriptor customMarker = BitmapDescriptor.defaultMarker;
-  Completer<GoogleMapController> googleMapController =
-      Completer<GoogleMapController>();
+  Completer<GoogleMapController> googleMapController = Completer<GoogleMapController>();
   String? timerRecor = "00:00:00";
   String? waktuAbsen;
   File? formFoto;
@@ -44,9 +46,7 @@ class AbsenController extends GetxController {
   void onInit() async {
     final homeCtrl = Get.put(HomeController());
     var findData = homeCtrl.absen?.firstWhere(
-      (element) =>
-          element?["idkaryawan"] == user?["idkaryawan"] &&
-          element?["waktuCheckOut"] != null,
+      (element) => element?["idkaryawan"] == user?["idkaryawan"] && element?["waktuCheckOut"] != null,
       orElse: () => null,
     );
 
@@ -91,9 +91,7 @@ class AbsenController extends GetxController {
   startTimer() {
     final homeCtrl = Get.put(HomeController());
     var findData = homeCtrl.absen?.firstWhere(
-      (element) =>
-          element?["idkaryawan"] == user?["idkaryawan"] &&
-          element?["waktuCheckOut"] == null,
+      (element) => element?["idkaryawan"] == user?["idkaryawan"] && element?["waktuCheckOut"] == null,
       orElse: () => null,
     );
 
@@ -136,9 +134,7 @@ class AbsenController extends GetxController {
     if (terpilih == null) {
       perusahaan = perusahaanList![0];
     } else {
-      perusahaan = perusahaanList!
-          .where((value) => value['idperusahaan'] == terpilih)
-          .toList()[0];
+      perusahaan = perusahaanList!.where((value) => value['idperusahaan'] == terpilih).toList()[0];
     }
   }
 
@@ -147,18 +143,22 @@ class AbsenController extends GetxController {
   }
 
   lokasiDetect() async {
-    customSnackbarLoadingAsset(
-        "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
+    customSnackbarLoadingAsset("Mencari titik lokasi anda...", "images/map-pin-gif.gif");
     // print("========== TEST TOST YOYYYY =======");
     // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) async {
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position position) async {
       currentLocation = LatLng(position.latitude, position.longitude);
       getAddressFromLatLng();
 
+      // LIVE LOCATION STREAM
+      Get.context!.read<LiveLocationCubit>().store(
+            userModel: UserModel.fromJson(user! as Map<String, dynamic>),
+            currentPosition: position,
+          );
+      // END LIVE LOCATION STREAM
+
       Get.back();
-      customSnackbarLoadingAsset(
-          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
+      customSnackbarLoadingAsset("Titik lokasi anda ditemukan.", "images/check-gif.gif");
       Future.delayed(
         Duration(seconds: 2),
         () {
@@ -167,15 +167,11 @@ class AbsenController extends GetxController {
         },
       );
       await googleMapController.future.then((newController) {
-        BitmapDescriptor.fromAssetImage(
-                const ImageConfiguration(textDirection: TextDirection.ltr),
-                "assets/icons/map-pin.png")
+        BitmapDescriptor.fromAssetImage(const ImageConfiguration(textDirection: TextDirection.ltr), "assets/icons/map-pin.png")
             .then((value) => customMarker = value);
         newController.animateCamera(
           CameraUpdate.newCameraPosition(
-            CameraPosition(
-                target: LatLng(position.latitude, position.longitude),
-                zoom: 15),
+            CameraPosition(target: LatLng(position.latitude, position.longitude), zoom: 15),
           ),
         );
       });
@@ -196,8 +192,7 @@ class AbsenController extends GetxController {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        SplashController().showConfirmationDialog2(
-            "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+        SplashController().showConfirmationDialog2("Perizinan", "Buka pengaturan perizinan perangkat?", () {
           // Redirect to allow location setting on phone
           openAppSettings();
         });
@@ -205,8 +200,7 @@ class AbsenController extends GetxController {
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      SplashController().showConfirmationDialog2(
-          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+      SplashController().showConfirmationDialog2("Perizinan", "Buka pengaturan perizinan perangkat?", () {
         // Redirect to allow location setting on phone
         openAppSettings();
       });
@@ -229,8 +223,7 @@ class AbsenController extends GetxController {
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        SplashController().showConfirmationDialog2(
-            "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+        SplashController().showConfirmationDialog2("Perizinan", "Buka pengaturan perizinan perangkat?", () {
           // Redirect to allow location setting on phone
           openAppSettings();
         });
@@ -238,8 +231,7 @@ class AbsenController extends GetxController {
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      SplashController().showConfirmationDialog2(
-          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+      SplashController().showConfirmationDialog2("Perizinan", "Buka pengaturan perizinan perangkat?", () {
         // Redirect to allow location setting on phone
         openAppSettings();
       });
@@ -251,30 +243,31 @@ class AbsenController extends GetxController {
 
   lokasiDetectPulang(idAbsen) async {
     print("ID ABSEN FROM DETECTED: " + idAbsen.toString());
-    customSnackbarLoadingAsset(
-        "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
+    customSnackbarLoadingAsset("Mencari titik lokasi anda...", "images/map-pin-gif.gif");
     // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) async {
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position position) async {
       currentLocationPulang = LatLng(position.latitude, position.longitude);
       getAddressFromLatLngPulang();
+
+      // LIVE LOCATION STREAM
+      Get.context!.read<LiveLocationCubit>().store(
+            userModel: UserModel.fromJson(user! as Map<String, dynamic>),
+            currentPosition: position,
+          );
+      // END LIVE LOCATION STREAM
+
       Get.back();
-      customSnackbarLoadingAsset(
-          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
+      customSnackbarLoadingAsset("Titik lokasi anda ditemukan.", "images/check-gif.gif");
       Future.delayed(Duration(seconds: 2), () {
         Get.back();
         mulaiPulangAct(idAbsen);
       });
       await googleMapController.future.then((newController) {
-        BitmapDescriptor.fromAssetImage(
-                const ImageConfiguration(textDirection: TextDirection.ltr),
-                "assets/icons/map-pin.png")
+        BitmapDescriptor.fromAssetImage(const ImageConfiguration(textDirection: TextDirection.ltr), "assets/icons/map-pin.png")
             .then((value) => customMarker = value);
         newController.animateCamera(
           CameraUpdate.newCameraPosition(
-            CameraPosition(
-                target: LatLng(position.latitude, position.longitude),
-                zoom: 15),
+            CameraPosition(target: LatLng(position.latitude, position.longitude), zoom: 15),
           ),
         );
       });
@@ -283,32 +276,25 @@ class AbsenController extends GetxController {
   }
 
   lokasiDetectPulang2(idAbsen) async {
-    customSnackbarLoadingAsset(
-        "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
+    customSnackbarLoadingAsset("Mencari titik lokasi anda...", "images/map-pin-gif.gif");
 
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) async {
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then((Position position) async {
       currentLocationPulang = LatLng(position.latitude, position.longitude);
       getAddressFromLatLngPulang();
 
       Get.back();
-      customSnackbarLoadingAsset(
-          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
+      customSnackbarLoadingAsset("Titik lokasi anda ditemukan.", "images/check-gif.gif");
       Future.delayed(Duration(seconds: 2), () {
         Get.back();
         mulaiPulangAct2(idAbsen);
       });
 
       await googleMapController.future.then((newController) {
-        BitmapDescriptor.fromAssetImage(
-                const ImageConfiguration(textDirection: TextDirection.ltr),
-                "assets/icons/map-pin.png")
+        BitmapDescriptor.fromAssetImage(const ImageConfiguration(textDirection: TextDirection.ltr), "assets/icons/map-pin.png")
             .then((value) => customMarker = value);
         newController.animateCamera(
           CameraUpdate.newCameraPosition(
-            CameraPosition(
-                target: LatLng(position.latitude, position.longitude),
-                zoom: 15),
+            CameraPosition(target: LatLng(position.latitude, position.longitude), zoom: 15),
           ),
         );
       });
@@ -317,9 +303,7 @@ class AbsenController extends GetxController {
   }
 
   getAddressFromLatLng() async {
-    await placemarkFromCoordinates(
-            currentLocation.latitude, currentLocation.longitude)
-        .then((List<Placemark> placemarks) {
+    await placemarkFromCoordinates(currentLocation.latitude, currentLocation.longitude).then((List<Placemark> placemarks) {
       alamatLoc =
           "${placemarks[0].street}, ${placemarks[0].subLocality}, ${placemarks[0].locality}, ${placemarks[0].subAdministrativeArea}, ${placemarks[0].administrativeArea}, ${placemarks[0].postalCode} ";
       update();
@@ -327,9 +311,7 @@ class AbsenController extends GetxController {
   }
 
   getAddressFromLatLngPulang() async {
-    await placemarkFromCoordinates(
-            currentLocationPulang.latitude, currentLocationPulang.longitude)
-        .then((List<Placemark> placemarks) {
+    await placemarkFromCoordinates(currentLocationPulang.latitude, currentLocationPulang.longitude).then((List<Placemark> placemarks) {
       alamatLocPulang =
           "${placemarks[0].street}, ${placemarks[0].subLocality}, ${placemarks[0].locality}, ${placemarks[0].subAdministrativeArea}, ${placemarks[0].administrativeArea}, ${placemarks[0].postalCode} ";
       update();
@@ -338,15 +320,9 @@ class AbsenController extends GetxController {
 
   mulaiSelesaiAbsen(context, idAbsen) {
     if (!klikAbsen) {
-      SplashController()
-          .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
+      SplashController().showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
         Get.back();
-        ImagePicker()
-            .pickImage(
-                source: ImageSource.camera,
-                preferredCameraDevice: CameraDevice.front,
-                imageQuality: 50)
-            .then((value) {
+        ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.front, imageQuality: 50).then((value) {
           if (value != null) {
             formFoto = File(value.path);
             update();
@@ -357,15 +333,9 @@ class AbsenController extends GetxController {
         });
       });
     } else {
-      SplashController()
-          .showConfirmationDialog2("Presensi", "Anda ingin pulang?", () {
+      SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?", () {
         Get.back();
-        ImagePicker()
-            .pickImage(
-                source: ImageSource.camera,
-                preferredCameraDevice: CameraDevice.front,
-                imageQuality: 50)
-            .then((value) {
+        ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.front, imageQuality: 50).then((value) {
           if (value != null) {
             formFotoPulang = File(value.path);
             update();
@@ -379,15 +349,9 @@ class AbsenController extends GetxController {
   }
 
   mulaiAbsen() async {
-    SplashController()
-        .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
+    SplashController().showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
       // Get.back();
-      ImagePicker()
-          .pickImage(
-              source: ImageSource.camera,
-              preferredCameraDevice: CameraDevice.front,
-              imageQuality: 50)
-          .then((value) {
+      ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.front, imageQuality: 50).then((value) {
         if (value != null) {
           formFoto = File(value.path);
           update();
@@ -400,8 +364,7 @@ class AbsenController extends GetxController {
   }
 
   mulaiPulang(context, idAbsen) {
-    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?",
-        () async {
+    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?", () async {
       // Get.back();
       // changePageScreen = 1;
       // update();
@@ -414,34 +377,25 @@ class AbsenController extends GetxController {
   }
 
   mulaiPulang2(idAbsen) {
-    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?",
-        () async {
+    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?", () async {
       // Get.back();
       // changePageScreen = 1;
       // update();
-      Get.toNamed(RouteName.absen,
-          arguments: {"dataAbsen": idAbsen, "pulang": 1});
+      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": idAbsen, "pulang": 1});
 
       await getCurrentLocationPulang2(idAbsen?["id"]);
     });
   }
 
   mulaiPulangFromNotif(idAbsen) {
-    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?",
-        () async {
+    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?", () async {
       await getCurrentLocationPulang(idAbsen?["id"]);
     });
   }
 
   mulaiPulangAct(idAbsen) {
-    SplashController()
-        .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
-      ImagePicker()
-          .pickImage(
-              source: ImageSource.camera,
-              preferredCameraDevice: CameraDevice.front,
-              imageQuality: 50)
-          .then((value) {
+    SplashController().showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
+      ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.front, imageQuality: 50).then((value) {
         if (value != null) {
           formFotoPulang = File(value.path);
           update();
@@ -454,14 +408,8 @@ class AbsenController extends GetxController {
   }
 
   mulaiPulangAct2(idAbsen) {
-    SplashController()
-        .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
-      ImagePicker()
-          .pickImage(
-              source: ImageSource.camera,
-              preferredCameraDevice: CameraDevice.front,
-              imageQuality: 50)
-          .then((value) {
+    SplashController().showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
+      ImagePicker().pickImage(source: ImageSource.camera, preferredCameraDevice: CameraDevice.front, imageQuality: 50).then((value) {
         if (value != null) {
           formFotoPulang = File(value.path);
           update();
@@ -475,9 +423,7 @@ class AbsenController extends GetxController {
 
   updateFile() async {
     // FilePicker
-    await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['jpg', 'png', 'jpeg', 'pdf', 'doc']).then((result) {
+    await FilePicker.platform.pickFiles(type: FileType.custom, allowedExtensions: ['jpg', 'png', 'jpeg', 'pdf', 'doc']).then((result) {
       if (result != null) {
         file = result.files.first;
         fileName = "${file?.name} (${file?.size})";
@@ -499,10 +445,7 @@ class AbsenController extends GetxController {
         'NamaKaryawan': user?['namaKaryawan'],
         'AlamatLatitude': currentLocation.latitude,
         'AlamatLongtitude': currentLocation.longitude,
-        'Foto': {
-          'filePath': formFoto!.path,
-          'fileName': formFoto!.path.split('/').last
-        },
+        'Foto': {'filePath': formFoto!.path, 'fileName': formFoto!.path.split('/').last},
         // MultipartFile(formFoto, filename: formFoto!.path.split('/').last),
         'AlamatLoc': alamatLoc,
         'IDPerusahaan': perusahaan?['idperusahaan'],
@@ -516,10 +459,8 @@ class AbsenController extends GetxController {
         box.write(Base.waktuAbsen, DateTime.now().toString());
         box.write(Base.klikAbsen, true);
         Get.offAllNamed(RouteName.home, arguments: 0);
-        await AwesomeNotificationService()
-            .showNotificationAbsen(DateTime.now().toString());
-        await AwesomeNotificationService()
-            .showNotificationAfter12Hours(DateTime.now().toString());
+        await AwesomeNotificationService().showNotificationAbsen(DateTime.now().toString());
+        await AwesomeNotificationService().showNotificationAfter12Hours(DateTime.now().toString());
       } else if (response.statusCode == 401) {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
@@ -561,10 +502,7 @@ class AbsenController extends GetxController {
 
   absenPulang(status, idAbsen) async {
     var currentDate = DateTime.now();
-    var newDate =
-        new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
-            .toString()
-            .split(" ")[0];
+    var newDate = new DateTime(currentDate.year, currentDate.month, currentDate.day + 1).toString().split(" ")[0];
     print("ID ABSEN PULANG: " + idAbsen.toString());
     try {
       // if (status) {
@@ -574,15 +512,11 @@ class AbsenController extends GetxController {
         'LatitudePulang': currentLocationPulang.latitude,
         'LongtitudePulang': currentLocationPulang.longitude,
         'NamaKaryawan': user?['namaKaryawan'],
-        'Foto': {
-          'filePath': formFotoPulang!.path,
-          'fileName': formFotoPulang!.path.split('/').last
-        },
+        'Foto': {'filePath': formFotoPulang!.path, 'fileName': formFotoPulang!.path.split('/').last},
         'AlamatPulang': alamatLocPulang,
       };
 
-      var response = await AbsensiServices()
-          .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
+      var response = await AbsensiServices().pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       print(response);
       if (response.statusCode == 200) {
         await AwesomeNotificationService().removeNotification();
@@ -624,10 +558,7 @@ class AbsenController extends GetxController {
   absenPulang2(status, idAbsen) async {
     print("PULANG YOYY");
     var currentDate = DateTime.now();
-    var newDate =
-        new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
-            .toString()
-            .split(" ")[0];
+    var newDate = new DateTime(currentDate.year, currentDate.month, currentDate.day + 1).toString().split(" ")[0];
     print("ID ABSEN PULANG: " + idAbsen.toString());
     try {
       // if (status) {
@@ -638,15 +569,11 @@ class AbsenController extends GetxController {
         'LatitudePulang': currentLocationPulang.latitude,
         'LongtitudePulang': currentLocationPulang.longitude,
         'NamaKaryawan': user?['namaKaryawan'],
-        'Foto': {
-          'filePath': formFotoPulang!.path,
-          'fileName': formFotoPulang!.path.split('/').last
-        },
+        'Foto': {'filePath': formFotoPulang!.path, 'fileName': formFotoPulang!.path.split('/').last},
         'AlamatPulang': alamatLocPulang,
       };
       print("FORMS PULANG 2: " + forms.toString());
-      var response = await AbsensiServices()
-          .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
+      var response = await AbsensiServices().pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       print(response);
       if (response.statusCode == 200) {
         await AwesomeNotificationService().removeNotification();
@@ -695,11 +622,8 @@ class AbsenController extends GetxController {
         } else {
           final homeCtrl = Get.put(HomeController());
           DateTime dateCurrent = DateTime.now();
-          String formattedCurrentDate =
-              DateFormat("yyyy-MM-dd").format(dateCurrent);
-          var findData = await homeCtrl.absen?.firstWhere(
-              (element) => element?["idkaryawan"] == user?["idkaryawan"],
-              orElse: () => null);
+          String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
+          var findData = await homeCtrl.absen?.firstWhere((element) => element?["idkaryawan"] == user?["idkaryawan"], orElse: () => null);
 
           absenPulang(false, findData?["id"]);
         }
@@ -723,11 +647,8 @@ class AbsenController extends GetxController {
       } else {
         final homeCtrl = Get.put(HomeController());
         DateTime dateCurrent = DateTime.now();
-        String formattedCurrentDate =
-            DateFormat("yyyy-MM-dd").format(dateCurrent);
-        var findData = await homeCtrl.absen?.firstWhere(
-            (element) => element?["idkaryawan"] == user?["idkaryawan"],
-            orElse: () => null);
+        String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
+        var findData = await homeCtrl.absen?.firstWhere((element) => element?["idkaryawan"] == user?["idkaryawan"], orElse: () => null);
 
         absenPulang(false, findData?["id"]);
       }

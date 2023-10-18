@@ -1,10 +1,16 @@
+import 'package:app/cubits/live_location_cubit/live_location_cubit.dart';
+import 'package:app/cubits/user_cubit/user_cubit.dart';
+import 'package:app/data/local/base_preference.dart';
+import 'package:app/firebase_options.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flamingo/flamingo.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:open_file_plus/open_file_plus.dart';
-import 'package:app/data/local/base_preference.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_file_plus/open_file_plus.dart';
 
 // import 'package:app/firebase_options.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -16,13 +22,11 @@ import 'package:flutter_app_badger/flutter_app_badger.dart';
 void main() async {
   // runZonedGuarded(() async {
   WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
+  await Flamingo.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await EasyLocalization.ensureInitialized();
-  SystemChrome.setPreferredOrientations(
-      [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
-      overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
-  SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   // FlutterNativeSplash.preserve(widgetsBinding: binding);
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // final GoogleMapsFlutterPlatform mapsImplementation =
@@ -54,53 +58,42 @@ void main() async {
       var homeCtrl = Get.put(HomeController());
       var tanggal = action.payload?["datepresence"]?.split(" ")[0];
 
-      var response = await AbsensiServices()
-          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
+      var response = await AbsensiServices().findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
 
-      Get.toNamed(RouteName.absen,
-          arguments: {"dataAbsen": response.data?[0], "pulang": 1});
-    } else if (action.channelKey == "basic" &&
-        action.buttonKeyPressed == "open") {
+      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": response.data?[0], "pulang": 1});
+    } else if (action.channelKey == "basic" && action.buttonKeyPressed == "open") {
       var homeCtrl = Get.put(HomeController());
       var tanggal = action.payload?["datepresence"]?.split(" ")[0];
 
-      var response = await AbsensiServices()
-          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
+      var response = await AbsensiServices().findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
 
-      Get.toNamed(RouteName.absen,
-          arguments: {"dataAbsen": response.data?[0], "pulang": 1});
+      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": response.data?[0], "pulang": 1});
     } else if (action.buttonKeyPressed == "close") {
       AwesomeNotifications().cancelAll();
     } else if (action.channelKey == "basic") {
       var homeCtrl = Get.put(HomeController());
       var tanggal = action.payload?["datepresence"]?.split(" ")[0];
 
-      var response = await AbsensiServices()
-          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
+      var response = await AbsensiServices().findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
 
-      Get.toNamed(RouteName.absen,
-          arguments: {"dataAbsen": response.data?[0], "pulang": 1});
+      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": response.data?[0], "pulang": 1});
     } else if (action.channelKey == "basic3") {
       // var absenCtrl = Get.put(AbsenController());
       var homeCtrl = Get.put(HomeController());
       var tanggal = action.payload?["datepresence"]?.split(" ")[0];
 
-      var response = await AbsensiServices()
-          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
+      var response = await AbsensiServices().findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
       Get.toNamed(RouteName.absen, arguments: {"dataAbsen": response.data?[0]});
       // absenCtrl.mulaiPulangFromNotif(currentAbsen);
-    } else if (action.channelKey == "basic3" &&
-        action.buttonKeyPressed == "pulang") {
+    } else if (action.channelKey == "basic3" && action.buttonKeyPressed == "pulang") {
       // var absenCtrl = Get.put(AbsenController());
       var homeCtrl = Get.put(HomeController());
       var tanggal = action.payload?["datepresence"]?.split(" ")[0];
 
-      var response = await AbsensiServices()
-          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
+      var response = await AbsensiServices().findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
       Get.toNamed(RouteName.absen, arguments: {"dataAbsen": response.data?[0]});
       // absenCtrl.mulaiPulangFromNotif(currentAbsen);
-    } else if (action.channelKey == "downloadedFile" &&
-        action.buttonKeyPressed == "open") {
+    } else if (action.channelKey == "downloadedFile" && action.buttonKeyPressed == "open") {
       print("KE DOWNLOAD FILE NOTIF");
       print("PATH FROM NOTIF: ${action.payload?["path"]}");
       OpenFile.open(action.payload?["path"]);
@@ -109,8 +102,7 @@ void main() async {
       print("KE DOWNLOAD FILE NOTIF");
       OpenFile.open(action.payload?["path"]);
       print("BERHASIL OPEN");
-    } else if (action.channelKey == "downloadedImage" &&
-        action.buttonKeyPressed == "open") {
+    } else if (action.channelKey == "downloadedImage" && action.buttonKeyPressed == "open") {
       print("KE DOWNLOAD IMAGE NOTIF");
       print("PATH DR IMAGE NET: ${action.payload?["path"].toString()}");
       OpenFile.open(action.payload?["path"]);
@@ -123,6 +115,14 @@ void main() async {
       print("action.payload"); //notification was pressed
     }
   });
+  if (kDebugMode) {
+    try {
+      FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+    }
+  }
   runApp(ProviderScope(
     child: EasyLocalization(
       supportedLocales: const [Locale("id", "ID"), Locale("en", "US")],
@@ -142,9 +142,17 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AwesomeNotificationService().removeNotificationUnUsed();
     FlutterAppBadger.removeBadge();
-    SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    return MainTheme.materialApp(context, child: SplashScreen());
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => UserCubit()),
+        BlocProvider(create: (context) => LiveLocationCubit()),
+      ],
+      child: MainTheme.materialApp(
+        context,
+        child: SplashScreen(),
+      ),
+    );
   }
 }

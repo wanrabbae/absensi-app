@@ -1,6 +1,4 @@
-import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class HomeController extends GetxController {
   //Global
@@ -125,17 +123,14 @@ class HomeController extends GetxController {
         print(absen);
         print("=======KE PULANG========");
         var tanggal = currentDate.toString().split(" ")[0];
-        var response =
-            await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
+        var response = await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
         print("DATA ABSEN: " + response.data.length.toString());
 
         box.write(Base.waktuAbsen, response.data?[0]["waktuCheckIn"]);
         Get.back();
-        Get.toNamed(RouteName.absen,
-            arguments: {"dataAbsen": response.data?[0], "pulang": 1});
+        Get.toNamed(RouteName.absen, arguments: {"dataAbsen": response.data?[0], "pulang": 1});
       } else {
-        if (await Permission.camera.isGranted &&
-            await Permission.location.isGranted) {
+        if (await Permission.camera.isGranted && await Permission.location.isGranted) {
           // var IsPresent = await absen!.firstWhere(
           //     (element) => element["idkaryawan"] == user?["idkaryawan"]);
 
@@ -148,10 +143,7 @@ class HomeController extends GetxController {
           // }
         } else {
           showModalBottomSheet(
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
+              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))),
               context: context,
               builder: (ctx) => const DialogPermission());
         }
@@ -167,8 +159,7 @@ class HomeController extends GetxController {
     await dataPerusahaan();
     await dataHome();
     Get.back();
-    Get.snackbar("Perusahaan Telah Diganti !!",
-        "data perusahaan yang digunakan sudah berubah");
+    Get.snackbar("Perusahaan Telah Diganti !!", "data perusahaan yang digunakan sudah berubah");
   }
 
   gantiTanggal(tgl) {
@@ -204,11 +195,9 @@ class HomeController extends GetxController {
     }
 
     try {
-      var response =
-          await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
+      var response = await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
       print("DATA ABSEN: " + response.data.length.toString());
-      if (response.data.length == 1 &&
-          response.data?[0]["waktuCheckOut"] == null) {
+      if (response.data.length == 1 && response.data?[0]["waktuCheckOut"] == null) {
         // timer!.cancel();
         print("ABSEN JALAN YOYY");
 
@@ -219,8 +208,7 @@ class HomeController extends GetxController {
           timerRecor = timerAbsen3(response.data[0]?["waktuCheckIn"], null);
           update();
         });
-      } else if (response.data.length == 0 && isDateGreaterThanToday ||
-          isDateSmallerThanToday) {
+      } else if (response.data.length == 0 && isDateGreaterThanToday || isDateSmallerThanToday) {
         // timer.cancel();
         print("ABSEN GK JALAN YOYY");
         timerRecor = "00:00:00";
@@ -260,8 +248,7 @@ class HomeController extends GetxController {
           isPresentIzin = true;
         }
 
-        if (response.data.length == 1 &&
-            response.data?[0]["waktuCheckOut"] != null) {
+        if (response.data.length == 1 && response.data?[0]["waktuCheckOut"] != null) {
           isPresentHadir = true;
           isPresentIzin = true;
         }
@@ -288,15 +275,13 @@ class HomeController extends GetxController {
   gambarAbsen(data, status) {
     if (data['fotoPulang'] != null) {
       if (status == 1) {
-        return changeUrlImage(
-            data['fotoPulang'] ?? 'assets/icons/logo/hora.png');
+        return changeUrlImage(data['fotoPulang'] ?? 'assets/icons/logo/hora.png');
       } else {
         return data['fotoPulang'] == null ? true : false;
       }
     } else if (data['fotoKaryawan'] != null) {
       if (status == 1) {
-        return changeUrlImage(
-            data['fotoKaryawan'] ?? 'assets/icons/logo/hora.png');
+        return changeUrlImage(data['fotoKaryawan'] ?? 'assets/icons/logo/hora.png');
       } else {
         return data['fotoKaryawan'] == null ? true : false;
       }
@@ -319,8 +304,7 @@ class HomeController extends GetxController {
 
   gambarPerusahaan(data, status) {
     if (status == 1) {
-      return changeUrlImage(
-          data['logoPerusahaan'] ?? 'assets/icons/logo/hora.png');
+      return changeUrlImage(data['logoPerusahaan'] ?? 'assets/icons/logo/hora.png');
     } else {
       return data['logoPerusahaan'] == null ? true : false;
     }
@@ -328,8 +312,7 @@ class HomeController extends GetxController {
 
   dataPerusahaan() async {
     try {
-      var response =
-          await HomeServices().perusahaanGet({'email': user?['alamatEmail']});
+      var response = await HomeServices().perusahaanGet({'email': user?['alamatEmail']});
       if (response.statusCode == 200) {
         box.write(Base.dataPerusahaan, jsonEncode(response.data));
         perusahaanTerpilih = box.read(Base.perusahaanTerpilih);
@@ -338,9 +321,7 @@ class HomeController extends GetxController {
         if (perusahaanTerpilih == null) {
           perusahaan = hasil[0];
         } else {
-          perusahaan = hasil
-              .where((value) => value['idperusahaan'] == perusahaanTerpilih)
-              .toList()[0];
+          perusahaan = hasil.where((value) => value['idperusahaan'] == perusahaanTerpilih).toList()[0];
         }
         update();
       } else if (response.statusCode == 401) {
@@ -394,14 +375,11 @@ class HomeController extends GetxController {
   dataSearch() async {
     try {
       var response = search == ''
-          ? await HomeServices().searchPerusahaanGet(
-              {'idperusahaan': perusahaan?['idperusahaan']})
-          : await HomeServices().searchUserGet(
-              {'idperusahaan': perusahaan?['idperusahaan'], 'nama': search});
+          ? await HomeServices().searchPerusahaanGet({'idperusahaan': perusahaan?['idperusahaan']})
+          : await HomeServices().searchUserGet({'idperusahaan': perusahaan?['idperusahaan'], 'nama': search});
       if (response.statusCode == 200) {
         searchHasil?.removeRange(0, searchHasil!.length);
-        searchHasil?.addAll(
-            search == '' ? response.body ?? [] : response.body?['view']);
+        searchHasil?.addAll(search == '' ? response.body ?? [] : response.body?['view']);
         update();
       } else if (response.statusCode == 401) {
         SplashController().sessionHabis(user?['alamatEmail']);

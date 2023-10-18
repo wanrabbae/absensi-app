@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "947709925609",
-    "project_id": "seras-fff9b",
-    "storage_bucket": "seras-fff9b.appspot.com"
+    "project_number": "27132482423",
+    "project_id": "horaapp-id",
+    "storage_bucket": "horaapp-id.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:947709925609:android:300aef7544efe4e0093878",
+        "mobilesdk_app_id": "1:27132482423:android:5677f6415a6a3059584772",
         "android_client_info": {
           "package_name": "com.hora.app"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "947709925609-88fu1od0s9n8aloufbromka58ltf0nve.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAhmESwLJ_-souzRiXjb2pk1rTohYym5W0"
+          "current_key": "AIzaSyB4bn2JmE2ckehnldyb7mkrCT6tZGRju64"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "947709925609-88fu1od0s9n8aloufbromka58ltf0nve.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

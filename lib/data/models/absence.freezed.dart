@@ -131,10 +131,10 @@ class _$AbsenceCopyWithImpl<$Res, $Val extends Absence>
 }
 
 /// @nodoc
-abstract class _$$_AbsenceCopyWith<$Res> implements $AbsenceCopyWith<$Res> {
-  factory _$$_AbsenceCopyWith(
-          _$_Absence value, $Res Function(_$_Absence) then) =
-      __$$_AbsenceCopyWithImpl<$Res>;
+abstract class _$$AbsenceImplCopyWith<$Res> implements $AbsenceCopyWith<$Res> {
+  factory _$$AbsenceImplCopyWith(
+          _$AbsenceImpl value, $Res Function(_$AbsenceImpl) then) =
+      __$$AbsenceImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -152,10 +152,11 @@ abstract class _$$_AbsenceCopyWith<$Res> implements $AbsenceCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_AbsenceCopyWithImpl<$Res>
-    extends _$AbsenceCopyWithImpl<$Res, _$_Absence>
-    implements _$$_AbsenceCopyWith<$Res> {
-  __$$_AbsenceCopyWithImpl(_$_Absence _value, $Res Function(_$_Absence) _then)
+class __$$AbsenceImplCopyWithImpl<$Res>
+    extends _$AbsenceCopyWithImpl<$Res, _$AbsenceImpl>
+    implements _$$AbsenceImplCopyWith<$Res> {
+  __$$AbsenceImplCopyWithImpl(
+      _$AbsenceImpl _value, $Res Function(_$AbsenceImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -173,7 +174,7 @@ class __$$_AbsenceCopyWithImpl<$Res>
     Object? lastAbsenceRemark = freezed,
     Object? photo = freezed,
   }) {
-    return _then(_$_Absence(
+    return _then(_$AbsenceImpl(
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -224,8 +225,8 @@ class __$$_AbsenceCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Absence implements _Absence {
-  const _$_Absence(
+class _$AbsenceImpl implements _Absence {
+  const _$AbsenceImpl(
       {this.name,
       this.id,
       this.companyId,
@@ -238,8 +239,8 @@ class _$_Absence implements _Absence {
       this.lastAbsenceRemark,
       this.photo});
 
-  factory _$_Absence.fromJson(Map<String, dynamic> json) =>
-      _$$_AbsenceFromJson(json);
+  factory _$AbsenceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AbsenceImplFromJson(json);
 
   @override
   final String? name;
@@ -273,7 +274,7 @@ class _$_Absence implements _Absence {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Absence &&
+            other is _$AbsenceImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.companyId, companyId) ||
@@ -314,12 +315,12 @@ class _$_Absence implements _Absence {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AbsenceCopyWith<_$_Absence> get copyWith =>
-      __$$_AbsenceCopyWithImpl<_$_Absence>(this, _$identity);
+  _$$AbsenceImplCopyWith<_$AbsenceImpl> get copyWith =>
+      __$$AbsenceImplCopyWithImpl<_$AbsenceImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AbsenceToJson(
+    return _$$AbsenceImplToJson(
       this,
     );
   }
@@ -337,9 +338,9 @@ abstract class _Absence implements Absence {
       final String? checkInTime,
       final String? checkOutTime,
       final String? lastAbsenceRemark,
-      final String? photo}) = _$_Absence;
+      final String? photo}) = _$AbsenceImpl;
 
-  factory _Absence.fromJson(Map<String, dynamic> json) = _$_Absence.fromJson;
+  factory _Absence.fromJson(Map<String, dynamic> json) = _$AbsenceImpl.fromJson;
 
   @override
   String? get name;
@@ -365,6 +366,6 @@ abstract class _Absence implements Absence {
   String? get photo;
   @override
   @JsonKey(ignore: true)
-  _$$_AbsenceCopyWith<_$_Absence> get copyWith =>
+  _$$AbsenceImplCopyWith<_$AbsenceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

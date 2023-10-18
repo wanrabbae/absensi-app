@@ -6,7 +6,8 @@ part of 'absence.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Absence _$$_AbsenceFromJson(Map<String, dynamic> json) => _$_Absence(
+_$AbsenceImpl _$$AbsenceImplFromJson(Map<String, dynamic> json) =>
+    _$AbsenceImpl(
       name: json['name'] as String?,
       id: json['id'] as int?,
       companyId: json['companyId'] as int?,
@@ -20,7 +21,7 @@ _$_Absence _$$_AbsenceFromJson(Map<String, dynamic> json) => _$_Absence(
       photo: json['photo'] as String?,
     );
 
-Map<String, dynamic> _$$_AbsenceToJson(_$_Absence instance) =>
+Map<String, dynamic> _$$AbsenceImplToJson(_$AbsenceImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'id': instance.id,

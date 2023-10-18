@@ -1,4 +1,7 @@
 import 'package:app/global_resource.dart';
+import 'package:app/models/user_model/user_model.dart';
+import 'package:app/ui/dialogs/home_item_dialog.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 Widget dataHome(BuildContext context, s, isHadir) {
   Future onRefreshing() async {
@@ -53,10 +56,8 @@ Widget dataHome(BuildContext context, s, isHadir) {
             // },
             onTap: () {
               isHadir
-                  ? Get.toNamed(RouteName.absenViewMode,
-                      arguments: {"dataAbsen": s.absen[index]})
-                  : Get.toNamed(RouteName.absenIzinDownloaded,
-                      arguments: s.izin[index]);
+                  ? Get.toNamed(RouteName.absenViewMode, arguments: {"dataAbsen": s.absen[index]})
+                  : Get.toNamed(RouteName.absenIzinDownloaded, arguments: s.izin[index]);
             },
             child: Padding(
               padding: const EdgeInsets.only(top: 5, bottom: 5),
@@ -68,17 +69,11 @@ Widget dataHome(BuildContext context, s, isHadir) {
                   GestureDetector(
                     onTap: () {
                       isHadir
-                          ? Get.toNamed(RouteName.absenViewMode,
-                              arguments: {"dataAbsen": s.absen[index]})
-                          : Get.toNamed(RouteName.absenIzinDownloaded,
-                              arguments: s.izin[index]);
+                          ? Get.toNamed(RouteName.absenViewMode, arguments: {"dataAbsen": s.absen[index]})
+                          : Get.toNamed(RouteName.absenIzinDownloaded, arguments: s.izin[index]);
                     },
                     child: buildImageList(
-                        context,
-                        s.gambarAbsen(
-                            isHadir ? s.absen[index] : s.izin[index], 1),
-                        s.gambarAbsen(
-                            isHadir ? s.absen[index] : s.izin[index], 2)),
+                        context, s.gambarAbsen(isHadir ? s.absen[index] : s.izin[index], 1), s.gambarAbsen(isHadir ? s.absen[index] : s.izin[index], 2)),
                   ),
                   const SizedBox(
                     width: 10,
@@ -98,31 +93,38 @@ Widget dataHome(BuildContext context, s, isHadir) {
                               children: [
                                 Container(
                                   width: 150,
-                                  child: RichText(
-                                    overflow: TextOverflow.ellipsis,
-                                    strutStyle: StrutStyle(fontSize: 12.0),
-                                    text: TextSpan(
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 16),
-                                        text: isHadir
-                                            ? s.absen[index]['namaKaryawan']
-                                            : s.izin?[index]['namaKaryawan']),
+                                  child: Row(
+                                    children: [
+                                      RichText(
+                                        overflow: TextOverflow.ellipsis,
+                                        strutStyle: StrutStyle(fontSize: 12.0),
+                                        text: TextSpan(
+                                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w700, fontSize: 16),
+                                            text: isHadir ? s.absen[index]['namaKaryawan'] : s.izin?[index]['namaKaryawan']),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      isHadir
+                                          ? s.absen[index]["waktuCheckOut"] == null
+                                              ? Icon(
+                                                  Icons.circle,
+                                                  color: colorGreenPrimary2,
+                                                  size: 10,
+                                                )
+                                              : Text("")
+                                          : Container()
+                                    ],
                                   ),
                                 ),
                                 // for
                                 Text(
                                     getTimeFromDatetime(isHadir
-                                        ? s.absen[index]["waktuCheckOut"] ==
-                                                null
+                                        ? s.absen[index]["waktuCheckOut"] == null
                                             ? s.absen[index]['waktuCheckIn']
                                             : s.absen[index]["waktuCheckOut"]
                                         : s.izin[index]['tanggalStart']),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 11,
-                                        color: Colors.black)),
+                                    style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 11, color: Colors.black)),
                               ],
                             ),
                             Padding(
@@ -132,10 +134,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                   GestureDetector(
                                     onTap: () {
                                       isHadir
-                                          ? Get.toNamed(RouteName.absenViewMode,
-                                              arguments: {
-                                                  "dataAbsen": s.absen[index]
-                                                })
+                                          ? Get.toNamed(RouteName.absenViewMode, arguments: {"dataAbsen": s.absen[index]})
                                           // showDialog(
                                           //     context: context,
                                           //     builder: (ctx) => dialogGoogleMap(
@@ -146,9 +145,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                           //             double.parse(s?.absen[index]
                                           //                 ?["alamatLongtitude"])),
                                           //         updateLocation: false))
-                                          : Get.toNamed(
-                                              RouteName.absenIzinDownloaded,
-                                              arguments: s.izin[index]);
+                                          : Get.toNamed(RouteName.absenIzinDownloaded, arguments: s.izin[index]);
                                     },
                                     child: isHadir
                                         ? Image.asset(
@@ -157,12 +154,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                           )
                                         : Container(
                                             child: Text(s.izin[index]?["ijin"],
-                                                maxLines: 1,
-                                                softWrap: true,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 12,
-                                                    color: Colors.black)),
+                                                maxLines: 1, softWrap: true, style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.black)),
                                           ),
                                   ),
                                   const SizedBox(
@@ -173,11 +165,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                     child: GestureDetector(
                                       onTap: () {
                                         isHadir
-                                            ? Get.toNamed(
-                                                RouteName.absenViewMode,
-                                                arguments: {
-                                                    "dataAbsen": s.absen[index]
-                                                  })
+                                            ? Get.toNamed(RouteName.absenViewMode, arguments: {"dataAbsen": s.absen[index]})
                                             // showDialog(
                                             //     context: context,
                                             //     builder: (ctx) => dialogGoogleMap(
@@ -190,50 +178,49 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                             //                     ?.absen[index]?[
                                             //                 "alamatLongtitude"])),
                                             //         updateLocation: false))
-                                            : Get.toNamed(
-                                                RouteName.absenIzinDownloaded,
-                                                arguments: s.izin[index]);
+                                            : Get.toNamed(RouteName.absenIzinDownloaded, arguments: s.izin[index]);
                                       },
-                                      child: Text(
-                                          isHadir
-                                              ? s?.absen[index]['alamatPulang'].toString()
-                                                              as String ==
-                                                          "null" &&
-                                                      s?.absen[index]['alamatLoc']
-                                                                  .toString()
-                                                              as String ==
-                                                          "null"
-                                                  ? ""
-                                                  : s?.absen[index]['alamatPulang']
-                                                                  .toString()
-                                                              as String !=
-                                                          "null"
-                                                      ? s?.absen[index]
-                                                              ['alamatPulang']
-                                                          .toString() as String
-                                                      : s?.absen[index]['alamatLoc']
-                                                          .toString() as String
-                                              : "",
-                                          maxLines: 1,
-                                          softWrap: true,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 12,
-                                              color: Colors.black)),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                                isHadir
+                                                    ? s?.absen[index]['alamatPulang'].toString() as String == "null" &&
+                                                            s?.absen[index]['alamatLoc'].toString() as String == "null"
+                                                        ? ""
+                                                        : s?.absen[index]['alamatPulang'].toString() as String != "null"
+                                                            ? s?.absen[index]['alamatPulang'].toString() as String
+                                                            : s?.absen[index]['alamatLoc'].toString() as String
+                                                    : "",
+                                                maxLines: 1,
+                                                softWrap: true,
+                                                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.black)),
+                                          ),
+                                          IconButton(
+                                            padding: EdgeInsets.zero,
+                                            icon: Icon(
+                                              Icons.arrow_back_ios,
+                                              size: 13,
+                                            ).rotate(270),
+                                            onPressed: () {
+                                              showModalBottomSheet(
+                                                context: context,
+                                                builder: (context) => HomeItemDialog(
+                                                  userModel: UserModel.fromJson(s.user),
+                                                ),
+                                                constraints: BoxConstraints(
+                                                  maxHeight: MediaQuery.of(context).size.height * 0.4,
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                  isHadir
-                                      ? s.absen[index]["waktuCheckOut"] == null
-                                          ? Icon(
-                                              Icons.circle,
-                                              color: colorGreenPrimary2,
-                                              size: 10,
-                                            )
-                                          : Text("")
-                                      : Container()
                                 ],
                               ),
                             ),
