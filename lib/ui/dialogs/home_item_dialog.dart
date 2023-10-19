@@ -126,25 +126,24 @@ class _HomeItemDialogState extends State<HomeItemDialog> with AfterLayoutMixin<H
                           );
                         }
 
-                        UserFm? userFm;
                         if (state is LiveLocationOk && state.feature == 'storeFetch') {
-                          userFm = state.data;
+                          userFm.value = state.data;
                         }
 
                         return FilledButton(
                             style: FilledButton.styleFrom(
-                              backgroundColor: userFm == null ? Vx.gray500 : null,
+                              backgroundColor: userFm.value == null ? Vx.gray500 : null,
                             ),
                             onPressed: () {
-                              if (userFm == null) {
+                              if (userFm.value == null) {
                                 return;
                               }
                               Get.to(() => LiveLocationPage(
                                     userModel: widget.userModel,
-                                    userFm: userFm,
+                                    userFm: userFm.value,
                                   ));
                             },
-                            child: Text('Cek Lokasi'));
+                            child: Text('Cek Lokasi', style: GoogleFonts.rubik(fontWeight: FontWeight.w600)));
                       },
                     )),
                   ],
