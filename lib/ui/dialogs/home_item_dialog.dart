@@ -24,7 +24,6 @@ class HomeItemDialog extends StatefulWidget {
 }
 
 class _HomeItemDialogState extends State<HomeItemDialog> with AfterLayoutMixin<HomeItemDialog> {
-  final isCurrentUser = RxBool(false);
   final userFm = Rxn<UserFm>();
 
   @override
