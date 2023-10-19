@@ -152,7 +152,7 @@ class AbsenController extends GetxController {
 
       // LIVE LOCATION STREAM
       Get.context!.read<LiveLocationCubit>().store(
-            userModel: UserModel.fromJson(user! as Map<String, dynamic>),
+            loginUserModel: UserModel.fromJson(user! as Map<String, dynamic>),
             currentPosition: position,
           );
       // END LIVE LOCATION STREAM
@@ -251,7 +251,7 @@ class AbsenController extends GetxController {
 
       // LIVE LOCATION STREAM
       Get.context!.read<LiveLocationCubit>().store(
-            userModel: UserModel.fromJson(user! as Map<String, dynamic>),
+            loginUserModel: UserModel.fromJson(user! as Map<String, dynamic>),
             currentPosition: position,
           );
       // END LIVE LOCATION STREAM

@@ -20,7 +20,7 @@ class _CustomMarkerState extends State<CustomMarker> {
     return Stack(
       alignment: Alignment.center,
       children: [
-        if (widget.userModel?.foto == null)
+        if (widget.userModel?.fotoKaryawan == null)
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -36,7 +36,7 @@ class _CustomMarkerState extends State<CustomMarker> {
               ),
             ),
           ),
-        if (widget.userModel?.foto != null)
+        if (widget.userModel?.fotoKaryawan != null)
           Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,

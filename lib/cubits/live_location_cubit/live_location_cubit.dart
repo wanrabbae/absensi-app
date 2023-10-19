@@ -1,7 +1,8 @@
 import 'package:app/clients/DioClient.dart';
 import 'package:app/clients/DocumentClient.dart';
+import 'package:app/clients/GetStorageClient.dart';
 import 'package:app/firebase_models/user_fm.dart';
-import 'package:app/helpers/location_helper.dart';
+import 'package:app/helpers/base.dart';
 import 'package:app/models/user_model/user_model.dart';
 import 'package:app/streams/location_stream.dart';
 import 'package:app/ui/widgets/custom_marker.dart';
@@ -25,13 +26,14 @@ class LiveLocationCubit extends Cubit<LiveLocationState> {
     return data.data;
   }
 
-  Future<void> fetch({
+  Future<LiveLocationOk?> fetch({
     feature = 'fetch',
     UserModel? userModel,
+    isNeedSuffixState = true,
   }) async {
     try {
       emit(LiveLocationLoading());
-      var userFm = UserFm(id: userModel?.alamatEmail);
+      var userFm = UserFm(id: userModel?.idkaryawan);
       UserFm? result;
       result = await DocumentClient.instance().load<UserFm>(
         userFm,
@@ -42,7 +44,9 @@ class LiveLocationCubit extends Cubit<LiveLocationState> {
         },
         source: Source.serverAndCache,
       );
-      emit(LiveLocationOk(
+
+      final loginUserModel = UserModel.fromJson(GetStorageClient.instance().read(Base.dataUser));
+      final state = LiveLocationOk(
         feature: feature,
         data: result,
         extra: {
@@ -50,7 +54,37 @@ class LiveLocationCubit extends Cubit<LiveLocationState> {
             imageBytes: await _urlToBytes(userModel.fotoUrl),
             customMarker: await CustomMarker(userModel: userModel).toBitmapDescriptor(),
           ),
+          'isCurrentUser': userModel?.idkaryawan == loginUserModel.idkaryawan,
         },
+      );
+      if (isNeedSuffixState) {
+        emit(state);
+      }
+      return state;
+    } catch (e) {
+      emit(LiveLocationInitial());
+      return null;
+    }
+  }
+
+  Future<void> storeFetch({
+    feature = 'storeFetch',
+    UserModel? userModel,
+  }) async {
+    try {
+      emit(LiveLocationLoading());
+      UserModel loginUserModel = UserModel.fromJson(GetStorageClient.instance().read(Base.dataUser));
+      LiveLocationOk? state;
+      if (userModel?.idkaryawan == loginUserModel.idkaryawan) {
+        await store(loginUserModel: loginUserModel, isNeedSuffixState: false);
+        state = await fetch(userModel: userModel, isNeedSuffixState: false);
+      }
+      if (userModel?.idkaryawan != loginUserModel.idkaryawan) {
+        state = await fetch(userModel: userModel, isNeedSuffixState: false);
+      }
+      emit(LiveLocationOk(
+        feature: feature,
+        data: state?.data,
       ));
     } catch (e) {
       emit(LiveLocationInitial());
@@ -59,31 +93,38 @@ class LiveLocationCubit extends Cubit<LiveLocationState> {
 
   Future<void> store({
     feature = 'store',
-    UserModel? userModel,
+    UserModel? loginUserModel,
     UserFm? userFm,
     Position? currentPosition,
+    isNeedSuffixState = true,
   }) async {
     try {
       emit(LiveLocationLoading());
-
       GeoPoint? geoPoint;
-      LocationStream.positionStream ??= Geolocator.getPositionStream(locationSettings: LocationHelper().locationSettings()).listen(
-        (event) {
-          geoPoint = GeoPoint(event.latitude, event.longitude);
-        },
-      );
-      var newUserFm = userFm ?? UserFm(id: userModel?.alamatEmail);
+      final userLiveLoc = GetStorageClient.instance().read<UserModel>('userLiveLoc');
+      if (userLiveLoc?.liveLat != null && userLiveLoc?.liveLng != null) {
+        geoPoint = GeoPoint(userLiveLoc?.liveLat ?? 0, userLiveLoc?.liveLng ?? 0);
+      }
+      var newUserFm = userFm ?? UserFm(id: loginUserModel?.idkaryawan);
       var position = currentPosition ?? (await Geolocator.getLastKnownPosition());
+      if (position == null) {
+        var permission = await Geolocator.checkPermission();
+        if (permission != LocationPermission.denied || permission != LocationPermission.deniedForever) {
+          position = await Geolocator.getCurrentPosition();
+        }
+      }
       var result = await DocumentClient.instance().save<UserFm>(
         newUserFm
           ..location = geoPoint ?? GeoPoint(position?.latitude ?? 0, position?.longitude ?? 0)
           ..isLive = LocationStream.positionStream == null ? false : true
-          ..email = userModel?.alamatEmail,
+          ..idkaryawan = loginUserModel?.idkaryawan,
       );
 
-      emit(LiveLocationOk(
-        feature: feature,
-      ));
+      if (isNeedSuffixState) {
+        emit(LiveLocationOk(
+          feature: feature,
+        ));
+      }
     } catch (e) {
       emit(LiveLocationInitial());
     }

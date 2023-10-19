@@ -12,10 +12,12 @@ import 'package:velocity_x/velocity_x.dart';
 
 class LiveLocationPage extends StatefulWidget {
   final UserModel? userModel;
+  final UserFm? userFm;
 
   const LiveLocationPage({
     super.key,
     this.userModel,
+    this.userFm,
   });
 
   @override
@@ -33,6 +35,7 @@ class _LiveLocationPageState extends State<LiveLocationPage> with AfterLayoutMix
   @override
   FutureOr<void> afterFirstLayout(BuildContext context) {
     userModel.value = widget.userModel;
+    userFm.value = widget.userFm;
 
     context.read<LiveLocationCubit>().fetch(
           userModel: widget.userModel,
@@ -43,13 +46,13 @@ class _LiveLocationPageState extends State<LiveLocationPage> with AfterLayoutMix
         subscription ??= e.reference.snapshots().listen((event) {
           userFm.value = UserFm(snapshot: event);
 
-          final index = markers.toList().indexWhere((element) => element.markerId.value == event.data()?['email']);
+          final index = markers.toList().indexWhere((element) => element.markerId.value == event.data()?['idkaryawan']);
           if (markers.toList().isNotEmpty) {
             markers.remove(markers.toList()[index]);
           }
           final geoPoint = event.data()?['location'] as GeoPoint?;
           markers.add(Marker(
-            markerId: MarkerId(event.data()?['email']),
+            markerId: MarkerId(event.data()?['idkaryawan']),
             position: LatLng(geoPoint?.latitude ?? 0, geoPoint?.longitude ?? 0),
             icon: userModel.value?.customMarker ?? BitmapDescriptor.defaultMarker,
             infoWindow: InfoWindow(

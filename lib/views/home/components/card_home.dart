@@ -209,7 +209,10 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                               showModalBottomSheet(
                                                 context: context,
                                                 builder: (context) => HomeItemDialog(
-                                                  userModel: UserModel.fromJson(s.user),
+                                                  userModel: UserModel.fromJson(
+                                                    isHadir ? s.absen[index] : s.izin[index],
+                                                  ),
+                                                  loginUserModel: UserModel.fromJson(s.user),
                                                 ),
                                                 constraints: BoxConstraints(
                                                   maxHeight: MediaQuery.of(context).size.height * 0.4,

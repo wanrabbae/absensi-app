@@ -1,5 +1,7 @@
+import 'package:after_layout/after_layout.dart';
 import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/streams/location_stream.dart';
 import 'package:flutter/services.dart';
 
 import 'components/card_home.dart';
@@ -11,7 +13,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with AfterLayoutMixin<HomeScreen> {
   String curentDate =
       DateTime.now().day.toString().padLeft(2, '0') + "/" + DateTime.now().month.toString().padLeft(2, '0') + "/" + DateTime.now().year.toString();
 
@@ -38,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         state.controller!.checkAnyAbsen();
       },
       builder: (s) {
+        print(s.absen);
         return Scaffold(
             backgroundColor: Colors.white,
             resizeToAvoidBottomInset: false,
@@ -325,5 +328,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   ));
       },
     );
+  }
+
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
+    LocationStream.startServiceStatusStream(context);
+    LocationStream.startCheckPermissionStream(context);
+    LocationStream.start();
+  }
+
+  @override
+  void dispose() {
+    LocationStream.serviceStatusStream?.cancel();
+    LocationStream.checkPermissionStream?.cancel();
+    LocationStream.positionStream?.cancel();
+    super.dispose();
   }
 }

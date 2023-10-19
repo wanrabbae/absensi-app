@@ -31,6 +31,7 @@ mixin _$UserModel {
   dynamic get alamatLatitude => throw _privateConstructorUsedError;
   String? get alamatLoc => throw _privateConstructorUsedError;
   String? get foto => throw _privateConstructorUsedError;
+  String? get fotoKaryawan => throw _privateConstructorUsedError;
   String? get joinDate => throw _privateConstructorUsedError;
   String? get status => throw _privateConstructorUsedError;
   String? get bluetoothId => throw _privateConstructorUsedError;
@@ -40,6 +41,10 @@ mixin _$UserModel {
   Uint8List? get imageBytes => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
   BitmapDescriptor? get customMarker => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  double? get liveLat => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  double? get liveLng => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -64,6 +69,7 @@ abstract class $UserModelCopyWith<$Res> {
       dynamic alamatLatitude,
       String? alamatLoc,
       String? foto,
+      String? fotoKaryawan,
       String? joinDate,
       String? status,
       String? bluetoothId,
@@ -72,7 +78,9 @@ abstract class $UserModelCopyWith<$Res> {
       @JsonKey(includeFromJson: false, includeToJson: false)
       Uint8List? imageBytes,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      BitmapDescriptor? customMarker});
+      BitmapDescriptor? customMarker,
+      @JsonKey(includeFromJson: false, includeToJson: false) double? liveLat,
+      @JsonKey(includeFromJson: false, includeToJson: false) double? liveLng});
 }
 
 /// @nodoc
@@ -99,6 +107,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? alamatLatitude = freezed,
     Object? alamatLoc = freezed,
     Object? foto = freezed,
+    Object? fotoKaryawan = freezed,
     Object? joinDate = freezed,
     Object? status = freezed,
     Object? bluetoothId = freezed,
@@ -106,6 +115,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? gender = freezed,
     Object? imageBytes = freezed,
     Object? customMarker = freezed,
+    Object? liveLat = freezed,
+    Object? liveLng = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -152,6 +163,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
               as String?,
+      fotoKaryawan: freezed == fotoKaryawan
+          ? _value.fotoKaryawan
+          : fotoKaryawan // ignore: cast_nullable_to_non_nullable
+              as String?,
       joinDate: freezed == joinDate
           ? _value.joinDate
           : joinDate // ignore: cast_nullable_to_non_nullable
@@ -180,6 +195,14 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.customMarker
           : customMarker // ignore: cast_nullable_to_non_nullable
               as BitmapDescriptor?,
+      liveLat: freezed == liveLat
+          ? _value.liveLat
+          : liveLat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      liveLng: freezed == liveLng
+          ? _value.liveLng
+          : liveLng // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -204,6 +227,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       dynamic alamatLatitude,
       String? alamatLoc,
       String? foto,
+      String? fotoKaryawan,
       String? joinDate,
       String? status,
       String? bluetoothId,
@@ -212,7 +236,9 @@ abstract class _$$UserModelImplCopyWith<$Res>
       @JsonKey(includeFromJson: false, includeToJson: false)
       Uint8List? imageBytes,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      BitmapDescriptor? customMarker});
+      BitmapDescriptor? customMarker,
+      @JsonKey(includeFromJson: false, includeToJson: false) double? liveLat,
+      @JsonKey(includeFromJson: false, includeToJson: false) double? liveLng});
 }
 
 /// @nodoc
@@ -237,6 +263,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? alamatLatitude = freezed,
     Object? alamatLoc = freezed,
     Object? foto = freezed,
+    Object? fotoKaryawan = freezed,
     Object? joinDate = freezed,
     Object? status = freezed,
     Object? bluetoothId = freezed,
@@ -244,6 +271,8 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? gender = freezed,
     Object? imageBytes = freezed,
     Object? customMarker = freezed,
+    Object? liveLat = freezed,
+    Object? liveLng = freezed,
   }) {
     return _then(_$UserModelImpl(
       id: freezed == id
@@ -290,6 +319,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
               as String?,
+      fotoKaryawan: freezed == fotoKaryawan
+          ? _value.fotoKaryawan
+          : fotoKaryawan // ignore: cast_nullable_to_non_nullable
+              as String?,
       joinDate: freezed == joinDate
           ? _value.joinDate
           : joinDate // ignore: cast_nullable_to_non_nullable
@@ -318,6 +351,14 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.customMarker
           : customMarker // ignore: cast_nullable_to_non_nullable
               as BitmapDescriptor?,
+      liveLat: freezed == liveLat
+          ? _value.liveLat
+          : liveLat // ignore: cast_nullable_to_non_nullable
+              as double?,
+      liveLng: freezed == liveLng
+          ? _value.liveLng
+          : liveLng // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -337,13 +378,16 @@ class _$UserModelImpl extends _UserModel {
       this.alamatLatitude,
       this.alamatLoc,
       this.foto,
+      this.fotoKaryawan,
       this.joinDate,
       this.status,
       this.bluetoothId,
       this.idkaryawan,
       this.gender,
       @JsonKey(includeFromJson: false, includeToJson: false) this.imageBytes,
-      @JsonKey(includeFromJson: false, includeToJson: false) this.customMarker})
+      @JsonKey(includeFromJson: false, includeToJson: false) this.customMarker,
+      @JsonKey(includeFromJson: false, includeToJson: false) this.liveLat,
+      @JsonKey(includeFromJson: false, includeToJson: false) this.liveLng})
       : super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -372,6 +416,8 @@ class _$UserModelImpl extends _UserModel {
   @override
   final String? foto;
   @override
+  final String? fotoKaryawan;
+  @override
   final String? joinDate;
   @override
   final String? status;
@@ -387,10 +433,16 @@ class _$UserModelImpl extends _UserModel {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   final BitmapDescriptor? customMarker;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final double? liveLat;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final double? liveLng;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, namaKaryawan: $namaKaryawan, jabatan: $jabatan, alamatEmail: $alamatEmail, noHp: $noHp, namaPerusahaan: $namaPerusahaan, idperusahaan: $idperusahaan, alamatLongtitude: $alamatLongtitude, alamatLatitude: $alamatLatitude, alamatLoc: $alamatLoc, foto: $foto, joinDate: $joinDate, status: $status, bluetoothId: $bluetoothId, idkaryawan: $idkaryawan, gender: $gender, imageBytes: $imageBytes, customMarker: $customMarker)';
+    return 'UserModel(id: $id, namaKaryawan: $namaKaryawan, jabatan: $jabatan, alamatEmail: $alamatEmail, noHp: $noHp, namaPerusahaan: $namaPerusahaan, idperusahaan: $idperusahaan, alamatLongtitude: $alamatLongtitude, alamatLatitude: $alamatLatitude, alamatLoc: $alamatLoc, foto: $foto, fotoKaryawan: $fotoKaryawan, joinDate: $joinDate, status: $status, bluetoothId: $bluetoothId, idkaryawan: $idkaryawan, gender: $gender, imageBytes: $imageBytes, customMarker: $customMarker, liveLat: $liveLat, liveLng: $liveLng)';
   }
 
   @override
@@ -416,6 +468,8 @@ class _$UserModelImpl extends _UserModel {
             (identical(other.alamatLoc, alamatLoc) ||
                 other.alamatLoc == alamatLoc) &&
             (identical(other.foto, foto) || other.foto == foto) &&
+            (identical(other.fotoKaryawan, fotoKaryawan) ||
+                other.fotoKaryawan == fotoKaryawan) &&
             (identical(other.joinDate, joinDate) ||
                 other.joinDate == joinDate) &&
             (identical(other.status, status) || other.status == status) &&
@@ -427,31 +481,37 @@ class _$UserModelImpl extends _UserModel {
             const DeepCollectionEquality()
                 .equals(other.imageBytes, imageBytes) &&
             (identical(other.customMarker, customMarker) ||
-                other.customMarker == customMarker));
+                other.customMarker == customMarker) &&
+            (identical(other.liveLat, liveLat) || other.liveLat == liveLat) &&
+            (identical(other.liveLng, liveLng) || other.liveLng == liveLng));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      namaKaryawan,
-      const DeepCollectionEquality().hash(jabatan),
-      alamatEmail,
-      noHp,
-      namaPerusahaan,
-      idperusahaan,
-      const DeepCollectionEquality().hash(alamatLongtitude),
-      const DeepCollectionEquality().hash(alamatLatitude),
-      alamatLoc,
-      foto,
-      joinDate,
-      status,
-      bluetoothId,
-      idkaryawan,
-      gender,
-      const DeepCollectionEquality().hash(imageBytes),
-      customMarker);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        id,
+        namaKaryawan,
+        const DeepCollectionEquality().hash(jabatan),
+        alamatEmail,
+        noHp,
+        namaPerusahaan,
+        idperusahaan,
+        const DeepCollectionEquality().hash(alamatLongtitude),
+        const DeepCollectionEquality().hash(alamatLatitude),
+        alamatLoc,
+        foto,
+        fotoKaryawan,
+        joinDate,
+        status,
+        bluetoothId,
+        idkaryawan,
+        gender,
+        const DeepCollectionEquality().hash(imageBytes),
+        customMarker,
+        liveLat,
+        liveLng
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -480,6 +540,7 @@ abstract class _UserModel extends UserModel {
       final dynamic alamatLatitude,
       final String? alamatLoc,
       final String? foto,
+      final String? fotoKaryawan,
       final String? joinDate,
       final String? status,
       final String? bluetoothId,
@@ -488,7 +549,11 @@ abstract class _UserModel extends UserModel {
       @JsonKey(includeFromJson: false, includeToJson: false)
       final Uint8List? imageBytes,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      final BitmapDescriptor? customMarker}) = _$UserModelImpl;
+      final BitmapDescriptor? customMarker,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      final double? liveLat,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      final double? liveLng}) = _$UserModelImpl;
   const _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -517,6 +582,8 @@ abstract class _UserModel extends UserModel {
   @override
   String? get foto;
   @override
+  String? get fotoKaryawan;
+  @override
   String? get joinDate;
   @override
   String? get status;
@@ -532,6 +599,12 @@ abstract class _UserModel extends UserModel {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   BitmapDescriptor? get customMarker;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  double? get liveLat;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  double? get liveLng;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

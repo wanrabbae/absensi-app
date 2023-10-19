@@ -7,17 +7,18 @@ class LocationHelper {
     late LocationSettings locationSettings;
     if (defaultTargetPlatform == TargetPlatform.android) {
       locationSettings = AndroidSettings(
-          accuracy: LocationAccuracy.high,
-          distanceFilter: 100,
-          forceLocationManager: true,
-          intervalDuration: const Duration(seconds: 10),
-          //(Optional) Set foreground notification config to keep the app alive
-          //when going to the background
-          foregroundNotificationConfig: const ForegroundNotificationConfig(
-            notificationText: "Hora app will continue to receive your location even when you aren't using it",
-            notificationTitle: "Running in Background",
-            enableWakeLock: true,
-          ));
+        accuracy: LocationAccuracy.high,
+        distanceFilter: 100,
+        forceLocationManager: true,
+        intervalDuration: const Duration(seconds: 30),
+        //(Optional) Set foreground notification config to keep the app alive
+        //when going to the background
+        foregroundNotificationConfig: const ForegroundNotificationConfig(
+          notificationText: "Lokasi sedang aktif di latar belakang",
+          notificationTitle: "Hora",
+          enableWakeLock: true,
+        ),
+      );
     } else if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS) {
       locationSettings = AppleSettings(
         accuracy: LocationAccuracy.high,
@@ -26,6 +27,7 @@ class LocationHelper {
         pauseLocationUpdatesAutomatically: true,
         // Only set to true if our app will be started up in the background.
         showBackgroundLocationIndicator: true,
+        allowBackgroundLocationUpdates: true,
       );
     } else {
       locationSettings = const LocationSettings(

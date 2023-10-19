@@ -22,6 +22,7 @@ class UserModel with _$UserModel {
     dynamic alamatLatitude,
     String? alamatLoc,
     String? foto,
+    String? fotoKaryawan,
     String? joinDate,
     String? status,
     String? bluetoothId,
@@ -29,6 +30,8 @@ class UserModel with _$UserModel {
     String? gender,
     @JsonKey(includeFromJson: false, includeToJson: false) Uint8List? imageBytes,
     @JsonKey(includeFromJson: false, includeToJson: false) BitmapDescriptor? customMarker,
+    @JsonKey(includeFromJson: false, includeToJson: false) double? liveLat,
+    @JsonKey(includeFromJson: false, includeToJson: false) double? liveLng,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => _$UserModelFromJson(json);
@@ -36,10 +39,10 @@ class UserModel with _$UserModel {
   get firstCharName => namaKaryawan?.substring(0, 1) ?? '';
 
   String? get fotoUrl {
-    if (foto == null) {
+    if (fotoKaryawan == null) {
       return null;
     }
 
-    return changeUrlImage(foto);
+    return changeUrlImage(fotoKaryawan);
   }
 }

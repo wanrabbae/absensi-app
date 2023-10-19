@@ -12,7 +12,7 @@ class UserFm extends Document<UserFm> {
   }) : super(id: id, snapshot: snapshot, values: values);
 
   @Field()
-  String? email;
+  String? idkaryawan;
   @Field()
   GeoPoint? location;
   @Field()
