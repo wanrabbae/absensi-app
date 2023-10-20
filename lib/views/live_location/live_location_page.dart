@@ -86,10 +86,10 @@ class _LiveLocationPageState extends State<LiveLocationPage> with AfterLayoutMix
       LiveLocationActionModel(
           id: 4,
           title: 'Tampilan trafik',
-          isActive: true,
+          isActive: false,
           onPressed: () {
             trafficEnabled.value = trafficEnabled.value ? false : true;
-            items.value[3] = items.value[3].copyWith(isActive: true);
+            items.value[3] = items.value[3].copyWith(isActive: trafficEnabled.value);
           }),
     ].obs;
   }
