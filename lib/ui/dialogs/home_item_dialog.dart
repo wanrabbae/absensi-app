@@ -12,11 +12,13 @@ import 'package:velocity_x/velocity_x.dart';
 class HomeItemDialog extends StatefulWidget {
   final UserModel? userModel;
   final UserModel? loginUserModel;
+  final Function()? onDetailPressed;
 
   const HomeItemDialog({
     super.key,
     required this.userModel,
     required this.loginUserModel,
+    this.onDetailPressed,
   });
 
   @override
@@ -100,9 +102,7 @@ class _HomeItemDialogState extends State<HomeItemDialog> with AfterLayoutMixin<H
                   children: [
                     Expanded(
                         child: FilledButton(
-                      onPressed: () {
-                        Get.snackbar('MAINTENANCE', 'Fitur ini sedang dalam pengembangan');
-                      },
+                      onPressed: widget.onDetailPressed ?? () {},
                       child: Text('Detail Hadir',
                           style: GoogleFonts.rubik(
                             fontWeight: FontWeight.w600,
@@ -137,10 +137,13 @@ class _HomeItemDialogState extends State<HomeItemDialog> with AfterLayoutMixin<H
                               if (userFm.value == null) {
                                 return;
                               }
-                              Get.to(() => LiveLocationPage(
-                                    userModel: widget.userModel,
-                                    userFm: userFm.value,
-                                  ));
+                              Get
+                                ..back()
+                                ..to(() => LiveLocationPage(
+                                      userModel: widget.userModel,
+                                      userFm: userFm.value,
+                                      onDetailPressed: widget.onDetailPressed,
+                                    ));
                             },
                             child: Text('Cek Lokasi', style: GoogleFonts.rubik(fontWeight: FontWeight.w600)));
                       },

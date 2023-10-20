@@ -206,18 +206,26 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                               size: 13,
                                             ).rotate(270),
                                             onPressed: () {
-                                              showModalBottomSheet(
-                                                context: context,
-                                                builder: (context) => HomeItemDialog(
-                                                  userModel: UserModel.fromJson(
-                                                    isHadir ? s.absen[index] : s.izin[index],
+                                              if (isHadir) {
+                                                showModalBottomSheet(
+                                                  context: context,
+                                                  builder: (context) => HomeItemDialog(
+                                                    userModel: UserModel.fromJson(
+                                                      isHadir ? s.absen[index] : s.izin[index],
+                                                    ),
+                                                    loginUserModel: UserModel.fromJson(s.user),
+                                                    onDetailPressed: () {
+                                                      Get.toNamed(RouteName.absenViewMode, arguments: {"dataAbsen": s.absen[index]});
+                                                    },
                                                   ),
-                                                  loginUserModel: UserModel.fromJson(s.user),
-                                                ),
-                                                constraints: BoxConstraints(
-                                                  maxHeight: MediaQuery.of(context).size.height * 0.4,
-                                                ),
-                                              );
+                                                  constraints: BoxConstraints(
+                                                    maxHeight: MediaQuery.of(context).size.height * 0.4,
+                                                  ),
+                                                );
+                                              }
+                                              if (!isHadir) {
+                                                Get.toNamed(RouteName.absenIzinDownloaded, arguments: s.izin[index]);
+                                              }
                                             },
                                           ),
                                         ],
