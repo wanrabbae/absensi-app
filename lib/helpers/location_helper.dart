@@ -14,8 +14,8 @@ class LocationHelper {
         //(Optional) Set foreground notification config to keep the app alive
         //when going to the background
         foregroundNotificationConfig: const ForegroundNotificationConfig(
-          notificationText: "Lokasi sedang aktif di latar belakang",
-          notificationTitle: "Hora",
+          notificationTitle: "Sedang mendeteksi lokasi di latar belakang",
+          notificationText: "Diharapkan untuk tetap membuka aplikasi Hora",
           enableWakeLock: true,
         ),
       );

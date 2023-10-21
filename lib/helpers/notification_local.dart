@@ -1,40 +1,31 @@
 import 'package:app/global_resource.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
-  final FlutterLocalNotificationsPlugin notificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin notificationsPlugin = FlutterLocalNotificationsPlugin();
 
   Future<void> initNotification() async {
-    AndroidInitializationSettings initializationSettingsAndroid =
-        const AndroidInitializationSettings('ic_launcher');
+    AndroidInitializationSettings initializationSettingsAndroid = const AndroidInitializationSettings('ic_launcher');
 
     var initializationSettingsIOS = DarwinInitializationSettings(
         requestAlertPermission: true,
         requestBadgePermission: true,
         requestSoundPermission: true,
-        onDidReceiveLocalNotification:
-            (int id, String? title, String? body, String? payload) async {});
+        onDidReceiveLocalNotification: (int id, String? title, String? body, String? payload) async {});
 
-    var initializationSettings = InitializationSettings(
-        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-    await notificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse:
-            (NotificationResponse notificationResponse) async {});
+    var initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    await notificationsPlugin.initialize(initializationSettings, onDidReceiveNotificationResponse: (NotificationResponse notificationResponse) async {});
   }
 
   notificationDetails() {
     return const NotificationDetails(
-        android: AndroidNotificationDetails('channelId', 'channelName',
-            importance: Importance.max, autoCancel: false, ongoing: true),
+        android: AndroidNotificationDetails('channelId', 'channelName', importance: Importance.max, autoCancel: false, ongoing: true),
         iOS: DarwinNotificationDetails());
   }
 
-  Future showNotification(
-      {int id = 0, String? title, String? body, String? payLoad}) async {
-    return notificationsPlugin.show(
-        id, title, body, await notificationDetails());
+  Future showNotification({int id = 0, String? title, String? body, String? payLoad}) async {
+    return notificationsPlugin.show(id, title, body, await notificationDetails());
   }
 
   Future<void> removeNotification() async {
@@ -43,10 +34,9 @@ class NotificationService {
 }
 
 class AwesomeNotificationService {
-  final FlutterLocalNotificationsPlugin notificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  final FlutterLocalNotificationsPlugin notificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  initNotification() async {
+  void initNotification() {
     AwesomeNotifications().initialize('resource://drawable/ic_launcher', [
       // notification icon
       NotificationChannel(
@@ -131,17 +121,11 @@ class AwesomeNotificationService {
         // schedule: NotificationAndroidCrontab.hourly(
         //     referenceDateTime: referenceDateTime),
         actionButtons: [
-          NotificationActionButton(
-              key: "open",
-              label: "Buka Aplikasi",
-              color: colorBluePrimary2,
-              autoDismissible: false,
-              isDangerousOption: false),
+          NotificationActionButton(key: "open", label: "Buka Aplikasi", color: colorBluePrimary2, autoDismissible: false, isDangerousOption: false),
         ]);
   }
 
-  Future showNotificationAbsenDone(
-      {int id = 0, String? title, String? body, String? payLoad}) async {
+  Future showNotificationAbsenDone({int id = 0, String? title, String? body, String? payLoad}) async {
     AwesomeNotifications().createNotification(
         content: NotificationContent(
           backgroundColor: colorBluePrimary2,
@@ -160,8 +144,7 @@ class AwesomeNotificationService {
         // schedule: NotificationAndroidCrontab.hourly(
         //     referenceDateTime: referenceDateTime),
         actionButtons: [
-          NotificationActionButton(
-              key: "open", label: "Buka Aplikasi", color: colorBluePrimary2),
+          NotificationActionButton(key: "open", label: "Buka Aplikasi", color: colorBluePrimary2),
         ]);
   }
 
@@ -182,8 +165,7 @@ class AwesomeNotificationService {
           // locked: true,
         ),
         actionButtons: [
-          NotificationActionButton(
-              key: "pulang", label: "Hentikan", color: colorBluePrimary2),
+          NotificationActionButton(key: "pulang", label: "Hentikan", color: colorBluePrimary2),
           NotificationActionButton(
             key: "close",
             label: "Abaikan",
@@ -193,16 +175,10 @@ class AwesomeNotificationService {
             // isDangerousOption: true,
           ),
         ],
-        schedule: NotificationCalendar.fromDate(
-            date: DateTime.now().add(const Duration(hours: 12))));
+        schedule: NotificationCalendar.fromDate(date: DateTime.now().add(const Duration(hours: 12))));
   }
 
-  Future showNotificationDownloadedFile(
-      {int id = 0,
-      String? title,
-      String? body,
-      String? payLoad,
-      String? path}) async {
+  Future showNotificationDownloadedFile({int id = 0, String? title, String? body, String? payLoad, String? path}) async {
     AwesomeNotifications().createNotification(
       content: NotificationContent(
         backgroundColor: colorBluePrimary2,
@@ -222,8 +198,7 @@ class AwesomeNotificationService {
       // schedule: NotificationAndroidCrontab.hourly(
       //     referenceDateTime: referenceDateTime),
       actionButtons: [
-        NotificationActionButton(
-            key: "open", label: "Buka", color: colorBluePrimary2),
+        NotificationActionButton(key: "open", label: "Buka", color: colorBluePrimary2),
         NotificationActionButton(
           key: "close",
           label: "Hapus",
@@ -234,12 +209,7 @@ class AwesomeNotificationService {
     );
   }
 
-  Future showNotificationCapture(
-      {int id = 0,
-      String? title,
-      String? body,
-      String? payLoad,
-      String? path}) async {
+  Future showNotificationCapture({int id = 0, String? title, String? body, String? payLoad, String? path}) async {
     AwesomeNotifications().createNotification(
       content: NotificationContent(
         backgroundColor: colorBluePrimary2,
@@ -258,8 +228,7 @@ class AwesomeNotificationService {
       // schedule: NotificationAndroidCrontab.hourly(
       //     referenceDateTime: referenceDateTime),
       actionButtons: [
-        NotificationActionButton(
-            key: "open", label: "Buka", color: colorBluePrimary2),
+        NotificationActionButton(key: "open", label: "Buka", color: colorBluePrimary2),
         NotificationActionButton(
           key: "close",
           label: "Hapus",

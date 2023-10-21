@@ -3,6 +3,7 @@ import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/streams/location_stream.dart';
 import 'package:flutter/services.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import 'components/card_home.dart';
 
@@ -13,7 +14,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with AfterLayoutMixin<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with AfterLayoutMixin<HomeScreen>, WidgetsBindingObserver {
   String curentDate =
       DateTime.now().day.toString().padLeft(2, '0') + "/" + DateTime.now().month.toString().padLeft(2, '0') + "/" + DateTime.now().year.toString();
 
@@ -331,17 +332,70 @@ class _HomeScreenState extends State<HomeScreen> with AfterLayoutMixin<HomeScree
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  final isEnabled = true.obs;
+  StreamSubscription<bool>? isEnabledStream;
+  ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason>? messager;
+  @override
   FutureOr<void> afterFirstLayout(BuildContext context) async {
-    LocationStream.startServiceStatusStream(context);
-    LocationStream.startCheckPermissionStream(context);
-    LocationStream.start();
+    await LocationStream.startServiceStatusStream(isEnabled);
+    await LocationStream.start(isEnabled);
+    isEnabledStream = isEnabled.stream.listen((event) {
+      if (!event) {
+        messager ??= showMaterialBanner(context);
+      } else {
+        messager?.close;
+        messager = null;
+      }
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      LocationStream.startServiceStatusStream(isEnabled);
+      LocationStream.start(isEnabled);
+    }
+  }
+
+  ScaffoldFeatureController<MaterialBanner, MaterialBannerClosedReason> showMaterialBanner(BuildContext context) {
+    return ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
+      content: Text('Lokasi tidak ditemukan'),
+      backgroundColor: Vx.yellow500,
+      actions: [
+        TextButton(
+          onPressed: () async {
+            messager?.close();
+            await LocationStream.startServiceStatusStream(isEnabled);
+            await LocationStream.start(isEnabled);
+          },
+          child: Text('Coba lagi'),
+        ),
+        TextButton(
+          onPressed: () {
+            Geolocator.openLocationSettings();
+          },
+          child: Text('Buka pengaturan lokasi'),
+        ),
+      ],
+    ));
+  }
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    LocationStream.serviceStatusStream?.cancel();
-    LocationStream.checkPermissionStream?.cancel();
     LocationStream.positionStream?.cancel();
+    LocationStream.serviceStatusStream?.cancel();
+    isEnabledStream?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 }
