@@ -9,7 +9,7 @@ Widget gantiEmail(s, context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              child: Text(
+              child: const Text(
                 "Mengubah email",
                 style: TextStyle(
                     fontSize: 20,
@@ -29,8 +29,8 @@ Widget gantiEmail(s, context) {
                 },
                 onChanged: (value) => s.emailBaru = value,
                 keyboardType: TextInputType.emailAddress,
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                decoration: InputDecoration(
+                style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                decoration: const InputDecoration(
                   hintText: "email anda",
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 1.5),
@@ -42,7 +42,7 @@ Widget gantiEmail(s, context) {
               ),
             ),
             Container(
-              child: Text(
+              child: const Text(
                 "Masuk menggunakan e-mail baru anda.",
                 style:
                     TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),

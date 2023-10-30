@@ -1,5 +1,4 @@
 import 'package:app/global_resource.dart';
-import 'package:flutter/cupertino.dart';
 import 'components/card_search.dart';
 
 class HomeSearchScreen extends StatelessWidget {
@@ -46,21 +45,21 @@ class HomeSearchScreen extends StatelessWidget {
                   // ),
 
                   Container(
-                    padding: EdgeInsets.only(top: 50),
-                    margin: EdgeInsets.only(bottom: 20),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.only(top: 50),
+                    margin: const EdgeInsets.only(bottom: 20),
+                    decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
                                 color: colorBluePrimary, width: 1.5))),
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
                           IconButton(
                             onPressed: () {
                               Get.back();
                             },
-                            icon: Icon(FeatherIcons.arrowLeft),
+                            icon: const Icon(FeatherIcons.arrowLeft),
                           ),
                           Flexible(
                             child: TextFormField(
@@ -72,7 +71,7 @@ class HomeSearchScreen extends StatelessWidget {
                                 //     .then((d) => s.searchFunc(value));
                               },
                               focusNode: s.focus,
-                              style: TextStyle(fontWeight: FontWeight.w600),
+                              style: const TextStyle(fontWeight: FontWeight.w600),
                               decoration: const InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                     borderSide:

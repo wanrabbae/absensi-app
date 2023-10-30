@@ -22,7 +22,7 @@ void main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
       overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   // FlutterNativeSplash.preserve(widgetsBinding: binding);
   // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // final GoogleMapsFlutterPlatform mapsImplementation =
@@ -49,7 +49,7 @@ void main() async {
   AwesomeNotificationService().initNotification();
 
   AwesomeNotifications().actionStream.listen((action) async {
-    print("CHANEL KEY: " + action.channelKey.toString());
+    debugPrint("CHANEL KEY: ${action.channelKey}");
     if (action.channelKey == "basic") {
       var homeCtrl = Get.put(HomeController());
       var tanggal = action.payload?["datepresence"]?.split(" ")[0];
@@ -101,26 +101,26 @@ void main() async {
       // absenCtrl.mulaiPulangFromNotif(currentAbsen);
     } else if (action.channelKey == "downloadedFile" &&
         action.buttonKeyPressed == "open") {
-      print("KE DOWNLOAD FILE NOTIF");
-      print("PATH FROM NOTIF: ${action.payload?["path"]}");
+      debugPrint("KE DOWNLOAD FILE NOTIF");
+      debugPrint("PATH FROM NOTIF: ${action.payload?["path"]}");
       OpenFile.open(action.payload?["path"]);
-      print("BERHASIL OPEN");
+      debugPrint("BERHASIL OPEN");
     } else if (action.channelKey == "downloadedFile") {
-      print("KE DOWNLOAD FILE NOTIF");
+      debugPrint("KE DOWNLOAD FILE NOTIF");
       OpenFile.open(action.payload?["path"]);
-      print("BERHASIL OPEN");
+      debugPrint("BERHASIL OPEN");
     } else if (action.channelKey == "downloadedImage" &&
         action.buttonKeyPressed == "open") {
-      print("KE DOWNLOAD IMAGE NOTIF");
-      print("PATH DR IMAGE NET: ${action.payload?["path"].toString()}");
+      debugPrint("KE DOWNLOAD IMAGE NOTIF");
+      debugPrint("PATH DR IMAGE NET: ${action.payload?["path"].toString()}");
       OpenFile.open(action.payload?["path"]);
     } else if (action.channelKey == "downloadedImage") {
-      print("KE DOWNLOAD IMAGE NOTIF");
-      print("PATH DR IMAGE NET: ${action.payload?["path"].toString()}");
+      debugPrint("KE DOWNLOAD IMAGE NOTIF");
+      debugPrint("PATH DR IMAGE NET: ${action.payload?["path"].toString()}");
       OpenFile.open(action.payload?["path"]);
-      print("BERHASIL OPEN");
+      debugPrint("BERHASIL OPEN");
     } else {
-      print("action.payload"); //notification was pressed
+      debugPrint("action.payload"); //notification was pressed
     }
   });
   runApp(ProviderScope(
@@ -143,8 +143,8 @@ class MyApp extends HookConsumerWidget {
     AwesomeNotificationService().removeNotificationUnUsed();
     FlutterAppBadger.removeBadge();
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    return MainTheme.materialApp(context, child: SplashScreen());
+    return MainTheme.materialApp(context, child: const SplashScreen());
   }
 }

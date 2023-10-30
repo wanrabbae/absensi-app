@@ -2,11 +2,8 @@
 export 'dart:async';
 export 'dart:convert';
 export 'package:get/get.dart';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 export 'dart:io' hide HeaderValue;
 // import 'package:location/location.dart';
-import 'package:open_settings/open_settings.dart';
 export 'package:flutter/gestures.dart';
 export 'package:flutter/material.dart';
 export 'package:geolocator/geolocator.dart';

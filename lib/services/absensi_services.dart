@@ -1,7 +1,5 @@
 import 'package:app/global_resource.dart';
 import 'package:dio/dio.dart' as dio;
-import 'dart:convert';
-import 'dart:developer';
 
 class AbsensiServices extends GetConnect implements GetxService {
   final box = GetStorage();
@@ -40,9 +38,7 @@ class AbsensiServices extends GetConnect implements GetxService {
 
     try {
       var test = await dio.Dio().get(
-          Base.url +
-              Base.absenIndie +
-              "?idkaryawan=${idKaryawan}&tanggal=${tanggal}",
+          "${Base.url}${Base.absenIndie}?idkaryawan=$idKaryawan&tanggal=$tanggal",
           options: options);
       return test;
     } catch (e) {
@@ -66,7 +62,7 @@ class AbsensiServices extends GetConnect implements GetxService {
 
     try {
       var test = await dio.Dio().put(
-          Base.url + Base.absenPulang + "?id=${param['id']}",
+          "${Base.url}${Base.absenPulang}?id=${param['id']}",
           data: formData,
           options: options);
       return test;

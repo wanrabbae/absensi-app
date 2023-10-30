@@ -1,9 +1,5 @@
 import 'package:app/global_resource.dart';
-import 'package:app/helpers/notification_local.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class CompanyFullScreen extends StatefulWidget {
   const CompanyFullScreen({super.key});
@@ -16,7 +12,7 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     Get.put(HomeController());
     return GetBuilder<HomeController>(
@@ -44,8 +40,8 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(50.0)),
-                      padding: EdgeInsets.all(10),
-                      child: Icon(FeatherIcons.arrowLeft),
+                      padding: const EdgeInsets.all(10),
+                      child: const Icon(FeatherIcons.arrowLeft),
                     ),
                   ),
                   GestureDetector(
@@ -54,13 +50,13 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
                           s.perusahaan?['logoPerusahaan'] ??
                               'wwwroot/Images/CompanyLogo/logo_hora.png'));
                       // try {
-                      // print("HORA PATH: " + createFolder("Hora").toString());
+                      // debugPrint("HORA PATH: " + createFolder("Hora").toString());
                       // await downloadImage(changeUrlImage(
                       //     s.perusahaan?['logoPerusahaan'] ??
                       //         'wwwroot/Images/CompanyLogo/logo_hora.png'));
                       // SplashController().showOkDialog2(
                       //     "Tangkapan Layar", "Gambar Telah Tersimpan", () {
-                      //   print("YOYY");
+                      //   debugPrint("YOYY");
                       // });
                       // await AwesomeNotificationService()
                       //     .showNotificationDownloadedFile();
@@ -72,7 +68,7 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(50.0)),
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Image.asset(
                         'assets/icons/ic_screen_shot.png',
                         width: 24,

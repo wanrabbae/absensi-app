@@ -69,18 +69,18 @@ Widget buildDisable(BuildContext context, timer) {
 //   static String millisecondsToTimeFormat(int milliseconds) {
 //     final dt = DateTime.fromMillisecondsSinceEpoch(milliseconds, isUtc: true);
 //     final format = DateFormat("HH:mm:ss").format(dt);
-//     print("object $format");
+//     debugPrint("object $format");
 //     return "00:00:00";
 //   }
 
 //   static String stWatchUp() {
 //     Stopwatch stopwatch = Stopwatch();
 //     stopwatch.start();
-//     print("object elapsed ${stopwatch.elapsed}");
-//     print("object elapsedMilliseconds ${stopwatch.elapsedMilliseconds}");
-//     print("object elapsedTicks ${stopwatch.elapsedTicks}");
-//     print("object frequency ${stopwatch.frequency}");
-//     print("object isRunning ${stopwatch.isRunning}");
+//     debugPrint("object elapsed ${stopwatch.elapsed}");
+//     debugPrint("object elapsedMilliseconds ${stopwatch.elapsedMilliseconds}");
+//     debugPrint("object elapsedTicks ${stopwatch.elapsedTicks}");
+//     debugPrint("object frequency ${stopwatch.frequency}");
+//     debugPrint("object isRunning ${stopwatch.isRunning}");
 //     return "00";
 //   }
 
@@ -99,7 +99,7 @@ Widget buildDisable(BuildContext context, timer) {
 //   }
 
 //   static Future<String> stopWatchStreamer(bool isStart) async {
-//     print("object stopWatchStreamer $isStart");
+//     debugPrint("object stopWatchStreamer $isStart");
 //     StreamController<int>? streamController;
 //     Duration timerInterval = const Duration(seconds: 5);
 //     int counter = 0;
@@ -111,7 +111,7 @@ Widget buildDisable(BuildContext context, timer) {
 //     Timer? timer = Timer.periodic(timerInterval, tick);
 
 //     void stopTimer() {
-//       print("object stopTimer ${(timer != null)}");
+//       debugPrint("object stopTimer ${(timer != null)}");
 //       timer?.cancel();
 //       timer = null;
 //       counter = 0;
@@ -122,7 +122,7 @@ Widget buildDisable(BuildContext context, timer) {
 //       if (isStart) {
 //         timer = Timer.periodic(timerInterval, tick);
 //       } else {
-//         print("object startTimer 2");
+//         debugPrint("object startTimer 2");
 //         streamController?.close();
 //         timer?.cancel();
 //         timer = null;
@@ -149,9 +149,9 @@ Widget buildDisable(BuildContext context, timer) {
 
 //   static void timerPeriod(bool isStart) {
 //     final timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-//       print("object ${timer.tick}");
+//       debugPrint("object ${timer.tick}");
 //     });
-//     print("object $isStart");
+//     debugPrint("object $isStart");
 //     timer.cancel();
 //   }
 

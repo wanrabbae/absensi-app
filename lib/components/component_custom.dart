@@ -104,7 +104,7 @@ Widget customTextRichWithLink(
           children: [
             TextSpan(
                 text: "Kebijakan Hora ",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   // fontSize: 16,
                   color: colorBluePrimary2,
@@ -126,7 +126,7 @@ Widget customTextRichWithLink(
             ),
             TextSpan(
                 text: "Privasi Pengguna",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   // fontSize: 16,
                   color: colorBluePrimary2,
@@ -156,7 +156,7 @@ Widget customTextRichWithLink2(
           children: [
             TextSpan(
                 text: "Kebijakan Hora ",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   // fontSize: 16,
                   color: Colors.black,
@@ -178,7 +178,7 @@ Widget customTextRichWithLink2(
             ),
             TextSpan(
                 text: "Privasi Pengguna",
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.w500,
                   // fontSize: 16,
                   color: colorBluePrimary2,
@@ -297,13 +297,13 @@ customSnackbar1(message) {
   Get.rawSnackbar(
       messageText: Text(
         message ?? "Success action",
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
       ),
       snackPosition: SnackPosition.TOP,
       borderRadius: 20,
-      padding: EdgeInsets.all(25),
-      margin: EdgeInsets.symmetric(horizontal: 20));
+      padding: const EdgeInsets.all(25),
+      margin: const EdgeInsets.symmetric(horizontal: 20));
 }
 
 loadingBar() {
@@ -326,14 +326,14 @@ customSnackbarLoading(message) {
   Get.rawSnackbar(
       messageText: Text(
         message ?? "Loading...",
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
       ),
       snackPosition: SnackPosition.TOP,
       borderRadius: 20,
       isDismissible: false,
-      padding: EdgeInsets.all(25),
-      margin: EdgeInsets.symmetric(horizontal: 20));
+      padding: const EdgeInsets.all(25),
+      margin: const EdgeInsets.symmetric(horizontal: 20));
 }
 
 customSnackbarLoadingAsset(message, asset) {
@@ -365,19 +365,19 @@ Widget buildImageProfileBig(
         right: 1,
         child: Center(
           child: Container(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Icon(FeatherIcons.camera, color: Colors.white),
-              ),
-            ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
                 Radius.circular(
                   50,
                 ),
               ),
               color: Colors.black,
+            ),
+            child: const Center(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Icon(FeatherIcons.camera, color: Colors.white),
+              ),
             ),
           ),
         ),
@@ -445,23 +445,23 @@ Widget buildImageSizeIconNetwork(BuildContext context, String url, bool local) {
 }
 
 Widget buildImageList(BuildContext context, String url, bool local) {
-  print("LOCAL: " + local.toString());
+  debugPrint("LOCAL: $local");
   var img = local
       ? DecorationImage(
           image: AssetImage(url),
           onError: (exception, stackTrace) =>
-              AssetImage('assets/icons/logo/hora.png'),
+              const AssetImage('assets/icons/logo/hora.png'),
           fit: BoxFit.cover)
       : url.contains("pulang_horas.png")
           ? DecorationImage(
-              image: AssetImage('assets/icons/logo/hora.png'),
+              image: const AssetImage('assets/icons/logo/hora.png'),
               onError: (exception, stackTrace) =>
-                  AssetImage('assets/icons/logo/hora.png'),
+                  const AssetImage('assets/icons/logo/hora.png'),
               fit: BoxFit.cover)
           : DecorationImage(
               image: NetworkImage(url),
               onError: (exception, stackTrace) =>
-                  AssetImage('assets/icons/logo/hora.png'),
+                  const AssetImage('assets/icons/logo/hora.png'),
               fit: BoxFit.cover);
   return Container(
     width: 60,
@@ -485,7 +485,7 @@ Widget line(BuildContext context) {
 Widget line2(BuildContext context) {
   return Container(
     margin: const EdgeInsets.only(top: 5, bottom: 5),
-    color: Color.fromARGB(125, 135, 135, 135),
+    color: const Color.fromARGB(125, 135, 135, 135),
     width: MediaQuery.of(context).size.width,
     height: 0.5,
   );

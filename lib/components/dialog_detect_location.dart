@@ -34,11 +34,11 @@ class DialogDetectLocation extends HookConsumerWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Row(
+                  const Row(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Icon(
                         CupertinoIcons.map_pin_ellipse,
                         size: 50,

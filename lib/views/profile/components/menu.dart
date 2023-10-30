@@ -41,7 +41,7 @@ Widget menuProfile(BuildContext context, String title, IconData iconData,
                               fontSize: 16,
                               color: title == "Keluar"
                                   ? colorBluePrimary2
-                                  : Color.fromRGBO(51, 51, 51, 1)),
+                                  : const Color.fromRGBO(51, 51, 51, 1)),
                         ),
                       )
                     ],

@@ -1,7 +1,5 @@
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class HadirLocationResult extends StatefulWidget {
   const HadirLocationResult({super.key});
@@ -15,7 +13,7 @@ class _HadirLocationResultState extends State<HadirLocationResult> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     Get.put(HomeController());
     return GetBuilder<HomeController>(
@@ -30,7 +28,7 @@ class _HadirLocationResultState extends State<HadirLocationResult> {
               automaticallyImplyLeading: false,
               actions: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
                   color: Colors.transparent,
                   child: Row(
@@ -45,8 +43,8 @@ class _HadirLocationResultState extends State<HadirLocationResult> {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
-                          padding: EdgeInsets.all(10),
-                          child: Icon(FeatherIcons.arrowLeft),
+                          padding: const EdgeInsets.all(10),
+                          child: const Icon(FeatherIcons.arrowLeft),
                         ),
                       ),
                       GestureDetector(
@@ -59,7 +57,7 @@ class _HadirLocationResultState extends State<HadirLocationResult> {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           child: Image.asset(
                             'assets/icons/ic_screen_shot.png',
                             width: 24,
@@ -74,7 +72,7 @@ class _HadirLocationResultState extends State<HadirLocationResult> {
           body: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 // image: DecorationImage(
                 //     image: NetworkImage(changeUrlImage(Get.arguments.toString() ??
                 //         'wwwroot/Images/CompanyLogo/logo_hora.png')),

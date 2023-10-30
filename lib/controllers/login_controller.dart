@@ -43,12 +43,12 @@ class LoginController extends GetxController {
           customSnackbar1("Periksa kotak masuk email anda.");
         }
       } else {
-        print("EMAIL KIRIM ERROR: " + response.toString());
+        debugPrint("EMAIL KIRIM ERROR: $response");
         Get.back();
         customSnackbar1("Email telah terdaftar");
       }
     } catch (e) {
-      print("CATCH EMAIL KIRIM: " + e.toString());
+      debugPrint("CATCH EMAIL KIRIM: $e");
       Get.back();
       customSnackbar1("Email anda belum terdaftar.");
       Get.offAllNamed(RouteName.login);

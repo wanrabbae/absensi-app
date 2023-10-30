@@ -1,6 +1,5 @@
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
-import 'components/layout_map.dart';
 
 class AbsensiPulangScreenView extends StatefulWidget {
   const AbsensiPulangScreenView({super.key});
@@ -11,18 +10,18 @@ class AbsensiPulangScreenView extends StatefulWidget {
 }
 
 class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int _currentPageIndex = 0;
   var isDrag = true;
-  Set<Marker> _markers = {};
+  final Set<Marker> _markers = {};
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     var currentAbsen = Get.arguments?["dataAbsen"] ?? {};
-    var idAbsen = Get.arguments?["dataAbsen"]?["id"] ?? null;
+    var idAbsen = Get.arguments?["dataAbsen"]?["id"];
 
     final Completer<GoogleMapController> googleMapController =
         Completer<GoogleMapController>();
@@ -105,13 +104,13 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
                       Get.back();
                     },
                     child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(50.0)),
-                        child: Icon(FeatherIcons.arrowLeft)),
+                        child: const Icon(FeatherIcons.arrowLeft)),
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.topRight,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -125,7 +124,7 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
             ),
           ],
         ),
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Stack(
@@ -154,7 +153,7 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
                         color:
                             _currentPageIndex == 0 ? Colors.white : Colors.grey,
                       ),
-                      SizedBox(width: 7),
+                      const SizedBox(width: 7),
                       Icon(
                         Icons.circle,
                         size: 14,
@@ -191,13 +190,13 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
                               onPressed: () {
                                 s.mulaiSelesaiAbsen(context, idAbsen);
                               },
-                              style: ButtonStyle(
+                              style: const ButtonStyle(
                                   backgroundColor: MaterialStatePropertyAll(
                                       // s.klikAbsen
                                       //     ? colorGrayPrimary
                                       //     : colorBluePrimary
                                       colorBluePrimary),
-                                  shape: const MaterialStatePropertyAll(
+                                  shape: MaterialStatePropertyAll(
                                       (RoundedRectangleBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20)))))),

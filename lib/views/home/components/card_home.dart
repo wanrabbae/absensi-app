@@ -96,13 +96,13 @@ Widget dataHome(BuildContext context, s, isHadir) {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
+                                SizedBox(
                                   width: 150,
                                   child: RichText(
                                     overflow: TextOverflow.ellipsis,
-                                    strutStyle: StrutStyle(fontSize: 12.0),
+                                    strutStyle: const StrutStyle(fontSize: 12.0),
                                     text: TextSpan(
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.w700,
                                             fontSize: 16),
@@ -114,10 +114,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                 // for
                                 Text(
                                     getTimeFromDatetime(isHadir
-                                        ? s.absen[index]["waktuCheckOut"] ==
-                                                null
-                                            ? s.absen[index]['waktuCheckIn']
-                                            : s.absen[index]["waktuCheckOut"]
+                                        ? s.absen[index]["waktuCheckOut"] ?? s.absen[index]['waktuCheckIn']
                                         : s.izin[index]['tanggalStart']),
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w500,
@@ -159,7 +156,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                             child: Text(s.izin[index]?["ijin"],
                                                 maxLines: 1,
                                                 softWrap: true,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     fontWeight: FontWeight.w500,
                                                     fontSize: 12,
                                                     color: Colors.black)),
@@ -216,23 +213,23 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                               : "",
                                           maxLines: 1,
                                           softWrap: true,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               fontSize: 12,
                                               color: Colors.black)),
                                     ),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 20,
                                   ),
                                   isHadir
                                       ? s.absen[index]["waktuCheckOut"] == null
-                                          ? Icon(
+                                          ? const Icon(
                                               Icons.circle,
                                               color: colorGreenPrimary2,
                                               size: 10,
                                             )
-                                          : Text("")
+                                          : const Text("")
                                       : Container()
                                 ],
                               ),

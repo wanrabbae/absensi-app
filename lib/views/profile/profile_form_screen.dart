@@ -14,22 +14,22 @@ class ProfileFormScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.white,
           centerTitle: false,
-          title: Text(
+          title: const Text(
             'Sunting',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
           ),
           leading: Container(
-            padding: EdgeInsets.only(left: 3),
+            padding: const EdgeInsets.only(left: 3),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 IconButton(
-                  icon: Icon(FeatherIcons.x),
+                  icon: const Icon(FeatherIcons.x),
                   onPressed: () {
                     Get.back();
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 0,
                 ),
                 // // Padding(padding: EdgeInsets.only(right: 20)),
@@ -48,7 +48,7 @@ class ProfileFormScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 20),
                 child: GestureDetector(
                   onTap: () => s.editData(),
-                  child: SizedBox(
+                  child: const SizedBox(
                     child: Center(
                       child: Icon(
                         FeatherIcons.userCheck,

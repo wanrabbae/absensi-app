@@ -1,6 +1,6 @@
 import 'package:app/global_resource.dart';
 
-TextStyle rubikTextStyle = TextStyle(fontFamily: 'Rubik');
+TextStyle rubikTextStyle = const TextStyle(fontFamily: 'Rubik');
 
 class MainTheme {
   const MainTheme._();

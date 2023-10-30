@@ -9,7 +9,7 @@ Widget formData(s, context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              child: Text(
+              child: const Text(
                 "Masuk",
                 style: TextStyle(
                     fontSize: 20,
@@ -29,8 +29,8 @@ Widget formData(s, context) {
                 },
                 onChanged: (value) => s.emailForm = value,
                 keyboardType: TextInputType.emailAddress,
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                decoration: InputDecoration(
+                style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                decoration: const InputDecoration(
                   hintText: "Gunakan e-mail anda",
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 1.5),
@@ -42,7 +42,7 @@ Widget formData(s, context) {
               ),
             ),
             Container(
-              child: Text(
+              child: const Text(
                 "Masuk menggunakan e-mail yang telah diundang sebelumnya.",
                 style:
                     TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),

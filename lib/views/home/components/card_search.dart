@@ -48,13 +48,13 @@ Widget dataSearch(BuildContext context, s) {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Container(
+                                SizedBox(
                                   width: 150,
                                   child: RichText(
                                     overflow: TextOverflow.ellipsis,
-                                    strutStyle: StrutStyle(fontSize: 12.0),
+                                    strutStyle: const StrutStyle(fontSize: 12.0),
                                     text: TextSpan(
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.w700,
                                             fontSize: 16),

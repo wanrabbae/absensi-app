@@ -65,7 +65,7 @@ class AbsenController extends GetxController {
     if (findDataIzin != null) izinData = findDataIzin;
 
     if (!klikAbsen && findData == null) {
-      print("BELUM ABSEN");
+      debugPrint("BELUM ABSEN");
       getCurrentLocation();
     }
 
@@ -75,15 +75,15 @@ class AbsenController extends GetxController {
     );
 
     if (klikAbsen && timer?.isActive) {
-      print("TEST TOAST");
-      print("DATA CHECKIN: " + findDataOnCheckIn.toString());
-      print("STATUS STATE: " + statusState.toString());
+      debugPrint("TEST TOAST");
+      debugPrint("DATA CHECKIN: $findDataOnCheckIn");
+      debugPrint("STATUS STATE: $statusState");
       mulaiPulangRevisi1(findDataOnCheckIn?['id']);
     }
   }
 
   updateStatusStateFromNotif() {
-    print("UPDATE STATE YOYY");
+    debugPrint("UPDATE STATE YOYY");
     statusState = "dariNotif";
     update();
   }
@@ -103,7 +103,7 @@ class AbsenController extends GetxController {
     );
 
     if (checkData == null) {
-      print("===== CHECK DATA NULL ====");
+      debugPrint("===== CHECK DATA NULL ====");
       box.remove(Base.klikAbsen);
       box.remove(Base.waktuAbsen);
       cancelTimer();
@@ -111,7 +111,7 @@ class AbsenController extends GetxController {
 
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (klikAbsen) {
-        print("KE IF TIMER 1");
+        debugPrint("KE IF TIMER 1");
         timerRecor = timerAbsen4();
       } else if (findData != null) {
         timerRecor = timerAbsen3(findData?["waktuCheckIn"], null);
@@ -125,7 +125,7 @@ class AbsenController extends GetxController {
   }
 
   cancelTimer() {
-    print("CANCEL TIMER ABSEN");
+    debugPrint("CANCEL TIMER ABSEN");
     timer?.cancel();
     timer = null;
   }
@@ -148,7 +148,7 @@ class AbsenController extends GetxController {
       LocationPermission permission;
 
       await Permission.location.serviceStatus.isEnabled.then((value) {
-        print("LOCATION: " + value.toString());
+        debugPrint("LOCATION: $value");
         if (!value) {
           Permission.location.request();
         }
@@ -191,7 +191,7 @@ class AbsenController extends GetxController {
   lokasiDetect() async {
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
-    // print("========== TEST TOST YOYYYY =======");
+    // debugPrint("========== TEST TOST YOYYYY =======");
     // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
@@ -202,7 +202,7 @@ class AbsenController extends GetxController {
       customSnackbarLoadingAsset(
           "Titik lokasi anda ditemukan.", "images/check-gif.gif");
       Future.delayed(
-        Duration(seconds: 2),
+        const Duration(seconds: 2),
         () {
           Get.back();
           mulaiAbsen();
@@ -292,7 +292,7 @@ class AbsenController extends GetxController {
   }
 
   lokasiDetectPulang(idAbsen) async {
-    print("ID ABSEN FROM DETECTED: " + idAbsen.toString());
+    debugPrint("ID ABSEN FROM DETECTED: $idAbsen");
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
     // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
@@ -303,7 +303,7 @@ class AbsenController extends GetxController {
       Get.back();
       customSnackbarLoadingAsset(
           "Titik lokasi anda ditemukan.", "images/check-gif.gif");
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         Get.back();
         mulaiPulangAct(idAbsen);
       });
@@ -336,7 +336,7 @@ class AbsenController extends GetxController {
       Get.back();
       customSnackbarLoadingAsset(
           "Titik lokasi anda ditemukan.", "images/check-gif.gif");
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         Get.back();
         mulaiPulangAct2(idAbsen);
       });
@@ -570,8 +570,8 @@ class AbsenController extends GetxController {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
         // Get.snackbar('Oops.. terjadi kesalahan sistem.', response.toString());
-        // print("INI HADIR: " + (response as Response<dynamic>).toString());
-        // print("CODE: " + response.statusCode.toString());
+        // debugPrint("INI HADIR: " + (response as Response<dynamic>).toString());
+        // debugPrint("CODE: " + response.statusCode.toString());
       }
     } catch (e) {
       // customSnackbar1("Menghubungkan kembali...");
@@ -592,8 +592,8 @@ class AbsenController extends GetxController {
         // Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
         // Get.snackbar('Oops.. terjadi kesalahan sistem.', response.toString());
-        // print("INI HADIR: " + (response as Response<dynamic>).toString());
-        // print("CODE: " + response.statusCode.toString());
+        // debugPrint("INI HADIR: " + (response as Response<dynamic>).toString());
+        // debugPrint("CODE: " + response.statusCode.toString());
       }
     } catch (e) {
       // customSnackbar1("Menghubungkan kembali...");
@@ -604,10 +604,10 @@ class AbsenController extends GetxController {
   absenPulang(status, idAbsen) async {
     var currentDate = DateTime.now();
     var newDate =
-        new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
+        DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
             .toString()
             .split(" ")[0];
-    print("ID ABSEN PULANG: " + idAbsen.toString());
+    debugPrint("ID ABSEN PULANG: $idAbsen");
     try {
       // if (status) {
       //   customSnackbarLoading("Sedang Pulang...");
@@ -649,13 +649,13 @@ class AbsenController extends GetxController {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
       } else if (response.statusCode == 400) {
-        print("STATUS CODE 400");
+        debugPrint("STATUS CODE 400");
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
       } else {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
-        print("INI PULANG: " + response.toString());
+        debugPrint("INI PULANG: $response");
       }
     } catch (e) {
       print(e);
@@ -664,13 +664,13 @@ class AbsenController extends GetxController {
   }
 
   absenPulang2(status, idAbsen) async {
-    print("PULANG YOYY");
+    debugPrint("PULANG YOYY");
     var currentDate = DateTime.now();
     var newDate =
-        new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
+        DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
             .toString()
             .split(" ")[0];
-    print("ID ABSEN PULANG: " + idAbsen.toString());
+    debugPrint("ID ABSEN PULANG: $idAbsen");
     try {
       // if (status) {
       //   customSnackbarLoading("Sedang Pulang...");
@@ -686,7 +686,7 @@ class AbsenController extends GetxController {
         },
         'AlamatPulang': alamatLocPulang,
       };
-      print("FORMS PULANG 2: " + forms.toString());
+      debugPrint("FORMS PULANG 2: $forms");
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       print(response);
@@ -707,7 +707,7 @@ class AbsenController extends GetxController {
       } else {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
-        print("INI PULANG: " + response.toString());
+        debugPrint("INI PULANG: $response");
       }
     } catch (e) {
       print(e);
@@ -754,7 +754,7 @@ class AbsenController extends GetxController {
         //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
       }
     } catch (e) {
-      print("KE CATCH");
+      debugPrint("KE CATCH");
       // print(e);
       // customSnackbar1("Terjadi kesalahan");
       box.write(Base.izinAbsen, DateTime.now().toString());

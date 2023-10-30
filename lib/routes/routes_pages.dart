@@ -30,11 +30,11 @@ class Routes {
 
 //Start Home
     //Home
-    GetPage(name: RouteName.home, page: () => MainScreen()),
+    GetPage(name: RouteName.home, page: () => const MainScreen()),
     //Home
     GetPage(name: RouteName.homeSearch, page: () => const HomeSearchScreen()),
     //Home Undangan
-    GetPage(name: RouteName.homeUndangan, page: () => HomeUndanganScreen()),
+    GetPage(name: RouteName.homeUndangan, page: () => const HomeUndanganScreen()),
     GetPage(
         name: RouteName.companyFullScreen,
         page: () => const CompanyFullScreen()),
@@ -65,16 +65,16 @@ class Routes {
 
 //Start Absensi
     //Absen
-    GetPage(name: RouteName.absen, page: () => AbsensiScreen()),
+    GetPage(name: RouteName.absen, page: () => const AbsensiScreen()),
     GetPage(
         name: RouteName.absenPulangView,
         page: () => const AbsensiPulangScreenView()),
-    GetPage(name: RouteName.absenViewMode, page: () => AbsensiScreenView()),
+    GetPage(name: RouteName.absenViewMode, page: () => const AbsensiScreenView()),
     //Izin
-    GetPage(name: RouteName.absenIzin, page: () => AbsensiIzinScreen()),
+    GetPage(name: RouteName.absenIzin, page: () => const AbsensiIzinScreen()),
     GetPage(
         name: RouteName.absenIzinDownloaded,
-        page: () => AbsensiIzinDownloadedScreen()),
+        page: () => const AbsensiIzinDownloadedScreen()),
 //End Absensi
 
 //Start WebView

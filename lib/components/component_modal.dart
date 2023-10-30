@@ -42,11 +42,11 @@ Widget modalSelectCompany(BuildContext context, s) {
                 alignment: Alignment.center,
                 width: double.infinity,
                 child: SingleChildScrollView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   child: ListView.separated(
                     itemCount: 1,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     // scrollDirection: Axis.horizontal,
                     separatorBuilder: (ctx, pos) => const Divider(
                       color: Color.fromRGBO(238, 240, 244, 1),
@@ -66,9 +66,9 @@ Widget modalSelectCompany(BuildContext context, s) {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Text(
+                              const Text(
                                 "Perusahaan",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize: 16,
                                 ),
@@ -231,7 +231,7 @@ Widget customDialogLoadingImage(
       backgroundColor: Colors.transparent,
       elevation: 0,
       titlePadding: EdgeInsets.zero,
-      content: Container(
+      content: SizedBox(
         height: 300,
         child: Column(
           children: [
@@ -249,7 +249,7 @@ Widget customDialogLoadingImage(
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 20),
               child: Text(
                 msg,
                 style: const TextStyle(
@@ -283,9 +283,9 @@ Widget customDialogOk(BuildContext context, String msg) {
             onPressed: () {
               Get.back();
             },
-            child: Text(
+            child: const Text(
               'Ok',
-              style: const TextStyle(
+              style: TextStyle(
                   fontSize: 14,
                   color: colorBluePrimary,
                   fontWeight: FontWeight.w500),

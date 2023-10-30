@@ -1,10 +1,6 @@
 import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
-import 'package:app/helpers/notification_local.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'components/card_home.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,11 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String curentDate = DateTime.now().day.toString().padLeft(2, '0') +
-      "/" +
-      DateTime.now().month.toString().padLeft(2, '0') +
-      "/" +
-      DateTime.now().year.toString();
+  String curentDate = "${DateTime.now().day.toString().padLeft(2, '0')}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().year}";
 
   var hadirHighlight = true;
   var izinHighlight = false;
@@ -29,13 +21,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     // Permission.location.serviceStatus.isEnabled.then((value) {
-    //   print("LOCATION: " + value.toString());
+    //   debugPrint("LOCATION: " + value.toString());
     //   if (!value) {
     //     Permission.location.request();
     //   }
     // });
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     Get.put(HomeController());
     return GetBuilder<HomeController>(
@@ -55,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                  margin: EdgeInsets.only(top: 50, left: 20, right: 20),
+                  margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -68,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             s.dataSearch();
                           },
                           child: Container(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 15, horizontal: 15),
                             width: 200,
                             decoration: BoxDecoration(
@@ -78,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     width: 2),
                                 borderRadius: BorderRadius.circular(20),
                                 color: colorBlueOpacity2),
-                            child: Row(
+                            child: const Row(
                               children: [
                                 Icon(
                                   FeatherIcons.search,
@@ -101,19 +93,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       IconButton(
                           onPressed: () {
                             Get.toNamed(RouteName.homeUndangan);
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             FeatherIcons.userPlus,
                             size: 30,
                             color: colorBluePrimary,
                           )),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       GestureDetector(
@@ -121,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           showModalBottomSheet(
                               context: context,
                               backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
                                 topRight: Radius.circular(20),
@@ -147,21 +139,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ? colorBlueOpacity
                                     : Colors.white),
                             padding:
-                                MaterialStatePropertyAll(EdgeInsets.all(5))),
+                                const MaterialStatePropertyAll(EdgeInsets.all(5))),
                         onPressed: () {
                           setState(() {
                             hadirHighlight = true;
                             izinHighlight = false;
                           });
                         },
-                        child: Text(
+                        child: const Text(
                           "Hadir",
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'Rubik'),
                         )),
-                    SizedBox(
+                    const SizedBox(
                       width: 5,
                     ),
                     TextButton(
@@ -171,14 +163,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ? colorBlueOpacity
                                     : Colors.white),
                             padding:
-                                MaterialStatePropertyAll(EdgeInsets.all(5))),
+                                const MaterialStatePropertyAll(EdgeInsets.all(5))),
                         onPressed: () {
                           setState(() {
                             izinHighlight = true;
                             hadirHighlight = false;
                           });
                         },
-                        child: Text(
+                        child: const Text(
                           "Izin",
                           style: TextStyle(
                             color: Colors.black,
@@ -219,29 +211,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                   initialDatePickerMode: DatePickerMode.day)
                               .then((value) {
                             setState(() {
-                              curentDate = DateTime.parse(value.toString())
+                              curentDate = "${DateTime.parse(value.toString())
                                       .day
                                       .toString()
-                                      .padLeft(2, "0") +
-                                  "/" +
-                                  DateTime.parse(value.toString())
+                                      .padLeft(2, "0")}/${DateTime.parse(value.toString())
                                       .month
                                       .toString()
-                                      .padLeft(2, "0") +
-                                  "/" +
-                                  DateTime.parse(value.toString())
-                                      .year
-                                      .toString();
+                                      .padLeft(2, "0")}/${DateTime.parse(value.toString())
+                                      .year}";
                             });
                             s.gantiTanggal(value);
                           });
                         },
-                        child: Row(
+                        child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               FeatherIcons.calendar,
                               color: colorBluePrimary,
                               size: 20,
@@ -254,9 +241,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Expanded(
-                  child: s.absen!.length == 0 && hadirHighlight
+                  child: s.absen!.isEmpty && hadirHighlight
                       ? Container(
-                          padding: EdgeInsets.only(bottom: 70),
+                          padding: const EdgeInsets.only(bottom: 70),
                           child: Center(
                               child: Image.asset(
                             'assets/icons/absen-ilus.png',
@@ -264,9 +251,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 321,
                           )),
                         )
-                      : s.izin!.length == 0 && izinHighlight
+                      : s.izin!.isEmpty && izinHighlight
                           ? Container(
-                              padding: EdgeInsets.only(bottom: 70),
+                              padding: const EdgeInsets.only(bottom: 70),
                               child: Center(
                                   child: Image.asset(
                                 'assets/icons/aizin-ilus.png',
@@ -278,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
           floatingActionButton: hadirHighlight
-              ? Container(
+              ? SizedBox(
                   // padding: EdgeInsets.only(bottom: 20),
                   width: 150,
                   child: FloatingActionButton.extended(
@@ -287,7 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                     onPressed: () async {
                       if (s.isPresentHadir!) {
-                        print("test");
+                        debugPrint("test");
                         customSnackbar1("Kehadiran hari ini telah terisi.");
                       } else {
                         s.absensi(context);
@@ -316,14 +303,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             backgroundColor: s.isPresentIzin!
                                 ? Colors.grey.shade400
                                 : colorBlueOpacity2,
-                            child: Icon(
+                            child: const Icon(
                               FeatherIcons.paperclip,
                               color: Colors.black,
                               size: 24,
                             ),
                             onPressed: () {
                               if (s.isPresentIzin!) {
-                                print("test");
+                                debugPrint("test");
                                 customSnackbar1(
                                     "Kehadiran hari ini telah terisi.");
                               } else {
@@ -335,7 +322,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       FloatingActionButton(
@@ -350,7 +337,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         onPressed: () {
                           if (s.isPresentIzin!) {
-                            print("test");
+                            debugPrint("test");
                             customSnackbar1("Kehadiran hari ini telah terisi.");
                           } else {
                             ImagePicker()

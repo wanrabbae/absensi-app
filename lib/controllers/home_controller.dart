@@ -1,6 +1,4 @@
-import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class HomeController extends GetxController {
   //Global
@@ -30,13 +28,13 @@ class HomeController extends GetxController {
   @override
   void onInit() async {
     // await Permission.location.serviceStatus.isEnabled.then((value) {
-    //   print("LOCATION: " + value.toString());
+    //   debugPrint("LOCATION: " + value.toString());
     //   if (!value) {
     //     Permission.location.request();
     //   }
     // });
-    print("TOKEN: " + GetStorage().read("tokens"));
-    print("KLIK ABSEN: " + klikAbsen.toString());
+    debugPrint("TOKEN: " + GetStorage().read("tokens"));
+    debugPrint("KLIK ABSEN: $klikAbsen");
     super.onInit();
     user = box.read(Base.dataUser);
     klikAbsen = GetStorage().read(Base.klikAbsen) ?? false;
@@ -93,10 +91,10 @@ class HomeController extends GetxController {
     //   //   await IzinController().absenPulang(false, findData?[0]["id"]);
     //   // } else
     //   if (klikAbsen) {
-    //     print("KE ELSE IF 1");
+    //     debugPrint("KE ELSE IF 1");
     //     timerRecor = timerAbsen();
     //   } else if (findData != null) {
-    //     print("KE ELSE IF 2");
+    //     debugPrint("KE ELSE IF 2");
     //     timerRecor = timerAbsen2(findData?["waktuCheckIn"]);
     //     box.write(Base.waktuAbsen, findData?["waktuCheckIn"].toString());
     //     box.write(Base.klikAbsen, true);
@@ -112,7 +110,7 @@ class HomeController extends GetxController {
   }
 
   cancelTimer() {
-    print("CANCEL TIMER HOME");
+    debugPrint("CANCEL TIMER HOME");
     timer?.cancel();
     timer = null;
   }
@@ -123,11 +121,11 @@ class HomeController extends GetxController {
     } else {
       if (klikAbsen) {
         print(absen);
-        print("=======KE PULANG========");
+        debugPrint("=======KE PULANG========");
         var tanggal = currentDate.toString().split(" ")[0];
         var response =
             await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
-        print("DATA ABSEN: " + response.data.length.toString());
+        debugPrint("DATA ABSEN: ${response.data.length}");
 
         box.write(Base.waktuAbsen, response.data?[0]["waktuCheckIn"]);
         Get.back();
@@ -143,7 +141,7 @@ class HomeController extends GetxController {
           //   customSnackbar1("Kehadiran hari ini telah terisi.");
           // } else {
           // Get.back();
-          print("TEST KE IF 1 YOYYYY");
+          debugPrint("TEST KE IF 1 YOYYYY");
           Get.toNamed(RouteName.absen);
           // }
         } else {
@@ -173,7 +171,7 @@ class HomeController extends GetxController {
 
   gantiTanggal(tgl) {
     if (tgl != null) {
-      print("======== TEST GANTI TANGGAL =======");
+      debugPrint("======== TEST GANTI TANGGAL =======");
       currentDate = tgl.toString();
       absen?.removeRange(0, absen!.length);
       izin?.removeRange(0, izin!.length);
@@ -206,11 +204,11 @@ class HomeController extends GetxController {
     try {
       var response =
           await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
-      print("DATA ABSEN: " + response.data.length.toString());
+      debugPrint("DATA ABSEN: ${response.data.length}");
       if (response.data.length == 1 &&
           response.data?[0]["waktuCheckOut"] == null) {
         // timer!.cancel();
-        print("ABSEN JALAN YOYY");
+        debugPrint("ABSEN JALAN YOYY");
 
         box.write(Base.waktuAbsen, response.data[0]?["waktuCheckIn"]);
         box.write(Base.klikAbsen, true);
@@ -222,7 +220,7 @@ class HomeController extends GetxController {
       } else if (response.data.length == 0 && isDateGreaterThanToday ||
           isDateSmallerThanToday) {
         // timer.cancel();
-        print("ABSEN GK JALAN YOYY");
+        debugPrint("ABSEN GK JALAN YOYY");
         timerRecor = "00:00:00";
         timer = null;
         cancelTimer();
@@ -240,7 +238,7 @@ class HomeController extends GetxController {
         }
         update();
       } else {
-        print(" ==== KE ELSE CHECK ANY ABSEN ====");
+        debugPrint(" ==== KE ELSE CHECK ANY ABSEN ====");
         print(isDateGreaterThanToday);
         print(isDateSmallerThanToday);
         timer = null;
@@ -270,19 +268,19 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       // customSnackbar1('Oops.. terjadi kesalahan sistem.');
-      print("KE CATCH CHECK ANY ABSEN");
+      debugPrint("KE CATCH CHECK ANY ABSEN");
       print(e);
     }
 
     if (findData != null) {
-      print("IZIN DATA: " + findData.toString());
+      debugPrint("IZIN DATA: $findData");
       isPresentHadir = true;
       isPresentIzin = true;
       update();
     }
 
-    print("IS HADIR: " + isPresentHadir.toString());
-    print("IS IZIN: " + isPresentIzin.toString());
+    debugPrint("IS HADIR: $isPresentHadir");
+    debugPrint("IS IZIN: $isPresentIzin");
   }
 
   gambarAbsen(data, status) {
@@ -351,7 +349,7 @@ class HomeController extends GetxController {
         customSnackbar1("Menghubungkan kembali...");
       }
     } catch (e) {
-      print("ERROR PERUSAHAAN: " + e.toString());
+      debugPrint("ERROR PERUSAHAAN: $e");
       // SplashController().sessionHabis(user?['alamatEmail']);
       // Get.snackbar('Sesi habis', '');
       customSnackbar1("Menghubungkan kembali...");
@@ -453,7 +451,7 @@ class HomeController extends GetxController {
   }
 
   // checkIsAbsen() {
-  //   print("CHECK ABS");
+  //   debugPrint("CHECK ABS");
   //   DateTime dateCurrent = DateTime.now();
   //   String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
   //   var idKaryawan = user?["idkaryawan"];
@@ -482,7 +480,7 @@ class HomeController extends GetxController {
   //     // cancelTimer();
   //     update();
   //   } else if (findData != null) {
-  //     print("KESEINI ELSE IF 2");
+  //     debugPrint("KESEINI ELSE IF 2");
   //     isPresentHadir = false;
   //     update();
   //   } else if (findDataPulang != null) {
@@ -490,19 +488,19 @@ class HomeController extends GetxController {
   //     // cancelTimer();
   //     update();
   //   } else if (findData != null && findDataPulang != null) {
-  //     print("KESINI ELSE IF 3");
+  //     debugPrint("KESINI ELSE IF 3");
   //     isPresentHadir = true;
   //     // cancelTimer();
   //     update();
   //   } else {
-  //     print("KESINI ELSE");
+  //     debugPrint("KESINI ELSE");
   //     isPresentHadir = false;
   //     update();
   //   }
   // }
 
   // checkIsIzin() {
-  //   print("CHECK izn");
+  //   debugPrint("CHECK izn");
   //   DateTime dateCurrent = DateTime.now();
   //   String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
   //   var idKaryawan = user?["idkaryawan"];

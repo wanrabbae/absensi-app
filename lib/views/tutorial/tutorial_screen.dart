@@ -45,7 +45,7 @@ class TutorialScreen extends StatelessWidget {
                 top: 60,
                 child: customHeaderAuth2(context, "HORA", "Petunjuk Pemakaian"),
               ),
-              Center(
+              const Center(
                 child: Image(
                   image: AssetImage("assets/icons/tutorial2.png"),
                 ),
@@ -71,7 +71,7 @@ class TutorialScreen extends StatelessWidget {
                           // const SizedBox(
                           //   height: 5,
                           // ),
-                          Text(
+                          const Text(
                             "Anda sudah mengerti?",
                             textAlign: TextAlign.center,
                             style: TextStyle(

@@ -1,4 +1,3 @@
-import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
 import 'components/menu.dart';
 
@@ -12,7 +11,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final _pageViewController = PageController();
 
-  int _activePage = 1;
+  final int _activePage = 1;
 
   @override
   void dispose() {
@@ -112,8 +111,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               line2(context),
-                              Padding(
-                                padding: const EdgeInsets.only(
+                              const Padding(
+                                padding: EdgeInsets.only(
                                     left: 20, right: 20, top: 20),
                                 child: Text(
                                   "Tentang",

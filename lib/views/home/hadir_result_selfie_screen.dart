@@ -1,7 +1,5 @@
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class HasilHadirScreen extends StatefulWidget {
   const HasilHadirScreen({super.key});
@@ -14,7 +12,7 @@ class _HasilHadirScreenState extends State<HasilHadirScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     Get.put(HomeController());
     return GetBuilder<HomeController>(
@@ -29,7 +27,7 @@ class _HasilHadirScreenState extends State<HasilHadirScreen> {
               automaticallyImplyLeading: false,
               actions: [
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
                   width: MediaQuery.of(context).size.width,
                   color: Colors.transparent,
                   child: Row(
@@ -44,8 +42,8 @@ class _HasilHadirScreenState extends State<HasilHadirScreen> {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
-                          padding: EdgeInsets.all(10),
-                          child: Icon(FeatherIcons.arrowLeft),
+                          padding: const EdgeInsets.all(10),
+                          child: const Icon(FeatherIcons.arrowLeft),
                         ),
                       ),
                       GestureDetector(
@@ -61,7 +59,7 @@ class _HasilHadirScreenState extends State<HasilHadirScreen> {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           child: Image.asset(
                             'assets/icons/ic_screen_shot.png',
                             width: 24,

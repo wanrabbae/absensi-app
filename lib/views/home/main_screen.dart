@@ -1,10 +1,9 @@
 import 'package:app/global_resource.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'components/card_home.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
@@ -15,16 +14,16 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    PageController _pageViewController =
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    PageController pageViewController =
         PageController(initialPage: Get.arguments ?? 0);
 
     return Scaffold(
       body: PageView(
-        controller: _pageViewController,
-        children: [HomeScreen(), ProfileScreen()],
+        controller: pageViewController,
+        children: const [HomeScreen(), ProfileScreen()],
         onPageChanged: (index) {
-          // print("TEST GESER");
+          // debugPrint("TEST GESER");
           setState(() {
             _activePage = index;
             // widget.index = null;
@@ -53,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
                   height: 30,
                 ),
                 label: "Kerja"),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(
                 FeatherIcons.user,
                 size: 30,
@@ -81,8 +80,8 @@ class _MainScreenState extends State<MainScreen> {
             // setState(() {
             //   widget.index = null;
             // });
-            _pageViewController.animateToPage(index,
-                duration: Duration(milliseconds: 200), curve: Curves.easeIn);
+            pageViewController.animateToPage(index,
+                duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
           },
         ),
       ),

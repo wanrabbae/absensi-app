@@ -1,6 +1,4 @@
 import 'package:app/global_resource.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'components/login_form.dart';
 import 'dart:math' as math;
 
@@ -38,11 +36,11 @@ class LoginScreen extends StatelessWidget {
                         Get.back();
                       },
                       child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
-                          child: Icon(FeatherIcons.x)),
+                          child: const Icon(FeatherIcons.x)),
                     ),
                   ),
                 ),
@@ -57,13 +55,13 @@ class LoginScreen extends StatelessWidget {
                         s.emailKirim(null, 2);
                       },
                       child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
                           child: Transform.rotate(
                             angle: math.pi / 4,
-                            child: Icon(
+                            child: const Icon(
                               FeatherIcons.send,
                               color: colorBluePrimary,
                             ),
@@ -101,7 +99,7 @@ class LoginScreen extends StatelessWidget {
                                 color: Colors.grey.shade500,
                                 fontWeight: FontWeight.w500),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           GestureDetector(
@@ -109,12 +107,12 @@ class LoginScreen extends StatelessWidget {
                               customSnackbar1(Base.connected);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20)),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   "Cek koneksi",
                                   style: TextStyle(

@@ -1,5 +1,4 @@
 import 'package:app/global_resource.dart';
-import 'package:flutter/cupertino.dart';
 import 'components/verify_otp_form.dart';
 import 'dart:math' as math;
 
@@ -38,11 +37,11 @@ class VerifyOtpScreen extends StatelessWidget {
                         Get.back();
                       },
                       child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
-                          child: Icon(FeatherIcons.arrowLeft)),
+                          child: const Icon(FeatherIcons.arrowLeft)),
                     ),
                   ),
                 ),
@@ -57,13 +56,13 @@ class VerifyOtpScreen extends StatelessWidget {
                         s.otpKirim(emailBefore);
                       },
                       child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
                           child: Transform.rotate(
                             angle: math.pi / 4,
-                            child: Icon(
+                            child: const Icon(
                               FeatherIcons.send,
                               color: colorBluePrimary,
                             ),
@@ -101,7 +100,7 @@ class VerifyOtpScreen extends StatelessWidget {
                                 color: Colors.grey.shade500,
                                 fontWeight: FontWeight.w500),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           GestureDetector(
@@ -109,12 +108,12 @@ class VerifyOtpScreen extends StatelessWidget {
                               s.emailKirim(emailBefore, 1);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20)),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   "Kirim ulang OTP",
                                   style: TextStyle(

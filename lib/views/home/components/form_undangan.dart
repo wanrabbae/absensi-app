@@ -9,7 +9,7 @@ Widget formUndangan(s, context) {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              child: Text(
+              child: const Text(
                 "Undang melalui email",
                 style: TextStyle(
                     fontSize: 20,
@@ -30,8 +30,8 @@ Widget formUndangan(s, context) {
                 autofocus: true,
                 onChanged: (value) => s.emailUndangan = value,
                 keyboardType: TextInputType.emailAddress,
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                decoration: InputDecoration(
+                style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                decoration: const InputDecoration(
                   hintText: "e-mail teman",
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 1.5),
@@ -43,7 +43,7 @@ Widget formUndangan(s, context) {
               ),
             ),
             Container(
-              child: Text(
+              child: const Text(
                 "Beritahu teman anda untuk segera memeriksa kotak masuk e-mail.",
                 style: TextStyle(color: Colors.grey),
               ),

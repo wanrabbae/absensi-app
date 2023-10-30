@@ -279,7 +279,7 @@ class AwesomeNotificationService {
   }
 
   Future<void> removeNotificationUnUsed() async {
-    print("HAPUS UN USED");
+    debugPrint("HAPUS UN USED");
     await AwesomeNotifications().cancel(329);
     await AwesomeNotifications().cancel(326);
     await AwesomeNotifications().cancel(543);

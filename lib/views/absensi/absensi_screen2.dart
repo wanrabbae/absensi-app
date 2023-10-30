@@ -1,6 +1,5 @@
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
-import 'components/layout_map.dart';
 
 class AbsensiScreenView extends StatefulWidget {
   const AbsensiScreenView({super.key});
@@ -18,19 +17,20 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
     final homeCtrl = Get.put(HomeController());
 
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     var currentAbsen = Get.arguments?["dataAbsen"] ?? {};
-    var idAbsen = Get.arguments?["dataAbsen"]?["id"] ?? null;
-    print("ID ABS: " + idAbsen.toString());
+    var idAbsen = Get.arguments?["dataAbsen"]?["id"];
+    debugPrint("ID ABS: $idAbsen");
     var findDataIzin = homeCtrl.izin?.firstWhere(
       (element) => element?["idkaryawan"] == currentAbsen?["idkaryawan"],
       orElse: () => null,
     );
-    if (findDataIzin != null)
+    if (findDataIzin != null) {
       setState(() {
         izinData = findDataIzin;
       });
+    }
 
     return DefaultTabController(
       initialIndex: 0,
@@ -42,7 +42,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
           backgroundColor: const Color.fromRGBO(238, 240, 244, 1),
           appBar: AppBar(
             leading: IconButton(
-              icon: Icon(FeatherIcons.arrowLeft),
+              icon: const Icon(FeatherIcons.arrowLeft),
               onPressed: () {
                 Get.back();
               },
@@ -59,15 +59,15 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                   unselectedLabelColor: Colors.black.withOpacity(0.3),
                   labelColor: Colors.black,
                   labelStyle:
-                      TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                      const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                   // padding: EdgeInsets.symmetric(horizontal: 70),
                   unselectedLabelStyle:
-                      TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                      const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
                   indicatorColor: colorBluePrimary2,
-                  indicatorPadding: EdgeInsets.only(bottom: 5),
+                  indicatorPadding: const EdgeInsets.only(bottom: 5),
                   indicatorWeight: 3,
                   indicatorSize: TabBarIndicatorSize.tab,
-                  tabs: [
+                  tabs: const [
                     Tab(
                       child: Text('Hadir',
                           style: TextStyle(
@@ -92,35 +92,35 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             padding: Platform.isAndroid
-                ? EdgeInsets.only(top: 100)
-                : EdgeInsets.only(top: 130),
+                ? const EdgeInsets.only(top: 100)
+                : const EdgeInsets.only(top: 130),
             color: Colors.white,
             child: Column(
               children: [
                 Expanded(
                   child: TabBarView(children: <Widget>[
                     Container(
-                      decoration: BoxDecoration(color: Colors.white),
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      decoration: const BoxDecoration(color: Colors.white),
+                      padding: const EdgeInsets.only(left: 20, right: 20),
                       // height: 100,
                       child: SingleChildScrollView(
                         child: Column(
                           // shrinkWrap: true,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Foto",
                               style: TextStyle(
                                   fontWeight: FontWeight.w700, fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
                               height: 320,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: Color(0xffF5F5F5),
+                                color: const Color(0xffF5F5F5),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: currentAbsen?['fotoKaryawan'] != null
@@ -148,7 +148,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                           width: 40,
                                           height: 40,
                                           decoration: BoxDecoration(
-                                              boxShadow: [
+                                              boxShadow: const [
                                                 BoxShadow(
                                                     color: colorBlueOpacity2)
                                               ],
@@ -161,15 +161,15 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                       ],
                                     ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
-                            Text(
+                            const Text(
                               "Jam",
                               style: TextStyle(
                                   fontWeight: FontWeight.w700, fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
@@ -186,32 +186,32 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                       'assets/icons/clock.png',
                                       width: 100,
                                     )),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Text(
-                                  "${currentAbsen?['waktuCheckIn'] != null ? getTimeFullFromDatetime(currentAbsen?['waktuCheckIn']) : '-'}",
-                                  style: TextStyle(
+                                  currentAbsen?['waktuCheckIn'] != null ? getTimeFullFromDatetime(currentAbsen?['waktuCheckIn']) : '-',
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16),
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
-                            Divider(
+                            const Divider(
                               color: colorBlueOpacity2,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            Text(
+                            const Text(
                               "Lokasi",
                               style: TextStyle(
                                   fontWeight: FontWeight.w700, fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
@@ -231,16 +231,16 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                       child: Image.asset(
                                           'assets/icons/map-pin-2.png'),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 130,
                                       child: Text(
-                                        "${currentAbsen['alamatLoc'] != null ? currentAbsen['alamatLoc'] : '-'}",
+                                        "${currentAbsen['alamatLoc'] ?? '-'}",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 16),
                                       ),
@@ -253,12 +253,12 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                           currentAbsen?['alamatLatitude'],
                                           currentAbsen?['alamatLongtitude']);
                                     },
-                                    style: ButtonStyle(
+                                    style: const ButtonStyle(
                                       elevation: MaterialStatePropertyAll(0),
                                       backgroundColor: MaterialStatePropertyAll(
                                           colorBlueOpacity2),
                                     ),
-                                    child: Text(
+                                    child: const Text(
                                       "Buka",
                                       style: TextStyle(
                                           color: colorBluePrimary2,
@@ -267,21 +267,21 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                     ))
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
-                            Divider(
+                            const Divider(
                               color: colorBlueOpacity2,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            Text(
+                            const Text(
                               "Izin",
                               style: TextStyle(
                                   fontWeight: FontWeight.w700, fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
@@ -298,22 +298,22 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                           color: colorBlueOpacity2,
                                           borderRadius:
                                               BorderRadius.circular(50)),
-                                      child: Icon(
+                                      child: const Icon(
                                         FeatherIcons.paperclip,
                                         color: colorBluePrimary2,
                                         size: 20,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 130,
                                       child: Text(
-                                        "${izinData?['ijin'] == null ? '-' : izinData?['ijin']}",
+                                        "${izinData?['ijin'] ?? '-'}",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 16),
                                       ),
@@ -331,7 +331,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                       }
                                     },
                                     style: ButtonStyle(
-                                      elevation: MaterialStatePropertyAll(0),
+                                      elevation: const MaterialStatePropertyAll(0),
                                       backgroundColor: MaterialStatePropertyAll(
                                           izinData != null
                                               ? colorBlueOpacity2
@@ -349,10 +349,10 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                     )),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
-                            Divider(
+                            const Divider(
                               color: colorBlueOpacity2,
                             ),
                           ],
@@ -360,25 +360,25 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                       ),
                     ),
                     Container(
-                      decoration: BoxDecoration(color: Colors.white),
-                      padding: EdgeInsets.only(left: 20, right: 20),
+                      decoration: const BoxDecoration(color: Colors.white),
+                      padding: const EdgeInsets.only(left: 20, right: 20),
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            const Text(
                               "Foto",
                               style: TextStyle(
                                   fontWeight: FontWeight.w700, fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
                               height: 320,
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: Color(0xffF5F5F5),
+                                color: const Color(0xffF5F5F5),
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               child: currentAbsen?['fotoPulang'] != null
@@ -431,7 +431,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                                                 height: 40,
                                                                 decoration:
                                                                     BoxDecoration(
-                                                                        boxShadow: [
+                                                                        boxShadow: const [
                                                                       BoxShadow(
                                                                           color:
                                                                               colorBlueOpacity2)
@@ -462,7 +462,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                                         height: 40,
                                                         decoration:
                                                             BoxDecoration(
-                                                                boxShadow: [
+                                                                boxShadow: const [
                                                               BoxShadow(
                                                                   color:
                                                                       colorBlueOpacity2)
@@ -492,7 +492,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                           width: 40,
                                           height: 40,
                                           decoration: BoxDecoration(
-                                              boxShadow: [
+                                              boxShadow: const [
                                                 BoxShadow(
                                                     color: colorBlueOpacity2)
                                               ],
@@ -505,15 +505,15 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                       ],
                                     ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
-                            Text(
+                            const Text(
                               "Jam",
                               style: TextStyle(
                                   fontWeight: FontWeight.w700, fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(
@@ -530,32 +530,32 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                       'assets/icons/clock.png',
                                       width: 100,
                                     )),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Text(
-                                  "${currentAbsen?['waktuCheckOut'] != null ? getTimeFullFromDatetime(currentAbsen?['waktuCheckOut']) : '-'}",
-                                  style: TextStyle(
+                                  currentAbsen?['waktuCheckOut'] != null ? getTimeFullFromDatetime(currentAbsen?['waktuCheckOut']) : '-',
+                                  style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16),
                                 ),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
-                            Divider(
+                            const Divider(
                               color: colorBlueOpacity2,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            Text(
+                            const Text(
                               "Lokasi",
                               style: TextStyle(
                                   fontWeight: FontWeight.w700, fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
@@ -575,16 +575,16 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                       child: Image.asset(
                                           'assets/icons/map-pin-2.png'),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 130,
                                       child: Text(
                                         "${currentAbsen?['alamatPulang'] == null ? '-' : currentAbsen['alamatPulang']}",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 16),
                                       ),
@@ -600,7 +600,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                               null) {
                                         if (izinData != null) {
                                           print(izinData);
-                                          print("disabled");
+                                          debugPrint("disabled");
                                         } else {
                                           await openMap(
                                               currentAbsen?['latitudePulang'],
@@ -608,12 +608,12 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                                   'longtitudePulang']);
                                         }
                                       } else {
-                                        print("kesini");
+                                        debugPrint("kesini");
                                         return;
                                       }
                                     },
                                     style: ButtonStyle(
-                                      elevation: MaterialStatePropertyAll(0),
+                                      elevation: const MaterialStatePropertyAll(0),
                                       backgroundColor: MaterialStatePropertyAll(
                                           currentAbsen?['longtitudePulang'] !=
                                                       null &&
@@ -645,21 +645,21 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                     ))
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
-                            Divider(
+                            const Divider(
                               color: colorBlueOpacity2,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            Text(
+                            const Text(
                               "Izin",
                               style: TextStyle(
                                   fontWeight: FontWeight.w700, fontSize: 16),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 5,
                             ),
                             Row(
@@ -676,22 +676,22 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                           color: colorBlueOpacity2,
                                           borderRadius:
                                               BorderRadius.circular(50)),
-                                      child: Icon(
+                                      child: const Icon(
                                         FeatherIcons.paperclip,
                                         color: colorBluePrimary2,
                                         size: 20,
                                       ),
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 10,
                                     ),
-                                    Container(
+                                    SizedBox(
                                       width: 130,
                                       child: Text(
-                                        "${izinData?['ijin'] == null ? '-' : izinData?['ijin']}",
+                                        "${izinData?['ijin'] ?? '-'}",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.w500,
                                             fontSize: 16),
                                       ),
@@ -709,7 +709,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                       }
                                     },
                                     style: ButtonStyle(
-                                      elevation: MaterialStatePropertyAll(0),
+                                      elevation: const MaterialStatePropertyAll(0),
                                       backgroundColor: MaterialStatePropertyAll(
                                           izinData != null
                                               ? colorBlueOpacity2
@@ -727,10 +727,10 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                     )),
                               ],
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 2,
                             ),
-                            Divider(
+                            const Divider(
                               color: colorBlueOpacity2,
                             ),
                           ],
@@ -739,7 +739,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                     ),
                   ]),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Container(
@@ -767,7 +767,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                             fontWeight: FontWeight.w500,
                             color: Color.fromRGBO(51, 51, 51, 0.5)),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       ElevatedButton(

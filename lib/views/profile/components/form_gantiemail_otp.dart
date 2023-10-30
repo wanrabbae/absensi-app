@@ -3,23 +3,23 @@ import 'package:app/global_resource.dart';
 class OTPForm extends StatefulWidget {
   final s;
 
-  OTPForm({required this.s});
+  const OTPForm({super.key, required this.s});
   @override
-  _OTPFormState createState() => _OTPFormState();
+  State<OTPForm> createState() => _OTPFormState();
 }
 
 class _OTPFormState extends State<OTPForm> {
-  Duration _timerDuration = Duration(minutes: 5); // 5 minutes
+  Duration _timerDuration = const Duration(minutes: 5); // 5 minutes
   bool _isTimerRunning = false;
 
   void startTimer() {
     if (_isTimerRunning) return;
     _isTimerRunning = true;
 
-    Timer.periodic(Duration(seconds: 1), (Timer timer) {
+    Timer.periodic(const Duration(seconds: 1), (Timer timer) {
       setState(() {
         if (_timerDuration.inSeconds > 0) {
-          _timerDuration -= Duration(seconds: 1);
+          _timerDuration -= const Duration(seconds: 1);
         } else {
           _isTimerRunning = false;
           timer.cancel();
@@ -51,7 +51,7 @@ class _OTPFormState extends State<OTPForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                child: Text(
+                child: const Text(
                   "Kode OTP",
                   style: TextStyle(
                       fontSize: 20,
@@ -71,12 +71,12 @@ class _OTPFormState extends State<OTPForm> {
                   decoration: InputDecoration(
                     suffix: Text(
                       formattedTimer,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: colorBluePrimary, fontWeight: FontWeight.w500),
                     ),
-                    enabledBorder: UnderlineInputBorder(
+                    enabledBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black, width: 2)),
-                    focusedBorder: UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                         borderSide:
                             BorderSide(color: colorBluePrimary, width: 2)),
                     hintText: "Masukkan 6 angka kode",
@@ -84,7 +84,7 @@ class _OTPFormState extends State<OTPForm> {
                 ),
               ),
               Container(
-                child: Text(
+                child: const Text(
                   "Temukan 6 angka kode OTP pada kotak masuk e-mail anda.",
                   style: TextStyle(
                       color: Colors.grey, fontWeight: FontWeight.w500),

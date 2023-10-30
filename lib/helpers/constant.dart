@@ -4,11 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'dart:convert';
-import 'dart:io';
-import 'package:dio/dio.dart';
 
 final box = GetStorage();
 
@@ -55,7 +51,7 @@ changeFormatDate(status, date) {
 Future<File> readAssetFileImg(String assetFilePath, String fileName) async {
   // Load the image file from the assets using rootBundle
   ByteData? byteData = await rootBundle.load(assetFilePath);
-  Uint8List bytes = byteData!.buffer.asUint8List();
+  Uint8List bytes = byteData.buffer.asUint8List();
 
   // Get the temporary directory path using the path_provider package
   Directory tempDir = await getTemporaryDirectory();
@@ -105,7 +101,7 @@ bool isSmallerThanToday(String dateString) {
 
   // Get the current date today
   DateTime currentDate = DateTime.now();
-  DateTime addedOneDay = parsedDate.add(Duration(days: 1));
+  DateTime addedOneDay = parsedDate.add(const Duration(days: 1));
   // Compare the dates
   return addedOneDay.isBefore(currentDate);
 }
@@ -322,18 +318,18 @@ saveNetworkImage(url) async {
   if (dir != null || dir2 != null) {
     String savename = url.toString().split("/").last;
     String savePath = Platform.isIOS
-        ? dir2.path + "/$savename"
+        ? "${dir2.path}/$savename"
         : "${dir?.path.toString()}/Hora/$savename";
 
     try {
       customSnackbarLoading("Mengunduh dokumen...");
       await Dio().download(url, savePath, onReceiveProgress: (received, total) {
         if (total != -1) {
-          print((received / total * 100).toStringAsFixed(0) + "%");
+          debugPrint("${(received / total * 100).toStringAsFixed(0)}%");
           // create progress bar
         }
       });
-      print("File is saved to download folder.");
+      debugPrint("File is saved to download folder.");
       customSnackbar1("Tangkapan layar telah disimpan.");
       await AwesomeNotificationService()
           .showNotificationCapture(path: savePath);
@@ -366,20 +362,20 @@ saveNetworkFile(url) async {
   if (dir != null || dir2 != null) {
     String savename = url.toString().split("/").last;
     String savePath = Platform.isIOS
-        ? dir2.path + "/$savename"
+        ? "${dir2.path}/$savename"
         : "${dir?.path}/Hora/$savename";
 
     try {
       customSnackbarLoading("Mengunduh dokumen...");
       await Dio().download(url, savePath, onReceiveProgress: (received, total) {
         if (total != -1) {
-          print((received / total * 100).toStringAsFixed(0) + "%");
+          debugPrint("${(received / total * 100).toStringAsFixed(0)}%");
           // create progress bar
           // loadingBar();
         }
       });
       // Get.back();
-      print("File is saved to download folder.");
+      debugPrint("File is saved to download folder.");
       customSnackbar1("Lampiran telah disimpan.");
       await AwesomeNotificationService()
           .showNotificationDownloadedFile(path: savePath.toString());
