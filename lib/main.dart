@@ -1,6 +1,7 @@
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:open_file_plus/open_file_plus.dart';
 import 'package:app/data/local/base_preference.dart';
@@ -41,6 +42,11 @@ void main() async {
   //     Permission.location.request();
   //   }
   // });
+
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
 
   await GetStorage.init();
   await BasePreference.init();
