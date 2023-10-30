@@ -69,7 +69,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                           style: TextStyle(
                               fontWeight: FontWeight.w700,
                               fontSize: 16,
-                              fontFamily: 'Rubik')),
+                              )),
                     ),
                     Tab(
                       child: Text(
@@ -77,7 +77,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 16,
-                            fontFamily: 'Rubik'),
+                            ),
                       ),
                     ),
                   ]),

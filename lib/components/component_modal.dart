@@ -255,8 +255,8 @@ Widget customDialogLoadingImage(
                 style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white,
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],

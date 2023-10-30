@@ -98,7 +98,6 @@ Widget customTextRichWithLink(
           text: text1,
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontFamily: 'Rubik',
             color: Colors.grey.shade500,
           ),
           children: [
@@ -150,7 +149,6 @@ Widget customTextRichWithLink2(
           text: text1,
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontFamily: 'Rubik',
             color: Colors.grey.shade500,
           ),
           children: [
@@ -233,7 +231,7 @@ Widget buttonWhite(String title, {VoidCallback? onTap}) {
                 color: Colors.black,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                fontFamily: 'Rubik'),
+            ),
           ),
         )),
   );

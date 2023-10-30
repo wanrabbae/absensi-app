@@ -162,8 +162,7 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                                 ? "File_surat_sakit.docx"
                                 : s.fileName,
                             errorText: _validateLampiran ? "" : null,
-                            errorStyle:
-                                const TextStyle(height: 0, fontFamily: "Rubik"),
+                            errorStyle: const TextStyle(height: 0),
                             errorBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
                                   width: 1.5, color: Colors.red), //<-- SEE HERE
@@ -199,8 +198,7 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                                     fontSize: 16, fontWeight: FontWeight.bold),
                                 contentPadding: const EdgeInsets.all(0),
                                 errorText: _validateAlasan ? "" : null,
-                                errorStyle:
-                                    const TextStyle(height: 0, fontFamily: 'Rubik'),
+                                errorStyle: const TextStyle(height: 0),
                                 border: InputBorder.none,
                                 enabledBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(

@@ -76,7 +76,6 @@ class TutorialScreen extends StatelessWidget {
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
-                              fontFamily: 'Rubik',
                               color: Colors.white,
                             ),
                           ),

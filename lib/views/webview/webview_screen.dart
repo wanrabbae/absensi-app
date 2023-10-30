@@ -15,7 +15,6 @@ class WebviewScreen extends StatelessWidget {
             child: Text(
               Get.arguments.toString(),
               style: const TextStyle(
-                fontFamily: 'Rubik',
                 fontSize: 14,
                 fontWeight: FontWeight.w800,
                 color: Colors.white,

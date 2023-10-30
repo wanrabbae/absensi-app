@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontSize: 16,
                                       color: Colors.black,
                                       fontWeight: FontWeight.w700,
-                                      fontFamily: 'Rubik'),
+                                      ),
                                 )
                               ],
                             ),
@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w700,
-                              fontFamily: 'Rubik'),
+                              ),
                         )),
                     const SizedBox(
                       width: 5,
@@ -174,7 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Izin",
                           style: TextStyle(
                             color: Colors.black,
-                            fontFamily: "Rubik",
                             fontWeight: FontWeight.w700,
                           ),
                         )),
