@@ -56,6 +56,7 @@ Widget dataSearch(BuildContext context, s) {
                                     text: TextSpan(
                                         style: const TextStyle(
                                             color: Colors.black,
+                                            fontFamily: kGlobalFontFamily,
                                             fontWeight: FontWeight.w700,
                                             fontSize: 16),
                                         text: s.searchHasil?[index]

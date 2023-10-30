@@ -67,7 +67,7 @@ Widget customTextRich(BuildContext context, String text1, String text2,
               children: [
             TextSpan(
                 text: text2,
-                style: const TextStyle(color: Colors.blue),
+                style: const TextStyle(color: Colors.blue, fontFamily: kGlobalFontFamily),
                 recognizer: TapGestureRecognizer()..onTap = onTextClicked)
           ])),
     ),
@@ -84,7 +84,7 @@ Widget customTextRich2(BuildContext context, String text1, String text2) {
         TextSpan(
             text: text2,
             style: const TextStyle(
-                fontWeight: FontWeight.w300, fontSize: 16, color: Colors.black))
+                fontWeight: FontWeight.w300, fontSize: 16, color: Colors.black, fontFamily: kGlobalFontFamily))
       ]));
 }
 
@@ -99,6 +99,7 @@ Widget customTextRichWithLink(
           style: TextStyle(
             fontWeight: FontWeight.w500,
             color: Colors.grey.shade500,
+            fontFamily: kGlobalFontFamily,
           ),
           children: [
             TextSpan(
@@ -150,6 +151,7 @@ Widget customTextRichWithLink2(
           style: TextStyle(
             fontWeight: FontWeight.w500,
             color: Colors.grey.shade500,
+            fontFamily: kGlobalFontFamily,
           ),
           children: [
             TextSpan(

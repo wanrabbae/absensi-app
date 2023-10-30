@@ -6,6 +6,8 @@ import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+const String kGlobalFontFamily = 'Montserrat';
+
 final box = GetStorage();
 
 String getTimeFromDatetime(String createdAt) {

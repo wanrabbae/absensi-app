@@ -51,14 +51,11 @@ class MainTheme {
   }
 
   static ThemeData _buildTheme() {
-    var baseTheme = ThemeData(
+    return ThemeData(
       useMaterial3: true,
       colorScheme: lightColorScheme,
       inputDecorationTheme: _kInputDecorationTheme,
-    );
-
-    return baseTheme.copyWith(
-      textTheme: GoogleFonts.montserratTextTheme(baseTheme.textTheme),
+      fontFamily: kGlobalFontFamily,
     );
   }
 }

@@ -104,6 +104,7 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                     text: TextSpan(
                                         style: const TextStyle(
                                             color: Colors.black,
+                                            fontFamily: kGlobalFontFamily,
                                             fontWeight: FontWeight.w700,
                                             fontSize: 16),
                                         text: isHadir

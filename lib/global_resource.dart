@@ -10,7 +10,6 @@ export 'package:geolocator/geolocator.dart';
 export 'package:file_picker/file_picker.dart';
 export 'package:get_storage/get_storage.dart';
 export 'package:image_picker/image_picker.dart';
-export 'package:google_fonts/google_fonts.dart';
 export 'package:webview_flutter/webview_flutter.dart';
 export 'package:geocoding/geocoding.dart';
 export 'package:permission_handler/permission_handler.dart' hide ServiceStatus;
