@@ -1,96 +1,173 @@
 import 'package:app/global_resource.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class TutorialScreen extends StatelessWidget {
   const TutorialScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final pageController = PageController();
     return GetBuilder<SplashController>(
       init: SplashController(),
       builder: (s) => Scaffold(
         backgroundColor: colorBluePrimary2,
-        // appBar: PreferredSize(
-        //     preferredSize: const Size.fromHeight(25.0),
-        //     child: AppBar(
-        //       actions: [
-        //         GestureDetector(
-        //           onTap: null,
-        //           child: const Padding(
-        //             padding: EdgeInsets.only(right: 15),
-        //             child: Icon(
-        //               Icons.question_mark_outlined,
-        //               color: Colors.black,
-        //               size: 25,
-        //             ),
-        //           ),
-        //         ),
-        //         GestureDetector(
-        //           onTap: () => s.tutupTutorial(),
-        //           child: const Padding(
-        //             padding: EdgeInsets.only(right: 25),
-        //             child: Icon(
-        //               FeatherIcons.x,
-        //               color: Colors.black,
-        //               size: 30,
-        //             ),
-        //           ),
-        //         )
-        //       ],
-        //     )),
         body: Container(
           alignment: Alignment.center,
           child: Stack(
             children: [
-              Positioned(
-                top: 60,
+              SafeArea(
+                minimum: const EdgeInsets.fromLTRB(16, 60, 16, 0),
                 child: customHeaderAuth2(context, "HORA", "Petunjuk Pemakaian"),
               ),
-              const Center(
-                child: Image(
-                  image: AssetImage("assets/icons/tutorial2.png"),
-                ),
-              ),
-              Positioned(
-                  bottom: 20,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.only(left: 20, right: 20, top: 8),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+              PageView(
+                controller: pageController,
+                children: [
+                  const _TutorialContent(
+                    'assets/icons/tutorial/clock.png',
+                    'Sentuh tombol timer untuk memulai kehadiran',
+                  ),
+                  const _TutorialContent(
+                    'assets/icons/tutorial/marker.webp',
+                    'Izinkan Hora untuk mengakses lokasi perangkat Anda',
+                  ),
+                  const _TutorialContent(
+                    'assets/icons/tutorial/camera.webp',
+                    'Izinkan Hora untuk mengakses kamera perangkat Anda',
+                  ),
+                  const _TutorialContent(
+                    'assets/icons/tutorial/folder.webp',
+                    'Izinkan Hora untuk mengakses penyimpanan perangkat Anda',
+                  ),
+                  _TutorialContent(
+                    'assets/icons/tutorial/chat.png',
+                    Text.rich(
+                      TextSpan(
                         children: [
-                          // customTextRich(
-                          //     context, "Baca tentang ", "Kebijakan Privasi.",
-                          //     onTextClicked: () {
-                          //   Get.toNamed(RouteName.webview,
-                          //       arguments: "https://docs.horaapp.id/#kebijakan");
-                          // }),
-                          // const SizedBox(
-                          //   height: 5,
-                          // ),
-                          const Text(
-                            "Anda sudah mengerti?",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
+                          const TextSpan(text: 'Kirimkan e-mail di '),
+                          TextSpan(
+                            text: 'cs@horaapp.id',
+                            style: const TextStyle(
+                              decoration: TextDecoration.underline,
+                              decorationColor: Colors.white70,
                             ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launchUrlString('mailto:cs@horaapp.id');
+                              },
                           ),
-                          buttonWhite(
-                            "SAYA MENGERTI",
-                            onTap: () {
-                              Get.toNamed(RouteName.greeting);
-                            },
-                          )
+                          const TextSpan(text: ' jika menemukan kesulitan'),
                         ],
                       ),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                  ))
+                  ),
+                ],
+              ),
+              _Footer(pageController),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _Footer extends StatelessWidget {
+  const _Footer(this.pageController);
+
+  final PageController pageController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 0,
+      left: 12,
+      right: 12,
+      child: SafeArea(
+        minimum: const EdgeInsets.only(bottom: 12),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Center(
+              child: AnimatedBuilder(
+                animation: pageController,
+                builder: (context, child) {
+                  return AnimatedSmoothIndicator(
+                    count: 5,
+                    activeIndex: pageController.page!.toInt(),
+                    effect: const ScaleEffect(
+                      activeDotColor: Colors.white,
+                      dotColor: Colors.white,
+                      scale: 2,
+                      dotHeight: 10,
+                      dotWidth: 10,
+                      spacing: 14,
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: 64),
+            const Text(
+              "Anda sudah mengerti?",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white, fontSize: 12),
+            ),
+            const SizedBox(height: 4),
+            buttonWhite(
+              "Saya Mengerti",
+              onTap: () {
+                Get.toNamed(RouteName.greeting);
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _TutorialContent extends StatelessWidget {
+  const _TutorialContent(this.image, this.label)
+      : assert(label is String || label is Widget);
+
+  final String image;
+  final dynamic label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image(
+              image: AssetImage(image),
+              height: 80,
+              width: 80,
+            ),
+            const SizedBox(height: 60),
+            label is String
+                ? Text(
+                    label,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+                : label as Widget,
+          ],
         ),
       ),
     );

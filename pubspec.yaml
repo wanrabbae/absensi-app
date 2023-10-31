@@ -68,20 +68,8 @@ dependencies:
   easy_localization: ^3.0.1
   path_provider: ^2.0.15
   shared_preferences: ^2.1.1
-
-  # date_count_down: ^2.1.0
-  # stop_watch_timer: ^2.0.0
   hooks_riverpod: ^2.1.1
-  # built_value: ^8.4.0
-  # package_info_plus: ^3.0.2
-  # flutter_launcher_icons: ^0.11.0
-  # page_transition: ^2.0.9
-  # lottie: ^1.4.1
-  # flutter_hooks: ^0.18.5+1
-  # flutter_native_splash: ^2.2.15
-  # shared_preferences: ^2.0.15
-  # encrypted_shared_preferences: ^3.0.1
-  # flutter_secure_storage: ^7.0.1
+  smooth_page_indicator: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -117,6 +105,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/icons/logo/
+    - assets/icons/tutorial/
     - assets/lang/
     - assets/google_fonts/
     - images/map-pin-gif.gif

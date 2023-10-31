@@ -36,18 +36,20 @@ Widget customHeaderAuth2(BuildContext context, String title, String subTitle) {
         Text(
           title,
           style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-              fontSize: 24,
-              letterSpacing: 1.5),
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 24,
+            letterSpacing: 1.5,
+          ),
         ),
+        const SizedBox(height: 10),
         Text(
           subTitle,
           style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-              // color: Color.fromRGBO(33, 33, 33, 80),
-              fontSize: 20.0),
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 20.0,
+          ),
         )
       ],
     ),
@@ -238,24 +240,25 @@ Widget buttonWhite(String title, {VoidCallback? onTap}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: ElevatedButton(
-        onPressed: onTap,
-        style: ButtonStyle(
-            backgroundColor:
-                const MaterialStatePropertyAll<Color>(Colors.white),
-            shape: MaterialStatePropertyAll<OutlinedBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)))),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(
-            title,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+      onPressed: onTap,
+      style: ButtonStyle(
+        backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
+        shape: MaterialStatePropertyAll<OutlinedBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
           ),
-        )),
+        ),
+      ),
+    ),
   );
 }
 
