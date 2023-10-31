@@ -14,7 +14,7 @@ import 'package:flutter_app_badger/flutter_app_badger.dart';
 // import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 
 void main() async {
-  // runZonedGuarded(() async {
+  initialize();
   WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   SystemChrome.setPreferredOrientations(

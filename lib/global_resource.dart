@@ -109,3 +109,24 @@ export 'package:app/views/webview/webview_screen.dart';
 //End Webview
 
 //Views End
+
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+
+final kDio = Dio();
+
+initialize() {
+  if (kDebugMode) {
+    final logger = PrettyDioLogger(
+      requestHeader: true,
+      requestBody: true,
+      responseBody: true,
+      responseHeader: false,
+      error: true,
+      compact: true,
+      maxWidth: 100,
+    );
+    kDio.interceptors.add(logger);
+  }
+}

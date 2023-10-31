@@ -5,7 +5,7 @@ class AuthServices extends GetConnect implements GetxService {
   final box = GetStorage();
 
   Future sendLinkPost(email) async {
-    return await dio.Dio().post('${Base.url}${Base.linkLogin}?email=$email');
+    return await kDio.post('${Base.url}${Base.linkLogin}?email=$email');
   }
 
   Future<Response> verifyOtpGet(params) {

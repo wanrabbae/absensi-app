@@ -8,7 +8,7 @@ class HomeServices extends GetConnect implements GetxService {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};
     final options = dio.Options(headers: header);
-    return await dio.Dio().get(
+    return await kDio.get(
       "${Base.url}${Base.absensi}"
       "?idperusahaan=${params['idperusahaan']}"
       "&tanggal=${params['tanggal']}",
@@ -20,7 +20,7 @@ class HomeServices extends GetConnect implements GetxService {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};
     final options = dio.Options(headers: header);
-    return await dio.Dio().get(
+    return await kDio.get(
       "${Base.url}${Base.absenIzinEndpoint}"
       "?idperusahaan=${params['idperusahaan']}"
       "&tanggal=${params['tanggal']}",
@@ -33,7 +33,7 @@ class HomeServices extends GetConnect implements GetxService {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};
     final options = dio.Options(headers: header);
-    return await dio.Dio().get(
+    return await kDio.get(
         "${Base.url}${Base.perusahaan}?email=${params['email']}",
         options: options);
     // return get(Base.url + Base.perusahaan, headers: header, query: params);

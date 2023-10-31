@@ -23,7 +23,7 @@ class AbsensiServices extends GetConnect implements GetxService {
     final options = dio.Options(headers: header);
 
     try {
-      var test = await dio.Dio()
+      var test = await kDio
           .post(Base.url + Base.absenHadir, data: formData, options: options);
       return test;
     } catch (e) {
@@ -37,7 +37,7 @@ class AbsensiServices extends GetConnect implements GetxService {
     final options = dio.Options(headers: header);
 
     try {
-      var test = await dio.Dio().get(
+      var test = await kDio.get(
           "${Base.url}${Base.absenIndie}?idkaryawan=$idKaryawan&tanggal=$tanggal",
           options: options);
       return test;
@@ -61,7 +61,7 @@ class AbsensiServices extends GetConnect implements GetxService {
     });
 
     try {
-      var test = await dio.Dio().put(
+      var test = await kDio.put(
           "${Base.url}${Base.absenPulang}?id=${param['id']}",
           data: formData,
           options: options);
@@ -92,7 +92,7 @@ class AbsensiServices extends GetConnect implements GetxService {
     final options = dio.Options(headers: header);
 
     try {
-      var test = await dio.Dio()
+      var test = await kDio
           .post(Base.url + Base.absenIzin, data: formData, options: options);
       return test;
     } on dio.DioError catch (e) {
