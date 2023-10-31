@@ -182,23 +182,29 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
                             color: Color.fromRGBO(51, 51, 51, 0.5)),
                       ),
                       Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 20, left: 20, right: 20),
-                          child: ElevatedButton(
-                              onPressed: () {
-                                s.mulaiSelesaiAbsen(context, idAbsen);
-                              },
-                              style: const ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
-                                      // s.klikAbsen
-                                      //     ? colorGrayPrimary
-                                      //     : colorBluePrimary
-                                      colorBluePrimary),
-                                  shape: MaterialStatePropertyAll(
-                                      (RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20)))))),
-                              child: timerCount(context, s)))
+                        padding: const EdgeInsets.only(
+                            top: 3, bottom: 20, left: 20, right: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            s.mulaiSelesaiAbsen(context, idAbsen);
+                          },
+                          style: const ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                                // s.klikAbsen
+                                //     ? colorGrayPrimary
+                                //     : colorBluePrimary
+                                colorBluePrimary),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                              ),
+                            ),
+                          ),
+                          child: timerCount(context, s),
+                        ),
+                      )
                     ],
                   ),
                 ),

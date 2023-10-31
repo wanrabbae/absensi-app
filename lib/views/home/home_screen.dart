@@ -1,3 +1,4 @@
+import 'package:app/components/empty_view.dart';
 import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
@@ -60,81 +61,46 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Column _buildIzinFAB(HomeController s) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        SizedBox(
-          width: 50,
-          height: 50,
-          child: FittedBox(
-            child: FloatingActionButton(
-              heroTag: "btn2",
-              // shape: const RoundedRectangleBorder(
-              //     borderRadius:
-              //         BorderRadius.all(Radius.circular(20))),
-              backgroundColor:
-                  s.isPresentIzin! ? Colors.grey.shade400 : colorBlueOpacity2,
-              child: const Icon(
-                FeatherIcons.paperclip,
-                color: Colors.black,
-                size: 24,
-              ),
-              onPressed: () {
-                if (s.isPresentIzin!) {
-                  debugPrint("test");
-                  customSnackbar1("Kehadiran hari ini telah terisi.");
-                } else {
-                  Get.toNamed(RouteName.absenIzin, arguments: {
-                    "isFoto": false,
-                  });
-                }
-              },
-            ),
-          ),
-        ),
-        const SizedBox(height: 20),
-        FloatingActionButton(
-          heroTag: "btn3",
-          backgroundColor:
-              s.isPresentIzin! ? Colors.grey.shade400 : colorBlackPrimary,
-          child: Icon(
-            FeatherIcons.camera,
-            color: s.isPresentIzin! ? Colors.black : Colors.white,
-            size: 24,
-          ),
-          onPressed: () {
-            if (s.isPresentIzin!) {
-              debugPrint("test");
-              customSnackbar1("Kehadiran hari ini telah terisi.");
-            } else {
-              ImagePicker()
-                  .pickImage(
-                source: ImageSource.camera,
-                preferredCameraDevice: CameraDevice.front,
-                imageQuality: 50,
-              )
-                  .then((value) {
-                if (value != null) {
-                  final izinCtrl = Get.put(IzinController());
-                  izinCtrl.updateFileFromFoto(PlatformFile(
-                    name: value.name,
-                    path: value.path,
-                    size: 0,
-                  ));
-                  Get.toNamed(RouteName.absenIzin, arguments: {
-                    "isFoto": true,
-                  });
-                } else {
-                  customSnackbar1(
-                    "Tidak bisa melanjutkan tanpa foto",
-                  );
-                }
+  Widget _buildIzinFAB(HomeController s) {
+    return FloatingActionButton(
+      heroTag: "btn3",
+      backgroundColor:
+          s.isPresentIzin! ? Colors.grey.shade400 : colorBlackPrimary,
+      child: Icon(
+        FeatherIcons.edit2,
+        color: s.isPresentIzin! ? Colors.black : Colors.white,
+        size: 24,
+      ),
+      onPressed: () {
+        if (s.isPresentIzin!) {
+          debugPrint("test");
+          customSnackbar1("Kehadiran hari ini telah terisi.");
+        } else {
+          ImagePicker()
+              .pickImage(
+            source: ImageSource.camera,
+            preferredCameraDevice: CameraDevice.front,
+            imageQuality: 50,
+          )
+              .then((value) {
+            if (value != null) {
+              final izinCtrl = Get.put(IzinController());
+              izinCtrl.updateFileFromFoto(PlatformFile(
+                name: value.name,
+                path: value.path,
+                size: 0,
+              ));
+              Get.toNamed(RouteName.absenIzin, arguments: {
+                "isFoto": true,
               });
+            } else {
+              customSnackbar1(
+                "Tidak bisa melanjutkan tanpa foto",
+              );
             }
-          },
-        ),
-      ],
+          });
+        }
+      },
     );
   }
 
@@ -143,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         const SizedBox(width: 32),
         Expanded(
-          child: FloatingActionButton.extended(
+          child: FloatingActionButton(
             heroTag: "btn1",
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -156,9 +122,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 s.absensi(context);
               }
             },
-            label: timerCount(context, s),
             backgroundColor:
                 s.isPresentHadir! ? Colors.grey.shade400 : colorBluePrimary2,
+            isExtended: true,
+            child: timerCount(context, s),
           ),
         ),
       ],
@@ -169,24 +136,22 @@ class _HomeScreenState extends State<HomeScreen> {
     return Expanded(
         child: s.absen!.isEmpty && hadirHighlight
             ? Container(
-                padding: const EdgeInsets.only(bottom: 70),
-                child: Center(
-                  child: Image.asset(
-                    'assets/icons/absen-ilus.png',
-                    width: 321,
-                    height: 321,
-                  ),
+                padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
+                child: const EmptyView(
+                  image: 'assets/icons/absen-ilus.png',
+                  title: 'Hadir',
+                  subtitle:
+                      'Fitur ini akan mencatat, menyimpan dan menampilkan detail presensi anda secara berkala.',
                 ),
               )
             : s.izin!.isEmpty && izinHighlight
                 ? Container(
-                    padding: const EdgeInsets.only(bottom: 70),
-                    child: Center(
-                      child: Image.asset(
-                        'assets/icons/aizin-ilus.png',
-                        width: 321,
-                        height: 321,
-                      ),
+                    padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
+                    child: const EmptyView(
+                      image: 'assets/icons/aizin-ilus.png',
+                      title: 'Izin',
+                      subtitle:
+                          'Fitur ini akan mencatat, menyimpan dan menampilkan detail izin anda secara berkala.',
                     ),
                   )
                 : dataHome(context, s, hadirHighlight));
@@ -203,22 +168,24 @@ class _HomeScreenState extends State<HomeScreen> {
           Text(
             curentDate,
             style: const TextStyle(
-                fontWeight: FontWeight.w600, fontSize: 16, color: Colors.black),
+              fontWeight: FontWeight.w500,
+              fontSize: 14,
+              color: Colors.black,
+            ),
           ),
           GestureDetector(
-            onTap: () async {
-              await showDatePicker(
-                      locale: const Locale("id", "ID"),
-                      context: context,
-                      initialDate: DateFormat("yyyy-MM-dd hh:mm:ss")
-                          .parse(s.currentDate!),
-                      firstDate: DateTime(DateTime.now().year - 10,
-                          DateTime.now().month, DateTime.now().day),
-                      lastDate: DateTime(DateTime.now().year + 10,
-                          DateTime.now().month, DateTime.now().day),
-                      currentDate: DateTime.now(),
-                      initialDatePickerMode: DatePickerMode.day)
-                  .then((value) {
+            onTap: () {
+              final now = DateTime.now();
+              showDatePicker(
+                locale: const Locale("id", "ID"),
+                context: context,
+                initialDate:
+                    DateFormat("yyyy-MM-dd hh:mm:ss").parse(s.currentDate!),
+                firstDate: DateTime(now.year - 10, now.month, now.day),
+                lastDate: DateTime(now.year + 10, now.month, now.day),
+                currentDate: now,
+                initialDatePickerMode: DatePickerMode.day,
+              ).then((value) {
                 setState(() {
                   curentDate =
                       "${DateTime.parse(value.toString()).day.toString().padLeft(2, "0")}/${DateTime.parse(value.toString()).month.toString().padLeft(2, "0")}/${DateTime.parse(value.toString()).year}";
@@ -231,10 +198,10 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
-                  FeatherIcons.calendar,
-                  color: colorBluePrimary,
-                  size: 20,
+                Image(
+                  image: AssetImage('assets/icons/calendar.webp'),
+                  height: 20,
+                  width: 20,
                 ),
               ],
             ),
@@ -249,8 +216,8 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.only(
         left: 20,
         right: 20,
-        top: 20,
-        bottom: 20,
+        top: 16,
+        bottom: 10,
       ),
       child: Row(
         children: [

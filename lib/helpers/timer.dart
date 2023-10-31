@@ -1,62 +1,107 @@
 import 'package:app/global_resource.dart';
-// import 'package:stop_watch_timer/stop_watch_timer.dart';
 
-Widget timerCount(BuildContext context, s) {
-  return Container(
-    child: s.timerRecor != "00:00:00"
-        ? buildDisable(context, s.timerRecor)
-        : buildEnable(context, s.timerRecor, s),
-  );
+Widget timerCount(BuildContext context, GetxController s) {
+  assert(s is AbsenController || s is HomeController);
+  String? timerRecord;
+  if (s is AbsenController) {
+    timerRecord = s.timerRecor;
+  } else if (s is HomeController) {
+    timerRecord = s.timerRecor;
+  }
+  final isEmpty = timerRecord != "00:00:00";
+  if (s is HomeController) {
+    timerRecord = timerRecord?.replaceAll(':', ' : ');
+  }
+
+  return isEmpty
+      ? buildDisable(context, timerRecord, s)
+      : buildEnable(context, timerRecord, s);
 }
 
-Widget buildEnable(BuildContext context, timer, s) {
+Widget buildEnable(BuildContext context, timer, GetxController s) {
+  final children = s is HomeController
+      ? [
+          const Icon(Icons.access_time_filled, size: 24, color: Colors.white),
+          Expanded(
+            child: Text(
+              timer,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const Icon(Icons.chevron_right, size: 24, color: Colors.white),
+        ]
+      : [
+          const Icon(FeatherIcons.clock, size: 24, color: Colors.white),
+          const SizedBox(width: 8),
+          Text(
+            timer,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              fontSize: 18,
+            ),
+          ),
+        ];
+  final padding = s is HomeController
+      ? const EdgeInsets.fromLTRB(16, 0, 12, 0)
+      : const EdgeInsets.only(top: 20, bottom: 20);
+
   return Padding(
-    padding: const EdgeInsets.only(top: 20, bottom: 20),
+    padding: padding,
     child: Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(
-          FeatherIcons.clock,
-          size: 24,
-          color: Colors.white,
-        ),
-        const SizedBox(
-          width: 8,
-        ),
-        Text(
-          timer,
-          style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
-        ),
-      ],
+      children: children,
     ),
   );
 }
 
-Widget buildDisable(BuildContext context, timer) {
+Widget buildDisable(BuildContext context, timer, GetxController s) {
+  final children = s is HomeController
+      ? [
+          const Icon(Icons.access_time_filled, size: 24, color: Colors.white),
+          Expanded(
+            child: Text(
+              timer,
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 18,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const Icon(Icons.chevron_right, size: 24, color: Colors.white),
+        ]
+      : [
+          const Icon(FeatherIcons.clock, size: 24, color: Colors.white),
+          const SizedBox(width: 8),
+          Text(
+            timer,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w700,
+              fontSize: 18,
+            ),
+          ),
+        ];
+  final padding = s is HomeController
+      ? const EdgeInsets.fromLTRB(16, 0, 12, 0)
+      : const EdgeInsets.only(top: 20, bottom: 20);
+
   return Padding(
-    padding: const EdgeInsets.only(top: 20, bottom: 20),
+    padding: padding,
     child: Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(
-          FeatherIcons.clock,
-          size: 24,
-          color: Colors.white,
-        ),
-        const SizedBox(
-          width: 8,
-        ),
-        Text(
-          timer,
-          style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
-        ),
-      ],
+      children: children,
     ),
   );
 }

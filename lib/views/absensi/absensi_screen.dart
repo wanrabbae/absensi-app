@@ -65,17 +65,17 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                   Tab(
                     child: Text('Hadir',
                         style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            )),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        )),
                   ),
                   Tab(
                     child: Text(
                       'Pulang',
                       style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                          ),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ]),
@@ -211,7 +211,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                     width: 10,
                                   ),
                                   Text(
-                                    currentAbsen?['waktuCheckIn'] != null ? getTimeFullFromDatetime(currentAbsen?['waktuCheckIn']) : '-',
+                                    currentAbsen?['waktuCheckIn'] != null
+                                        ? getTimeFullFromDatetime(
+                                            currentAbsen?['waktuCheckIn'])
+                                        : '-',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 16),
@@ -292,7 +295,8 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                         }
                                       },
                                       style: ButtonStyle(
-                                        elevation: const MaterialStatePropertyAll(0),
+                                        elevation:
+                                            const MaterialStatePropertyAll(0),
                                         backgroundColor: MaterialStatePropertyAll(
                                             currentAbsen?['alamatLongtitude'] !=
                                                             null &&
@@ -387,7 +391,8 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                         }
                                       },
                                       style: ButtonStyle(
-                                        elevation: const MaterialStatePropertyAll(0),
+                                        elevation:
+                                            const MaterialStatePropertyAll(0),
                                         backgroundColor:
                                             MaterialStatePropertyAll(
                                                 s.izinData != null
@@ -517,7 +522,10 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                     width: 10,
                                   ),
                                   Text(
-                                    currentAbsen?['waktuCheckOut'] != null ? getTimeFullFromDatetime(currentAbsen?['waktuCheckOut']) : '-',
+                                    currentAbsen?['waktuCheckOut'] != null
+                                        ? getTimeFullFromDatetime(
+                                            currentAbsen?['waktuCheckOut'])
+                                        : '-',
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 16),
@@ -600,7 +608,8 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                         }
                                       },
                                       style: ButtonStyle(
-                                        elevation: const MaterialStatePropertyAll(0),
+                                        elevation:
+                                            const MaterialStatePropertyAll(0),
                                         backgroundColor: MaterialStatePropertyAll(
                                             currentAbsen?['longtitudePulang'] !=
                                                             null &&
@@ -695,7 +704,8 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                                         }
                                       },
                                       style: ButtonStyle(
-                                        elevation: const MaterialStatePropertyAll(0),
+                                        elevation:
+                                            const MaterialStatePropertyAll(0),
                                         backgroundColor:
                                             MaterialStatePropertyAll(
                                                 s.izinData != null
@@ -757,24 +767,28 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
                           height: 10,
                         ),
                         ElevatedButton(
-                            onPressed: () {
-                              if (!s.klikAbsen) {
-                                s.mulaiAbsen();
-                              } else {
-                                s.mulaiPulang(context, idAbsen);
-                              }
-                            },
-                            style: const ButtonStyle(
-                                backgroundColor: MaterialStatePropertyAll(
-                                    // s.klikAbsen
-                                    //     ? colorGrayPrimary
-                                    //     : colorBluePrimary
-                                    colorBluePrimary),
-                                shape: MaterialStatePropertyAll(
-                                    (RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(20)))))),
-                            child: timerCount(context, s))
+                          onPressed: () {
+                            if (!s.klikAbsen) {
+                              s.mulaiAbsen();
+                            } else {
+                              s.mulaiPulang(context, idAbsen);
+                            }
+                          },
+                          style: const ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                                // s.klikAbsen
+                                //     ? colorGrayPrimary
+                                //     : colorBluePrimary
+                                colorBluePrimary),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              ),
+                            ),
+                          ),
+                          child: timerCount(context, s),
+                        )
                       ],
                     ),
                   )

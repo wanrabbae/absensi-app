@@ -69,17 +69,17 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                   Tab(
                     child: Text('Hadir',
                         style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            )),
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                        )),
                   ),
                   Tab(
                     child: Text(
                       'Pulang',
                       style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                          ),
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ]),
@@ -187,7 +187,10 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                   width: 10,
                                 ),
                                 Text(
-                                  currentAbsen?['waktuCheckIn'] != null ? getTimeFullFromDatetime(currentAbsen?['waktuCheckIn']) : '-',
+                                  currentAbsen?['waktuCheckIn'] != null
+                                      ? getTimeFullFromDatetime(
+                                          currentAbsen?['waktuCheckIn'])
+                                      : '-',
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16),
@@ -328,7 +331,8 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                       }
                                     },
                                     style: ButtonStyle(
-                                      elevation: const MaterialStatePropertyAll(0),
+                                      elevation:
+                                          const MaterialStatePropertyAll(0),
                                       backgroundColor: MaterialStatePropertyAll(
                                           izinData != null
                                               ? colorBlueOpacity2
@@ -531,7 +535,10 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                   width: 10,
                                 ),
                                 Text(
-                                  currentAbsen?['waktuCheckOut'] != null ? getTimeFullFromDatetime(currentAbsen?['waktuCheckOut']) : '-',
+                                  currentAbsen?['waktuCheckOut'] != null
+                                      ? getTimeFullFromDatetime(
+                                          currentAbsen?['waktuCheckOut'])
+                                      : '-',
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16),
@@ -610,7 +617,8 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                       }
                                     },
                                     style: ButtonStyle(
-                                      elevation: const MaterialStatePropertyAll(0),
+                                      elevation:
+                                          const MaterialStatePropertyAll(0),
                                       backgroundColor: MaterialStatePropertyAll(
                                           currentAbsen?['longtitudePulang'] !=
                                                       null &&
@@ -706,7 +714,8 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                                       }
                                     },
                                     style: ButtonStyle(
-                                      elevation: const MaterialStatePropertyAll(0),
+                                      elevation:
+                                          const MaterialStatePropertyAll(0),
                                       backgroundColor: MaterialStatePropertyAll(
                                           izinData != null
                                               ? colorBlueOpacity2
@@ -760,57 +769,62 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView> {
                       const Text(
                         "Tekan tombol untuk masuk/pulang",
                         style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: Color.fromRGBO(51, 51, 51, 0.5)),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromRGBO(51, 51, 51, 0.5),
+                        ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       ElevatedButton(
-                          onPressed: () {
-                            // customSnackbar1(
-                            //     "Kehadiran hari ini telah terisi.");
-                          },
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll(
-                                  // s.klikAbsen
-                                  //     ? colorGrayPrimary
-                                  //     : colorBluePrimary
-                                  Colors.grey.shade400),
-                              shape: const MaterialStatePropertyAll(
-                                  (RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(20)))))),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 20, bottom: 20),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                const Icon(
-                                  FeatherIcons.clock,
-                                  size: 18,
-                                  color: Colors.white,
-                                ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Text(
-                                  timerAbsen3(currentAbsen?["waktuCheckIn"],
-                                      currentAbsen?["waktuCheckOut"]),
-                                  style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 16),
-                                ),
-                              ],
+                        onPressed: () {
+                          // customSnackbar1(
+                          //     "Kehadiran hari ini telah terisi.");
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                              // s.klikAbsen
+                              //     ? colorGrayPrimary
+                              //     : colorBluePrimary
+                              Colors.grey.shade400),
+                          shape: const MaterialStatePropertyAll(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
                             ),
-                          ))
+                          ),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 20, bottom: 20),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(
+                                FeatherIcons.clock,
+                                size: 18,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                timerAbsen3(
+                                  currentAbsen?["waktuCheckIn"],
+                                  currentAbsen?["waktuCheckOut"],
+                                ),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ),
