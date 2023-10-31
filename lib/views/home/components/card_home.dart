@@ -98,24 +98,26 @@ Widget dataHome(BuildContext context, s, isHadir) {
                               children: [
                                 SizedBox(
                                   width: 150,
-                                  child: RichText(
+                                  child: Text.rich(
                                     overflow: TextOverflow.ellipsis,
-                                    strutStyle: const StrutStyle(fontSize: 12.0),
-                                    text: TextSpan(
-                                        style: const TextStyle(
-                                            color: Colors.black,
-                                            fontFamily: kGlobalFontFamily,
-                                            fontWeight: FontWeight.w700,
-                                            fontSize: 16),
-                                        text: isHadir
-                                            ? s.absen[index]['namaKaryawan']
-                                            : s.izin?[index]['namaKaryawan']),
+                                    strutStyle:
+                                        const StrutStyle(fontSize: 12.0),
+                                    TextSpan(
+                                      style: const TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16),
+                                      text: isHadir
+                                          ? s.absen[index]['namaKaryawan']
+                                          : s.izin?[index]['namaKaryawan'],
+                                    ),
                                   ),
                                 ),
                                 // for
                                 Text(
                                     getTimeFromDatetime(isHadir
-                                        ? s.absen[index]["waktuCheckOut"] ?? s.absen[index]['waktuCheckIn']
+                                        ? s.absen[index]["waktuCheckOut"] ??
+                                            s.absen[index]['waktuCheckIn']
                                         : s.izin[index]['tanggalStart']),
                                     style: const TextStyle(
                                         fontWeight: FontWeight.w500,
@@ -153,15 +155,13 @@ Widget dataHome(BuildContext context, s, isHadir) {
                                             'assets/icons/map-pin.png',
                                             width: 16,
                                           )
-                                        : Container(
-                                            child: Text(s.izin[index]?["ijin"],
-                                                maxLines: 1,
-                                                softWrap: true,
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 12,
-                                                    color: Colors.black)),
-                                          ),
+                                        : Text(s.izin[index]?["ijin"],
+                                            maxLines: 1,
+                                            softWrap: true,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12,
+                                                color: Colors.black)),
                                   ),
                                   const SizedBox(
                                     width: 5,
