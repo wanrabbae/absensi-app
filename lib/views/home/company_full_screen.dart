@@ -26,58 +26,56 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             automaticallyImplyLeading: false,
-            title: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.back();
-                      Get.back();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(50.0)),
-                      padding: const EdgeInsets.all(10),
-                      child: const Icon(FeatherIcons.arrowLeft),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                    Get.back();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(50.0)),
+                    padding: const EdgeInsets.all(10),
+                    child: const Icon(FeatherIcons.arrowLeft),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    saveNetworkImage(changeUrlImage(
+                        s.perusahaan?['logoPerusahaan'] ??
+                            'wwwroot/Images/CompanyLogo/logo_hora.png'));
+                    // try {
+                    // debugPrint("HORA PATH: " + createFolder("Hora").toString());
+                    // await downloadImage(changeUrlImage(
+                    //     s.perusahaan?['logoPerusahaan'] ??
+                    //         'wwwroot/Images/CompanyLogo/logo_hora.png'));
+                    // SplashController().showOkDialog2(
+                    //     "Tangkapan Layar", "Gambar Telah Tersimpan", () {
+                    //   debugPrint("YOYY");
+                    // });
+                    // await AwesomeNotificationService()
+                    //     .showNotificationDownloadedFile();
+                    // } on DioError catch (error) {
+                    //   print(error);
+                    // }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(50.0)),
+                    padding: const EdgeInsets.all(10),
+                    child: Image.asset(
+                      'assets/icons/ic_screen_shot.png',
+                      width: 24,
+                      height: 24,
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      saveNetworkImage(changeUrlImage(
-                          s.perusahaan?['logoPerusahaan'] ??
-                              'wwwroot/Images/CompanyLogo/logo_hora.png'));
-                      // try {
-                      // debugPrint("HORA PATH: " + createFolder("Hora").toString());
-                      // await downloadImage(changeUrlImage(
-                      //     s.perusahaan?['logoPerusahaan'] ??
-                      //         'wwwroot/Images/CompanyLogo/logo_hora.png'));
-                      // SplashController().showOkDialog2(
-                      //     "Tangkapan Layar", "Gambar Telah Tersimpan", () {
-                      //   debugPrint("YOYY");
-                      // });
-                      // await AwesomeNotificationService()
-                      //     .showNotificationDownloadedFile();
-                      // } on DioError catch (error) {
-                      //   print(error);
-                      // }
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(50.0)),
-                      padding: const EdgeInsets.all(10),
-                      child: Image.asset(
-                        'assets/icons/ic_screen_shot.png',
-                        width: 24,
-                        height: 24,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           body: Container(

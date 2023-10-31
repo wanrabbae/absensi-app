@@ -47,41 +47,38 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
             elevation: 0,
             titleSpacing: 0,
             centerTitle: true,
-            title: Container(
-              // decoration: BoxDecoration(border: Border.all()),
-              child: TabBar(
-                  isScrollable: true,
-                  dividerColor: Colors.white,
-                  unselectedLabelColor: Colors.black.withOpacity(0.3),
-                  labelColor: Colors.black,
-                  labelStyle:
-                      const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                  // padding: EdgeInsets.symmetric(horizontal: 70),
-                  unselectedLabelStyle:
-                      const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-                  indicatorColor: colorBluePrimary2,
-                  indicatorPadding: const EdgeInsets.only(bottom: 5),
-                  indicatorWeight: 3,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  tabs: const [
-                    Tab(
-                      child: Text('Hadir',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 16,
-                              )),
-                    ),
-                    Tab(
-                      child: Text(
-                        'Pulang',
+            title: TabBar(
+                isScrollable: true,
+                dividerColor: Colors.white,
+                unselectedLabelColor: Colors.black.withOpacity(0.3),
+                labelColor: Colors.black,
+                labelStyle:
+                    const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                // padding: EdgeInsets.symmetric(horizontal: 70),
+                unselectedLabelStyle:
+                    const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                indicatorColor: colorBluePrimary2,
+                indicatorPadding: const EdgeInsets.only(bottom: 5),
+                indicatorWeight: 3,
+                indicatorSize: TabBarIndicatorSize.tab,
+                tabs: const [
+                  Tab(
+                    child: Text('Hadir',
                         style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 16,
-                            ),
-                      ),
+                            )),
+                  ),
+                  Tab(
+                    child: Text(
+                      'Pulang',
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                          ),
                     ),
-                  ]),
-            ),
+                  ),
+                ]),
             backgroundColor: Colors.white,
           ),
           body: WillPopScope(

@@ -181,8 +181,13 @@ class DialogPermission extends HookConsumerWidget {
 }
 
 class DialogPresensi extends HookConsumerWidget {
-  var dataPresensi, isHadir;
-  DialogPresensi({super.key, @required this.dataPresensi, @required this.isHadir});
+  final dynamic dataPresensi, isHadir;
+
+  const DialogPresensi({
+    super.key,
+    required this.dataPresensi,
+    required this.isHadir,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -234,7 +239,8 @@ class DialogPresensi extends HookConsumerWidget {
                       ? changeFormatDate(5, dataPresensi["tanggalAbsensi"])
                       : changeFormatDate(5, dataPresensi["tanggalCuti"]),
                   keyboardType: TextInputType.text,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                   decoration: const InputDecoration(
                     hintText: "Ketikkan disini",
                     enabledBorder: UnderlineInputBorder(
@@ -292,7 +298,8 @@ class DialogPresensi extends HookConsumerWidget {
                           : "-"
                       : "-",
                   keyboardType: TextInputType.text,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                   decoration: const InputDecoration(
                     hintText: "Ketikkan disini",
                     enabledBorder: UnderlineInputBorder(
@@ -318,7 +325,8 @@ class DialogPresensi extends HookConsumerWidget {
                           : "-"
                       : "-",
                   keyboardType: TextInputType.text,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                   decoration: const InputDecoration(
                     hintText: "Ketikkan disini",
                     enabledBorder: UnderlineInputBorder(
@@ -341,7 +349,8 @@ class DialogPresensi extends HookConsumerWidget {
                       ? "-"
                       : getTimeFullFromDatetime(dataPresensi?["tanggalAkhir"]),
                   keyboardType: TextInputType.text,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                   decoration: const InputDecoration(
                     hintText: "Ketikkan disini",
                     enabledBorder: UnderlineInputBorder(

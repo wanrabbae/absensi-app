@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 const String kGlobalFontFamily = 'Montserrat';
 
@@ -289,8 +289,8 @@ Future<void> openMap(String? latitude, String? longitude) async {
   double longitude2 = double.parse(longitude.toString());
   String googleUrl =
       'https://www.google.com/maps/search/?api=1&query=$latitude2,$longitude2';
-  if (await canLaunch(googleUrl)) {
-    await launch(googleUrl);
+  if (await canLaunchUrlString(googleUrl)) {
+    await launchUrlString(googleUrl);
   } else {
     throw 'Could not open the map.';
   }

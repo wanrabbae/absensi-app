@@ -8,14 +8,12 @@ Widget gantiEmail(s, context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: const Text(
-                "Mengubah email",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w800),
-              ),
+            const Text(
+              "Mengubah email",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w800),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -41,12 +39,10 @@ Widget gantiEmail(s, context) {
                 ),
               ),
             ),
-            Container(
-              child: const Text(
-                "Masuk menggunakan e-mail baru anda.",
-                style:
-                    TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
-              ),
+            const Text(
+              "Masuk menggunakan e-mail baru anda.",
+              style:
+                  TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
             )
           ],
         ),

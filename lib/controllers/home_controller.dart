@@ -33,7 +33,7 @@ class HomeController extends GetxController {
     //     Permission.location.request();
     //   }
     // });
-    debugPrint("TOKEN: " + GetStorage().read("tokens"));
+    debugPrint("TOKEN: ${GetStorage().read("tokens")}");
     debugPrint("KLIK ABSEN: $klikAbsen");
     super.onInit();
     user = box.read(Base.dataUser);

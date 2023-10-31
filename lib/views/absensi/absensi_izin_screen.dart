@@ -29,54 +29,49 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.white,
-          title: Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  'Surat Izin',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
-                ),
-                Container(
-                  // padding: EdgeInsets.only(top: 5),
-                  child: Transform.rotate(
-                    angle: math.pi / 4,
-                    child: IconButton(
-                      icon: const Icon(
-                        FeatherIcons.send,
-                        color: colorBluePrimary,
-                      ),
-                      onPressed: () {
-                        if (s.currentDate != null) {
-                          izin() {
-                            return s.absenIzin();
-                          }
-
-                          setState(() {
-                            s.formIzin == null
-                                ? _validateAlasan = true
-                                : _validateAlasan = false;
-                            s.fileName == null
-                                ? _validateLampiran = true
-                                : _validateLampiran = false;
-                          });
-
-                          if (_validateAlasan == false &&
-                              _validateLampiran == false) {
-                            SplashController().showConfirmationDialog2(
-                              "Izin",
-                              "Ajukan izin sekarang?",
-                              izin,
-                            );
-                          }
-                        }
-                      },
-                    ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Surat Izin',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+              ),
+              Transform.rotate(
+                angle: math.pi / 4,
+                child: IconButton(
+                  icon: const Icon(
+                    FeatherIcons.send,
+                    color: colorBluePrimary,
                   ),
+                  onPressed: () {
+                    if (s.currentDate != null) {
+                      izin() {
+                        return s.absenIzin();
+                      }
+
+                      setState(() {
+                        s.formIzin == null
+                            ? _validateAlasan = true
+                            : _validateAlasan = false;
+                        s.fileName == null
+                            ? _validateLampiran = true
+                            : _validateLampiran = false;
+                      });
+
+                      if (_validateAlasan == false &&
+                          _validateLampiran == false) {
+                        SplashController().showConfirmationDialog2(
+                          "Izin",
+                          "Ajukan izin sekarang?",
+                          izin,
+                        );
+                      }
+                    }
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           centerTitle: false,
           automaticallyImplyLeading: false,

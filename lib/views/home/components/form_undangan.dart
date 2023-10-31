@@ -8,14 +8,12 @@ Widget formUndangan(s, context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: const Text(
-                "Undang melalui email",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w800),
-              ),
+            const Text(
+              "Undang melalui email",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w800),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -42,11 +40,9 @@ Widget formUndangan(s, context) {
                 ),
               ),
             ),
-            Container(
-              child: const Text(
-                "Beritahu teman anda untuk segera memeriksa kotak masuk e-mail.",
-                style: TextStyle(color: Colors.grey),
-              ),
+            const Text(
+              "Beritahu teman anda untuk segera memeriksa kotak masuk e-mail.",
+              style: TextStyle(color: Colors.grey),
             )
           ],
         ),

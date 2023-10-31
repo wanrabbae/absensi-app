@@ -143,25 +143,23 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
                 right: 0,
                 left: 0,
                 top: 590,
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.circle,
-                        size: 14,
-                        color:
-                            _currentPageIndex == 0 ? Colors.white : Colors.grey,
-                      ),
-                      const SizedBox(width: 7),
-                      Icon(
-                        Icons.circle,
-                        size: 14,
-                        color:
-                            _currentPageIndex == 0 ? Colors.grey : Colors.white,
-                      ),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      size: 14,
+                      color:
+                          _currentPageIndex == 0 ? Colors.white : Colors.grey,
+                    ),
+                    const SizedBox(width: 7),
+                    Icon(
+                      Icons.circle,
+                      size: 14,
+                      color:
+                          _currentPageIndex == 0 ? Colors.grey : Colors.white,
+                    ),
+                  ],
                 ),
               ),
               Positioned(

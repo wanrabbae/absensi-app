@@ -21,30 +21,27 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Container(
-          // decoration: BoxDecoration(color: Colors.black),
-          child: const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Surat Izin',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
-              ),
-              // Container(
-              //   padding: EdgeInsets.all(0),
-              //   child: IconButton(
-              //     icon: Icon(
-              //       FeatherIcons.download,
-              //       color: colorBluePrimary,
-              //     ),
-              //     onPressed: () {
-              //       customSnackbar1("Lampiran telah disimpan.");
-              //     },
-              //   ),
-              // ),
-            ],
-          ),
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Surat Izin',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+            ),
+            // Container(
+            //   padding: EdgeInsets.all(0),
+            //   child: IconButton(
+            //     icon: Icon(
+            //       FeatherIcons.download,
+            //       color: colorBluePrimary,
+            //     ),
+            //     onPressed: () {
+            //       customSnackbar1("Lampiran telah disimpan.");
+            //     },
+            //   ),
+            // ),
+          ],
         ),
         centerTitle: false,
         automaticallyImplyLeading: false,

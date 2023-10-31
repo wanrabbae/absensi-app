@@ -2,7 +2,7 @@ import 'package:app/global_resource.dart';
 
 
 class OTPForm extends StatefulWidget {
-  final s;
+  final LoginController s;
 
   const OTPForm({super.key, required this.s});
   @override
@@ -59,14 +59,12 @@ class _OTPFormState extends State<OTPForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                child: const Text(
-                  "Kode OTP",
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w800),
-                ),
+              const Text(
+                "Kode OTP",
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w800),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -92,12 +90,10 @@ class _OTPFormState extends State<OTPForm> {
                   ),
                 ),
               ),
-              Container(
-                child: const Text(
-                  "Temukan 6 angka kode OTP pada kotak masuk e-mail anda.",
-                  style: TextStyle(
-                      color: Colors.grey, fontWeight: FontWeight.w500),
-                ),
+              const Text(
+                "Temukan 6 angka kode OTP pada kotak masuk e-mail anda.",
+                style: TextStyle(
+                    color: Colors.grey, fontWeight: FontWeight.w500),
               ),
             ],
           ),
