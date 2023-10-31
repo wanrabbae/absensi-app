@@ -348,17 +348,18 @@ class _Toolbar extends StatelessWidget {
           const SizedBox(width: 10),
           GestureDetector(
             onTap: () {
-              showModalBottomSheet(
-                context: context,
-                backgroundColor: Colors.white,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                ),
-                builder: (ctx) => modalSelectCompany(context, s),
-              );
+              // showModalBottomSheet(
+              //   context: context,
+              //   backgroundColor: Colors.white,
+              //   shape: const RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.only(
+              //       topLeft: Radius.circular(20),
+              //       topRight: Radius.circular(20),
+              //     ),
+              //   ),
+              //   builder: (ctx) => modalSelectCompany(context, s),
+              // );
+              Get.toNamed(RouteName.companyScreen);
             },
             child: buildImageSizeIcon(
               context,

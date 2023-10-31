@@ -18,7 +18,11 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (s) {
-        print(s.perusahaan);
+        final logoPerusahaan = changeUrlImage(
+          s.perusahaan?['logoPerusahaan'] ??
+              'wwwroot/Images/CompanyLogo/logo_hora.png',
+        );
+
         return Scaffold(
           extendBody: true,
           extendBodyBehindAppBar: true,
@@ -31,42 +35,25 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: () {
-                    Get.back();
-                    Get.back();
-                  },
+                  onTap: () => Get.back(),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50.0)),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
                     padding: const EdgeInsets.all(10),
                     child: const Icon(FeatherIcons.arrowLeft),
                   ),
                 ),
                 GestureDetector(
-                  onTap: () async {
-                    saveNetworkImage(changeUrlImage(
-                        s.perusahaan?['logoPerusahaan'] ??
-                            'wwwroot/Images/CompanyLogo/logo_hora.png'));
-                    // try {
-                    // debugPrint("HORA PATH: " + createFolder("Hora").toString());
-                    // await downloadImage(changeUrlImage(
-                    //     s.perusahaan?['logoPerusahaan'] ??
-                    //         'wwwroot/Images/CompanyLogo/logo_hora.png'));
-                    // SplashController().showOkDialog2(
-                    //     "Tangkapan Layar", "Gambar Telah Tersimpan", () {
-                    //   debugPrint("YOYY");
-                    // });
-                    // await AwesomeNotificationService()
-                    //     .showNotificationDownloadedFile();
-                    // } on DioError catch (error) {
-                    //   print(error);
-                    // }
+                  onTap: () {
+                    saveNetworkImage(logoPerusahaan);
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(50.0)),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
                     padding: const EdgeInsets.all(10),
                     child: Image.asset(
                       'assets/icons/ic_screen_shot.png',
@@ -79,16 +66,13 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
             ),
           ),
           body: Container(
-            // width: double.infinity,
-            // height: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(changeUrlImage(
-                      s.perusahaan?['logoPerusahaan'] ??
-                          'wwwroot/Images/CompanyLogo/logo_hora.png')),
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center),
-            ), /* add child content here */
+                image: NetworkImage(logoPerusahaan),
+                fit: BoxFit.cover,
+                alignment: Alignment.center,
+              ),
+            ),
           ),
         );
       },
