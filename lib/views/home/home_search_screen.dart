@@ -50,7 +50,7 @@ class HomeSearchScreen extends StatelessWidget {
                     decoration: const BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                                color: colorBluePrimary, width: 1.5))),
+                                color: colorDivider, width: 1.5))),
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(

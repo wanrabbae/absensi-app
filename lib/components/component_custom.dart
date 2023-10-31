@@ -508,7 +508,7 @@ Widget line(BuildContext context) {
 Widget line2(BuildContext context) {
   return Container(
     margin: const EdgeInsets.only(top: 5, bottom: 5),
-    color: const Color.fromARGB(125, 135, 135, 135),
+    color: colorDivider,
     width: MediaQuery.of(context).size.width,
     height: 0.5,
   );
