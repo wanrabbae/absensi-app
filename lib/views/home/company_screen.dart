@@ -1,3 +1,4 @@
+import 'package:app/components/component_constant.dart';
 import 'package:app/components/component_modal.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:app/helpers/base.dart';
@@ -6,11 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-const Decoration kCircleButtonDecoration = BoxDecoration(
-  color: Colors.white,
-  shape: BoxShape.circle,
-);
 
 const CameraPosition _kDefaultCenter = CameraPosition(
   target: LatLng(3.5729021, 98.6292165),

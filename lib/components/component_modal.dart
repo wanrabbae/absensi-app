@@ -11,7 +11,7 @@ const colorGrayPrimary = Color.fromRGBO(238, 240, 244, 1);
 const colorGreenPrimary = Color.fromRGBO(0, 234, 37, 1);
 const colorGreenPrimary2 = Color(0xff18E22C);
 const colorBlackPrimary = Color(0xff333333);
-const colorBlackPrimaryHalf = Color(0x33333380);
+const colorBlackPrimaryHalf = Color(0x80333333);
 const colorDivider = Color(0xFF7D7D7D);
 const LatLng currentLatLng = LatLng(-6.175221730228861, 106.827163526188);
 

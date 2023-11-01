@@ -15,8 +15,9 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    PageController pageViewController =
-        PageController(initialPage: Get.arguments ?? 0);
+    PageController pageViewController = PageController(
+      initialPage: Get.arguments is int ? Get.arguments as int : 0,
+    );
 
     return Scaffold(
       body: PageView(
@@ -81,7 +82,8 @@ class _MainScreenState extends State<MainScreen> {
             //   widget.index = null;
             // });
             pageViewController.animateToPage(index,
-                duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeIn);
           },
         ),
       ),
