@@ -1,8 +1,12 @@
+import 'dart:ui' as ui;
+
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:app/components/component_constant.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/helpers/images.dart';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 const CameraPosition _kDefaultCenter = CameraPosition(
@@ -23,6 +27,10 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
   late final AnimationController animationController;
   final panelController = PanelController();
   final rxExpanded = ValueNotifier(false);
+  final rxMarkers = ValueNotifier(<Marker>[]);
+  BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarkerWithHue(
+    BitmapDescriptor.hueAzure,
+  );
   Map<String, dynamic>? izinData;
 
   dynamic get currentAbsen => Get.arguments?["dataAbsen"] ?? {};
@@ -53,7 +61,28 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
           izinData = findDataIzin;
         });
       }
+
+      setMarker(idAbsen);
+
+      final foto = currentAbsen?['fotoKaryawan'].toString();
+      getGoogleMapsMarker(foto).then((BitmapDescriptor markerIcon) {
+        if (!mounted) return;
+        setState(() {
+          this.markerIcon = markerIcon;
+        });
+        setMarker(idAbsen);
+      });
     });
+  }
+
+  setMarker(dynamic idAbsen) {
+    rxMarkers.value = [
+      Marker(
+        markerId: MarkerId(idAbsen.toString()),
+        icon: markerIcon,
+        position: _kDefaultCenter.target,
+      ),
+    ];
   }
 
   @override
@@ -210,13 +239,19 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                 ),
                 body: Stack(
                   children: <Widget>[
-                    GoogleMap(
-                      mapType: MapType.normal,
-                      initialCameraPosition: _kDefaultCenter,
-                      zoomControlsEnabled: false,
-                      padding: EdgeInsets.only(
-                        bottom: constraints.maxHeight / 4,
-                      ),
+                    ValueListenableBuilder(
+                      valueListenable: rxMarkers,
+                      builder: (context, markers, child) {
+                        return GoogleMap(
+                          mapType: MapType.normal,
+                          initialCameraPosition: _kDefaultCenter,
+                          zoomControlsEnabled: false,
+                          padding: EdgeInsets.only(
+                            bottom: constraints.maxHeight / 4,
+                          ),
+                          markers: markers.toSet(),
+                        );
+                      },
                     ),
                     SlidingUpPanel(
                       controller: panelController,
