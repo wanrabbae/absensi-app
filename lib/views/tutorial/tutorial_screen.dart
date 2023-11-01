@@ -12,66 +12,63 @@ class TutorialScreen extends StatelessWidget {
       init: SplashController(),
       builder: (s) => Scaffold(
         backgroundColor: colorBluePrimary2,
-        body: Container(
-          alignment: Alignment.center,
-          child: Stack(
-            children: [
-              SafeArea(
-                minimum: const EdgeInsets.fromLTRB(16, 60, 16, 0),
-                child: customHeaderAuth2(context, "HORA", "Petunjuk Pemakaian"),
-              ),
-              PageView(
-                controller: pageController,
-                children: [
-                  const _TutorialContent(
-                    'assets/icons/tutorial/clock.png',
-                    'Sentuh tombol timer untuk memulai kehadiran',
-                  ),
-                  const _TutorialContent(
-                    'assets/icons/tutorial/marker.webp',
-                    'Izinkan Hora untuk mengakses lokasi perangkat Anda',
-                  ),
-                  const _TutorialContent(
-                    'assets/icons/tutorial/camera.webp',
-                    'Izinkan Hora untuk mengakses kamera perangkat Anda',
-                  ),
-                  const _TutorialContent(
-                    'assets/icons/tutorial/folder.webp',
-                    'Izinkan Hora untuk mengakses penyimpanan perangkat Anda',
-                  ),
-                  _TutorialContent(
-                    'assets/icons/tutorial/chat.png',
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          const TextSpan(text: 'Kirimkan e-mail di '),
-                          TextSpan(
-                            text: 'cs@horaapp.id',
-                            style: const TextStyle(
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.white70,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launchUrlString('mailto:cs@horaapp.id');
-                              },
+        body: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 60, 16, 0),
+              child: customHeaderAuth2(context, "HORA", "Petunjuk Pemakaian"),
+            ),
+            PageView(
+              controller: pageController,
+              children: [
+                const _TutorialContent(
+                  'assets/icons/tutorial/clock.png',
+                  'Sentuh tombol timer untuk memulai kehadiran',
+                ),
+                const _TutorialContent(
+                  'assets/icons/tutorial/marker.webp',
+                  'Izinkan Hora untuk mengakses lokasi perangkat Anda',
+                ),
+                const _TutorialContent(
+                  'assets/icons/tutorial/camera.webp',
+                  'Izinkan Hora untuk mengakses kamera perangkat Anda',
+                ),
+                const _TutorialContent(
+                  'assets/icons/tutorial/folder.webp',
+                  'Izinkan Hora untuk mengakses penyimpanan perangkat Anda',
+                ),
+                _TutorialContent(
+                  'assets/icons/tutorial/chat.png',
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        const TextSpan(text: 'Kirimkan e-mail di '),
+                        TextSpan(
+                          text: 'cs@horaapp.id',
+                          style: const TextStyle(
+                            decoration: TextDecoration.underline,
+                            decorationColor: Colors.white70,
                           ),
-                          const TextSpan(text: ' jika menemukan kesulitan'),
-                        ],
-                      ),
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              launchUrlString('mailto:cs@horaapp.id');
+                            },
+                        ),
+                        const TextSpan(text: ' jika menemukan kesulitan'),
+                      ],
                     ),
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                ],
-              ),
-              _Footer(pageController),
-            ],
-          ),
+                ),
+              ],
+            ),
+            _Footer(pageController),
+          ],
         ),
       ),
     );
@@ -86,50 +83,47 @@ class _Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 0,
+      bottom: 12,
       left: 12,
       right: 12,
-      child: SafeArea(
-        minimum: const EdgeInsets.only(bottom: 12),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Center(
-              child: AnimatedBuilder(
-                animation: pageController,
-                builder: (context, child) {
-                  return AnimatedSmoothIndicator(
-                    count: 5,
-                    activeIndex: pageController.page!.toInt(),
-                    effect: const ScaleEffect(
-                      activeDotColor: Colors.white,
-                      dotColor: Colors.white,
-                      scale: 2,
-                      dotHeight: 10,
-                      dotWidth: 10,
-                      spacing: 14,
-                    ),
-                  );
-                },
-              ),
-            ),
-            const SizedBox(height: 64),
-            const Text(
-              "Anda sudah mengerti?",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 12),
-            ),
-            const SizedBox(height: 4),
-            buttonWhite(
-              "Saya Mengerti",
-              onTap: () {
-                Get.toNamed(RouteName.greeting);
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Center(
+            child: AnimatedBuilder(
+              animation: pageController,
+              builder: (context, child) {
+                return AnimatedSmoothIndicator(
+                  count: 5,
+                  activeIndex: pageController.page!.toInt(),
+                  effect: const ScaleEffect(
+                    activeDotColor: Colors.white,
+                    dotColor: Colors.white,
+                    scale: 2,
+                    dotHeight: 10,
+                    dotWidth: 10,
+                    spacing: 14,
+                  ),
+                );
               },
-            )
-          ],
-        ),
+            ),
+          ),
+          const SizedBox(height: 64),
+          const Text(
+            "Anda sudah mengerti?",
+            textAlign: TextAlign.center,
+            style: TextStyle(color: Colors.white, fontSize: 12),
+          ),
+          const SizedBox(height: 4),
+          buttonWhite(
+            "Saya Mengerti",
+            onTap: () {
+              Get.toNamed(RouteName.greeting);
+            },
+          )
+        ],
       ),
     );
   }
