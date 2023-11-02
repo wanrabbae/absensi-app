@@ -250,7 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
               "Hadir",
               style: TextStyle(
                 color: Colors.black,
-                fontWeight: hadirHighlight ? FontWeight.w700 : FontWeight.w400,
+                fontWeight: hadirHighlight ? FontWeight.w700 : FontWeight.w600,
               ),
             ),
           ),
@@ -283,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
               "Izin",
               style: TextStyle(
                 color: Colors.black,
-                fontWeight: izinHighlight ? FontWeight.w700 : FontWeight.w400,
+                fontWeight: izinHighlight ? FontWeight.w700 : FontWeight.w600,
               ),
             ),
           ),
