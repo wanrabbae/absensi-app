@@ -1,12 +1,9 @@
-import 'dart:ui' as ui;
-
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:app/components/component_constant.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/images.dart';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 const CameraPosition _kDefaultCenter = CameraPosition(
@@ -336,6 +333,42 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                         rxExpanded.value = true;
                         animationController.forward();
                       },
+                      footer: Container(
+                        width: constraints.maxWidth,
+                        color: colorBluePrimary,
+                        padding: const EdgeInsets.fromLTRB(16, 16, 12, 16),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.access_time_filled,
+                              size: 24,
+                              color: Colors.white,
+                            ),
+                            Expanded(
+                              child: Text(
+                                timerAbsen3(
+                                  currentAbsen?["waktuCheckIn"],
+                                  currentAbsen?["waktuCheckOut"],
+                                ).replaceAll(':', ' : '),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            const Icon(
+                              Icons.chevron_right,
+                              size: 24,
+                              color: Colors.white,
+                            )
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -413,6 +446,7 @@ class _PulangView extends StatelessWidget {
             _PulangIzinView(izinData: izinData),
             const SizedBox(height: 2),
             const Divider(color: colorBlueOpacity2),
+            const SizedBox(height: 48),
           ],
         ),
       ),
@@ -797,6 +831,7 @@ class _HadirView extends StatelessWidget {
             _HadirIzinView(izinData: izinData),
             const SizedBox(height: 2),
             const Divider(color: colorBlueOpacity2),
+            const SizedBox(height: 48),
           ],
         ),
       ),

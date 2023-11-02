@@ -123,7 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
               }
             },
             backgroundColor:
-                s.isPresentHadir! ? Colors.grey.shade400 : colorBluePrimary2,
+                s.isPresentHadir! ? colorDisabled : colorBluePrimary2,
+            elevation: 0,
             isExtended: true,
             child: timerCount(context, s),
           ),

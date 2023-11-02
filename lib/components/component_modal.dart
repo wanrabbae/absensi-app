@@ -13,6 +13,7 @@ const colorGreenPrimary2 = Color(0xff18E22C);
 const colorBlackPrimary = Color(0xff333333);
 const colorBlackPrimaryHalf = Color(0x80333333);
 const colorDivider = Color(0xFF7D7D7D);
+const colorDisabled = Color(0xFFD9D9D9);
 const LatLng currentLatLng = LatLng(-6.175221730228861, 106.827163526188);
 
 Widget modalSelectCompany(BuildContext context, s) {
