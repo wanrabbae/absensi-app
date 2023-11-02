@@ -97,7 +97,7 @@ class _Footer extends StatelessWidget {
               builder: (context, child) {
                 return AnimatedSmoothIndicator(
                   count: 5,
-                  activeIndex: pageController.page!.toInt(),
+                  activeIndex: pageController.page?.toInt() ?? 0,
                   effect: const ScaleEffect(
                     activeDotColor: Colors.white,
                     dotColor: Colors.white,
