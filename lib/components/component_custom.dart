@@ -236,6 +236,34 @@ Widget buttonGreen(String title, {VoidCallback? onTap}) {
   );
 }
 
+Widget buttonBlue(String title, {VoidCallback? onTap}) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: ElevatedButton(
+      onPressed: onTap,
+      style: ButtonStyle(
+        backgroundColor: const MaterialStatePropertyAll<Color>(
+          colorBluePrimary,
+        ),
+        shape: MaterialStatePropertyAll<OutlinedBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 Widget buttonWhite(String title, {VoidCallback? onTap}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),

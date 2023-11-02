@@ -42,7 +42,7 @@ class CompanyScreen extends StatelessWidget {
               Container(
                 decoration: kCircleButtonDecoration,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () => _handleStopWorking(context),
                   color: Colors.red,
                   icon: const Icon(FeatherIcons.userX),
                 ),
@@ -149,5 +149,60 @@ class CompanyScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  _handleStopWorking(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: const EdgeInsets.all(5),
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: const Text(
+            'Berhenti',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 16),
+              const Text(
+                'Anda ingin berhenti bekerja?',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  TextButton(
+                    child: const Text(
+                      'Tidak',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                  TextButton(
+                    child: const Text(
+                      'Ya',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    onPressed: () => Navigator.pop(context, true),
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      },
+    ).then((confirmed) {
+      if (confirmed == true) {
+        Get.offNamed(RouteName.stopWorking);
+      }
+    });
   }
 }

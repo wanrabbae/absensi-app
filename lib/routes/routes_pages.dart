@@ -7,6 +7,7 @@ import 'package:app/views/home/company_screen.dart';
 import 'package:app/views/home/hadir_result_location_screen.dart';
 import 'package:app/views/home/hadir_result_selfie_screen.dart';
 import 'package:app/views/home/main_screen.dart';
+import 'package:app/views/home/stop_working_screen.dart';
 
 class Routes {
   static final pages = [
@@ -42,6 +43,9 @@ class Routes {
     GetPage(
         name: RouteName.companyScreen,
         page: () => const CompanyScreen()),
+    GetPage(
+        name: RouteName.stopWorking,
+        page: () => const StopWorkingScreen()),
     GetPage(
         name: RouteName.hasilHadirFullScreen,
         page: () => const HasilHadirScreen()),
