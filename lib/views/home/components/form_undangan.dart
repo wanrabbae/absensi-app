@@ -31,6 +31,10 @@ Widget formUndangan(s, context) {
                 style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                 decoration: const InputDecoration(
                   hintText: "e-mail teman",
+                  hintStyle: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 1.5),
                   ),

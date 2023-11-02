@@ -87,7 +87,12 @@ class _OTPFormState extends State<OTPForm> {
                         borderSide:
                             BorderSide(color: colorBluePrimary, width: 2)),
                     hintText: "Masukkan 6 angka kode",
+                    hintStyle: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
                   ),
+                  style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
                 ),
               ),
               const Text(
