@@ -118,7 +118,7 @@ class _Footer extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           buttonWhite(
-            "Saya Mengerti",
+            "Saya mengerti",
             onTap: () {
               Get.toNamed(RouteName.greeting);
             },
