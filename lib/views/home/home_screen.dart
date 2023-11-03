@@ -310,8 +310,8 @@ class _Toolbar extends StatelessWidget {
             flex: 1,
             child: Row(
               children: [
-                Image.asset('assets/icons/logo/hora.png', height: 28),
-                const SizedBox(width: 16),
+                Image.asset('assets/icons/logo/hora.png', height: 24),
+                const SizedBox(width: 5),
                 const Text(
                   "HORA",
                   style: TextStyle(
