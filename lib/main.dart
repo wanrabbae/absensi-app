@@ -1,10 +1,13 @@
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:open_file_plus/open_file_plus.dart';
 import 'package:app/data/local/base_preference.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
+
+import 'firebase_options.dart';
 
 // import 'package:app/firebase_options.dart';
 // import 'package:firebase_core/firebase_core.dart';
@@ -24,13 +27,13 @@ void main() async {
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   // FlutterNativeSplash.preserve(widgetsBinding: binding);
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   // final GoogleMapsFlutterPlatform mapsImplementation =
   //     GoogleMapsFlutterPlatform.instance;
   // if (mapsImplementation is GoogleMapsFlutterAndroid) {
   //   mapsImplementation.useAndroidViewSurface = true;
   // }
-  await Permission.notification.isDenied.then((value) {
+  Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();
     }
