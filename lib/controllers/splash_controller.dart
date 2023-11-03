@@ -5,7 +5,7 @@ class SplashController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 2), () {
       var splashScreen = box.read(Base.splash);
       var user = box.read(Base.dataUser);
       if (user == null) {
