@@ -8,6 +8,7 @@ part of 'live_tracking.dart';
 
 _$LiveTrackingImpl _$$LiveTrackingImplFromJson(Map<String, dynamic> json) =>
     _$LiveTrackingImpl(
+      uid: json['uid'] as String?,
       broadcasterId: json['broadcaster_id'] as String,
       listenerId: json['listener_id'] as String,
       requestApproved: json['request_approved'] as bool? ?? false,
@@ -19,6 +20,7 @@ _$LiveTrackingImpl _$$LiveTrackingImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$LiveTrackingImplToJson(_$LiveTrackingImpl instance) =>
     <String, dynamic>{
+      'uid': instance.uid,
       'broadcaster_id': instance.broadcasterId,
       'listener_id': instance.listenerId,
       'request_approved': instance.requestApproved,

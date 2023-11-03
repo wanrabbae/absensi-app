@@ -20,6 +20,7 @@ LiveTracking _$LiveTrackingFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$LiveTracking {
+  String? get uid => throw _privateConstructorUsedError;
   @JsonKey(name: 'broadcaster_id')
   String get broadcasterId => throw _privateConstructorUsedError;
   @JsonKey(name: 'listener_id')
@@ -45,7 +46,8 @@ abstract class $LiveTrackingCopyWith<$Res> {
       _$LiveTrackingCopyWithImpl<$Res, LiveTracking>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'broadcaster_id') String broadcasterId,
+      {String? uid,
+      @JsonKey(name: 'broadcaster_id') String broadcasterId,
       @JsonKey(name: 'listener_id') String listenerId,
       @JsonKey(name: 'request_approved') bool requestApproved,
       double? latitude,
@@ -68,6 +70,7 @@ class _$LiveTrackingCopyWithImpl<$Res, $Val extends LiveTracking>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = freezed,
     Object? broadcasterId = null,
     Object? listenerId = null,
     Object? requestApproved = null,
@@ -76,6 +79,10 @@ class _$LiveTrackingCopyWithImpl<$Res, $Val extends LiveTracking>
     Object? lastUpdate = freezed,
   }) {
     return _then(_value.copyWith(
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       broadcasterId: null == broadcasterId
           ? _value.broadcasterId
           : broadcasterId // ignore: cast_nullable_to_non_nullable
@@ -113,7 +120,8 @@ abstract class _$$LiveTrackingImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'broadcaster_id') String broadcasterId,
+      {String? uid,
+      @JsonKey(name: 'broadcaster_id') String broadcasterId,
       @JsonKey(name: 'listener_id') String listenerId,
       @JsonKey(name: 'request_approved') bool requestApproved,
       double? latitude,
@@ -134,6 +142,7 @@ class __$$LiveTrackingImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? uid = freezed,
     Object? broadcasterId = null,
     Object? listenerId = null,
     Object? requestApproved = null,
@@ -142,6 +151,10 @@ class __$$LiveTrackingImplCopyWithImpl<$Res>
     Object? lastUpdate = freezed,
   }) {
     return _then(_$LiveTrackingImpl(
+      uid: freezed == uid
+          ? _value.uid
+          : uid // ignore: cast_nullable_to_non_nullable
+              as String?,
       broadcasterId: null == broadcasterId
           ? _value.broadcasterId
           : broadcasterId // ignore: cast_nullable_to_non_nullable
@@ -174,7 +187,8 @@ class __$$LiveTrackingImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$LiveTrackingImpl implements _LiveTracking {
   const _$LiveTrackingImpl(
-      {@JsonKey(name: 'broadcaster_id') required this.broadcasterId,
+      {this.uid,
+      @JsonKey(name: 'broadcaster_id') required this.broadcasterId,
       @JsonKey(name: 'listener_id') required this.listenerId,
       @JsonKey(name: 'request_approved') this.requestApproved = false,
       this.latitude,
@@ -186,6 +200,8 @@ class _$LiveTrackingImpl implements _LiveTracking {
   factory _$LiveTrackingImpl.fromJson(Map<String, dynamic> json) =>
       _$$LiveTrackingImplFromJson(json);
 
+  @override
+  final String? uid;
   @override
   @JsonKey(name: 'broadcaster_id')
   final String broadcasterId;
@@ -206,7 +222,7 @@ class _$LiveTrackingImpl implements _LiveTracking {
 
   @override
   String toString() {
-    return 'LiveTracking(broadcasterId: $broadcasterId, listenerId: $listenerId, requestApproved: $requestApproved, latitude: $latitude, longitude: $longitude, lastUpdate: $lastUpdate)';
+    return 'LiveTracking(uid: $uid, broadcasterId: $broadcasterId, listenerId: $listenerId, requestApproved: $requestApproved, latitude: $latitude, longitude: $longitude, lastUpdate: $lastUpdate)';
   }
 
   @override
@@ -214,6 +230,7 @@ class _$LiveTrackingImpl implements _LiveTracking {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$LiveTrackingImpl &&
+            (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.broadcasterId, broadcasterId) ||
                 other.broadcasterId == broadcasterId) &&
             (identical(other.listenerId, listenerId) ||
@@ -230,7 +247,7 @@ class _$LiveTrackingImpl implements _LiveTracking {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, broadcasterId, listenerId,
+  int get hashCode => Object.hash(runtimeType, uid, broadcasterId, listenerId,
       requestApproved, latitude, longitude, lastUpdate);
 
   @JsonKey(ignore: true)
@@ -249,7 +266,8 @@ class _$LiveTrackingImpl implements _LiveTracking {
 
 abstract class _LiveTracking implements LiveTracking {
   const factory _LiveTracking(
-      {@JsonKey(name: 'broadcaster_id') required final String broadcasterId,
+      {final String? uid,
+      @JsonKey(name: 'broadcaster_id') required final String broadcasterId,
       @JsonKey(name: 'listener_id') required final String listenerId,
       @JsonKey(name: 'request_approved') final bool requestApproved,
       final double? latitude,
@@ -261,6 +279,8 @@ abstract class _LiveTracking implements LiveTracking {
   factory _LiveTracking.fromJson(Map<String, dynamic> json) =
       _$LiveTrackingImpl.fromJson;
 
+  @override
+  String? get uid;
   @override
   @JsonKey(name: 'broadcaster_id')
   String get broadcasterId;

@@ -8,6 +8,7 @@ part 'live_tracking.g.dart';
 @freezed
 class LiveTracking with _$LiveTracking {
   const factory LiveTracking({
+    String? uid,
     @JsonKey(name: 'broadcaster_id') required String broadcasterId,
     @JsonKey(name: 'listener_id') required String listenerId,
     @Default(false) @JsonKey(name: 'request_approved') bool requestApproved,
