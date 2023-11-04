@@ -1,5 +1,4 @@
 import 'package:app/data/models/absence.dart';
-import 'package:app/data/models/company.dart';
 import 'package:app/data/models/profile.dart';
 
 class DataHelper {
@@ -17,17 +16,6 @@ class DataHelper {
         address:
             "RW7V+WMJ, Unnamed Road, RT.2/RW.2, East Cakung, Cakung, East Jakarta City, Jakarta 13910",
         phone: "+6282138250025");
-  }
-
-  static List<Company> companies() {
-    return [
-      const Company(
-          name: "Company Name 1",
-          logo: "https://api.horaapp.id/Images/CompanyLogo/logo_hora.png"),
-      const Company(
-          name: "Company Name 3",
-          logo: "https://api.horaapp.id/Images/CompanyLogo/logo_hora.png")
-    ];
   }
 
   static List<Absence> absences() {

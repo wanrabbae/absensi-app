@@ -18,10 +18,7 @@ class _CompanyFullScreenState extends State<CompanyFullScreen> {
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (s) {
-        final logoPerusahaan = changeUrlImage(
-          s.perusahaan?['logoPerusahaan'] ??
-              'wwwroot/Images/CompanyLogo/logo_hora.png',
-        );
+        final logoPerusahaan = changeUrlImage(s.perusahaan.logo);
 
         return Scaffold(
           extendBody: true,

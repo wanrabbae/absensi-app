@@ -364,10 +364,7 @@ class _Toolbar extends StatelessWidget {
             },
             child: buildImageSizeIcon(
               context,
-              changeUrlImage(
-                s.perusahaan?['logoPerusahaan'] ??
-                    'wwwroot/Images/CompanyLogo/logo_hora.png',
-              ),
+              changeUrlImage(s.perusahaan.logo),
             ),
           ),
         ],

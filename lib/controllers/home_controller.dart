@@ -1,3 +1,4 @@
+import 'package:app/data/models/company.dart';
 import 'package:app/global_resource.dart';
 
 class HomeController extends GetxController {
@@ -5,7 +6,7 @@ class HomeController extends GetxController {
   final box = GetStorage();
   DateTime now = DateTime.now();
   final focus = FocusNode();
-  Map? perusahaan;
+  Company perusahaan = const Company();
   Map? user;
   String? currentDate;
   var timerRecor = "00:00:00";
@@ -334,11 +335,11 @@ class HomeController extends GetxController {
         var hasil = jsonDecode(box.read(Base.dataPerusahaan));
         perusahaanList = hasil;
         if (perusahaanTerpilih == null) {
-          perusahaan = hasil[0];
+          perusahaan = Company.fromJson(hasil[0]);
         } else {
-          perusahaan = hasil
+          perusahaan = Company.fromJson(hasil
               .where((value) => value['idperusahaan'] == perusahaanTerpilih)
-              .toList()[0];
+              .toList()[0]);
         }
         update();
       } else if (response.statusCode == 401) {
@@ -393,9 +394,9 @@ class HomeController extends GetxController {
     try {
       var response = search == ''
           ? await HomeServices().searchPerusahaanGet(
-              {'idperusahaan': perusahaan?['idperusahaan']})
+              {'idperusahaan': perusahaan.id})
           : await HomeServices().searchUserGet(
-              {'idperusahaan': perusahaan?['idperusahaan'], 'nama': search});
+              {'idperusahaan': perusahaan.id, 'nama': search});
       if (response.statusCode == 200) {
         searchHasil?.removeRange(0, searchHasil!.length);
         searchHasil?.addAll(
@@ -425,8 +426,8 @@ class HomeController extends GetxController {
       var response = await HomeServices().undanganPost({
         'receiver': emailUndangan,
         'sender': user?['alamatEmail'],
-        'idperusahaan': perusahaan?['idperusahaan'],
-        'namaPerusahaan': perusahaan?['namaPerusahaan']
+        'idperusahaan': perusahaan.id,
+        'namaPerusahaan': perusahaan.name,
       });
       if (response.statusCode == 200) {
         Get.back();

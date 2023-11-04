@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app/components/component_constant.dart';
 import 'package:app/components/component_modal.dart';
 import 'package:app/controllers/home_controller.dart';
@@ -18,6 +20,9 @@ class CompanyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final completer = Completer<GoogleMapController>();
+    final rxMarkers = ValueNotifier<List<Marker>>([]);
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return Scaffold(
@@ -52,12 +57,23 @@ class CompanyScreen extends StatelessWidget {
           ),
           body: GetBuilder<HomeController>(
             builder: (HomeController controller) {
-              final logoPerusahaan = changeUrlImage(
-                controller.perusahaan?['logoPerusahaan'] ??
-                    'wwwroot/Images/CompanyLogo/logo_hora.png',
-              );
-              final namaPerusahaan =
-                  controller.perusahaan?['namaPerusahaan'] ?? 'PT HORA';
+              final perusahaan = controller.perusahaan;
+              final id = perusahaan.id;
+              final logoPerusahaan = changeUrlImage(perusahaan.logo);
+              final namaPerusahaan = perusahaan.name;
+              final likeCount = perusahaan.like;
+              final address = perusahaan.alamat;
+              final latitude = double.tryParse(perusahaan.latitude);
+              final longitude = double.tryParse(perusahaan.longitude);
+              if (latitude != null && longitude != null) {
+                final position = LatLng(latitude, longitude);
+                rxMarkers.value = [
+                  Marker(markerId: MarkerId(id), position: position),
+                ];
+                completer.future.then((c) {
+                  c.animateCamera(CameraUpdate.newLatLng(position));
+                });
+              }
 
               return SingleChildScrollView(
                 child: Column(
@@ -82,20 +98,20 @@ class CompanyScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
                       child: Text.rich(
                         TextSpan(
                           children: [
-                            WidgetSpan(
+                            const WidgetSpan(
                               child: Icon(Icons.favorite, size: 20),
                             ),
                             TextSpan(
-                              text: ' 12 orang · Medan, Sumatera Utara',
+                              text: ' $likeCount orang · Medan, Sumatera Utara',
                             ),
                           ],
                         ),
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                           color: colorBlackPrimary,
@@ -121,20 +137,36 @@ class CompanyScreen extends StatelessWidget {
                     Container(
                       height: constraints.maxHeight / 4,
                       margin: const EdgeInsets.symmetric(horizontal: 20),
-                      child: const ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        child: GoogleMap(
-                          mapType: MapType.normal,
-                          initialCameraPosition: _kDefaultCenter,
-                          zoomControlsEnabled: false,
+                      child: ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
+                        child: AnimatedBuilder(
+                          animation: rxMarkers,
+                          builder: (context, child) {
+                            return GoogleMap(
+                              onMapCreated: (GoogleMapController controller) {
+                                if (!completer.isCompleted) {
+                                  completer.complete(controller);
+                                }
+                              },
+                              mapType: MapType.normal,
+                              initialCameraPosition: _kDefaultCenter,
+                              zoomControlsEnabled: false,
+                              markers: rxMarkers.value.toSet(),
+                              onTap: (_) => openMap(
+                                perusahaan.latitude,
+                                perusahaan.longitude,
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                       child: Text(
-                        'Jl. Abadi No.1 Medan, Sumatera Utara',
-                        style: TextStyle(
+                        address,
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: colorBlackPrimary,
