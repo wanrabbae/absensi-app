@@ -110,13 +110,23 @@ export 'package:app/views/webview/webview_screen.dart';
 
 //Views End
 
+import 'package:app/data/source/remote/api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get_it/get_it.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import 'helpers/base.dart';
+
+final $it = GetIt.instance;
 final kDio = Dio();
 
-initialize() {
+initialize() async {
+  final _box = GetStorage();
+
   if (kDebugMode) {
     final logger = PrettyDioLogger(
       requestHeader: true,
@@ -129,4 +139,26 @@ initialize() {
     );
     kDio.interceptors.add(logger);
   }
+
+  kDio.interceptors.add(InterceptorsWrapper(
+    onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
+      final headers = options.headers;
+      final token = _box.read(Base.token);
+      if (!headers.containsKey('Authorization') && token is String) {
+        headers['Authorization'] = token;
+      }
+      handler.next(options.copyWith(headers: headers));
+    },
+  ));
+
+  final api = ApiService(kDio, baseUrl: Base.url);
+
+  $it
+    ..registerSingleton(_box)
+    ..registerSingleton(kDio)
+    ..registerSingleton(api);
+
+  HydratedBloc.storage = await HydratedStorage.build(
+      storageDirectory: await getApplicationDocumentsDirectory(),
+  );
 }

@@ -1,22 +1,7 @@
 import 'package:app/data/models/absence.dart';
-import 'package:app/data/models/profile.dart';
 
 class DataHelper {
   const DataHelper._();
-  static Profile profile() {
-    return const Profile(
-        id: 1,
-        name: "Bambang Heri Setiawan",
-        email: "setiawan.heri.bambang@gmail.com",
-        gender: "Wanita",
-        genderCode: "F",
-        joinDate: "2021",
-        photo:
-            "https://i.pinimg.com/236x/d5/8d/26/d58d2649073e7b1a441853bdf9b4cc81--tom-cruise-cruises.jpg",
-        address:
-            "RW7V+WMJ, Unnamed Road, RT.2/RW.2, East Cakung, Cakung, East Jakarta City, Jakarta 13910",
-        phone: "+6282138250025");
-  }
 
   static List<Absence> absences() {
     return [

@@ -1,7 +1,9 @@
 import 'package:app/components/empty_view.dart';
+import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/card_home.dart';
 
@@ -20,6 +22,17 @@ class _HomeScreenState extends State<HomeScreen> {
   var izinHighlight = false;
 
   File? formFotoIzin;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<AppCubit>()
+        ..getProfile()
+        ..getCompany();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

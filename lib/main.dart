@@ -1,11 +1,13 @@
+import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/data/local/base_preference.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
-import 'package:open_file_plus/open_file_plus.dart';
-import 'package:app/data/local/base_preference.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_file_plus/open_file_plus.dart';
 
 import 'firebase_options.dart';
 
@@ -17,8 +19,8 @@ import 'firebase_options.dart';
 // import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platform_interface.dart';
 
 void main() async {
-  initialize();
   WidgetsBinding binding = WidgetsFlutterBinding.ensureInitialized();
+  await initialize();
   await EasyLocalization.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
@@ -131,7 +133,10 @@ void main() async {
       supportedLocales: const [Locale("id", "ID"), Locale("en", "US")],
       fallbackLocale: const Locale("id", "ID"),
       path: 'assets/lang',
-      child: const MyApp(),
+      child: BlocProvider(
+        create: (context) => AppCubit($it(), $it()),
+        child: const MyApp(),
+      ),
     ),
   ));
   // FlutterNativeSplash.remove();
@@ -141,6 +146,7 @@ void main() async {
 
 class MyApp extends HookConsumerWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AwesomeNotificationService().removeNotificationUnUsed();

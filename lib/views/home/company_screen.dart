@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:app/components/component_constant.dart';
 import 'package:app/components/component_modal.dart';
+import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:app/helpers/base.dart';
 import 'package:app/helpers/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -38,9 +40,22 @@ class CompanyScreen extends StatelessWidget {
             actions: [
               Container(
                 decoration: kCircleButtonDecoration,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.favorite_border),
+                child: BlocBuilder<AppCubit, AppState>(
+                  buildWhen: (previous, current) =>
+                      previous.currentUser != current.currentUser,
+                  builder: (context, state) {
+                    final profile = state.currentUser;
+                    final liked = profile?.liked == 'yes';
+
+                    return IconButton(
+                      onPressed: () {
+                        context.read<AppCubit>().toggleLikeUnlike();
+                      },
+                      icon: liked
+                          ? const Icon(Icons.favorite)
+                          : const Icon(Icons.favorite_border),
+                    );
+                  },
                 ),
               ),
               const SizedBox(width: 10),
@@ -100,22 +115,36 @@ class CompanyScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                      child: Text.rich(
-                        TextSpan(
-                          children: [
-                            const WidgetSpan(
-                              child: Icon(Icons.favorite, size: 20),
-                            ),
+                      child: BlocBuilder<AppCubit, AppState>(
+                        buildWhen: (previous, current) =>
+                            previous.company != current.company ||
+                            previous.currentUser != current.currentUser,
+                        builder: (context, state) {
+                          final profile = state.currentUser;
+                          final liked = profile?.liked == 'yes';
+                          final like = state.company?.like ?? likeCount;
+
+                          return Text.rich(
                             TextSpan(
-                              text: ' $likeCount orang · Medan, Sumatera Utara',
+                              children: [
+                                WidgetSpan(
+                                  child: liked
+                                      ? const Icon(Icons.favorite, size: 20)
+                                      : const Icon(
+                                          Icons.favorite_border,
+                                          size: 20,
+                                        ),
+                                ),
+                                TextSpan(text: ' $like orang'),
+                              ],
                             ),
-                          ],
-                        ),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: colorBlackPrimary,
-                        ),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: colorBlackPrimary,
+                            ),
+                          );
+                        },
                       ),
                     ),
                     Container(
