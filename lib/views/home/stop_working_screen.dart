@@ -1,4 +1,5 @@
 import 'package:app/components/component_custom.dart';
+import 'package:app/controllers/splash_controller.dart';
 import 'package:flutter/material.dart';
 
 class StopWorkingScreen extends StatelessWidget {
@@ -48,7 +49,7 @@ class StopWorkingScreen extends StatelessWidget {
       ),
       bottomNavigationBar: SafeArea(
         minimum: const EdgeInsets.all(20),
-        child: buttonBlue('Oke', onTap: () => Navigator.pop(context)),
+        child: buttonBlue('Oke', onTap: () => SplashController().removeData()),
       ),
     );
   }

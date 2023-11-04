@@ -77,6 +77,19 @@ class AppCubit extends HydratedCubit<AppState> {
     } catch (_) {}
   }
 
+  Future<void> stopWorking(Function([String?]) onDone) async {
+    final user = box.read(Base.dataUser);
+    final email = user?['alamatEmail'];
+    if (email is String) {
+      try {
+        await api.stopWorking(email: email);
+        onDone();
+      } catch (_) {
+        onDone('Pengguna tidak ditemukan');
+      }
+    }
+  }
+
   @override
   AppState? fromJson(Map<String, dynamic> json) {
     try {

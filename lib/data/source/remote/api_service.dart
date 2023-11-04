@@ -21,6 +21,11 @@ mixin $Company {
     @Query("karyawanid") required String karyawanId,
     @Query("perusahaanid") required String perusahaanId,
   });
+
+  @PUT('api/profile/delete')
+  Future<String> stopWorking({
+    @Query("email") required String email,
+  });
 }
 
 mixin $Profile {

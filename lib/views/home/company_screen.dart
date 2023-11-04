@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app/components/component_constant.dart';
+import 'package:app/components/component_custom.dart';
 import 'package:app/components/component_modal.dart';
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/home_controller.dart';
@@ -262,7 +263,13 @@ class CompanyScreen extends StatelessWidget {
       },
     ).then((confirmed) {
       if (confirmed == true) {
-        Get.offNamed(RouteName.stopWorking);
+        context.read<AppCubit>().stopWorking(([String? error]) {
+          if (error != null) {
+            Get.offNamed(RouteName.stopWorking);
+          } else {
+            customSnackbar1(error);
+          }
+        });
       }
     });
   }
