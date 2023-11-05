@@ -77,7 +77,6 @@ class CompanyScreen extends StatelessWidget {
               final id = perusahaan.id;
               final logoPerusahaan = changeUrlImage(perusahaan.logo);
               final namaPerusahaan = perusahaan.name;
-              final likeCount = perusahaan.like;
               final address = perusahaan.alamat;
               final latitude = double.tryParse(perusahaan.latitude);
               final longitude = double.tryParse(perusahaan.longitude);
@@ -123,7 +122,7 @@ class CompanyScreen extends StatelessWidget {
                         builder: (context, state) {
                           final profile = state.currentUser;
                           final liked = profile?.liked == 'yes';
-                          final like = state.company?.like ?? likeCount;
+                          final like = state.company.like;
 
                           return Text.rich(
                             TextSpan(

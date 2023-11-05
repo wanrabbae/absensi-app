@@ -4,7 +4,7 @@ part of 'app_cubit.dart';
 class AppState with _$AppState {
   const factory AppState({
     Profile? currentUser,
-    Company? company,
+    @Default(Company()) Company company,
   }) = _AppState;
 
   factory AppState.fromJson(Map<String, dynamic> json) =>

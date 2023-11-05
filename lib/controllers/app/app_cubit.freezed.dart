@@ -21,7 +21,7 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AppState {
   Profile? get currentUser => throw _privateConstructorUsedError;
-  Company? get company => throw _privateConstructorUsedError;
+  Company get company => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,10 +34,10 @@ abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res, AppState>;
   @useResult
-  $Res call({Profile? currentUser, Company? company});
+  $Res call({Profile? currentUser, Company company});
 
   $ProfileCopyWith<$Res>? get currentUser;
-  $CompanyCopyWith<$Res>? get company;
+  $CompanyCopyWith<$Res> get company;
 }
 
 /// @nodoc
@@ -54,17 +54,17 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
   @override
   $Res call({
     Object? currentUser = freezed,
-    Object? company = freezed,
+    Object? company = null,
   }) {
     return _then(_value.copyWith(
       currentUser: freezed == currentUser
           ? _value.currentUser
           : currentUser // ignore: cast_nullable_to_non_nullable
               as Profile?,
-      company: freezed == company
+      company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
-              as Company?,
+              as Company,
     ) as $Val);
   }
 
@@ -82,12 +82,8 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
 
   @override
   @pragma('vm:prefer-inline')
-  $CompanyCopyWith<$Res>? get company {
-    if (_value.company == null) {
-      return null;
-    }
-
-    return $CompanyCopyWith<$Res>(_value.company!, (value) {
+  $CompanyCopyWith<$Res> get company {
+    return $CompanyCopyWith<$Res>(_value.company, (value) {
       return _then(_value.copyWith(company: value) as $Val);
     });
   }
@@ -101,12 +97,12 @@ abstract class _$$AppStateImplCopyWith<$Res>
       __$$AppStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Profile? currentUser, Company? company});
+  $Res call({Profile? currentUser, Company company});
 
   @override
   $ProfileCopyWith<$Res>? get currentUser;
   @override
-  $CompanyCopyWith<$Res>? get company;
+  $CompanyCopyWith<$Res> get company;
 }
 
 /// @nodoc
@@ -121,17 +117,17 @@ class __$$AppStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? currentUser = freezed,
-    Object? company = freezed,
+    Object? company = null,
   }) {
     return _then(_$AppStateImpl(
       currentUser: freezed == currentUser
           ? _value.currentUser
           : currentUser // ignore: cast_nullable_to_non_nullable
               as Profile?,
-      company: freezed == company
+      company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
-              as Company?,
+              as Company,
     ));
   }
 }
@@ -139,7 +135,7 @@ class __$$AppStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$AppStateImpl implements _AppState {
-  const _$AppStateImpl({this.currentUser, this.company});
+  const _$AppStateImpl({this.currentUser, this.company = const Company()});
 
   factory _$AppStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppStateImplFromJson(json);
@@ -147,7 +143,8 @@ class _$AppStateImpl implements _AppState {
   @override
   final Profile? currentUser;
   @override
-  final Company? company;
+  @JsonKey()
+  final Company company;
 
   @override
   String toString() {
@@ -183,8 +180,8 @@ class _$AppStateImpl implements _AppState {
 }
 
 abstract class _AppState implements AppState {
-  const factory _AppState(
-      {final Profile? currentUser, final Company? company}) = _$AppStateImpl;
+  const factory _AppState({final Profile? currentUser, final Company company}) =
+      _$AppStateImpl;
 
   factory _AppState.fromJson(Map<String, dynamic> json) =
       _$AppStateImpl.fromJson;
@@ -192,7 +189,7 @@ abstract class _AppState implements AppState {
   @override
   Profile? get currentUser;
   @override
-  Company? get company;
+  Company get company;
   @override
   @JsonKey(ignore: true)
   _$$AppStateImplCopyWith<_$AppStateImpl> get copyWith =>

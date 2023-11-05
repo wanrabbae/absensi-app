@@ -12,7 +12,7 @@ _$AppStateImpl _$$AppStateImplFromJson(Map<String, dynamic> json) =>
           ? null
           : Profile.fromJson(json['currentUser'] as Map<String, dynamic>),
       company: json['company'] == null
-          ? null
+          ? const Company()
           : Company.fromJson(json['company'] as Map<String, dynamic>),
     );
 
