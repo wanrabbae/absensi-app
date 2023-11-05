@@ -477,10 +477,12 @@ class _PulangIzinView extends StatelessWidget {
                 color: colorBlueOpacity2,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: const Icon(
-                FeatherIcons.paperclip,
-                color: colorBluePrimary2,
-                size: 20,
+              child: Center(
+                child: Image.asset(
+                  'assets/icons/file-yellow.png',
+                  width: 20,
+                  height: 20,
+                ),
               ),
             ),
             const SizedBox(width: 10),
@@ -862,10 +864,12 @@ class _HadirIzinView extends StatelessWidget {
                 color: colorBlueOpacity2,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: const Icon(
-                FeatherIcons.paperclip,
-                color: colorBluePrimary2,
-                size: 20,
+              child: Center(
+                child: Image.asset(
+                  'assets/icons/file-yellow.png',
+                  width: 20,
+                  height: 20,
+                ),
               ),
             ),
             const SizedBox(width: 10),
