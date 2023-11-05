@@ -9,9 +9,7 @@ Widget timerCount(BuildContext context, GetxController s) {
     timerRecord = s.timerRecor;
   }
   final isEmpty = timerRecord != "00:00:00";
-  if (s is HomeController) {
-    timerRecord = timerRecord?.replaceAll(':', ' : ');
-  }
+  timerRecord = timerRecord?.replaceAll(':', ' : ');
 
   return isEmpty
       ? buildDisable(context, timerRecord, s)
@@ -19,37 +17,22 @@ Widget timerCount(BuildContext context, GetxController s) {
 }
 
 Widget buildEnable(BuildContext context, timer, GetxController s) {
-  final children = s is HomeController
-      ? [
-          const Icon(Icons.access_time_filled, size: 24, color: Colors.white),
-          Expanded(
-            child: Text(
-              timer,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          const Icon(Icons.chevron_right, size: 24, color: Colors.white),
-        ]
-      : [
-          const Icon(FeatherIcons.clock, size: 24, color: Colors.white),
-          const SizedBox(width: 8),
-          Text(
-            timer,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-              fontSize: 18,
-            ),
-          ),
-        ];
-  final padding = s is HomeController
-      ? const EdgeInsets.fromLTRB(16, 0, 12, 0)
-      : const EdgeInsets.only(top: 20, bottom: 20);
+  final children = [
+    const Icon(Icons.access_time_filled, size: 24, color: Colors.white),
+    Expanded(
+      child: Text(
+        timer,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 18,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    ),
+    const Icon(Icons.chevron_right, size: 24, color: Colors.white),
+  ];
+  const padding = EdgeInsets.fromLTRB(16, 0, 12, 0);
 
   return Padding(
     padding: padding,
@@ -63,37 +46,22 @@ Widget buildEnable(BuildContext context, timer, GetxController s) {
 }
 
 Widget buildDisable(BuildContext context, timer, GetxController s) {
-  final children = s is HomeController
-      ? [
-          const Icon(Icons.access_time_filled, size: 24, color: Colors.white),
-          Expanded(
-            child: Text(
-              timer,
-              style: const TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 18,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          const Icon(Icons.chevron_right, size: 24, color: Colors.white),
-        ]
-      : [
-          const Icon(FeatherIcons.clock, size: 24, color: Colors.white),
-          const SizedBox(width: 8),
-          Text(
-            timer,
-            style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w700,
-              fontSize: 18,
-            ),
-          ),
-        ];
-  final padding = s is HomeController
-      ? const EdgeInsets.fromLTRB(16, 0, 12, 0)
-      : const EdgeInsets.only(top: 20, bottom: 20);
+  final children = [
+    const Icon(Icons.access_time_filled, size: 24, color: Colors.white),
+    Expanded(
+      child: Text(
+        timer,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 18,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    ),
+    const Icon(Icons.chevron_right, size: 24, color: Colors.white),
+  ];
+  const padding = EdgeInsets.fromLTRB(16, 0, 12, 0);
 
   return Padding(
     padding: padding,

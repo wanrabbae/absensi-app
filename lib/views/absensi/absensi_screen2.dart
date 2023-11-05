@@ -61,7 +61,8 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
 
       setMarker(idAbsen);
 
-      final foto = currentAbsen?['fotoKaryawan'].toString();
+      final foto = currentAbsen?['fotoKaryawan']?.toString();
+      if (foto == null) return;
       getGoogleMapsMarker(foto).then((BitmapDescriptor markerIcon) {
         if (!mounted) return;
         setState(() {

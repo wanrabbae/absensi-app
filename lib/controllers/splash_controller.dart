@@ -273,9 +273,9 @@ class SplashController extends GetxController {
     });
   }
 
-  showConfirmationDialog4(
+  Future showConfirmationDialog4(
       String title, String message, VoidCallback? actionFunc) {
-    showDialog(
+    return showDialog(
       context: Get.overlayContext!,
       builder: (BuildContext context) {
         return AlertDialog(
