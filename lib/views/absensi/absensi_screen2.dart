@@ -493,7 +493,7 @@ class _PulangIzinView extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w700,
                   fontSize: 16,
                 ),
               ),
@@ -563,7 +563,7 @@ class _PulangLocationView extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w700,
                   fontSize: 16,
                 ),
               ),
@@ -644,7 +644,7 @@ class _PulangTimeView extends StatelessWidget {
                 )
               : '-',
           style: const TextStyle(
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w700,
             fontSize: 16,
           ),
         ),
@@ -880,7 +880,7 @@ class _HadirIzinView extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w700,
                   fontSize: 16,
                 ),
               ),
@@ -952,7 +952,7 @@ class _HadirLocationView extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w700,
                   fontSize: 16,
                 ),
               ),
@@ -1018,7 +1018,7 @@ class _HadirTimeView extends StatelessWidget {
                 )
               : '-',
           style: const TextStyle(
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w700,
             fontSize: 16,
           ),
         ),
