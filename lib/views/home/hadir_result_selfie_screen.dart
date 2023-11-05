@@ -49,7 +49,7 @@ class _HasilHadirScreenState extends State<HasilHadirScreen> {
                       GestureDetector(
                         onTap: () {
                           saveNetworkImage(changeUrlImage(
-                              Get.arguments.toString() ??
+                              Get.arguments?.toString() ??
                                   'wwwroot/Images/CompanyLogo/logo_hora.png'));
                           // customSnackbar1("Tangkapan layar telah disimpan.");
                           // SplashController().showOkDialog2(
@@ -76,7 +76,7 @@ class _HasilHadirScreenState extends State<HasilHadirScreen> {
             height: double.infinity,
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: NetworkImage(changeUrlImage(Get.arguments.toString() ??
+                  image: NetworkImage(changeUrlImage(Get.arguments?.toString() ??
                       'wwwroot/Images/CompanyLogo/logo_hora.png')),
                   fit: BoxFit.cover,
                   alignment: Alignment.center),

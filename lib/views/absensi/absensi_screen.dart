@@ -86,7 +86,7 @@ class _AbsensiScreenState extends State<AbsensiScreen> {
               // This function will be called when the user presses the back button
               // Return true to allow the default back button behavior or false to perform custom actions
               // For example, you can show a confirmation dialog here
-              bool confirmExit = await SplashController()
+              bool? confirmExit = await SplashController()
                   .showConfirmationDialog4(
                       "Hadir",
                       s.timer != null
