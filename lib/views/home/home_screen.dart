@@ -200,9 +200,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 currentDate: now,
                 initialDatePickerMode: DatePickerMode.day,
               ).then((value) {
+                if (value == null || !mounted) return;
+
                 setState(() {
                   curentDate =
-                      "${DateTime.parse(value.toString()).day.toString().padLeft(2, "0")}/${DateTime.parse(value.toString()).month.toString().padLeft(2, "0")}/${DateTime.parse(value.toString()).year}";
+                      "${value.day.toString().padLeft(2, "0")}/${value.month.toString().padLeft(2, "0")}/${value.year}";
                 });
                 s.gantiTanggal(value);
               });

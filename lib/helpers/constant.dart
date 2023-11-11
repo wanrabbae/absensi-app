@@ -180,7 +180,7 @@ izinAbs() {
   var izinAbse = box.read(Base.izinAbsen);
   var sekarang = DateTime.now();
   if (izinAbse != null) {
-    var izin = DateTime.parse(izinAbse);
+    var izin = DateTime.parse(izinAbse).toLocal();
     var tanggalAwal =
         "${izin.year}-${izin.month < 10 ? '0${izin.month}' : izin.month}-${izin.day < 10 ? '0${izin.day}' : izin.day} 00:00:00";
     var tanggalAkhir = DateTime.parse(
