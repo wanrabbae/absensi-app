@@ -11,7 +11,7 @@ const String kGlobalFontFamily = 'Montserrat';
 final box = GetStorage();
 
 String getTimeFromDatetime(String createdAt) {
-  DateTime dateTime = DateTime.parse(createdAt);
+  DateTime dateTime = DateTime.parse(createdAt).toLocal();
 
   String formattedTime =
       "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
@@ -20,7 +20,7 @@ String getTimeFromDatetime(String createdAt) {
 }
 
 String getTimeFullFromDatetime(String createdAt) {
-  DateTime dateTime = DateTime.parse(createdAt);
+  DateTime dateTime = DateTime.parse(createdAt).toLocal();
 
   String formattedTime =
       "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}";
