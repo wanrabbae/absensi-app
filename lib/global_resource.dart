@@ -119,13 +119,15 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import 'data/source/firebase/firebase_service.dart';
 import 'helpers/base.dart';
+import 'services/push_notification_service.dart';
 
 final $it = GetIt.instance;
 final kDio = Dio();
 
 initialize() async {
-  final _box = GetStorage();
+  final box = GetStorage();
 
   if (kDebugMode) {
     final logger = PrettyDioLogger(
@@ -143,7 +145,7 @@ initialize() async {
   kDio.interceptors.add(InterceptorsWrapper(
     onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
       final headers = options.headers;
-      final token = _box.read(Base.token);
+      final token = box.read(Base.token);
       if (!headers.containsKey('Authorization') && token is String) {
         headers['Authorization'] = token;
       }
@@ -154,7 +156,9 @@ initialize() async {
   final api = ApiService(kDio, baseUrl: Base.url);
 
   $it
-    ..registerSingleton(_box)
+    ..registerLazySingleton(() => PushNotificationService())
+    ..registerLazySingleton(() => FirebaseService(enableLogging: kDebugMode))
+    ..registerSingleton(box)
     ..registerSingleton(kDio)
     ..registerSingleton(api);
 

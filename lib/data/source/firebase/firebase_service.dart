@@ -1,4 +1,5 @@
 import 'package:app/data/models/livetracking/live_tracking.dart';
+import 'package:app/data/models/token/fcm_token.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseService {
@@ -12,6 +13,9 @@ class FirebaseService {
 
   CollectionReference<Map<String, dynamic>> get _collectionLiveTracking =>
       _firestore.collection('live_tracking');
+
+  CollectionReference<Map<String, dynamic>> get _collectionToken =>
+      _firestore.collection('tokens');
 
   Future<List<LiveTracking>> getLiveTrackingList(String broadcastId) async {
     final snapshot = await _collectionLiveTracking
@@ -63,11 +67,32 @@ class FirebaseService {
     for (var tracking in list) {
       if (tracking.requestApproved && tracking.uid != null) {
         futures.add(
-          _collectionLiveTracking.doc(tracking.uid!).set(data, SetOptions(merge: true)),
+          _collectionLiveTracking
+              .doc(tracking.uid!)
+              .set(data, SetOptions(merge: true)),
         );
       }
     }
 
     return Future.wait(futures);
+  }
+
+  Future<void> setToken({
+    required String userId,
+    required String fcmToken,
+  }) {
+    final data = <String, dynamic>{
+      'fcmToken': fcmToken,
+    };
+    return _collectionToken
+        .doc(userId)
+        .set(data, SetOptions(merge: true));
+  }
+
+  Future<String> getToken(String userId){
+    return _collectionToken.doc(userId).get().then((snapshot) {
+      final data = snapshot.data() ?? {};
+      return FcmToken.fromJson(data).token;
+    });
   }
 }

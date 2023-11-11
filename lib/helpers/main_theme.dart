@@ -1,4 +1,6 @@
 import 'package:app/global_resource.dart';
+import 'package:app/services/push_notification_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 const InputDecorationTheme _kInputDecorationTheme = InputDecorationTheme(
   border: OutlineInputBorder(
@@ -58,4 +60,84 @@ class MainTheme {
       fontFamily: kGlobalFontFamily,
     );
   }
+}
+
+class MainApp extends StatefulWidget {
+  const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  StreamSubscription<RemoteMessage>? _streamSubscriptionForeground;
+  StreamSubscription<RemoteMessage>? _streamSubscriptionMessageClick;
+  StreamSubscription<String?>? _streamSubscriptionLocalMessageClick;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final pn = $it<PushNotificationService>();
+
+      pn.initialMessage.then((RemoteMessage? message) {
+        if (message != null) {
+          _handleMessageOpen(message.data);
+        }
+      });
+
+      _streamSubscriptionForeground =
+          pn.foregroundMessage.listen((RemoteMessage message) {
+        RemoteNotification? notification = message.notification;
+        AndroidNotification? android = message.notification?.android;
+
+        // If `onMessage` is triggered with a notification, construct our own
+        // local notification to show to users using the created channel.
+        if (notification != null && android != null) {
+          pn.showLocalNotification(
+            notification,
+            data: message.data,
+            image: _imageNotification(message.data),
+          );
+        }
+      });
+
+      _streamSubscriptionMessageClick = pn.messageOpened
+          .listen((message) => _handleMessageOpen(message.data));
+
+      _streamSubscriptionLocalMessageClick =
+          pn.selectNotificationStream.stream.listen((payload) {
+        if (payload != null) {
+          _handleMessageOpen(jsonDecode(payload));
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _streamSubscriptionForeground?.cancel();
+    _streamSubscriptionMessageClick?.cancel();
+    _streamSubscriptionLocalMessageClick?.cancel();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MainTheme.materialApp(context, child: const SplashScreen());
+  }
+
+  _handleMessageOpen(Map<String, dynamic> data) {}
+
+  _clickNotification(Map<String, dynamic> data) async {}
+}
+
+String? _imageNotification(Map<String, dynamic> data) {
+  try {
+    final map = jsonDecode(data['data'] ?? '{}');
+    return map['image'] as String?;
+  } catch (_) {}
+  return null;
 }

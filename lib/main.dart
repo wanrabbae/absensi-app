@@ -134,7 +134,7 @@ void main() async {
       fallbackLocale: const Locale("id", "ID"),
       path: 'assets/lang',
       child: BlocProvider(
-        create: (context) => AppCubit($it(), $it()),
+        create: (context) => AppCubit($it(), $it(), $it(), $it()),
         child: const MyApp(),
       ),
     ),
@@ -154,6 +154,6 @@ class MyApp extends HookConsumerWidget {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    return MainTheme.materialApp(context, child: const SplashScreen());
+    return const MainApp();
   }
 }

@@ -1,7 +1,11 @@
+import 'dart:async';
+
 import 'package:app/data/models/company.dart';
 import 'package:app/data/models/profile.dart';
+import 'package:app/data/source/firebase/firebase_service.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/helpers/base.dart';
+import 'package:app/services/push_notification_service.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -13,10 +17,18 @@ part 'app_cubit.g.dart';
 part 'app_state.dart';
 
 class AppCubit extends HydratedCubit<AppState> {
-  AppCubit(this.api, this.box) : super(const AppState());
+  AppCubit(
+    this.api,
+    this.box,
+    this.firebaseService,
+    this.pushNotificationService,
+  ) : super(const AppState());
 
   final ApiService api;
   final GetStorage box;
+  final FirebaseService firebaseService;
+  final PushNotificationService pushNotificationService;
+  StreamSubscription<String>? _streamSubscriptionToken;
 
   Future<void> getProfile() async {
     final user = box.read(Base.dataUser);
@@ -88,6 +100,29 @@ class AppCubit extends HydratedCubit<AppState> {
         onDone('Pengguna tidak ditemukan');
       }
     }
+  }
+
+  updateTokenFcm() {
+    pushNotificationService.getToken().then((token) {
+      if (state.currentUser!.id != null && token != null) {
+        final userId = state.currentUser!.id!.toString();
+        _updateToken(userId, token);
+      }
+    });
+
+    _streamSubscriptionToken =
+        pushNotificationService.onTokenRefresh().listen((token) {
+      if (state.currentUser!.id != null) {
+        final userId = state.currentUser!.id!.toString();
+        _updateToken(userId, token);
+      }
+    });
+  }
+
+  _updateToken(String userId, String token) {
+    firebaseService
+        .setToken(userId: userId, fcmToken: token)
+        .then((value) {});
   }
 
   @override

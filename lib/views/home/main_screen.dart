@@ -1,5 +1,8 @@
+import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/services/push_notification_service.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -10,6 +13,17 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _activePage = Get.arguments ?? 0;
+
+  @override
+  void initState() {
+    $it<PushNotificationService>().requestPermission();
+
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AppCubit>().updateTokenFcm();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
