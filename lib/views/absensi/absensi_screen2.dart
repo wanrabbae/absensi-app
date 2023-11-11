@@ -28,6 +28,8 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
   final panelController = PanelController();
   final rxExpanded = ValueNotifier(false);
   final rxMarkers = ValueNotifier(<Marker>[]);
+  final rxPosition = ValueNotifier(_kDefaultCenter.target);
+  final completer = Completer<GoogleMapController>();
   BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarkerWithHue(
     BitmapDescriptor.hueAzure,
   );
@@ -52,10 +54,8 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      var idAbsen = Get.arguments?["dataAbsen"]?["id"];
-      debugPrint("ID ABS: $idAbsen");
       var findDataIzin = homeCtrl.izin?.firstWhere(
-        (element) => element?["idkaryawan"] == currentAbsen?["idkaryawan"],
+        (element) => element?["idkaryawan"] == absence.idKaryawan,
         orElse: () => null,
       );
       if (findDataIzin != null) {
@@ -64,28 +64,36 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
         });
       }
 
-      setMarker(idAbsen);
+      final latLng = absence.checkInLocation ?? absence.checkOutLocation;
+      if (latLng != null) {
+        rxPosition.value = latLng;
+      }
 
-      final foto = currentAbsen?['fotoKaryawan']?.toString();
+      setMarker();
+
+      final foto = absence.fotoKaryawan;
       if (foto == null) return;
       getGoogleMapsMarker(foto).then((BitmapDescriptor markerIcon) {
         if (!mounted) return;
         setState(() {
           this.markerIcon = markerIcon;
         });
-        setMarker(idAbsen);
+        setMarker();
       });
     });
   }
 
-  setMarker(dynamic idAbsen) {
+  setMarker() {
     rxMarkers.value = [
       Marker(
-        markerId: MarkerId(idAbsen.toString()),
+        markerId: MarkerId('${absence.id}'),
         icon: markerIcon,
-        position: _kDefaultCenter.target,
+        position: rxPosition.value,
       ),
     ];
+    completer.future.then((controller) {
+      controller.animateCamera(CameraUpdate.newLatLng(rxPosition.value));
+    });
   }
 
   @override
@@ -95,7 +103,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
     );
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
-    return LayoutBuilder(
+    final child = LayoutBuilder(
       builder: (context, constraints) {
         return DefaultTabController(
           initialIndex: 0,
@@ -281,6 +289,11 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                             bottom: constraints.maxHeight / 4,
                           ),
                           markers: markers.toSet(),
+                          onMapCreated: (controller) {
+                            if (!completer.isCompleted) {
+                              completer.complete(controller);
+                            }
+                          },
                         );
                       },
                     ),
@@ -411,6 +424,23 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
           ),
         );
       },
+    );
+
+    return BlocListener<AppCubit, AppState>(
+      listenWhen: (previous, current) =>
+          previous.liveTrackingList != current.liveTrackingList,
+      listener: (context, state) {
+        final broadcasterId = absence.idKaryawan;
+        if (broadcasterId == null) return;
+        final data = state.liveTracking(broadcasterId);
+        if (data == null) return;
+        if (data.latitude != null && data.longitude != null) {
+          customSnackbar1('Sedang mendeteksi lokasi terbaru...');
+          rxPosition.value = LatLng(data.latitude!, data.longitude!);
+          setMarker();
+        }
+      },
+      child: child,
     );
   }
 }

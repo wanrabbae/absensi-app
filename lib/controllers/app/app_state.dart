@@ -11,3 +11,10 @@ class AppState with _$AppState {
   factory AppState.fromJson(Map<String, dynamic> json) =>
       _$AppStateFromJson(json);
 }
+
+extension AppStateDate on AppState {
+  LiveTracking? liveTracking(String broadcasterId) {
+    return liveTrackingList
+        .firstWhereOrNull((e) => e.broadcasterId == broadcasterId);
+  }
+}

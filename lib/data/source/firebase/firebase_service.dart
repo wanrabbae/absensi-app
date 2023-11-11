@@ -87,18 +87,15 @@ class FirebaseService {
       'last_update': DateTime.now().toUtc().toIso8601String(),
     };
 
-    final futures = <Future<void>>[];
+    final batch = _firestore.batch();
     for (var tracking in list) {
       if (tracking.requestApproved && tracking.uid != null) {
-        futures.add(
-          _collectionLiveLocation
-              .doc(tracking.uid!)
-              .set(data, SetOptions(merge: true)),
-        );
+        final document = _collectionLiveLocation.doc(tracking.uid!);
+        batch.set(document, data, SetOptions(merge: true));
       }
     }
 
-    return Future.wait(futures);
+    return batch.commit();
   }
 
   Future<void> setToken({

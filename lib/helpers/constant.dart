@@ -157,7 +157,7 @@ timerAbsen3(waktuCheckIn, String? checkOut) {
 
 timerAbsen4() {
   var waktuAbsen = box.read(Base.waktuAbsen);
-  debugPrint('$waktuAbsen');
+  if (waktuAbsen == null) return '';
 
   Duration timeDifference =
       DateTime.parse(waktuAbsen!).difference(DateTime.now());

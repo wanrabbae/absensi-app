@@ -355,7 +355,7 @@ class __$$AbsenceImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AbsenceImpl implements _Absence {
+class _$AbsenceImpl extends _Absence {
   const _$AbsenceImpl(
       {this.idKaryawan,
       this.namaKaryawan,
@@ -377,7 +377,8 @@ class _$AbsenceImpl implements _Absence {
       this.latitudePulang,
       this.longtitudePulang,
       this.durasi,
-      this.alamatPulang});
+      this.alamatPulang})
+      : super._();
 
   factory _$AbsenceImpl.fromJson(Map<String, dynamic> json) =>
       _$$AbsenceImplFromJson(json);
@@ -515,7 +516,7 @@ class _$AbsenceImpl implements _Absence {
   }
 }
 
-abstract class _Absence implements Absence {
+abstract class _Absence extends Absence {
   const factory _Absence(
       {final String? idKaryawan,
       final String? namaKaryawan,
@@ -538,6 +539,7 @@ abstract class _Absence implements Absence {
       final String? longtitudePulang,
       final String? durasi,
       final String? alamatPulang}) = _$AbsenceImpl;
+  const _Absence._() : super._();
 
   factory _Absence.fromJson(Map<String, dynamic> json) = _$AbsenceImpl.fromJson;
 

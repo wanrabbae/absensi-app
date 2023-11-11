@@ -10,6 +10,7 @@ class HomeController extends GetxController {
   Map? user;
   String? currentDate;
   var timerRecor = "00:00:00";
+
   //home
   List? absen = [];
   List? izin = [];
@@ -18,11 +19,14 @@ class HomeController extends GetxController {
   bool klikAbsen = false;
   bool? isPresentHadir = false;
   bool? isPresentIzin = false;
+
   // ignore: prefer_typing_uninitialized_variables
   var timer;
+
   //search
   String? search = '';
   List? searchHasil = [];
+
   //undangan
   String? emailUndangan;
 
@@ -121,7 +125,7 @@ class HomeController extends GetxController {
       customSnackbar1("Izin hari ini telah terisi.");
     } else {
       if (klikAbsen) {
-        print(absen);
+        debugPrint('$absen');
         debugPrint("=======KE PULANG========");
         var tanggal = currentDate.toString().split(" ")[0];
         var response =
@@ -130,29 +134,26 @@ class HomeController extends GetxController {
 
         box.write(Base.waktuAbsen, response.data?[0]["waktuCheckIn"]);
         Get.back();
-        Get.toNamed(RouteName.absen,
-            arguments: {"dataAbsen": response.data?[0], "pulang": 1});
+        Get.toNamed(
+          RouteName.absen,
+          arguments: {"dataAbsen": response.data?[0], "pulang": 1},
+        );
       } else {
         if (await Permission.camera.isGranted &&
-            await Permission.location.isGranted) {
-          // var IsPresent = await absen!.firstWhere(
-          //     (element) => element["idkaryawan"] == user?["idkaryawan"]);
-
-          // if (absen!.length > 0 && IsPresent != null) {
-          //   customSnackbar1("Kehadiran hari ini telah terisi.");
-          // } else {
-          // Get.back();
-          debugPrint("TEST KE IF 1 YOYYYY");
+            await Permission.location.isGranted &&
+            await Permission.locationAlways.isGranted) {
           Get.toNamed(RouteName.absen);
-          // }
         } else {
           showModalBottomSheet(
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
-              context: context,
-              builder: (ctx) => const DialogPermission());
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            context: context,
+            builder: (ctx) => const DialogPermission(),
+          );
         }
       }
     }
@@ -393,10 +394,10 @@ class HomeController extends GetxController {
   dataSearch() async {
     try {
       var response = search == ''
-          ? await HomeServices().searchPerusahaanGet(
-              {'idperusahaan': perusahaan.id})
-          : await HomeServices().searchUserGet(
-              {'idperusahaan': perusahaan.id, 'nama': search});
+          ? await HomeServices()
+              .searchPerusahaanGet({'idperusahaan': perusahaan.id})
+          : await HomeServices()
+              .searchUserGet({'idperusahaan': perusahaan.id, 'nama': search});
       if (response.statusCode == 200) {
         searchHasil?.removeRange(0, searchHasil!.length);
         searchHasil?.addAll(
@@ -451,90 +452,90 @@ class HomeController extends GetxController {
     update();
   }
 
-  // checkIsAbsen() {
-  //   debugPrint("CHECK ABS");
-  //   DateTime dateCurrent = DateTime.now();
-  //   String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
-  //   var idKaryawan = user?["idkaryawan"];
+// checkIsAbsen() {
+//   debugPrint("CHECK ABS");
+//   DateTime dateCurrent = DateTime.now();
+//   String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
+//   var idKaryawan = user?["idkaryawan"];
 
-  //   var findDataIzin = izin?.firstWhere(
-  //     (element) => element?["idkaryawan"] == idKaryawan,
-  //     orElse: () => null,
-  //   );
+//   var findDataIzin = izin?.firstWhere(
+//     (element) => element?["idkaryawan"] == idKaryawan,
+//     orElse: () => null,
+//   );
 
-  //   var findData = absen?.firstWhere(
-  //     (element) =>
-  //         element?["idkaryawan"] == idKaryawan &&
-  //         element?["waktuCheckOut"] == null,
-  //     orElse: () => null,
-  //   );
+//   var findData = absen?.firstWhere(
+//     (element) =>
+//         element?["idkaryawan"] == idKaryawan &&
+//         element?["waktuCheckOut"] == null,
+//     orElse: () => null,
+//   );
 
-  //   var findDataPulang = absen?.firstWhere(
-  //     (element) =>
-  //         element?["idkaryawan"] == idKaryawan &&
-  //         element?["waktuCheckOut"] != null,
-  //     orElse: () => null,
-  //   );
+//   var findDataPulang = absen?.firstWhere(
+//     (element) =>
+//         element?["idkaryawan"] == idKaryawan &&
+//         element?["waktuCheckOut"] != null,
+//     orElse: () => null,
+//   );
 
-  //   if (findDataIzin != null) {
-  //     isPresentHadir = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else if (findData != null) {
-  //     debugPrint("KESEINI ELSE IF 2");
-  //     isPresentHadir = false;
-  //     update();
-  //   } else if (findDataPulang != null) {
-  //     isPresentHadir = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else if (findData != null && findDataPulang != null) {
-  //     debugPrint("KESINI ELSE IF 3");
-  //     isPresentHadir = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else {
-  //     debugPrint("KESINI ELSE");
-  //     isPresentHadir = false;
-  //     update();
-  //   }
-  // }
+//   if (findDataIzin != null) {
+//     isPresentHadir = true;
+//     // cancelTimer();
+//     update();
+//   } else if (findData != null) {
+//     debugPrint("KESEINI ELSE IF 2");
+//     isPresentHadir = false;
+//     update();
+//   } else if (findDataPulang != null) {
+//     isPresentHadir = true;
+//     // cancelTimer();
+//     update();
+//   } else if (findData != null && findDataPulang != null) {
+//     debugPrint("KESINI ELSE IF 3");
+//     isPresentHadir = true;
+//     // cancelTimer();
+//     update();
+//   } else {
+//     debugPrint("KESINI ELSE");
+//     isPresentHadir = false;
+//     update();
+//   }
+// }
 
-  // checkIsIzin() {
-  //   debugPrint("CHECK izn");
-  //   DateTime dateCurrent = DateTime.now();
-  //   String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
-  //   var idKaryawan = user?["idkaryawan"];
-  //   bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
-  //   bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
+// checkIsIzin() {
+//   debugPrint("CHECK izn");
+//   DateTime dateCurrent = DateTime.now();
+//   String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
+//   var idKaryawan = user?["idkaryawan"];
+//   bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
+//   bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
 
-  //   var findData = izin?.firstWhere(
-  //     (element) => element?["idkaryawan"] == idKaryawan,
-  //     orElse: () => null,
-  //   );
+//   var findData = izin?.firstWhere(
+//     (element) => element?["idkaryawan"] == idKaryawan,
+//     orElse: () => null,
+//   );
 
-  //   var findDataAbs = absen?.firstWhere(
-  //     (element) =>
-  //         element?["idkaryawan"] == idKaryawan &&
-  //         element?["waktuCheckOut"] != null,
-  //     orElse: () => null,
-  //   );
+//   var findDataAbs = absen?.firstWhere(
+//     (element) =>
+//         element?["idkaryawan"] == idKaryawan &&
+//         element?["waktuCheckOut"] != null,
+//     orElse: () => null,
+//   );
 
-  //   if (findData != null) {
-  //     isPresentIzin = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else if (findDataAbs != null) {
-  //     isPresentIzin = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else if (findData != null && findDataAbs != null) {
-  //     isPresentIzin = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else {
-  //     isPresentIzin = false;
-  //     update();
-  //   }
-  // }
+//   if (findData != null) {
+//     isPresentIzin = true;
+//     // cancelTimer();
+//     update();
+//   } else if (findDataAbs != null) {
+//     isPresentIzin = true;
+//     // cancelTimer();
+//     update();
+//   } else if (findData != null && findDataAbs != null) {
+//     isPresentIzin = true;
+//     // cancelTimer();
+//     update();
+//   } else {
+//     isPresentIzin = false;
+//     update();
+//   }
+// }
 }

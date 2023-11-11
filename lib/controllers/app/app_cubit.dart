@@ -10,6 +10,7 @@ import 'package:app/helpers/base.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:get/utils.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
@@ -25,7 +26,7 @@ class AppCubit extends HydratedCubit<AppState> {
     this.box,
     this.firebaseService,
     this.pushNotificationService,
-  ) : super(const AppState()) ;
+  ) : super(const AppState());
 
   final ApiService api;
   final GetStorage box;
@@ -167,6 +168,22 @@ class AppCubit extends HydratedCubit<AppState> {
       }
       emit(state.copyWith(liveTrackingList: list));
       debugPrint('Found live tracking ${list.length} data');
+    } catch (_) {}
+  }
+
+  updateLiveTrackingList(double latitude, double longitude) async {
+    if (state.currentUser?.idkaryawan == null) return;
+
+    try {
+      final broadcasterId = state.currentUser!.idkaryawan!;
+      final list = await firebaseService.getLiveTrackingList(
+        broadcastId: broadcasterId,
+      );
+      firebaseService.updateLiveTrackingList(
+        list: list,
+        latitude: latitude,
+        longitude: longitude,
+      );
     } catch (_) {}
   }
 

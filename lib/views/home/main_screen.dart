@@ -1,6 +1,8 @@
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/services/push_notification_service.dart';
+import 'package:background_location/background_location.dart' as bg;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +24,42 @@ class _MainScreenState extends State<MainScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AppCubit>().updateTokenFcm();
+
+      runServices();
     });
+  }
+
+  runServices() async {
+    final bgLocGranted = await Permission.locationAlways.isGranted;
+    if (!bgLocGranted) return;
+
+    await bg.BackgroundLocation.setAndroidNotification(
+      title: "Sedang mendeteksi lokasi di latar belakang",
+      message: "Diharapkan untuk tetap membuka aplikasi Hora",
+      icon: "@mipmap/ic_launcher",
+    );
+
+    await bg.BackgroundLocation.setAndroidConfiguration(
+      kDebugMode ? (5 * 1000) : (5 * 60 * 1000),
+    );
+    await bg.BackgroundLocation.startLocationService(
+      distanceFilter: 5,
+    );
+    bg.BackgroundLocation.getLocationUpdates((bg.Location location) {
+      final app = context.read<AppCubit>();
+      if (!app.isClosed &&
+          location.latitude != null &&
+          location.longitude != null) {
+        app.updateLiveTrackingList(location.latitude!, location.longitude!);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    bg.BackgroundLocation.stopLocationService();
+
+    super.dispose();
   }
 
   @override
