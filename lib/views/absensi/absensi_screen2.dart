@@ -1,9 +1,12 @@
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:app/components/component_constant.dart';
+import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/data/models/absence.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/images.dart';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 const CameraPosition _kDefaultCenter = CameraPosition(
@@ -31,6 +34,8 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
   Map<String, dynamic>? izinData;
 
   dynamic get currentAbsen => Get.arguments?["dataAbsen"] ?? {};
+
+  Absence get absence => Absence.fromJson(currentAbsen);
 
   @override
   void initState() {
@@ -223,13 +228,41 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                     Container(
                       width: 40,
                       decoration: kCircleButtonDecoration,
-                      child: IconButton(
-                        onPressed: () {},
-                        color: colorBluePrimary,
-                        icon: Image.asset(
-                          'assets/icons/crosshair.png',
-                          height: 24,
-                        ),
+                      child: BlocBuilder<AppCubit, AppState>(
+                        buildWhen: (previous, current) =>
+                            previous.currentUser != current.currentUser,
+                        builder: (context, state) {
+                          final listenerId = state.currentUser?.idkaryawan;
+                          final broadcasterId = absence.idKaryawan;
+
+                          final disabled = listenerId != null &&
+                              broadcasterId != null &&
+                              listenerId == broadcasterId;
+
+                          return IconButton(
+                            onPressed: () {
+                              if (disabled) {
+                                customSnackbar1(
+                                  'Tidak bisa melakukan permintaan lokasi kepada data sendiri',
+                                );
+                                return;
+                              }
+
+                              if (broadcasterId != null) {
+                                customSnackbar1('Permintaan lokasi terkirim');
+                                context
+                                    .read<AppCubit>()
+                                    .requestLiveTracking(broadcasterId);
+                              }
+                            },
+                            icon: Image.asset(
+                              'assets/icons/crosshair.png',
+                              height: 24,
+                              color:
+                                  disabled ? colorDisabled : colorBluePrimary,
+                            ),
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(width: 16),

@@ -18,20 +18,22 @@ _$LiveTrackingImpl _$$LiveTrackingImplFromJson(Map<String, dynamic> json) =>
           const FirebaseTimestampConverter().fromJson(json['last_update']),
     );
 
-Map<String, dynamic> _$$LiveTrackingImplToJson(_$LiveTrackingImpl instance) =>
-    <String, dynamic>{
-      'uid': instance.uid,
-      'broadcaster_id': instance.broadcasterId,
-      'listener_id': instance.listenerId,
-      'request_approved': instance.requestApproved,
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
-      'last_update': _$JsonConverterToJson<dynamic, DateTime>(
-          instance.lastUpdate, const FirebaseTimestampConverter().toJson),
-    };
+Map<String, dynamic> _$$LiveTrackingImplToJson(_$LiveTrackingImpl instance) {
+  final val = <String, dynamic>{};
 
-Json? _$JsonConverterToJson<Json, Value>(
-  Value? value,
-  Json? Function(Value value) toJson,
-) =>
-    value == null ? null : toJson(value);
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('uid', instance.uid);
+  val['broadcaster_id'] = instance.broadcasterId;
+  val['listener_id'] = instance.listenerId;
+  val['request_approved'] = instance.requestApproved;
+  writeNotNull('latitude', instance.latitude);
+  writeNotNull('longitude', instance.longitude);
+  writeNotNull('last_update',
+      const FirebaseTimestampConverter().toJson(instance.lastUpdate));
+  return val;
+}

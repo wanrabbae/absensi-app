@@ -22,6 +22,7 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) {
 mixin _$AppState {
   Profile? get currentUser => throw _privateConstructorUsedError;
   Company get company => throw _privateConstructorUsedError;
+  List<LiveTracking> get liveTrackingList => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,10 @@ abstract class $AppStateCopyWith<$Res> {
   factory $AppStateCopyWith(AppState value, $Res Function(AppState) then) =
       _$AppStateCopyWithImpl<$Res, AppState>;
   @useResult
-  $Res call({Profile? currentUser, Company company});
+  $Res call(
+      {Profile? currentUser,
+      Company company,
+      List<LiveTracking> liveTrackingList});
 
   $ProfileCopyWith<$Res>? get currentUser;
   $CompanyCopyWith<$Res> get company;
@@ -55,6 +59,7 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
   $Res call({
     Object? currentUser = freezed,
     Object? company = null,
+    Object? liveTrackingList = null,
   }) {
     return _then(_value.copyWith(
       currentUser: freezed == currentUser
@@ -65,6 +70,10 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
               as Company,
+      liveTrackingList: null == liveTrackingList
+          ? _value.liveTrackingList
+          : liveTrackingList // ignore: cast_nullable_to_non_nullable
+              as List<LiveTracking>,
     ) as $Val);
   }
 
@@ -97,7 +106,10 @@ abstract class _$$AppStateImplCopyWith<$Res>
       __$$AppStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Profile? currentUser, Company company});
+  $Res call(
+      {Profile? currentUser,
+      Company company,
+      List<LiveTracking> liveTrackingList});
 
   @override
   $ProfileCopyWith<$Res>? get currentUser;
@@ -118,6 +130,7 @@ class __$$AppStateImplCopyWithImpl<$Res>
   $Res call({
     Object? currentUser = freezed,
     Object? company = null,
+    Object? liveTrackingList = null,
   }) {
     return _then(_$AppStateImpl(
       currentUser: freezed == currentUser
@@ -128,14 +141,22 @@ class __$$AppStateImplCopyWithImpl<$Res>
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
               as Company,
+      liveTrackingList: null == liveTrackingList
+          ? _value._liveTrackingList
+          : liveTrackingList // ignore: cast_nullable_to_non_nullable
+              as List<LiveTracking>,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$AppStateImpl implements _AppState {
-  const _$AppStateImpl({this.currentUser, this.company = const Company()});
+class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
+  const _$AppStateImpl(
+      {this.currentUser,
+      this.company = const Company(),
+      final List<LiveTracking> liveTrackingList = const []})
+      : _liveTrackingList = liveTrackingList;
 
   factory _$AppStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppStateImplFromJson(json);
@@ -145,10 +166,29 @@ class _$AppStateImpl implements _AppState {
   @override
   @JsonKey()
   final Company company;
+  final List<LiveTracking> _liveTrackingList;
+  @override
+  @JsonKey()
+  List<LiveTracking> get liveTrackingList {
+    if (_liveTrackingList is EqualUnmodifiableListView)
+      return _liveTrackingList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_liveTrackingList);
+  }
 
   @override
-  String toString() {
-    return 'AppState(currentUser: $currentUser, company: $company)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'AppState(currentUser: $currentUser, company: $company, liveTrackingList: $liveTrackingList)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'AppState'))
+      ..add(DiagnosticsProperty('currentUser', currentUser))
+      ..add(DiagnosticsProperty('company', company))
+      ..add(DiagnosticsProperty('liveTrackingList', liveTrackingList));
   }
 
   @override
@@ -158,12 +198,15 @@ class _$AppStateImpl implements _AppState {
             other is _$AppStateImpl &&
             (identical(other.currentUser, currentUser) ||
                 other.currentUser == currentUser) &&
-            (identical(other.company, company) || other.company == company));
+            (identical(other.company, company) || other.company == company) &&
+            const DeepCollectionEquality()
+                .equals(other._liveTrackingList, _liveTrackingList));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, currentUser, company);
+  int get hashCode => Object.hash(runtimeType, currentUser, company,
+      const DeepCollectionEquality().hash(_liveTrackingList));
 
   @JsonKey(ignore: true)
   @override
@@ -180,8 +223,10 @@ class _$AppStateImpl implements _AppState {
 }
 
 abstract class _AppState implements AppState {
-  const factory _AppState({final Profile? currentUser, final Company company}) =
-      _$AppStateImpl;
+  const factory _AppState(
+      {final Profile? currentUser,
+      final Company company,
+      final List<LiveTracking> liveTrackingList}) = _$AppStateImpl;
 
   factory _AppState.fromJson(Map<String, dynamic> json) =
       _$AppStateImpl.fromJson;
@@ -190,6 +235,8 @@ abstract class _AppState implements AppState {
   Profile? get currentUser;
   @override
   Company get company;
+  @override
+  List<LiveTracking> get liveTrackingList;
   @override
   @JsonKey(ignore: true)
   _$$AppStateImplCopyWith<_$AppStateImpl> get copyWith =>

@@ -142,7 +142,6 @@ timerAbsen3(waktuCheckIn, String? checkOut) {
 
   Duration timeDifference =
       DateTime.parse(waktuCheckIn!).difference(checkOutDateTime);
-  debugPrint('${timeDifference.inHours}');
 
   var hours = timeDifference.inHours.abs() < 10
       ? '0${timeDifference.inHours.abs()}'
@@ -162,7 +161,6 @@ timerAbsen4() {
 
   Duration timeDifference =
       DateTime.parse(waktuAbsen!).difference(DateTime.now());
-  debugPrint('${timeDifference.inHours}');
 
   var hours = timeDifference.inHours.abs() < 10
       ? '0${timeDifference.inHours.abs()}'

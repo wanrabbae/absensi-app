@@ -496,7 +496,6 @@ Widget buildImageSizeIconNetwork(BuildContext context, String url, bool local) {
 }
 
 Widget buildImageList(BuildContext context, String url, bool local) {
-  debugPrint("LOCAL: $local");
   var img = local
       ? DecorationImage(
           image: AssetImage(url),

@@ -41,7 +41,6 @@ export 'package:app/helpers/base.dart';
 export 'package:app/helpers/color_scheme.dart';
 export 'package:app/helpers/constant.dart';
 export 'package:app/helpers/main_theme.dart';
-export 'package:app/data/data_helper.dart';
 
 //Models
 

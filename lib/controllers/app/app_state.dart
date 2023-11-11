@@ -5,6 +5,7 @@ class AppState with _$AppState {
   const factory AppState({
     Profile? currentUser,
     @Default(Company()) Company company,
+    @Default([]) List<LiveTracking> liveTrackingList,
   }) = _AppState;
 
   factory AppState.fromJson(Map<String, dynamic> json) =>

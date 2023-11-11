@@ -11,15 +11,25 @@ class FirebaseService {
 
   final FirebaseFirestore _firestore;
 
-  CollectionReference<Map<String, dynamic>> get _collectionLiveTracking =>
-      _firestore.collection('live_tracking');
+  CollectionReference<Map<String, dynamic>> get _collectionLiveLocation =>
+      _firestore.collection('live_location');
 
   CollectionReference<Map<String, dynamic>> get _collectionToken =>
       _firestore.collection('tokens');
 
-  Future<List<LiveTracking>> getLiveTrackingList(String broadcastId) async {
-    final snapshot = await _collectionLiveTracking
-        .where('broadcast_id', isEqualTo: broadcastId)
+  Future<List<LiveTracking>> getLiveTrackingList({
+    String? broadcastId,
+    String? listenerId,
+  }) async {
+    var q = _collectionLiveLocation;
+    if (broadcastId != null) {
+      q.where('broadcast_id', isEqualTo: broadcastId);
+    } else if (listenerId != null) {
+      q.where('listener_id', isEqualTo: listenerId);
+    }
+
+    final snapshot = await q
+        .where('request_approved', isEqualTo: true)
         .orderBy('last_update')
         .get();
 
@@ -42,7 +52,21 @@ class FirebaseService {
       requestApproved: requestApproved,
     );
 
-    return _collectionLiveTracking
+    final snapshot = await _collectionLiveLocation
+        .where('broadcast_id', isEqualTo: broadcasterId)
+        .where('listener_id', isEqualTo: listenerId)
+        .limit(1)
+        .get();
+
+    if (snapshot.size > 0) {
+      final doc = snapshot.docs.first;
+      return _collectionLiveLocation
+          .doc(doc.id)
+          .update(data.toJson())
+          .then((value) => data.copyWith(uid: doc.id));
+    }
+
+    return _collectionLiveLocation
         .add(data.toJson())
         .then((ref) => ref.get())
         .then((doc) {
@@ -67,7 +91,7 @@ class FirebaseService {
     for (var tracking in list) {
       if (tracking.requestApproved && tracking.uid != null) {
         futures.add(
-          _collectionLiveTracking
+          _collectionLiveLocation
               .doc(tracking.uid!)
               .set(data, SetOptions(merge: true)),
         );
@@ -84,12 +108,10 @@ class FirebaseService {
     final data = <String, dynamic>{
       'fcmToken': fcmToken,
     };
-    return _collectionToken
-        .doc(userId)
-        .set(data, SetOptions(merge: true));
+    return _collectionToken.doc(userId).set(data, SetOptions(merge: true));
   }
 
-  Future<String> getToken(String userId){
+  Future<String> getToken(String userId) {
     return _collectionToken.doc(userId).get().then((snapshot) {
       final data = snapshot.data() ?? {};
       return FcmToken.fromJson(data).token;
