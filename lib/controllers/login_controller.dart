@@ -3,8 +3,6 @@ import 'package:app/global_resource.dart';
 class LoginController extends GetxController {
   //Global
   final box = GetStorage();
-  final formLogin = GlobalKey<FormBuilderState>();
-  final formOtp = GlobalKey<FormBuilderState>();
   Map? user;
   //Login
   String? emailForm;
