@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FirebaseService {
   FirebaseService({bool enableLogging = false})
       : _firestore = FirebaseFirestore.instance {
-    _firestore.settings = const Settings(persistenceEnabled: true);
+    _firestore.settings = const Settings();
     FirebaseFirestore.setLoggingEnabled(enableLogging);
   }
 
@@ -21,27 +21,28 @@ class FirebaseService {
     String? broadcastId,
     String? listenerId,
   }) async {
-    var q = _collectionLiveLocation;
-    if (broadcastId != null) {
-      q.where('broadcast_id', isEqualTo: broadcastId);
-    } else if (listenerId != null) {
-      q.where('listener_id', isEqualTo: listenerId);
-    }
+    assert(
+      broadcastId != null || listenerId != null,
+      'Select one of either broadcastId or listenerId',
+    );
 
-    final snapshot = await q
-        .where('request_approved', isEqualTo: true)
-        .orderBy('last_update')
-        .get();
+    final query = _collectionLiveLocation
+        .where(
+          broadcastId != null ? 'broadcaster_id' : 'listener_id',
+          // ignore: prefer_if_null_operators
+          isEqualTo: broadcastId != null ? broadcastId : listenerId,
+        )
+        .where('request_approved', isEqualTo: true);
+    final snapshot = await query.get();
 
-    return snapshot.docChanges.where((dc) => dc.doc.data() != null).map((dc) {
-      final doc = dc.doc;
-      final json = doc.data()!;
-
+    final docs = snapshot.docs;
+    return docs.map((doc) {
+      final json = doc.data();
       return LiveTracking.fromJson(json).copyWith(uid: doc.id);
     }).toList();
   }
 
-  Future<LiveTracking> addLiveTracking({
+  Future<LiveTracking> setLiveTracking({
     required String broadcasterId,
     required String listenerId,
     bool requestApproved = false,
@@ -53,7 +54,7 @@ class FirebaseService {
     );
 
     final snapshot = await _collectionLiveLocation
-        .where('broadcast_id', isEqualTo: broadcasterId)
+        .where('broadcaster_id', isEqualTo: broadcasterId)
         .where('listener_id', isEqualTo: listenerId)
         .limit(1)
         .get();

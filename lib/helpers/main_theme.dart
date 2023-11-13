@@ -1,6 +1,9 @@
+import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/helpers/dialogs.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 const InputDecorationTheme _kInputDecorationTheme = InputDecorationTheme(
   border: OutlineInputBorder(
@@ -72,7 +75,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   StreamSubscription<RemoteMessage>? _streamSubscriptionForeground;
   StreamSubscription<RemoteMessage>? _streamSubscriptionMessageClick;
-  StreamSubscription<String?>? _streamSubscriptionLocalMessageClick;
+  StreamSubscription<RemoteMessage?>? _streamSubscriptionLocalMessageClick;
 
   @override
   void initState() {
@@ -83,7 +86,7 @@ class _MainAppState extends State<MainApp> {
 
       pn.initialMessage.then((RemoteMessage? message) {
         if (message != null) {
-          _handleMessageOpen(message.data);
+          _handleMessageOpen(message);
         }
       });
 
@@ -97,19 +100,19 @@ class _MainAppState extends State<MainApp> {
         if (notification != null && android != null) {
           pn.showLocalNotification(
             notification,
-            data: message.data,
+            message: message,
             image: _imageNotification(message.data),
           );
         }
       });
 
-      _streamSubscriptionMessageClick = pn.messageOpened
-          .listen((message) => _handleMessageOpen(message.data));
+      _streamSubscriptionMessageClick =
+          pn.messageOpened.listen((message) => _handleMessageOpen(message));
 
       _streamSubscriptionLocalMessageClick =
-          pn.selectNotificationStream.stream.listen((payload) {
-        if (payload != null) {
-          _handleMessageOpen(jsonDecode(payload));
+          pn.selectNotificationStream.stream.listen((remoteMessage) {
+        if (remoteMessage != null) {
+          _handleMessageOpen(remoteMessage);
         }
       });
     });
@@ -129,9 +132,54 @@ class _MainAppState extends State<MainApp> {
     return MainTheme.materialApp(context, child: const SplashScreen());
   }
 
-  _handleMessageOpen(Map<String, dynamic> data) {}
+  _handleMessageOpen(RemoteMessage message) {
+    final context = Get.context;
+    if (context == null) return;
 
-  _clickNotification(Map<String, dynamic> data) async {}
+    final notification = message.notification;
+    final data = message.data;
+    final tag = data['tag'];
+    final broadcasterId = data['broadcaster_id'];
+    final listenerId = data['listener_id'];
+
+    if (notification == null ||
+        tag is! String ||
+        broadcasterId is! String ||
+        listenerId is! String) {
+      return;
+    }
+
+    if (tag.startsWith('REQUEST_LIVE_TRACKING')) {
+      showConfirmationDialog(
+        context,
+        notification.title!,
+        notification.body!,
+        buttonCancel: 'Tolak',
+        buttonOk: 'Terima',
+      ).then((approve) {
+        if (approve == null) return;
+
+        customSnackbar1(
+          approve ? 'Menerima permintaan lokasi' : 'Menolak permintaan lokasi',
+        );
+        context
+            .read<AppCubit>()
+            .setLiveTracking(broadcasterId, listenerId, approve);
+      });
+      return;
+    }
+
+    if (tag.startsWith('REJECT_REQUEST_LIVE_TRACKING')) {
+      customSnackbar1('Permintaan lokasi terkirim');
+      context.read<AppCubit>().requestLiveTracking(broadcasterId);
+      return;
+    }
+
+    if (tag.startsWith('APPROVE_REQUEST_LIVE_TRACKING')) {
+      // do nothing
+      return;
+    }
+  }
 }
 
 String? _imageNotification(Map<String, dynamic> data) {

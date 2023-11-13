@@ -3,8 +3,10 @@ import 'dart:convert';
 
 import 'package:app/data/models/company.dart';
 import 'package:app/data/models/livetracking/live_tracking.dart';
+import 'package:app/data/models/notification/push_notification.dart';
 import 'package:app/data/models/profile.dart';
 import 'package:app/data/source/firebase/firebase_service.dart';
+import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/helpers/base.dart';
 import 'package:app/services/push_notification_service.dart';
@@ -23,12 +25,14 @@ part 'app_state.dart';
 class AppCubit extends HydratedCubit<AppState> {
   AppCubit(
     this.api,
+    this.pushNotificationApiService,
     this.box,
     this.firebaseService,
     this.pushNotificationService,
   ) : super(const AppState());
 
   final ApiService api;
+  final PushNotificationApiService pushNotificationApiService;
   final GetStorage box;
   final FirebaseService firebaseService;
   final PushNotificationService pushNotificationService;
@@ -132,14 +136,76 @@ class AppCubit extends HydratedCubit<AppState> {
   requestLiveTracking(String broadcasterId) {
     if (state.currentUser!.idkaryawan != null) {
       final listenerId = state.currentUser!.idkaryawan!;
+      final name = state.currentUser!.name ?? 'Karyawan-$listenerId';
 
       firebaseService
-          .addLiveTracking(
+          .setLiveTracking(
         broadcasterId: broadcasterId,
         listenerId: listenerId,
       )
           .then((tracking) {
+        _sendPushNotification(
+          title: '$name mengirimkan permintaan lokasi',
+          body: 'Sentuh untuk memperbarui lokasi Anda',
+          data: {
+            'listener_id': listenerId,
+            'broadcaster_id': broadcasterId,
+            'tag': 'REQUEST_LIVE_TRACKING#$listenerId',
+          },
+          idKaryawan: broadcasterId,
+        );
         debugPrint('Tracking data set: ${jsonEncode(tracking.toJson())}');
+      }, onError: (e, s) {
+        debugPrint('Tracking data failed to set: ${e.toString()}');
+        debugPrintStack(stackTrace: s);
+      });
+    }
+  }
+
+  _sendPushNotification({
+    required String title,
+    required String body,
+    required Map<String, String> data,
+    required String idKaryawan,
+  }) {
+    firebaseService.getToken(idKaryawan).then((token) {
+      return pushNotificationApiService.sendPushNotification(
+        PushNotification(
+          notification: Notification(title: title, body: body),
+          data: data,
+          android: const Android(notification: AndroidNotification()),
+          token: token,
+        ),
+      );
+    }).then((pushNotificationResult) {
+      debugPrint('pushNotificationResult=$pushNotificationResult');
+    });
+  }
+
+  setLiveTracking(String broadcasterId, String listenerId, bool approve) {
+    if (state.currentUser!.idkaryawan != null) {
+      final name = state.currentUser!.name ?? 'Karyawan-$listenerId';
+
+      firebaseService
+          .setLiveTracking(
+        broadcasterId: broadcasterId,
+        listenerId: listenerId,
+        requestApproved: approve,
+      )
+          .then((tracking) {
+        _sendPushNotification(
+          title: '$name ${approve ? 'menerima' : 'menolak'} permintaan lokasi',
+          body: approve
+              ? 'Sentuh untuk membuka'
+              : 'Sentuh untuk mengirimkan ulang',
+          data: {
+            'listener_id': listenerId,
+            'broadcaster_id': broadcasterId,
+            'tag':
+                '${approve ? 'APPROVE' : 'REJECT'}_REQUEST_LIVE_TRACKING#$listenerId',
+          },
+          idKaryawan: listenerId,
+        );
       }, onError: (e, s) {
         debugPrint('Tracking data failed to set: ${e.toString()}');
         debugPrintStack(stackTrace: s);
@@ -179,11 +245,14 @@ class AppCubit extends HydratedCubit<AppState> {
       final list = await firebaseService.getLiveTrackingList(
         broadcastId: broadcasterId,
       );
-      firebaseService.updateLiveTrackingList(
-        list: list,
-        latitude: latitude,
-        longitude: longitude,
-      );
+      debugPrint('Found live tracking ${list.length} to update');
+      if (list.isNotEmpty) {
+        await firebaseService.updateLiveTrackingList(
+          list: list,
+          latitude: latitude,
+          longitude: longitude,
+        );
+      }
     } catch (_) {}
   }
 

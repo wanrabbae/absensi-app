@@ -50,7 +50,6 @@ void main() async {
   await GetStorage.init();
   await BasePreference.init();
   WidgetsFlutterBinding.ensureInitialized();
-  NotificationService().initNotification();
   AwesomeNotificationService().initNotification();
 
   AwesomeNotifications().actionStream.listen((action) async {
@@ -134,7 +133,7 @@ void main() async {
       fallbackLocale: const Locale("id", "ID"),
       path: 'assets/lang',
       child: BlocProvider(
-        create: (context) => AppCubit($it(), $it(), $it(), $it()),
+        create: (context) => AppCubit($it(), $it(), $it(), $it(), $it()),
         child: const MyApp(),
       ),
     ),

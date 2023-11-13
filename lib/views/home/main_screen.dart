@@ -1,5 +1,6 @@
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/helpers/debouncer.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:background_location/background_location.dart' as bg;
 import 'package:flutter/foundation.dart';
@@ -14,6 +15,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  final _deBouncer = DeBouncer(delay: const Duration(milliseconds: 1000));
   int _activePage = Get.arguments ?? 0;
 
   @override
@@ -30,8 +32,18 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   runServices() async {
+    final fgLocGranted = await Permission.locationWhenInUse.isGranted;
+    if (!fgLocGranted) {
+      return;
+    }
+
     final bgLocGranted = await Permission.locationAlways.isGranted;
-    if (!bgLocGranted) return;
+    if (!bgLocGranted) {
+      final status = await Permission.locationAlways.request();
+      if (!status.isGranted) {
+        return;
+      }
+    }
 
     await bg.BackgroundLocation.setAndroidNotification(
       title: "Sedang mendeteksi lokasi di latar belakang",
@@ -43,15 +55,17 @@ class _MainScreenState extends State<MainScreen> {
       kDebugMode ? (5 * 1000) : (5 * 60 * 1000),
     );
     await bg.BackgroundLocation.startLocationService(
-      distanceFilter: 5,
+      distanceFilter: kDebugMode ? 0 : 5,
     );
     bg.BackgroundLocation.getLocationUpdates((bg.Location location) {
-      final app = context.read<AppCubit>();
-      if (!app.isClosed &&
-          location.latitude != null &&
-          location.longitude != null) {
-        app.updateLiveTrackingList(location.latitude!, location.longitude!);
-      }
+      _deBouncer.call(() {
+        final app = context.read<AppCubit>();
+        if (!app.isClosed &&
+            location.latitude != null &&
+            location.longitude != null) {
+          app.updateLiveTrackingList(location.latitude!, location.longitude!);
+        }
+      });
     });
   }
 

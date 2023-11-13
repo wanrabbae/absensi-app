@@ -65,8 +65,8 @@ class PushNotificationService {
   Stream<RemoteMessage> get messageOpened =>
       FirebaseMessaging.onMessageOpenedApp;
 
-  final StreamController<String?> selectNotificationStream =
-      StreamController<String?>.broadcast();
+  final StreamController<RemoteMessage?> selectNotificationStream =
+      StreamController<RemoteMessage?>.broadcast();
 
   void initializeLocalNotification() async {
     if (!Platform.isAndroid) return;
@@ -80,7 +80,11 @@ class PushNotificationService {
       switch (notificationResponse.notificationResponseType) {
         case NotificationResponseType.selectedNotification:
         case NotificationResponseType.selectedNotificationAction:
-          selectNotificationStream.add(notificationResponse.payload);
+          if (notificationResponse.payload is String) {
+            final map = jsonDecode(notificationResponse.payload!);
+            final message = RemoteMessage.fromMap(map);
+            selectNotificationStream.add(message);
+          }
           break;
       }
     });
@@ -101,24 +105,25 @@ class PushNotificationService {
 
   showLocalNotification(
     RemoteNotification notification, {
-    Map<String, dynamic>? data,
+    required RemoteMessage message,
     String? image,
   }) async {
     _flutterLocalNotificationsPlugin.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        NotificationDetails(
-          android: AndroidNotificationDetails(
-            _kChannel.id,
-            _kChannel.name,
-            channelDescription: _kChannel.description,
-            icon: 'ic_launcher',
-            styleInformation: image != null
-                ? await _getImageNotification(image.toString())
-                : const BigTextStyleInformation(''),
-          ),
+      notification.hashCode,
+      notification.title,
+      notification.body,
+      NotificationDetails(
+        android: AndroidNotificationDetails(
+          _kChannel.id,
+          _kChannel.name,
+          channelDescription: _kChannel.description,
+          icon: 'ic_launcher',
+          styleInformation: image != null
+              ? await _getImageNotification(image.toString())
+              : const BigTextStyleInformation(''),
         ),
-        payload: jsonEncode(data));
+      ),
+      payload: jsonEncode(message.toMap()),
+    );
   }
 }
