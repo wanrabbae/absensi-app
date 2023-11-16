@@ -467,8 +467,8 @@ Widget buildImageBig(BuildContext context) {
 
 Widget buildImageSizeIcon(BuildContext context, String url) {
   return Container(
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     decoration: BoxDecoration(
         color: Colors.blue,
         image: DecorationImage(

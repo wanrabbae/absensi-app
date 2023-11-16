@@ -346,22 +346,21 @@ class _Toolbar extends StatelessWidget {
             },
             icon: const Icon(
               FeatherIcons.search,
-              size: 30,
+              size: 24,
               color: colorBluePrimary,
             ),
           ),
-          const SizedBox(width: 8),
           IconButton(
             onPressed: () {
               Get.toNamed(RouteName.homeUndangan);
             },
             icon: const Icon(
               FeatherIcons.userPlus,
-              size: 30,
+              size: 24,
               color: colorBluePrimary,
             ),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 4),
           GestureDetector(
             onTap: () {
               // showModalBottomSheet(
