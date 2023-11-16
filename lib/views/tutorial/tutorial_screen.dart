@@ -100,8 +100,8 @@ class _Footer extends StatelessWidget {
                   activeIndex: pageController.page?.toInt() ?? 0,
                   effect: const ScaleEffect(
                     activeDotColor: Colors.white,
-                    dotColor: Colors.white,
-                    scale: 2,
+                    dotColor: Colors.white54,
+                    scale: 1.5,
                     dotHeight: 10,
                     dotWidth: 10,
                     spacing: 14,
