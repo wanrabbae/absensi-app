@@ -191,9 +191,17 @@ class _AbsensiScreenState extends State<AbsensiScreen>
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            ColumnSuper(
-                              innerDistance: -5,
+                            Stack(
                               children: [
+                                Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 0,
+                                  child: Container(
+                                    height: 2,
+                                    color: colorBlueOpacity,
+                                  ),
+                                ),
                                 ColumnSuper(
                                   innerDistance: -20,
                                   children: [
@@ -230,10 +238,6 @@ class _AbsensiScreenState extends State<AbsensiScreen>
                                     ),
                                     const Center(child: _MainTabBar()),
                                   ],
-                                ),
-                                Container(
-                                  height: 2,
-                                  color: colorBlueOpacity,
                                 ),
                               ],
                             ),
@@ -859,7 +863,6 @@ class _MainTabBar extends StatelessWidget {
       indicatorColor: colorBluePrimary2,
       indicatorWeight: 3,
       indicatorSize: TabBarIndicatorSize.tab,
-      indicatorPadding: const EdgeInsets.only(bottom: 5),
       tabs: const [
         Tab(
           child: Text(
