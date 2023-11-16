@@ -1,5 +1,6 @@
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class AbsenController extends GetxController {
   //global
@@ -644,6 +645,10 @@ class AbsenController extends GetxController {
           //     "Berhasil mematikan absen sebelumnya. Berhasil mengirimkan izin. Silahkan hubungi admin.");
           Get.offAllNamed(RouteName.home, arguments: 0);
           await HomeController().dataHome();
+        }
+        final InAppReview inAppReview = InAppReview.instance;
+        if (await inAppReview.isAvailable()) {
+          inAppReview.requestReview();
         }
       } else if (response.statusCode == 401) {
         Get.back();
