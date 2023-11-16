@@ -102,10 +102,6 @@ class _AbsensiScreenState extends State<AbsensiScreen>
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-
     return LayoutBuilder(
       builder: (context, constraints) {
         return DefaultTabController(
@@ -159,6 +155,11 @@ class _AbsensiScreenState extends State<AbsensiScreen>
                       margin: const EdgeInsets.only(left: 16),
                       decoration: kCircleButtonDecoration,
                       child: const BackButton(),
+                    ),
+                    systemOverlayStyle: const SystemUiOverlayStyle(
+                      statusBarBrightness: Brightness.dark,
+                      statusBarIconBrightness: Brightness.dark,
+                      statusBarColor: Colors.white,
                     ),
                   ),
                   body: Stack(
