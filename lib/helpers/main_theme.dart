@@ -98,6 +98,20 @@ class _MainAppState extends State<MainApp> {
         // If `onMessage` is triggered with a notification, construct our own
         // local notification to show to users using the created channel.
         if (notification != null && android != null) {
+          final data = message.data;
+          final tag = data['tag'];
+          final broadcasterId = data['broadcaster_id'];
+          final listenerId = data['listener_id'];
+
+          if (tag is String ||
+              broadcasterId is String ||
+              listenerId is String) {
+            if (tag.startsWith('REQUEST_LIVE_TRACKING')) {
+              _requestLiveTracking(notification, broadcasterId, listenerId);
+              return;
+            }
+          }
+
           pn.showLocalNotification(
             notification,
             message: message,
@@ -150,22 +164,7 @@ class _MainAppState extends State<MainApp> {
     }
 
     if (tag.startsWith('REQUEST_LIVE_TRACKING')) {
-      showConfirmationDialog(
-        context,
-        notification.title!,
-        notification.body!,
-        buttonCancel: 'Tolak',
-        buttonOk: 'Terima',
-      ).then((approve) {
-        if (approve == null) return;
-
-        customSnackbar1(
-          approve ? 'Menerima permintaan lokasi' : 'Menolak permintaan lokasi',
-        );
-        context
-            .read<AppCubit>()
-            .setLiveTracking(broadcasterId, listenerId, approve);
-      });
+      _requestLiveTracking(notification, broadcasterId, listenerId);
       return;
     }
 
@@ -179,6 +178,29 @@ class _MainAppState extends State<MainApp> {
       // do nothing
       return;
     }
+  }
+
+  _requestLiveTracking(
+    RemoteNotification notification,
+    String broadcasterId,
+    String listenerId,
+  ) {
+    showConfirmationDialog(
+      context,
+      notification.title!,
+      notification.body!,
+      buttonCancel: 'Tolak',
+      buttonOk: 'Terima',
+    ).then((approve) {
+      if (approve == null) return;
+
+      customSnackbar1(
+        approve ? 'Menerima permintaan lokasi' : 'Menolak permintaan lokasi',
+      );
+      context
+          .read<AppCubit>()
+          .setLiveTracking(broadcasterId, listenerId, approve);
+    });
   }
 }
 
