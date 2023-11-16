@@ -621,7 +621,13 @@ class _PulangLocationView extends StatelessWidget {
                 color: colorBlueOpacity2,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: Image.asset('assets/icons/map-pin-2.png'),
+              child: Center(
+                child: Image.asset(
+                  'assets/icons/map-pin-2.png',
+                  width: 20,
+                  height: 20,
+                ),
+              ),
             ),
             const SizedBox(width: 10),
             SizedBox(
@@ -699,9 +705,12 @@ class _PulangTimeView extends StatelessWidget {
             color: colorBlueOpacity2,
             borderRadius: BorderRadius.circular(50),
           ),
-          child: Image.asset(
-            'assets/icons/clock.png',
-            width: 100,
+          child: Center(
+            child: Image.asset(
+              'assets/icons/clock.png',
+              width: 20,
+              height: 20,
+            ),
           ),
         ),
         const SizedBox(width: 10),
@@ -1008,8 +1017,12 @@ class _HadirLocationView extends StatelessWidget {
                 color: colorBlueOpacity2,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: Image.asset(
-                'assets/icons/map-pin-2.png',
+              child: Center(
+                child: Image.asset(
+                  'assets/icons/map-pin-2.png',
+                  width: 20,
+                  height: 20,
+                ),
               ),
             ),
             const SizedBox(width: 10),
@@ -1073,9 +1086,12 @@ class _HadirTimeView extends StatelessWidget {
             color: colorBlueOpacity2,
             borderRadius: BorderRadius.circular(50),
           ),
-          child: Image.asset(
-            'assets/icons/clock.png',
-            width: 100,
+          child: Center(
+            child: Image.asset(
+              'assets/icons/clock.png',
+              width: 20,
+              height: 20,
+            ),
           ),
         ),
         const SizedBox(width: 10),
