@@ -16,7 +16,14 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   final _deBouncer = DeBouncer(delay: const Duration(milliseconds: 1000));
-  int _activePage = Get.arguments ?? 0;
+  int _activePage = (Get.arguments is int) ? (Get.arguments as int) : 0;
+
+  String? get activeAttendanceDate {
+    if (Get.arguments is String) {
+      return Get.arguments;
+    }
+    return null;
+  }
 
   @override
   void initState() {
@@ -87,7 +94,12 @@ class _MainScreenState extends State<MainScreen> {
     return Scaffold(
       body: PageView(
         controller: pageViewController,
-        children: const [HomeScreen(), ProfileScreen()],
+        children: activeAttendanceDate != null
+            ? [
+                HomeScreen(activeAttendanceDate: activeAttendanceDate),
+                const ProfileScreen(),
+              ]
+            : const [HomeScreen(), ProfileScreen()],
         onPageChanged: (index) {
           // debugPrint("TEST GESER");
           setState(() {

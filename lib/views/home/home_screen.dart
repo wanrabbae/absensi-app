@@ -8,15 +8,22 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'components/card_home.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, this.activeAttendanceDate});
+
+  final String? activeAttendanceDate;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String curentDate =
-      "${DateTime.now().day.toString().padLeft(2, '0')}/${DateTime.now().month.toString().padLeft(2, '0')}/${DateTime.now().year}";
+  String curentDate = () {
+    final now = DateTime.now();
+    final d = now.day.toString().padLeft(2, '0');
+    final m = now.month.toString().padLeft(2, '0');
+    final y = now.year;
+    return "$d/$m/$y";
+  }();
 
   var hadirHighlight = true;
   var izinHighlight = false;
@@ -25,6 +32,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    final activeAttendanceDate = widget.activeAttendanceDate;
+    if (activeAttendanceDate != null) {
+      final now = DateTime.tryParse(activeAttendanceDate);
+      if (now != null) {
+        final d = now.day.toString().padLeft(2, '0');
+        final m = now.month.toString().padLeft(2, '0');
+        final y = now.year;
+        curentDate = "$d/$m/$y";
+      }
+    }
+
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -36,12 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Permission.location.serviceStatus.isEnabled.then((value) {
-    //   debugPrint("LOCATION: " + value.toString());
-    //   if (!value) {
-    //     Permission.location.request();
-    //   }
-    // });
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
@@ -55,7 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (HomeController s) => Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
-        // bottomNavigationBar: customNavbar(0),
         extendBodyBehindAppBar: false,
         body: Column(
           mainAxisSize: MainAxisSize.min,
@@ -363,17 +374,6 @@ class _Toolbar extends StatelessWidget {
           const SizedBox(width: 4),
           GestureDetector(
             onTap: () {
-              // showModalBottomSheet(
-              //   context: context,
-              //   backgroundColor: Colors.white,
-              //   shape: const RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.only(
-              //       topLeft: Radius.circular(20),
-              //       topRight: Radius.circular(20),
-              //     ),
-              //   ),
-              //   builder: (ctx) => modalSelectCompany(context, s),
-              // );
               Get.toNamed(RouteName.companyScreen);
             },
             child: buildImageSizeIcon(
