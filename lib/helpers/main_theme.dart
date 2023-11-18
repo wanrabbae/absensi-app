@@ -142,7 +142,9 @@ class _MainAppState extends State<MainApp> {
         tag is! String ||
         broadcasterId is! String ||
         listenerId is! String) {
-      _showLocalNotification(message);
+      if (foreground) {
+        _showLocalNotification(message);
+      }
       return;
     }
 
@@ -158,7 +160,9 @@ class _MainAppState extends State<MainApp> {
     }
 
     if (tag.startsWith('APPROVE_REQUEST_LIVE_TRACKING')) {
-      _showLocalNotification(message);
+      if (foreground) {
+        _showLocalNotification(message);
+      }
       return;
     }
   }
@@ -168,6 +172,8 @@ class _MainAppState extends State<MainApp> {
     String broadcasterId,
     String listenerId,
   ) {
+    final context = Get.context;
+    if (context == null) return;
     showConfirmationDialog(
       context,
       notification.title!,
