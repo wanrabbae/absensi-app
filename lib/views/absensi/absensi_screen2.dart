@@ -242,32 +242,37 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                         builder: (context, state) {
                           final listenerId = state.currentUser?.idkaryawan;
                           final broadcasterId = absence.idKaryawan;
+                          final isCheckOut = absence.isCheckOut;
 
                           final disabled = listenerId != null &&
                               broadcasterId != null &&
                               listenerId == broadcasterId;
 
                           return IconButton(
-                            onPressed: () {
-                              if (disabled) {
-                                customSnackbar1(
-                                  'Tidak bisa melakukan permintaan lokasi kepada data sendiri',
-                                );
-                                return;
-                              }
+                            onPressed: isCheckOut
+                                ? null
+                                : () {
+                                    if (disabled) {
+                                      customSnackbar1(
+                                        'Tidak bisa melakukan permintaan lokasi kepada data sendiri',
+                                      );
+                                      return;
+                                    }
 
-                              if (broadcasterId != null) {
-                                customSnackbar1('Permintaan lokasi terkirim');
-                                context
-                                    .read<AppCubit>()
-                                    .requestLiveTracking(broadcasterId);
-                              }
-                            },
+                                    if (broadcasterId != null) {
+                                      customSnackbar1(
+                                          'Permintaan lokasi terkirim');
+                                      context
+                                          .read<AppCubit>()
+                                          .requestLiveTracking(broadcasterId);
+                                    }
+                                  },
                             icon: Image.asset(
                               'assets/icons/crosshair.png',
                               height: 24,
-                              color:
-                                  disabled ? colorDisabled : colorBluePrimary,
+                              color: disabled || isCheckOut
+                                  ? colorDisabled
+                                  : colorBluePrimary,
                             ),
                           );
                         },
@@ -359,7 +364,6 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                               ),
                             ],
                           ),
-                          const SizedBox(height: 8),
                           Expanded(
                             child: TabBarView(
                               children: <Widget>[
@@ -462,8 +466,8 @@ class _PulangView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(color: Colors.white),
-      padding: const EdgeInsets.only(left: 20, right: 20),
       child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -858,9 +862,9 @@ class _HadirView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(color: Colors.white),
-      padding: const EdgeInsets.only(left: 20, right: 20),
       // height: 100,
       child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
         child: Column(
           // shrinkWrap: true,
           crossAxisAlignment: CrossAxisAlignment.start,

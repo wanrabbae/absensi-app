@@ -242,7 +242,6 @@ class _AbsensiScreenState extends State<AbsensiScreen>
                                 ),
                               ],
                             ),
-                            const SizedBox(height: 8),
                             Expanded(
                               child: TabBarView(
                                 children: <Widget>[
@@ -309,9 +308,9 @@ class _HadirView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(color: Colors.white),
-      padding: const EdgeInsets.only(left: 20, right: 20),
       // height: 100,
       child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
         child: Column(
           // shrinkWrap: true,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -598,8 +597,8 @@ class _PulangView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(color: Colors.white),
-      padding: const EdgeInsets.only(left: 20, right: 20),
       child: SingleChildScrollView(
+        padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -38,6 +38,10 @@ class Absence with _$Absence {
   factory Absence.fromJson(Map<String, dynamic> json) =>
       _$AbsenceFromJson(json);
 
+  bool get isCheckIn => waktuCheckIn != null;
+
+  bool get isCheckOut => waktuCheckOut != null;
+
   LatLng? get checkInLocation {
     if (alamatLatitude != null && alamatLongtitude != null) {
       final lat = double.tryParse(alamatLatitude!);
