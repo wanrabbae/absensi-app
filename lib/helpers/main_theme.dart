@@ -86,7 +86,7 @@ class _MainAppState extends State<MainApp> {
 
       pn.initialMessage.then((RemoteMessage? message) {
         if (message != null) {
-          _handleMessageOpen(message);
+          _handleMessageOpen(message, foreground: true);
         }
       });
 
@@ -98,25 +98,7 @@ class _MainAppState extends State<MainApp> {
         // If `onMessage` is triggered with a notification, construct our own
         // local notification to show to users using the created channel.
         if (notification != null && android != null) {
-          final data = message.data;
-          final tag = data['tag'];
-          final broadcasterId = data['broadcaster_id'];
-          final listenerId = data['listener_id'];
-
-          if (tag is String ||
-              broadcasterId is String ||
-              listenerId is String) {
-            if (tag.startsWith('REQUEST_LIVE_TRACKING')) {
-              _requestLiveTracking(notification, broadcasterId, listenerId);
-              return;
-            }
-          }
-
-          pn.showLocalNotification(
-            notification,
-            message: message,
-            image: _imageNotification(message.data),
-          );
+          _handleMessageOpen(message, foreground: true);
         }
       });
 
@@ -146,7 +128,7 @@ class _MainAppState extends State<MainApp> {
     return MainTheme.materialApp(context, child: const SplashScreen());
   }
 
-  _handleMessageOpen(RemoteMessage message) {
+  _handleMessageOpen(RemoteMessage message, {bool foreground = false}) {
     final context = Get.context;
     if (context == null) return;
 
@@ -160,6 +142,7 @@ class _MainAppState extends State<MainApp> {
         tag is! String ||
         broadcasterId is! String ||
         listenerId is! String) {
+      _showLocalNotification(message);
       return;
     }
 
@@ -175,7 +158,7 @@ class _MainAppState extends State<MainApp> {
     }
 
     if (tag.startsWith('APPROVE_REQUEST_LIVE_TRACKING')) {
-      // do nothing
+      _showLocalNotification(message);
       return;
     }
   }
@@ -201,6 +184,17 @@ class _MainAppState extends State<MainApp> {
           .read<AppCubit>()
           .setLiveTracking(broadcasterId, listenerId, approve);
     });
+  }
+
+  _showLocalNotification(RemoteMessage message) {
+    final pn = $it<PushNotificationService>();
+    final notification = message.notification;
+    if (notification == null) return;
+    pn.showLocalNotification(
+      notification,
+      message: message,
+      image: _imageNotification(message.data),
+    );
   }
 }
 
