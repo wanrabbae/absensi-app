@@ -1,3 +1,4 @@
+import 'package:app/data/source/firebase/firebase_service.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:in_app_review/in_app_review.dart';
@@ -11,6 +12,7 @@ class AbsenController extends GetxController {
   int changePageScreen = 0;
   Map? user;
   Map<String, dynamic>? izinData;
+
   //absen
   LatLng currentLocation = const LatLng(5.880241, 95.336574);
   LatLng currentLocationPulang = const LatLng(5.880241, 95.336574);
@@ -26,8 +28,10 @@ class AbsenController extends GetxController {
   bool klikAbsen = false;
   String? alamatLoc;
   String? alamatLocPulang;
+
   // ignore: prefer_typing_uninitialized_variables
   var timer;
+
   //izin
   Map? perusahaan;
   List? perusahaanList;
@@ -649,6 +653,13 @@ class AbsenController extends GetxController {
         final InAppReview inAppReview = InAppReview.instance;
         if (await inAppReview.isAvailable()) {
           inAppReview.requestReview();
+        }
+
+        final broadcasterId = user?["idkaryawan"];
+        if (broadcasterId is String) {
+          $it<FirebaseService>()
+              .clearAllLiveTracking(broadcasterId)
+              .then((_) {});
         }
       } else if (response.statusCode == 401) {
         Get.back();

@@ -186,9 +186,18 @@ class _MainAppState extends State<MainApp> {
       customSnackbar1(
         approve ? 'Menerima permintaan lokasi' : 'Menolak permintaan lokasi',
       );
-      context
-          .read<AppCubit>()
-          .setLiveTracking(broadcasterId, listenerId, approve);
+
+      if (approve) {
+        Geolocator.getCurrentPosition().then((Position position) {
+          context.read<AppCubit>().setLiveTracking(
+                broadcasterId,
+                listenerId,
+                approve,
+                position.latitude,
+                position.longitude,
+              );
+        });
+      }
     });
   }
 

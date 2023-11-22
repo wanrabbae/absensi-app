@@ -13,7 +13,6 @@ dependencies:
   animated_icon_button: ^1.0.2
   assorted_layout_widgets: ^8.0.5
   awesome_notifications: ^0.6.19
-  background_location: ^0.11.8
   cloud_firestore: ^4.12.2
   cupertino_icons: ^1.0.2
   dio: ^4.0.6

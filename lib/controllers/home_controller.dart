@@ -140,8 +140,7 @@ class HomeController extends GetxController {
         );
       } else {
         if (await Permission.camera.isGranted &&
-            await Permission.location.isGranted &&
-            await Permission.locationAlways.isGranted) {
+            await Permission.location.isGranted) {
           Get.toNamed(RouteName.absen);
         } else {
           showModalBottomSheet(

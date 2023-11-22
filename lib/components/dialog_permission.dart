@@ -146,22 +146,9 @@ class DialogPermission extends HookConsumerWidget {
       Permission.camera,
       Permission.location,
     ].request();
-    debugPrint('$statuses');
 
     if (statuses[Permission.camera] == PermissionStatus.granted &&
         statuses[Permission.location] == PermissionStatus.granted) {
-      final locationAlwaysGranted = await Permission.locationAlways.isGranted;
-      if (!locationAlwaysGranted) {
-        final status = await Permission.locationAlways.request();
-        if (!status.isGranted) {
-          customSnackbar1('Akses lokasi di background tidak mendapat ijin');
-          Get.back();
-          if (Platform.isIOS) {
-            Get.toNamed(RouteName.absen);
-          }
-          return;
-        }
-      }
       Get.back();
       Get.toNamed(RouteName.absen);
       return;

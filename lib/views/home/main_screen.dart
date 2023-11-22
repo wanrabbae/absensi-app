@@ -1,9 +1,6 @@
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
-import 'package:app/helpers/debouncer.dart';
 import 'package:app/services/push_notification_service.dart';
-import 'package:background_location/background_location.dart' as bg;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +12,6 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final _deBouncer = DeBouncer(delay: const Duration(milliseconds: 1000));
   int _activePage = (Get.arguments is int) ? (Get.arguments as int) : 0;
 
   String? get activeAttendanceDate {
@@ -33,54 +29,7 @@ class _MainScreenState extends State<MainScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AppCubit>().updateTokenFcm();
-
-      runServices();
     });
-  }
-
-  runServices() async {
-    final fgLocGranted = await Permission.locationWhenInUse.isGranted;
-    if (!fgLocGranted) {
-      return;
-    }
-
-    final bgLocGranted = await Permission.locationAlways.isGranted;
-    if (!bgLocGranted) {
-      final status = await Permission.locationAlways.request();
-      if (!status.isGranted) {
-        return;
-      }
-    }
-
-    await bg.BackgroundLocation.setAndroidNotification(
-      title: "Sedang mendeteksi lokasi di latar belakang",
-      message: "Diharapkan untuk tetap membuka aplikasi Hora",
-      icon: "@mipmap/ic_launcher",
-    );
-
-    await bg.BackgroundLocation.setAndroidConfiguration(
-      kDebugMode ? (5 * 1000) : (5 * 60 * 1000),
-    );
-    await bg.BackgroundLocation.startLocationService(
-      distanceFilter: kDebugMode ? 0 : 5,
-    );
-    bg.BackgroundLocation.getLocationUpdates((bg.Location location) {
-      _deBouncer.call(() {
-        final app = context.read<AppCubit>();
-        if (!app.isClosed &&
-            location.latitude != null &&
-            location.longitude != null) {
-          app.updateLiveTrackingList(location.latitude!, location.longitude!);
-        }
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    bg.BackgroundLocation.stopLocationService();
-
-    super.dispose();
   }
 
   @override

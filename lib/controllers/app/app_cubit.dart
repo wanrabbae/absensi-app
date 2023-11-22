@@ -182,7 +182,13 @@ class AppCubit extends HydratedCubit<AppState> {
     });
   }
 
-  setLiveTracking(String broadcasterId, String listenerId, bool approve) {
+  setLiveTracking(
+    String broadcasterId,
+    String listenerId,
+    bool approve, [
+    double? latitude,
+    double? longitude,
+  ]) {
     if (state.currentUser!.idkaryawan != null) {
       final name = state.currentUser!.name ?? 'Karyawan-$listenerId';
 
@@ -191,6 +197,8 @@ class AppCubit extends HydratedCubit<AppState> {
         broadcasterId: broadcasterId,
         listenerId: listenerId,
         requestApproved: approve,
+        latitude: latitude,
+        longitude: longitude,
       )
           .then((tracking) {
         _sendPushNotification(

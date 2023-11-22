@@ -46,11 +46,15 @@ class FirebaseService {
     required String broadcasterId,
     required String listenerId,
     bool requestApproved = false,
+    double? latitude,
+    double? longitude,
   }) async {
     final data = LiveTracking(
       broadcasterId: broadcasterId,
       listenerId: listenerId,
       requestApproved: requestApproved,
+      latitude: latitude,
+      longitude: longitude,
     );
 
     final snapshot = await _collectionLiveLocation
@@ -97,6 +101,21 @@ class FirebaseService {
     }
 
     return batch.commit();
+  }
+
+  Future<dynamic> clearAllLiveTracking(String broadcasterId) {
+    return _collectionLiveLocation
+        .where('broadcaster_id', isEqualTo: broadcasterId)
+        .get()
+        .then((snapshot) {
+      final futures = <Future<void>>[];
+      for (var doc in snapshot.docs) {
+        final remove = _collectionLiveLocation.doc(doc.id).delete();
+        futures.add(remove);
+      }
+
+      return Future.wait(futures);
+    });
   }
 
   Future<void> setToken({
