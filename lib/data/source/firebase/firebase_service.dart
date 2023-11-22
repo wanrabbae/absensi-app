@@ -103,18 +103,22 @@ class FirebaseService {
     return batch.commit();
   }
 
-  Future<dynamic> clearAllLiveTracking(String broadcasterId) {
+  Future<List<String>> clearAllLiveTracking(String broadcasterId) {
+    final listenerIds = <String>[];
     return _collectionLiveLocation
         .where('broadcaster_id', isEqualTo: broadcasterId)
         .get()
         .then((snapshot) {
       final futures = <Future<void>>[];
       for (var doc in snapshot.docs) {
+        listenerIds.add(doc.data()['listener_id'].toString());
         final remove = _collectionLiveLocation.doc(doc.id).delete();
         futures.add(remove);
       }
 
-      return Future.wait(futures);
+      return Future.wait(futures).then((value) {
+        return Future.value(listenerIds);
+      });
     });
   }
 

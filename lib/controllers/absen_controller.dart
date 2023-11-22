@@ -1,4 +1,6 @@
+import 'package:app/data/models/notification/push_notification.dart' as model;
 import 'package:app/data/source/firebase/firebase_service.dart';
+import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:in_app_review/in_app_review.dart';
@@ -657,9 +659,33 @@ class AbsenController extends GetxController {
 
         final broadcasterId = user?["idkaryawan"];
         if (broadcasterId is String) {
-          $it<FirebaseService>()
+          final firebaseService = $it<FirebaseService>();
+          final pushNotificationApiService = $it<PushNotificationApiService>();
+          firebaseService
               .clearAllLiveTracking(broadcasterId)
-              .then((_) {});
+              .then((idKaryawans) {
+            for (var idKaryawan in idKaryawans) {
+              firebaseService.getToken(idKaryawan).then((token) {
+                return pushNotificationApiService.sendPushNotification(
+                  model.PushNotification(
+                    notification: const model.Notification(
+                      title: 'Pengiriman lokasi dihentikan',
+                      body: 'Sentuh untuk membuka aplikasi',
+                    ),
+                    data: {
+                      'tag': 'STOP_REQUEST_LIVE_TRACKING',
+                    },
+                    android: const model.Android(
+                      notification: model.AndroidNotification(),
+                    ),
+                    token: token,
+                  ),
+                );
+              }).then((pushNotificationResult) {
+                debugPrint('pushNotificationResult=$pushNotificationResult');
+              });
+            }
+          });
         }
       } else if (response.statusCode == 401) {
         Get.back();
