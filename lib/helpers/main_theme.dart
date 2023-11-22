@@ -154,15 +154,22 @@ class _MainAppState extends State<MainApp> {
     }
 
     if (tag.startsWith('REJECT_REQUEST_LIVE_TRACKING')) {
-      customSnackbar1('Permintaan lokasi terkirim');
-      context.read<AppCubit>().requestLiveTracking(broadcasterId);
+      if (foreground) {
+        customSnackbar1('Permintaan lokasi ditolak');
+      } else {
+        customSnackbar1('Permintaan lokasi terkirim');
+        context.read<AppCubit>().requestLiveTracking(broadcasterId);
+      }
       return;
     }
 
     if (tag.startsWith('APPROVE_REQUEST_LIVE_TRACKING')) {
-      if (foreground) {
-        _showLocalNotification(message);
-      }
+      customSnackbar1('Permintaan lokasi diterima');
+      return;
+    }
+
+    if (tag.startsWith('STOP_REQUEST_LIVE_TRACKING')) {
+      customSnackbar1('Permintaan lokasi dihentikan');
       return;
     }
   }
