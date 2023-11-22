@@ -39,27 +39,11 @@ void main() async {
 
   AwesomeNotificationService().initNotification();
   AwesomeNotifications().actionStream.listen((action) async {
-    if (action.channelKey == "basic" && action.buttonKeyPressed == "open") {
+    if (action.channelKey == "basic") {
       Get.put(HomeController());
       var tanggal = action.payload?["datepresence"]?.split(" ")[0];
 
       Get.offAndToNamed(RouteName.home, arguments: tanggal);
-      return;
-    }
-
-    if (action.channelKey == "basic") {
-      var homeCtrl = Get.put(HomeController());
-      var tanggal = action.payload?["datepresence"]?.split(" ")[0];
-
-      var response = await AbsensiServices()
-          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
-
-      Get.offAndToNamed(RouteName.home, arguments: tanggal)?.then((_) {
-        Get.toNamed(
-          RouteName.absen,
-          arguments: {"dataAbsen": response.data?[0], "pulang": 1},
-        );
-      });
       return;
     }
 
