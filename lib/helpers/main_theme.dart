@@ -92,6 +92,7 @@ class _MainAppState extends State<MainApp> {
 
       _streamSubscriptionForeground =
           pn.foregroundMessage.listen((RemoteMessage message) {
+            debugPrint('RECEIVED NOTIF : ${jsonEncode(message.toMap())}');
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
 
@@ -204,6 +205,12 @@ class _MainAppState extends State<MainApp> {
                 position.longitude,
               );
         });
+      } else {
+        context.read<AppCubit>().setLiveTracking(
+          broadcasterId,
+          listenerId,
+          approve,
+        );
       }
     });
   }

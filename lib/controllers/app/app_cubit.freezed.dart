@@ -23,6 +23,8 @@ mixin _$AppState {
   Profile? get currentUser => throw _privateConstructorUsedError;
   Company get company => throw _privateConstructorUsedError;
   List<LiveTracking> get liveTrackingList => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  Absence? get todayAttendance => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,10 +40,13 @@ abstract class $AppStateCopyWith<$Res> {
   $Res call(
       {Profile? currentUser,
       Company company,
-      List<LiveTracking> liveTrackingList});
+      List<LiveTracking> liveTrackingList,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      Absence? todayAttendance});
 
   $ProfileCopyWith<$Res>? get currentUser;
   $CompanyCopyWith<$Res> get company;
+  $AbsenceCopyWith<$Res>? get todayAttendance;
 }
 
 /// @nodoc
@@ -60,6 +65,7 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
     Object? currentUser = freezed,
     Object? company = null,
     Object? liveTrackingList = null,
+    Object? todayAttendance = freezed,
   }) {
     return _then(_value.copyWith(
       currentUser: freezed == currentUser
@@ -74,6 +80,10 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
           ? _value.liveTrackingList
           : liveTrackingList // ignore: cast_nullable_to_non_nullable
               as List<LiveTracking>,
+      todayAttendance: freezed == todayAttendance
+          ? _value.todayAttendance
+          : todayAttendance // ignore: cast_nullable_to_non_nullable
+              as Absence?,
     ) as $Val);
   }
 
@@ -96,6 +106,18 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
       return _then(_value.copyWith(company: value) as $Val);
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AbsenceCopyWith<$Res>? get todayAttendance {
+    if (_value.todayAttendance == null) {
+      return null;
+    }
+
+    return $AbsenceCopyWith<$Res>(_value.todayAttendance!, (value) {
+      return _then(_value.copyWith(todayAttendance: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -109,12 +131,16 @@ abstract class _$$AppStateImplCopyWith<$Res>
   $Res call(
       {Profile? currentUser,
       Company company,
-      List<LiveTracking> liveTrackingList});
+      List<LiveTracking> liveTrackingList,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      Absence? todayAttendance});
 
   @override
   $ProfileCopyWith<$Res>? get currentUser;
   @override
   $CompanyCopyWith<$Res> get company;
+  @override
+  $AbsenceCopyWith<$Res>? get todayAttendance;
 }
 
 /// @nodoc
@@ -131,6 +157,7 @@ class __$$AppStateImplCopyWithImpl<$Res>
     Object? currentUser = freezed,
     Object? company = null,
     Object? liveTrackingList = null,
+    Object? todayAttendance = freezed,
   }) {
     return _then(_$AppStateImpl(
       currentUser: freezed == currentUser
@@ -145,6 +172,10 @@ class __$$AppStateImplCopyWithImpl<$Res>
           ? _value._liveTrackingList
           : liveTrackingList // ignore: cast_nullable_to_non_nullable
               as List<LiveTracking>,
+      todayAttendance: freezed == todayAttendance
+          ? _value.todayAttendance
+          : todayAttendance // ignore: cast_nullable_to_non_nullable
+              as Absence?,
     ));
   }
 }
@@ -155,7 +186,9 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
   const _$AppStateImpl(
       {this.currentUser,
       this.company = const Company(),
-      final List<LiveTracking> liveTrackingList = const []})
+      final List<LiveTracking> liveTrackingList = const [],
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      this.todayAttendance})
       : _liveTrackingList = liveTrackingList;
 
   factory _$AppStateImpl.fromJson(Map<String, dynamic> json) =>
@@ -177,8 +210,12 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
   }
 
   @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final Absence? todayAttendance;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppState(currentUser: $currentUser, company: $company, liveTrackingList: $liveTrackingList)';
+    return 'AppState(currentUser: $currentUser, company: $company, liveTrackingList: $liveTrackingList, todayAttendance: $todayAttendance)';
   }
 
   @override
@@ -188,7 +225,8 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
       ..add(DiagnosticsProperty('type', 'AppState'))
       ..add(DiagnosticsProperty('currentUser', currentUser))
       ..add(DiagnosticsProperty('company', company))
-      ..add(DiagnosticsProperty('liveTrackingList', liveTrackingList));
+      ..add(DiagnosticsProperty('liveTrackingList', liveTrackingList))
+      ..add(DiagnosticsProperty('todayAttendance', todayAttendance));
   }
 
   @override
@@ -200,13 +238,15 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
                 other.currentUser == currentUser) &&
             (identical(other.company, company) || other.company == company) &&
             const DeepCollectionEquality()
-                .equals(other._liveTrackingList, _liveTrackingList));
+                .equals(other._liveTrackingList, _liveTrackingList) &&
+            (identical(other.todayAttendance, todayAttendance) ||
+                other.todayAttendance == todayAttendance));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, currentUser, company,
-      const DeepCollectionEquality().hash(_liveTrackingList));
+      const DeepCollectionEquality().hash(_liveTrackingList), todayAttendance);
 
   @JsonKey(ignore: true)
   @override
@@ -226,7 +266,9 @@ abstract class _AppState implements AppState {
   const factory _AppState(
       {final Profile? currentUser,
       final Company company,
-      final List<LiveTracking> liveTrackingList}) = _$AppStateImpl;
+      final List<LiveTracking> liveTrackingList,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      final Absence? todayAttendance}) = _$AppStateImpl;
 
   factory _AppState.fromJson(Map<String, dynamic> json) =
       _$AppStateImpl.fromJson;
@@ -237,6 +279,9 @@ abstract class _AppState implements AppState {
   Company get company;
   @override
   List<LiveTracking> get liveTrackingList;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  Absence? get todayAttendance;
   @override
   @JsonKey(ignore: true)
   _$$AppStateImplCopyWith<_$AppStateImpl> get copyWith =>

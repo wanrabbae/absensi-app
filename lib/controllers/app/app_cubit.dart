@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:app/data/models/absence.dart';
 import 'package:app/data/models/company.dart';
 import 'package:app/data/models/livetracking/live_tracking.dart';
 import 'package:app/data/models/notification/push_notification.dart';
@@ -9,6 +10,7 @@ import 'package:app/data/source/firebase/firebase_service.dart';
 import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/helpers/base.dart';
+import 'package:app/helpers/constant.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -48,6 +50,7 @@ class AppCubit extends HydratedCubit<AppState> {
         if (!isClosed) {
           emit(state.copyWith(currentUser: profile));
           initLiveTracking();
+          getTodayAttendance();
         }
       } catch (_) {}
     }
@@ -262,6 +265,21 @@ class AppCubit extends HydratedCubit<AppState> {
         );
       }
     } catch (_) {}
+  }
+
+  Future<void> getTodayAttendance() async {
+    final user = state.currentUser;
+    if (user == null) return;
+    final idkaryawan = user.idkaryawan;
+    if (idkaryawan == null) return;
+    final now = DateTime.now();
+    final tanggal = kMysqlDateFormat.format(now);
+    return api.getAttendance(idkaryawan: idkaryawan, tanggal: tanggal).then(
+        (attendances) {
+      if (attendances.isNotEmpty) {
+        emit(state.copyWith(todayAttendance: attendances.first));
+      }
+    }, onError: (_, __) {});
   }
 
   @override

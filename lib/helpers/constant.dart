@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 const String kGlobalFontFamily = 'Montserrat';
+final DateFormat kMysqlDateFormat = DateFormat('yyyy-MM-dd');
 
 final box = GetStorage();
 
@@ -138,6 +139,10 @@ timerAbsen3(waktuCheckIn, String? checkOut) {
     checkOutDateTime = DateTime.parse(checkOut);
   } else {
     checkOutDateTime = DateTime.now();
+  }
+
+  if (waktuCheckIn == null) {
+    return '';
   }
 
   Duration timeDifference =

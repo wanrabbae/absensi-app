@@ -238,11 +238,13 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                       decoration: kCircleButtonDecoration,
                       child: BlocBuilder<AppCubit, AppState>(
                         buildWhen: (previous, current) =>
-                            previous.currentUser != current.currentUser,
+                            previous.currentUser != current.currentUser ||
+                            previous.todayAttendance != current.todayAttendance,
                         builder: (context, state) {
                           final listenerId = state.currentUser?.idkaryawan;
                           final broadcasterId = absence.idKaryawan;
                           final isCheckOut = absence.isCheckOut;
+                          final todayAttendance = state.todayAttendance;
 
                           final disabled = listenerId != null &&
                               broadcasterId != null &&
@@ -252,6 +254,11 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                             onPressed: isCheckOut
                                 ? null
                                 : () {
+                                    if (todayAttendance == null) {
+                                      customSnackbar1('Anda belum melakukan absensi hari ini');
+                                      return;
+                                    }
+
                                     if (disabled) {
                                       customSnackbar1(
                                         'Tidak bisa melakukan permintaan lokasi kepada data sendiri',

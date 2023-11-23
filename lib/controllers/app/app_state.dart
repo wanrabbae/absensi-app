@@ -6,6 +6,8 @@ class AppState with _$AppState {
     Profile? currentUser,
     @Default(Company()) Company company,
     @Default([]) List<LiveTracking> liveTrackingList,
+    @JsonKey(includeFromJson: false, includeToJson: false)
+    Absence? todayAttendance,
   }) = _AppState;
 
   factory AppState.fromJson(Map<String, dynamic> json) =>
