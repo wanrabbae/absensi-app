@@ -62,7 +62,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        setProperty("archivesBaseName", "${applicationId}-v${versionName}(${versionCode})")
+        // setProperty("archivesBaseName", "${applicationId}-v${versionName}(${versionCode})")
     }
 
     signingConfigs {
