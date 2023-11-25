@@ -25,6 +25,7 @@ mixin _$AppState {
   List<LiveTracking> get liveTrackingList => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
   Absence? get todayAttendance => throw _privateConstructorUsedError;
+  bool get allowLocationAlwaysPermission => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -42,7 +43,8 @@ abstract class $AppStateCopyWith<$Res> {
       Company company,
       List<LiveTracking> liveTrackingList,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      Absence? todayAttendance});
+      Absence? todayAttendance,
+      bool allowLocationAlwaysPermission});
 
   $ProfileCopyWith<$Res>? get currentUser;
   $CompanyCopyWith<$Res> get company;
@@ -66,6 +68,7 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
     Object? company = null,
     Object? liveTrackingList = null,
     Object? todayAttendance = freezed,
+    Object? allowLocationAlwaysPermission = null,
   }) {
     return _then(_value.copyWith(
       currentUser: freezed == currentUser
@@ -84,6 +87,10 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
           ? _value.todayAttendance
           : todayAttendance // ignore: cast_nullable_to_non_nullable
               as Absence?,
+      allowLocationAlwaysPermission: null == allowLocationAlwaysPermission
+          ? _value.allowLocationAlwaysPermission
+          : allowLocationAlwaysPermission // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -133,7 +140,8 @@ abstract class _$$AppStateImplCopyWith<$Res>
       Company company,
       List<LiveTracking> liveTrackingList,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      Absence? todayAttendance});
+      Absence? todayAttendance,
+      bool allowLocationAlwaysPermission});
 
   @override
   $ProfileCopyWith<$Res>? get currentUser;
@@ -158,6 +166,7 @@ class __$$AppStateImplCopyWithImpl<$Res>
     Object? company = null,
     Object? liveTrackingList = null,
     Object? todayAttendance = freezed,
+    Object? allowLocationAlwaysPermission = null,
   }) {
     return _then(_$AppStateImpl(
       currentUser: freezed == currentUser
@@ -176,6 +185,10 @@ class __$$AppStateImplCopyWithImpl<$Res>
           ? _value.todayAttendance
           : todayAttendance // ignore: cast_nullable_to_non_nullable
               as Absence?,
+      allowLocationAlwaysPermission: null == allowLocationAlwaysPermission
+          ? _value.allowLocationAlwaysPermission
+          : allowLocationAlwaysPermission // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -188,7 +201,8 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
       this.company = const Company(),
       final List<LiveTracking> liveTrackingList = const [],
       @JsonKey(includeFromJson: false, includeToJson: false)
-      this.todayAttendance})
+      this.todayAttendance,
+      this.allowLocationAlwaysPermission = false})
       : _liveTrackingList = liveTrackingList;
 
   factory _$AppStateImpl.fromJson(Map<String, dynamic> json) =>
@@ -212,10 +226,13 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   final Absence? todayAttendance;
+  @override
+  @JsonKey()
+  final bool allowLocationAlwaysPermission;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'AppState(currentUser: $currentUser, company: $company, liveTrackingList: $liveTrackingList, todayAttendance: $todayAttendance)';
+    return 'AppState(currentUser: $currentUser, company: $company, liveTrackingList: $liveTrackingList, todayAttendance: $todayAttendance, allowLocationAlwaysPermission: $allowLocationAlwaysPermission)';
   }
 
   @override
@@ -226,7 +243,9 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
       ..add(DiagnosticsProperty('currentUser', currentUser))
       ..add(DiagnosticsProperty('company', company))
       ..add(DiagnosticsProperty('liveTrackingList', liveTrackingList))
-      ..add(DiagnosticsProperty('todayAttendance', todayAttendance));
+      ..add(DiagnosticsProperty('todayAttendance', todayAttendance))
+      ..add(DiagnosticsProperty(
+          'allowLocationAlwaysPermission', allowLocationAlwaysPermission));
   }
 
   @override
@@ -240,13 +259,22 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
             const DeepCollectionEquality()
                 .equals(other._liveTrackingList, _liveTrackingList) &&
             (identical(other.todayAttendance, todayAttendance) ||
-                other.todayAttendance == todayAttendance));
+                other.todayAttendance == todayAttendance) &&
+            (identical(other.allowLocationAlwaysPermission,
+                    allowLocationAlwaysPermission) ||
+                other.allowLocationAlwaysPermission ==
+                    allowLocationAlwaysPermission));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, currentUser, company,
-      const DeepCollectionEquality().hash(_liveTrackingList), todayAttendance);
+  int get hashCode => Object.hash(
+      runtimeType,
+      currentUser,
+      company,
+      const DeepCollectionEquality().hash(_liveTrackingList),
+      todayAttendance,
+      allowLocationAlwaysPermission);
 
   @JsonKey(ignore: true)
   @override
@@ -268,7 +296,8 @@ abstract class _AppState implements AppState {
       final Company company,
       final List<LiveTracking> liveTrackingList,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      final Absence? todayAttendance}) = _$AppStateImpl;
+      final Absence? todayAttendance,
+      final bool allowLocationAlwaysPermission}) = _$AppStateImpl;
 
   factory _AppState.fromJson(Map<String, dynamic> json) =
       _$AppStateImpl.fromJson;
@@ -282,6 +311,8 @@ abstract class _AppState implements AppState {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   Absence? get todayAttendance;
+  @override
+  bool get allowLocationAlwaysPermission;
   @override
   @JsonKey(ignore: true)
   _$$AppStateImplCopyWith<_$AppStateImpl> get copyWith =>

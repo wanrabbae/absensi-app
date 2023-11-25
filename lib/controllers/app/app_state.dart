@@ -8,6 +8,7 @@ class AppState with _$AppState {
     @Default([]) List<LiveTracking> liveTrackingList,
     @JsonKey(includeFromJson: false, includeToJson: false)
     Absence? todayAttendance,
+    @Default(false) bool allowLocationAlwaysPermission,
   }) = _AppState;
 
   factory AppState.fromJson(Map<String, dynamic> json) =>

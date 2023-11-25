@@ -18,6 +18,8 @@ _$AppStateImpl _$$AppStateImplFromJson(Map<String, dynamic> json) =>
               ?.map((e) => LiveTracking.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      allowLocationAlwaysPermission:
+          json['allowLocationAlwaysPermission'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$$AppStateImplToJson(_$AppStateImpl instance) {
@@ -33,5 +35,6 @@ Map<String, dynamic> _$$AppStateImplToJson(_$AppStateImpl instance) {
   val['company'] = instance.company.toJson();
   val['liveTrackingList'] =
       instance.liveTrackingList.map((e) => e.toJson()).toList();
+  val['allowLocationAlwaysPermission'] = instance.allowLocationAlwaysPermission;
   return val;
 }
