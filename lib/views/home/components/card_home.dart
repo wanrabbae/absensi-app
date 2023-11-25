@@ -225,10 +225,13 @@ class _ListTile extends StatelessWidget {
                   : "",
               maxLines: 1,
               softWrap: true,
+              overflow: TextOverflow.ellipsis,
               style: const TextStyle(fontSize: 16, color: Colors.black),
             ),
           ),
         ),
+        const SizedBox(width: 16),
+        const Icon(Icons.keyboard_arrow_down, size: 20),
       ],
     );
   }
@@ -253,6 +256,7 @@ class _ListTile extends StatelessWidget {
           ? s.absen[index]['namaKaryawan']
           : s.izin?[index]['namaKaryawan'],
       overflow: TextOverflow.ellipsis,
+      maxLines: 1,
       strutStyle: const StrutStyle(fontSize: 12.0),
       style: const TextStyle(
         color: Colors.black,
