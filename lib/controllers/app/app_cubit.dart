@@ -14,6 +14,7 @@ import 'package:app/helpers/constant.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 

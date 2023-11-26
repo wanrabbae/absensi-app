@@ -52,13 +52,13 @@ class AbsenController extends GetxController {
     final homeCtrl = Get.put(HomeController());
     var findData = homeCtrl.absen?.firstWhere(
       (element) =>
-          element?["idkaryawan"] == user?["idkaryawan"] &&
+          element?["idKaryawan"] == user?["idkaryawan"] &&
           element?["waktuCheckOut"] != null,
       orElse: () => null,
     );
 
     var findDataIzin = homeCtrl.izin?.firstWhere(
-      (element) => element?["idkaryawan"] == user?["idkaryawan"],
+      (element) => element?["idKaryawan"] == user?["idkaryawan"],
       orElse: () => null,
     );
     super.onInit();
@@ -77,7 +77,7 @@ class AbsenController extends GetxController {
     }
 
     var findDataOnCheckIn = homeCtrl.absen?.firstWhere(
-      (element) => element?["idkaryawan"] == user?["idkaryawan"],
+      (element) => element?["idKaryawan"] == user?["idkaryawan"],
       orElse: () => null,
     );
 
@@ -99,13 +99,13 @@ class AbsenController extends GetxController {
     final homeCtrl = Get.put(HomeController());
     var findData = homeCtrl.absen?.firstWhere(
       (element) =>
-          element?["idkaryawan"] == user?["idkaryawan"] &&
+          element?["idKaryawan"] == user?["idkaryawan"] &&
           element?["waktuCheckOut"] == null,
       orElse: () => null,
     );
 
     var checkData = homeCtrl.absen?.firstWhere(
-      (element) => element?["idkaryawan"] == user?["idkaryawan"],
+      (element) => element?["idKaryawan"] == user?["idkaryawan"],
       orElse: () => null,
     );
 
@@ -608,7 +608,7 @@ class AbsenController extends GetxController {
     }
   }
 
-  absenPulang(status, idAbsen) async {
+  absenPulang(status, idAbsen, [String? tanggal]) async {
     var currentDate = DateTime.now();
     var newDate =
         DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
@@ -634,22 +634,40 @@ class AbsenController extends GetxController {
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       print(response);
       if (response.statusCode == 200) {
-        await AwesomeNotificationService().removeNotification();
+        await AwesomeNotificationService().removeNotificationById(123);
         Get.back();
         box.write(Base.klikAbsen, false);
         box.remove(Base.waktuAbsen);
         await HomeController().cancelTimer();
         await cancelTimer();
         await AwesomeNotificationService().showNotificationAbsenDone();
+
+        dynamic args = 0;
+        if (Get.isRegistered<HomeController>()) {
+          final homeCtrl = Get.find<HomeController>();
+          var findDataOnCheckIn = homeCtrl.absen?.firstWhere(
+                (element) => element?["idKaryawan"] == user?["idkaryawan"],
+            orElse: () => null,
+          );
+          if (findDataOnCheckIn is Map) {
+            final tanggal = findDataOnCheckIn['tanggal'];
+            if (tanggal is String) {
+              final date = DateTime.tryParse(tanggal)?.toLocal();
+              if (date != null) {
+                args = kMysqlDateFormat.format(date);
+              }
+            }
+          }
+        }
         if (status) {
           // Get.snackbar("Anda Sudah Pulang", "waktu telah dihentikan");
           customSnackbar1("Kehadiran hari ini telah terisi.");
-          Get.offAllNamed(RouteName.home, arguments: 0);
+          Get.offAllNamed(RouteName.home, arguments: args);
           await HomeController().dataHome();
         } else {
           // Get.snackbar("Mengajukan Izin Berhasil",
           //     "Berhasil mematikan absen sebelumnya. Berhasil mengirimkan izin. Silahkan hubungi admin.");
-          Get.offAllNamed(RouteName.home, arguments: 0);
+          Get.offAllNamed(RouteName.home, arguments: args);
           await HomeController().dataHome();
         }
         final InAppReview inAppReview = InAppReview.instance;
@@ -782,7 +800,7 @@ class AbsenController extends GetxController {
           String formattedCurrentDate =
               DateFormat("yyyy-MM-dd").format(dateCurrent);
           var findData = await homeCtrl.absen?.firstWhere(
-              (element) => element?["idkaryawan"] == user?["idkaryawan"],
+              (element) => element?["idKaryawan"] == user?["idkaryawan"],
               orElse: () => null);
 
           absenPulang(false, findData?["id"]);
@@ -810,7 +828,7 @@ class AbsenController extends GetxController {
         String formattedCurrentDate =
             DateFormat("yyyy-MM-dd").format(dateCurrent);
         var findData = await homeCtrl.absen?.firstWhere(
-            (element) => element?["idkaryawan"] == user?["idkaryawan"],
+            (element) => element?["idKaryawan"] == user?["idkaryawan"],
             orElse: () => null);
 
         absenPulang(false, findData?["id"]);

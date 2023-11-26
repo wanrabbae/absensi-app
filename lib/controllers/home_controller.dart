@@ -206,7 +206,7 @@ class HomeController extends GetxController {
       var response =
           await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
       debugPrint("DATA ABSEN: ${response.data.length}");
-      if (response.data.length == 1 &&
+      if (response.data.length >= 1 &&
           response.data?[0]["waktuCheckOut"] == null) {
         // timer!.cancel();
         debugPrint("ABSEN JALAN YOYY");
@@ -259,7 +259,7 @@ class HomeController extends GetxController {
           isPresentIzin = true;
         }
 
-        if (response.data.length == 1 &&
+        if (response.data.length >= 1 &&
             response.data?[0]["waktuCheckOut"] != null) {
           isPresentHadir = true;
           isPresentIzin = true;
