@@ -3,7 +3,11 @@ import 'package:app/global_resource.dart';
 import 'package:app/helpers/dialogs.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'notification_local.dart';
 
 const InputDecorationTheme _kInputDecorationTheme = InputDecorationTheme(
   border: OutlineInputBorder(
@@ -72,7 +76,7 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   StreamSubscription<RemoteMessage>? _streamSubscriptionForeground;
   StreamSubscription<RemoteMessage>? _streamSubscriptionMessageClick;
   StreamSubscription<RemoteMessage?>? _streamSubscriptionLocalMessageClick;
@@ -113,6 +117,23 @@ class _MainAppState extends State<MainApp> {
         }
       });
     });
+
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch(state) {
+      case AppLifecycleState.resumed:
+        FlutterAppBadger.updateBadgeCount(1);
+        break;
+      case AppLifecycleState.detached:
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.hidden:
+      case AppLifecycleState.paused:
+        // do nothing
+        break;
+    }
   }
 
   @override
@@ -120,12 +141,19 @@ class _MainAppState extends State<MainApp> {
     _streamSubscriptionForeground?.cancel();
     _streamSubscriptionMessageClick?.cancel();
     _streamSubscriptionLocalMessageClick?.cancel();
+    WidgetsBinding.instance.removeObserver(this);
 
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    AwesomeNotificationService().removeNotificationUnUsed();
+    FlutterAppBadger.removeBadge();
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+    );
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return MainTheme.materialApp(context, child: const SplashScreen());
   }
 

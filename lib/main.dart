@@ -5,7 +5,6 @@ import 'package:app/helpers/notification_local.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_file_plus/open_file_plus.dart';
 
@@ -101,23 +100,8 @@ void main() async {
       path: 'assets/lang',
       child: BlocProvider(
         create: (context) => AppCubit($it(), $it(), $it(), $it(), $it()),
-        child: const MyApp(),
+        child: const MainApp(),
       ),
     ),
   ));
-}
-
-class MyApp extends HookConsumerWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    AwesomeNotificationService().removeNotificationUnUsed();
-    FlutterAppBadger.removeBadge();
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
-    );
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    return const MainApp();
-  }
 }
