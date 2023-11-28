@@ -8,6 +8,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 const String kGlobalFontFamily = 'Montserrat';
 final DateFormat kMysqlDateFormat = DateFormat('yyyy-MM-dd');
+final DateFormat kLastUpdatePositionDateFormat = DateFormat('dd/MM/yyyy HH:mm:ss');
 
 final box = GetStorage();
 

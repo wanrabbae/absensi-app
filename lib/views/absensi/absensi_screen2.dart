@@ -29,6 +29,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
   final rxExpanded = ValueNotifier(false);
   final rxMarkers = ValueNotifier(<Marker>[]);
   final rxPosition = ValueNotifier(_kDefaultCenter.target);
+  final rxPositionUpdate = ValueNotifier<DateTime?>(null);
   final completer = Completer<GoogleMapController>();
   BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarkerWithHue(
     BitmapDescriptor.hueAzure,
@@ -67,6 +68,11 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
       final latLng = absence.checkInLocation ?? absence.checkOutLocation;
       if (latLng != null) {
         rxPosition.value = latLng;
+      }
+
+      final update = absence.waktuCheckIn ?? absence.waktuCheckOut;
+      if (update != null) {
+        rxPositionUpdate.value = update;
       }
 
       setMarker();
@@ -222,6 +228,22 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                 backgroundColor: const Color.fromRGBO(238, 240, 244, 1),
                 appBar: AppBar(
                   backgroundColor: Colors.transparent,
+                  title: ValueListenableBuilder(
+                    valueListenable: rxExpanded,
+                    builder: (context, expanded, child) {
+                      if (!expanded) return const SizedBox.shrink();
+
+                      return AnimatedBuilder(
+                        animation: rxPositionUpdate,
+                        builder: (context, child) {
+                          final date = rxPositionUpdate.value;
+                          if (date == null) return const SizedBox.shrink();
+
+                          return _LastUpdatePositionContainer(date: date);
+                        },
+                      );
+                    },
+                  ),
                   leading: Container(
                     margin: const EdgeInsets.only(left: 16),
                     decoration: kCircleButtonDecoration,
@@ -297,6 +319,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                           mapType: MapType.normal,
                           initialCameraPosition: _kDefaultCenter,
                           zoomControlsEnabled: false,
+                          myLocationButtonEnabled: false,
                           padding: EdgeInsets.only(
                             bottom: constraints.maxHeight / 4,
                           ),
@@ -306,6 +329,20 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                               completer.complete(controller);
                             }
                           },
+                        );
+                      },
+                    ),
+                    AnimatedBuilder(
+                      animation: rxPositionUpdate,
+                      builder: (context, child) {
+                        final date = rxPositionUpdate.value;
+                        if (date == null) return const SizedBox.shrink();
+
+                        return Positioned(
+                          left: 0,
+                          right: 0,
+                          bottom: (constraints.maxHeight / 4) + 16,
+                          child: _LastUpdatePositionContainer(date: date),
                         );
                       },
                     ),
@@ -452,10 +489,48 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
         if (data.latitude != null && data.longitude != null) {
           customSnackbar1('Sedang mendeteksi lokasi terbaru...');
           rxPosition.value = LatLng(data.latitude!, data.longitude!);
+          if (data.lastUpdate != null) {
+            rxPositionUpdate.value = data.lastUpdate;
+          }
           setMarker();
         }
       },
       child: child,
+    );
+  }
+}
+
+class _LastUpdatePositionContainer extends StatelessWidget {
+  const _LastUpdatePositionContainer({
+    required this.date,
+  });
+
+  final DateTime date;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        decoration: const BoxDecoration(
+          color: colorBlackPrimary,
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+        ),
+        padding:
+            const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        child: Text(
+          'Diperbarui ${kLastUpdatePositionDateFormat.format(date)}',
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+          maxLines: 2,
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
     );
   }
 }
