@@ -233,6 +233,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ).then((confirmed) {
                             if (confirmed == true) {
                               s.keluar();
+                              context.read<AppCubit>().clearToken();
                             }
                           });
                         }

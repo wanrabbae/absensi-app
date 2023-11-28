@@ -124,7 +124,7 @@ class FirebaseService {
 
   Future<void> setToken({
     required String userId,
-    required String fcmToken,
+    String? fcmToken,
   }) {
     final data = <String, dynamic>{
       'fcmToken': fcmToken,

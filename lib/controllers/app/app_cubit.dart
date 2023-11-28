@@ -136,6 +136,12 @@ class AppCubit extends HydratedCubit<AppState> {
     firebaseService.setToken(userId: userId, fcmToken: token).then((value) {});
   }
 
+  clearToken() {
+    final userId = state.currentUser?.idkaryawan;
+    if (userId == null) return;
+    firebaseService.setToken(userId: userId).then((value) {});
+  }
+
   requestLiveTracking(String broadcasterId) {
     if (state.currentUser!.idkaryawan != null) {
       final listenerId = state.currentUser!.idkaryawan!;
