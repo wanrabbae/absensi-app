@@ -682,27 +682,21 @@ class AbsenController extends GetxController {
           firebaseService
               .clearAllLiveTracking(broadcasterId)
               .then((idKaryawans) {
-            for (var idKaryawan in idKaryawans) {
-              firebaseService.getToken(idKaryawan).then((token) {
-                return pushNotificationApiService.sendPushNotification(
-                  model.PushNotification(
-                    notification: const model.Notification(
-                      title: 'Pengiriman lokasi dihentikan',
-                      body: 'Sentuh untuk membuka aplikasi',
-                    ),
-                    data: {
-                      'tag': 'STOP_REQUEST_LIVE_TRACKING',
-                    },
-                    android: const model.Android(
-                      notification: model.AndroidNotification(),
-                    ),
-                    token: token,
-                  ),
-                );
-              }).then((pushNotificationResult) {
-                debugPrint('pushNotificationResult=$pushNotificationResult');
-              });
-            }
+            pushNotificationApiService.sendPushNotification(
+              model.PushNotification(
+                notification: const model.Notification(
+                  title: 'Pengiriman lokasi dihentikan',
+                  body: 'Sentuh untuk membuka aplikasi',
+                ),
+                data: {
+                  'tag': 'STOP_REQUEST_LIVE_TRACKING',
+                },
+                android: const model.Android(
+                  notification: model.AndroidNotification(),
+                ),
+                karyawanIds: idKaryawans,
+              ),
+            );
           });
         }
       } else if (response.statusCode == 401) {

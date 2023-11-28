@@ -128,6 +128,7 @@ class FirebaseService {
   }) {
     final data = <String, dynamic>{
       'fcmToken': fcmToken,
+      'idKaryawan': userId,
     };
     return _collectionToken.doc(userId).set(data, SetOptions(merge: true));
   }
