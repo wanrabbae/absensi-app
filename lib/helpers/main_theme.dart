@@ -99,10 +99,11 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
             debugPrint('RECEIVED NOTIF : ${jsonEncode(message.toMap())}');
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
+        AppleNotification? ios = message.notification?.apple;
 
         // If `onMessage` is triggered with a notification, construct our own
         // local notification to show to users using the created channel.
-        if (notification != null && android != null) {
+        if (notification != null && (android != null || ios != null)) {
           _handleMessageOpen(message, foreground: true);
         }
       });
