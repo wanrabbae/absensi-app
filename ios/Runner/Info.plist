@@ -31,19 +31,17 @@
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>The app accesses the camera to take photos/selfies while recording attendance of the user.</string>
+	<string>Aplikasi Hora memerlukan akses kamera untuk mengambil foto/selfie untuk keperluan data absensi.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>The app detects location to obtain and records position information of the user while recording the attendance of the user.</string>
+	<string>Aplikasi Hora memerlukan akses lokasi secara realtime untuk keperluan data absensi dan tracking.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>The app detects location to obtain and records position information of the user while recording the attendance of the user.</string>
+	<string>Aplikasi Hora memerlukan akses lokasi secara realtime untuk keperluan data absensi dan tracking.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>The app detects location to obtain and records position information of the user while recording the attendance of the user.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>Need to upload image</string>
+	<string>Aplikasi Hora memerlukan akses lokasi ketika aktif untuk keperluan data absensi dan tracking.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>The app accesses photos to change user profile picture and save screenshots.</string>
+	<string>Aplikasi Hora memerlukan akses foto galeri untuk keperluan upload foto profil, keperluan data absensi dan screenshot.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>The app accesses photos to change user profile picture and save screenshots.</string>
+	<string>Aplikasi Hora memerlukan akses foto galeri untuk keperluan upload foto profil, keperluan data absensi dan screenshot.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UIBackgroundModes</key>

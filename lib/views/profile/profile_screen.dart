@@ -14,22 +14,10 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final _pageViewController = PageController();
-  final _rxLocationDetection = ValueNotifier<PermissionStatus?>(null);
 
   @override
   void initState() {
     super.initState();
-
-    Permission.locationWhenInUse.status.then((status) {
-      final granted = status == PermissionStatus.granted;
-      if (granted) {
-        Permission.locationAlways.status.then((status) {
-          _rxLocationDetection.value = status;
-        });
-      } else {
-        _rxLocationDetection.value = status;
-      }
-    });
   }
 
   @override
@@ -102,16 +90,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       context,
                       "Deteksi Lokasi",
                       FeatherIcons.mapPin,
-                      trailing: AnimatedBuilder(
-                        animation: _rxLocationDetection,
-                        builder: (context, child) {
-                          final value = _rxLocationDetection.value;
-                          final enabled = value == PermissionStatus.granted;
+                      trailing: BlocBuilder<AppCubit, AppState>(
+                        buildWhen: (previous, current) =>
+                            previous.allowLocationAlwaysPermission !=
+                            current.allowLocationAlwaysPermission,
+                        builder: (context, state) {
+                          final enabled = state.allowLocationAlwaysPermission;
                           return Switch.adaptive(
                             value: enabled,
                             activeColor: colorGreenPrimary,
-                            onChanged:
-                                value == null ? null : _requestLocationAlways,
+                            onChanged: _requestLocationAlways,
                           );
                         },
                       ),
@@ -261,8 +249,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             final granted = status == PermissionStatus.granted;
             if (granted) {
               Permission.locationAlways.request().then((status) {
-                _rxLocationDetection.value = status;
-
                 if (status == PermissionStatus.permanentlyDenied) {
                   if (Platform.isAndroid) {
                     showConfirmationDialog(
@@ -285,13 +271,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       .setAllowLocationAlwaysPermission(value);
                 }
               });
-            } else {
-              _rxLocationDetection.value = status;
             }
           });
         }
       });
     } else {
+      customSnackbar1('Deteksi secara real time telah dinonaktifkan');
       context.read<AppCubit>().setAllowLocationAlwaysPermission(value);
     }
   }

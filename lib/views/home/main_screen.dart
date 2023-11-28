@@ -28,7 +28,9 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AppCubit>().updateTokenFcm();
+      context.read<AppCubit>()
+        ..updateTokenFcm()
+        ..getAllowLocationAlwaysPermission();
     });
   }
 

@@ -17,6 +17,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 part 'app_cubit.freezed.dart';
 
@@ -286,6 +287,24 @@ class AppCubit extends HydratedCubit<AppState> {
         emit(state.copyWith(todayAttendance: attendances.first));
       }
     }, onError: (_, __) {});
+  }
+
+  void getAllowLocationAlwaysPermission() {
+    Permission.locationWhenInUse.status.then((status) {
+      final granted = status == PermissionStatus.granted;
+      if (granted) {
+        Permission.locationAlways.status.then((status) {
+          if (state.allowLocationAlwaysPermission &&
+              status != PermissionStatus.granted) {
+            emit(state.copyWith(allowLocationAlwaysPermission: false));
+          }
+        });
+      } else {
+        if (state.allowLocationAlwaysPermission) {
+          emit(state.copyWith(allowLocationAlwaysPermission: false));
+        }
+      }
+    });
   }
 
   void setAllowLocationAlwaysPermission(bool allowLocationAlwaysPermission) {
