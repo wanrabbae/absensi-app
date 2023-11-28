@@ -181,18 +181,14 @@ class AppCubit extends HydratedCubit<AppState> {
     required Map<String, String> data,
     required String idKaryawan,
   }) {
-    firebaseService.getToken(idKaryawan).then((token) {
-      return pushNotificationApiService.sendPushNotification(
-        PushNotification(
-          notification: Notification(title: title, body: body),
-          data: data,
-          android: const Android(notification: AndroidNotification()),
-          token: token,
-        ),
-      );
-    }).then((pushNotificationResult) {
-      debugPrint('pushNotificationResult=$pushNotificationResult');
-    });
+    return pushNotificationApiService.sendPushNotification(
+      PushNotification(
+        notification: Notification(title: title, body: body),
+        data: data,
+        android: const Android(notification: AndroidNotification()),
+        karyawanIds: [idKaryawan],
+      ),
+    );
   }
 
   setLiveTracking(

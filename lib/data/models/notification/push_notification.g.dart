@@ -22,6 +22,9 @@ _$PushNotificationImpl _$$PushNotificationImplFromJson(
       token: json['token'] as String?,
       tokens:
           (json['tokens'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      karyawanIds: (json['karyawan_ids'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$$PushNotificationImplToJson(
@@ -41,6 +44,7 @@ Map<String, dynamic> _$$PushNotificationImplToJson(
   writeNotNull('topic', instance.topic);
   writeNotNull('token', instance.token);
   writeNotNull('tokens', instance.tokens);
+  writeNotNull('karyawan_ids', instance.karyawanIds);
   return val;
 }
 

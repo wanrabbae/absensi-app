@@ -7,8 +7,8 @@ part 'push_notification.g.dart';
 @freezed
 class PushNotification with _$PushNotification {
   @Assert(
-    'topic != null || token != null || tokens != null',
-    'Select either topic/token/tokens',
+    'topic != null || token != null || tokens != null || karyawanIds != null',
+    'Select either topic/token/tokens/karyawanIds',
   )
   const factory PushNotification({
     required Notification notification,
@@ -17,6 +17,7 @@ class PushNotification with _$PushNotification {
     String? topic,
     String? token,
     List<String>? tokens,
+    @JsonKey(name: 'karyawan_ids') List<String>? karyawanIds,
   }) = _PushNotification;
 
   factory PushNotification.fromJson(Map<String, dynamic> json) =>

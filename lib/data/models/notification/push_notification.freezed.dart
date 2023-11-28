@@ -26,6 +26,8 @@ mixin _$PushNotification {
   String? get topic => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
   List<String>? get tokens => throw _privateConstructorUsedError;
+  @JsonKey(name: 'karyawan_ids')
+  List<String>? get karyawanIds => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +47,8 @@ abstract class $PushNotificationCopyWith<$Res> {
       Android? android,
       String? topic,
       String? token,
-      List<String>? tokens});
+      List<String>? tokens,
+      @JsonKey(name: 'karyawan_ids') List<String>? karyawanIds});
 
   $NotificationCopyWith<$Res> get notification;
   $AndroidCopyWith<$Res>? get android;
@@ -70,6 +73,7 @@ class _$PushNotificationCopyWithImpl<$Res, $Val extends PushNotification>
     Object? topic = freezed,
     Object? token = freezed,
     Object? tokens = freezed,
+    Object? karyawanIds = freezed,
   }) {
     return _then(_value.copyWith(
       notification: null == notification
@@ -95,6 +99,10 @@ class _$PushNotificationCopyWithImpl<$Res, $Val extends PushNotification>
       tokens: freezed == tokens
           ? _value.tokens
           : tokens // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
+      karyawanIds: freezed == karyawanIds
+          ? _value.karyawanIds
+          : karyawanIds // ignore: cast_nullable_to_non_nullable
               as List<String>?,
     ) as $Val);
   }
@@ -134,7 +142,8 @@ abstract class _$$PushNotificationImplCopyWith<$Res>
       Android? android,
       String? topic,
       String? token,
-      List<String>? tokens});
+      List<String>? tokens,
+      @JsonKey(name: 'karyawan_ids') List<String>? karyawanIds});
 
   @override
   $NotificationCopyWith<$Res> get notification;
@@ -159,6 +168,7 @@ class __$$PushNotificationImplCopyWithImpl<$Res>
     Object? topic = freezed,
     Object? token = freezed,
     Object? tokens = freezed,
+    Object? karyawanIds = freezed,
   }) {
     return _then(_$PushNotificationImpl(
       notification: null == notification
@@ -185,6 +195,10 @@ class __$$PushNotificationImplCopyWithImpl<$Res>
           ? _value._tokens
           : tokens // ignore: cast_nullable_to_non_nullable
               as List<String>?,
+      karyawanIds: freezed == karyawanIds
+          ? _value._karyawanIds
+          : karyawanIds // ignore: cast_nullable_to_non_nullable
+              as List<String>?,
     ));
   }
 }
@@ -198,11 +212,17 @@ class _$PushNotificationImpl implements _PushNotification {
       this.android,
       this.topic,
       this.token,
-      final List<String>? tokens})
-      : assert(topic != null || token != null || tokens != null,
-            'Select either topic/token/tokens'),
+      final List<String>? tokens,
+      @JsonKey(name: 'karyawan_ids') final List<String>? karyawanIds})
+      : assert(
+            topic != null ||
+                token != null ||
+                tokens != null ||
+                karyawanIds != null,
+            'Select either topic/token/tokens/karyawanIds'),
         _data = data,
-        _tokens = tokens;
+        _tokens = tokens,
+        _karyawanIds = karyawanIds;
 
   factory _$PushNotificationImpl.fromJson(Map<String, dynamic> json) =>
       _$$PushNotificationImplFromJson(json);
@@ -234,9 +254,20 @@ class _$PushNotificationImpl implements _PushNotification {
     return EqualUnmodifiableListView(value);
   }
 
+  final List<String>? _karyawanIds;
+  @override
+  @JsonKey(name: 'karyawan_ids')
+  List<String>? get karyawanIds {
+    final value = _karyawanIds;
+    if (value == null) return null;
+    if (_karyawanIds is EqualUnmodifiableListView) return _karyawanIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   String toString() {
-    return 'PushNotification(notification: $notification, data: $data, android: $android, topic: $topic, token: $token, tokens: $tokens)';
+    return 'PushNotification(notification: $notification, data: $data, android: $android, topic: $topic, token: $token, tokens: $tokens, karyawanIds: $karyawanIds)';
   }
 
   @override
@@ -250,7 +281,9 @@ class _$PushNotificationImpl implements _PushNotification {
             (identical(other.android, android) || other.android == android) &&
             (identical(other.topic, topic) || other.topic == topic) &&
             (identical(other.token, token) || other.token == token) &&
-            const DeepCollectionEquality().equals(other._tokens, _tokens));
+            const DeepCollectionEquality().equals(other._tokens, _tokens) &&
+            const DeepCollectionEquality()
+                .equals(other._karyawanIds, _karyawanIds));
   }
 
   @JsonKey(ignore: true)
@@ -262,7 +295,8 @@ class _$PushNotificationImpl implements _PushNotification {
       android,
       topic,
       token,
-      const DeepCollectionEquality().hash(_tokens));
+      const DeepCollectionEquality().hash(_tokens),
+      const DeepCollectionEquality().hash(_karyawanIds));
 
   @JsonKey(ignore: true)
   @override
@@ -281,12 +315,14 @@ class _$PushNotificationImpl implements _PushNotification {
 
 abstract class _PushNotification implements PushNotification {
   const factory _PushNotification(
-      {required final Notification notification,
-      final Map<String, String> data,
-      final Android? android,
-      final String? topic,
-      final String? token,
-      final List<String>? tokens}) = _$PushNotificationImpl;
+          {required final Notification notification,
+          final Map<String, String> data,
+          final Android? android,
+          final String? topic,
+          final String? token,
+          final List<String>? tokens,
+          @JsonKey(name: 'karyawan_ids') final List<String>? karyawanIds}) =
+      _$PushNotificationImpl;
 
   factory _PushNotification.fromJson(Map<String, dynamic> json) =
       _$PushNotificationImpl.fromJson;
@@ -303,6 +339,9 @@ abstract class _PushNotification implements PushNotification {
   String? get token;
   @override
   List<String>? get tokens;
+  @override
+  @JsonKey(name: 'karyawan_ids')
+  List<String>? get karyawanIds;
   @override
   @JsonKey(ignore: true)
   _$$PushNotificationImplCopyWith<_$PushNotificationImpl> get copyWith =>
