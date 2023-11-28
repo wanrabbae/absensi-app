@@ -11,7 +11,9 @@ import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/helpers/base.dart';
 import 'package:app/helpers/constant.dart';
+import 'package:app/helpers/debouncer.dart';
 import 'package:app/services/push_notification_service.dart';
+import 'package:background_location/background_location.dart' as bg;
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get/get.dart';
@@ -39,6 +41,7 @@ class AppCubit extends HydratedCubit<AppState> {
   final GetStorage box;
   final FirebaseService firebaseService;
   final PushNotificationService pushNotificationService;
+  final _deBouncer = DeBouncer(delay: const Duration(milliseconds: 1000));
   StreamSubscription<String>? _streamSubscriptionToken;
   Timer? _liveTrackingTimer;
 
@@ -294,9 +297,12 @@ class AppCubit extends HydratedCubit<AppState> {
       final granted = status == PermissionStatus.granted;
       if (granted) {
         Permission.locationAlways.status.then((status) {
-          if (state.allowLocationAlwaysPermission &&
-              status != PermissionStatus.granted) {
-            emit(state.copyWith(allowLocationAlwaysPermission: false));
+          if (state.allowLocationAlwaysPermission) {
+            if (status != PermissionStatus.granted) {
+              runRealtimeServices();
+            } else {
+              emit(state.copyWith(allowLocationAlwaysPermission: false));
+            }
           }
         });
       } else {
@@ -311,6 +317,40 @@ class AppCubit extends HydratedCubit<AppState> {
     emit(state.copyWith(
       allowLocationAlwaysPermission: allowLocationAlwaysPermission,
     ));
+  }
+
+  runRealtimeServices() async {
+    final fgLocGranted = await Permission.locationWhenInUse.isGranted;
+    if (!fgLocGranted) {
+      return;
+    }
+    final bgLocGranted = await Permission.locationAlways.isGranted;
+    if (!bgLocGranted) {
+      final status = await Permission.locationAlways.request();
+      if (!status.isGranted) {
+        return;
+      }
+    }
+    await bg.BackgroundLocation.setAndroidNotification(
+      title: "Sedang mendeteksi lokasi di latar belakang",
+      message: "Diharapkan untuk tetap membuka aplikasi Hora",
+      icon: "@mipmap/ic_launcher",
+    );
+    await bg.BackgroundLocation.setAndroidConfiguration(
+      kDebugMode ? (5 * 1000) : (5 * 60 * 1000),
+    );
+    await bg.BackgroundLocation.startLocationService(
+      distanceFilter: kDebugMode ? 0 : 5,
+    );
+    bg.BackgroundLocation.getLocationUpdates((bg.Location location) {
+      _deBouncer.call(() {
+        if (!isClosed &&
+            location.latitude != null &&
+            location.longitude != null) {
+          updateLiveTrackingList(location.latitude!, location.longitude!);
+        }
+      });
+    });
   }
 
   @override
@@ -331,6 +371,7 @@ class AppCubit extends HydratedCubit<AppState> {
   Future<void> close() {
     _streamSubscriptionToken?.cancel();
     _liveTrackingTimer?.cancel();
+    bg.BackgroundLocation.stopLocationService();
 
     return super.close();
   }

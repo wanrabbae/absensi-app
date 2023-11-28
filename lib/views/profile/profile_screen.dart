@@ -266,9 +266,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   }
                 } else if (status == PermissionStatus.granted) {
                   customSnackbar1('Deteksi akan dilakukan secara real time');
-                  context
-                      .read<AppCubit>()
-                      .setAllowLocationAlwaysPermission(value);
+                  context.read<AppCubit>()
+                    ..setAllowLocationAlwaysPermission(value)
+                    ..runRealtimeServices();
                 }
               });
             }
