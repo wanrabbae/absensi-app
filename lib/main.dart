@@ -1,12 +1,9 @@
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/data/local/base_preference.dart';
 import 'package:app/global_resource.dart';
-import 'package:app/helpers/notification_local.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:open_file_plus/open_file_plus.dart';
 
 import 'firebase_options.dart';
 
@@ -36,63 +33,6 @@ void main() async {
   await GetStorage.init();
   await BasePreference.init();
 
-  AwesomeNotificationService().initNotification();
-  AwesomeNotifications().actionStream.listen((action) async {
-    if (action.channelKey == "basic") {
-      Get.put(HomeController());
-      var tanggal = action.payload?["datepresence"]?.split(" ")[0];
-
-      Get.offAndToNamed(RouteName.home, arguments: tanggal);
-      return;
-    }
-
-    if (action.buttonKeyPressed == "close") {
-      AwesomeNotifications().cancelAll();
-      return;
-    }
-
-    if (action.channelKey == "basic3" && action.buttonKeyPressed == "pulang") {
-      var homeCtrl = Get.put(HomeController());
-      var tanggal = action.payload?["datepresence"]?.split(" ")[0];
-
-      var response = await AbsensiServices()
-          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
-      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": response.data?[0]});
-      return;
-    }
-
-    if (action.channelKey == "basic3") {
-      var homeCtrl = Get.put(HomeController());
-      var tanggal = action.payload?["datepresence"]?.split(" ")[0];
-
-      var response = await AbsensiServices()
-          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal);
-      Get.toNamed(RouteName.absen, arguments: {"dataAbsen": response.data?[0]});
-      return;
-    }
-
-    if (action.channelKey == "downloadedFile" &&
-        action.buttonKeyPressed == "open") {
-      OpenFile.open(action.payload?["path"]);
-      return;
-    }
-
-    if (action.channelKey == "downloadedFile") {
-      OpenFile.open(action.payload?["path"]);
-      return;
-    }
-
-    if (action.channelKey == "downloadedImage" &&
-        action.buttonKeyPressed == "open") {
-      OpenFile.open(action.payload?["path"]);
-      return;
-    }
-
-    if (action.channelKey == "downloadedImage") {
-      OpenFile.open(action.payload?["path"]);
-      return;
-    }
-  });
   runApp(ProviderScope(
     child: EasyLocalization(
       supportedLocales: const [Locale("id", "ID"), Locale("en", "US")],

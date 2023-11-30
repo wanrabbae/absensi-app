@@ -6,6 +6,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_file_plus/open_file_plus.dart';
 
 import 'notification_local.dart';
 
@@ -79,7 +80,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   StreamSubscription<RemoteMessage>? _streamSubscriptionForeground;
   StreamSubscription<RemoteMessage>? _streamSubscriptionMessageClick;
-  StreamSubscription<RemoteMessage?>? _streamSubscriptionLocalMessageClick;
+  StreamSubscription<dynamic>? _streamSubscriptionLocalMessageClick;
 
   @override
   void initState() {
@@ -96,7 +97,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
 
       _streamSubscriptionForeground =
           pn.foregroundMessage.listen((RemoteMessage message) {
-            debugPrint('RECEIVED NOTIF : ${jsonEncode(message.toMap())}');
+        debugPrint('RECEIVED NOTIF : ${jsonEncode(message.toMap())}');
         RemoteNotification? notification = message.notification;
         AndroidNotification? android = message.notification?.android;
         AppleNotification? ios = message.notification?.apple;
@@ -113,8 +114,10 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
 
       _streamSubscriptionLocalMessageClick =
           pn.selectNotificationStream.stream.listen((remoteMessage) {
-        if (remoteMessage != null) {
+        if (remoteMessage is RemoteMessage) {
           _handleMessageOpen(remoteMessage);
+        } else if (remoteMessage is Map) {
+          _handleMessageLocalOpen(remoteMessage);
         }
       });
     });
@@ -124,7 +127,7 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch(state) {
+    switch (state) {
       case AppLifecycleState.resumed:
         FlutterAppBadger.updateBadgeCount(1);
         break;
@@ -156,6 +159,44 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     );
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return MainTheme.materialApp(context, child: const SplashScreen());
+  }
+
+  _handleMessageLocalOpen(dynamic payload) {
+    final tag = payload['tag'];
+    final actionId = payload['actionId'];
+
+    if (tag == 'OPEN_PRESENCE_DATE') {
+      if (!Get.isRegistered<HomeController>()) {
+        Get.put(HomeController());
+      }
+      var tanggal = payload["datepresence"]?.split(" ")[0];
+
+      Get.offAndToNamed(RouteName.home, arguments: tanggal);
+      return;
+    }
+
+    if (tag == 'PRESENCE_AFTER_12H' && actionId == 'pulang') {
+      final homeCtrl = !Get.isRegistered<HomeController>()
+          ? Get.put(HomeController())
+          : Get.find<HomeController>();
+      var tanggal = payload["datepresence"]?.split(" ")[0];
+
+      AbsensiServices()
+          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal)
+          .then((response) {
+        Get.toNamed(
+          RouteName.absen,
+          arguments: {"dataAbsen": response.data?[0]},
+        );
+      });
+      return;
+    }
+
+    if ((tag == 'DOWNLOAD_FILE' || tag == 'DOWNLOAD_IMAGE') &&
+        (actionId == null || actionId == 'open')) {
+      OpenFile.open(payload["path"]);
+      return;
+    }
   }
 
   _handleMessageOpen(RemoteMessage message, {bool foreground = false}) {
@@ -236,10 +277,10 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
         });
       } else {
         context.read<AppCubit>().setLiveTracking(
-          broadcasterId,
-          listenerId,
-          approve,
-        );
+              broadcasterId,
+              listenerId,
+              approve,
+            );
       }
     });
   }

@@ -20,6 +20,8 @@ class PushNotificationService {
   final FirebaseMessaging _messaging = FirebaseMessaging.instance;
   NotificationSettings? _settings;
 
+  FlutterLocalNotificationsPlugin get local => _flutterLocalNotificationsPlugin;
+
   Future<void> requestPermission() async {
     _settings = await _messaging.requestPermission(
       alert: true,
@@ -65,8 +67,8 @@ class PushNotificationService {
   Stream<RemoteMessage> get messageOpened =>
       FirebaseMessaging.onMessageOpenedApp;
 
-  final StreamController<RemoteMessage?> selectNotificationStream =
-      StreamController<RemoteMessage?>.broadcast();
+  final StreamController<dynamic> selectNotificationStream =
+      StreamController<dynamic>.broadcast();
 
   void initializeLocalNotification() async {
     if (!Platform.isAndroid) return;
@@ -82,6 +84,15 @@ class PushNotificationService {
         case NotificationResponseType.selectedNotificationAction:
           if (notificationResponse.payload is String) {
             final map = jsonDecode(notificationResponse.payload!);
+            if (map['tag'] is String) {
+              map['notificationResponseType'] =
+                  notificationResponse.notificationResponseType.name;
+              map['actionId'] = notificationResponse.actionId;
+              map['id'] = notificationResponse.id;
+              selectNotificationStream.add(map);
+              return;
+            }
+
             final message = RemoteMessage.fromMap(map);
             selectNotificationStream.add(message);
           }
