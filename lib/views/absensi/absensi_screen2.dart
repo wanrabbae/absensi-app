@@ -520,7 +520,7 @@ class _LastUpdatePositionContainer extends StatelessWidget {
         padding:
             const EdgeInsets.fromLTRB(16, 8, 16, 8),
         child: Text(
-          'Diperbarui ${kLastUpdatePositionDateFormat.format(date)}',
+          'Diperbarui ${kLastUpdatePositionDateFormat.format(date.toLocal())}',
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
