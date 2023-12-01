@@ -55,6 +55,7 @@ class FirebaseService {
       requestApproved: requestApproved,
       latitude: latitude,
       longitude: longitude,
+      lastUpdate: latitude != null && longitude != null ? DateTime.now() : null,
     );
 
     final snapshot = await _collectionLiveLocation
