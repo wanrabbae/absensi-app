@@ -1,6 +1,4 @@
 PODS:
-  - awesome_notifications (0.0.3):
-    - Flutter
   - background_location (0.0.1):
     - Flutter
   - cloud_firestore (4.12.2):
@@ -155,7 +153,6 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - awesome_notifications (from `.symlinks/plugins/awesome_notifications/ios`)
   - background_location (from `.symlinks/plugins/background_location/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - downloads_path_provider_28 (from `.symlinks/plugins/downloads_path_provider_28/ios`)
@@ -196,8 +193,6 @@ SPEC REPOS:
     - SwiftyGif
 
 EXTERNAL SOURCES:
-  awesome_notifications:
-    :path: ".symlinks/plugins/awesome_notifications/ios"
   background_location:
     :path: ".symlinks/plugins/background_location/ios"
   cloud_firestore:
@@ -248,7 +243,6 @@ CHECKOUT OPTIONS:
     :tag: 10.16.0
 
 SPEC CHECKSUMS:
-  awesome_notifications: 04530aafec8dac4635244ed4b4072f4aea6cc938
   background_location: 1b80c1fe3abd9912bca298618f6e365abf6f588f
   cloud_firestore: 8adb36c2bc754352c717984153ecd7e6c6898047
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
@@ -287,4 +281,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 649c243ec12d7f32aad86d7d6fa4c6c0153e1510
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.14.3
