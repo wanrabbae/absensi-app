@@ -640,35 +640,7 @@ class AbsenController extends GetxController {
           Get.offAllNamed(RouteName.home, arguments: args);
           await HomeController().dataHome();
         }
-        final InAppReview inAppReview = InAppReview.instance;
-        if (await inAppReview.isAvailable()) {
-          inAppReview.requestReview();
-        }
-
-        final broadcasterId = user?["idkaryawan"];
-        if (broadcasterId is String) {
-          final firebaseService = $it<FirebaseService>();
-          final pushNotificationApiService = $it<PushNotificationApiService>();
-          firebaseService
-              .clearAllLiveTracking(broadcasterId)
-              .then((idKaryawans) {
-            pushNotificationApiService.sendPushNotification(
-              model.PushNotification(
-                notification: const model.Notification(
-                  title: 'Pengiriman lokasi dihentikan',
-                  body: 'Sentuh untuk membuka aplikasi',
-                ),
-                data: {
-                  'tag': 'STOP_REQUEST_LIVE_TRACKING',
-                },
-                android: const model.Android(
-                  notification: model.AndroidNotification(),
-                ),
-                karyawanIds: idKaryawans,
-              ),
-            );
-          });
-        }
+        _showReviewAndClearLiveTracking(user?["idkaryawan"]);
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
@@ -722,6 +694,7 @@ class AbsenController extends GetxController {
         AwesomeNotificationService()
           ..removeNotification()
           ..showNotificationAbsenDone();
+        _showReviewAndClearLiveTracking(user?["idkaryawan"]);
         ProfileController().keluar();
       } else if (response.statusCode == 401) {
         Get.back();
@@ -799,5 +772,36 @@ class AbsenController extends GetxController {
         absenPulang(false, findData?["id"]);
       }
     }
+  }
+}
+
+_showReviewAndClearLiveTracking(dynamic broadcasterId) async {
+  final InAppReview inAppReview = InAppReview.instance;
+  if (await inAppReview.isAvailable()) {
+    inAppReview.requestReview();
+  }
+
+  if (broadcasterId is String) {
+    final firebaseService = $it<FirebaseService>();
+    final pushNotificationApiService = $it<PushNotificationApiService>();
+    firebaseService
+        .clearAllLiveTracking(broadcasterId)
+        .then((idKaryawans) {
+      pushNotificationApiService.sendPushNotification(
+        model.PushNotification(
+          notification: const model.Notification(
+            title: 'Pengiriman lokasi dihentikan',
+            body: 'Sentuh untuk membuka aplikasi',
+          ),
+          data: {
+            'tag': 'STOP_REQUEST_LIVE_TRACKING',
+          },
+          android: const model.Android(
+            notification: model.AndroidNotification(),
+          ),
+          karyawanIds: idKaryawans,
+        ),
+      );
+    });
   }
 }
