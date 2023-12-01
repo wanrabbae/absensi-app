@@ -169,9 +169,12 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
       if (!Get.isRegistered<HomeController>()) {
         Get.put(HomeController());
       }
-      var tanggal = payload["datepresence"]?.split(" ")[0];
-
-      Get.offAndToNamed(RouteName.home, arguments: tanggal);
+      final tanggal = DateTime.tryParse(payload["datepresence"]);
+      if (tanggal == null) return;
+      Get.offAndToNamed(
+        RouteName.home,
+        arguments: tanggal.toLocal().toIso8601String().substring(0, 10),
+      );
       return;
     }
 
@@ -179,10 +182,14 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
       final homeCtrl = !Get.isRegistered<HomeController>()
           ? Get.put(HomeController())
           : Get.find<HomeController>();
-      var tanggal = payload["datepresence"]?.split(" ")[0];
+      final tanggal = DateTime.tryParse(payload["datepresence"]);
+      if (tanggal == null) return;
 
       AbsensiServices()
-          .findIndiv(homeCtrl.user?["idkaryawan"], tanggal)
+          .findIndiv(
+        homeCtrl.user?["idkaryawan"],
+        tanggal.toLocal().toIso8601String().substring(0, 10),
+      )
           .then((response) {
         Get.toNamed(
           RouteName.absen,

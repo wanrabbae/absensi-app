@@ -565,10 +565,10 @@ class AbsenController extends GetxController {
         box.write(Base.waktuAbsen, DateTime.now().toString());
         box.write(Base.klikAbsen, true);
         Get.offAllNamed(RouteName.home, arguments: 0);
-        await AwesomeNotificationService()
-            .showNotificationAbsen(DateTime.now().toString());
-        await AwesomeNotificationService()
-            .showNotificationAfter12Hours(DateTime.now().toString());
+        final now = DateTime.now();
+        AwesomeNotificationService()
+          ..showNotificationAbsen(now)
+          ..showNotificationAfter12Hours(now);
       } else if (response.statusCode == 401) {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
@@ -646,7 +646,7 @@ class AbsenController extends GetxController {
         if (Get.isRegistered<HomeController>()) {
           final homeCtrl = Get.find<HomeController>();
           var findDataOnCheckIn = homeCtrl.absen?.firstWhere(
-                (element) => element?["idKaryawan"] == user?["idkaryawan"],
+            (element) => element?["idKaryawan"] == user?["idkaryawan"],
             orElse: () => null,
           );
           if (findDataOnCheckIn is Map) {

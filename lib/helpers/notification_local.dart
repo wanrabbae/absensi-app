@@ -18,7 +18,7 @@ class AwesomeNotificationService {
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       $it<PushNotificationService>().local;
 
-  Future<void> showNotificationAbsen(String datePresence) {
+  Future<void> showNotificationAbsen(DateTime datePresence) {
     return notificationsPlugin.show(
       123,
       'Sedang mengisi kehadiran',
@@ -43,7 +43,7 @@ class AwesomeNotificationService {
         ),
       ),
       payload: jsonEncode({
-        'datepresence': datePresence,
+        'datepresence': datePresence.toIso8601String(),
         'tag': 'OPEN_PRESENCE_DATE',
       }),
     );
@@ -77,7 +77,7 @@ class AwesomeNotificationService {
     );
   }
 
-  Future<void> showNotificationAfter12Hours(String datePresence) async {
+  Future<void> showNotificationAfter12Hours(DateTime datePresence) async {
     return notificationsPlugin.zonedSchedule(
       543,
       'Kehadiran melebihi 12 jam',
@@ -109,7 +109,7 @@ class AwesomeNotificationService {
         ),
       ),
       payload: jsonEncode({
-        'datepresence': datePresence,
+        'datepresence': datePresence.toIso8601String(),
         'tag': 'PRESENCE_AFTER_12H',
       }),
       uiLocalNotificationDateInterpretation:
