@@ -74,7 +74,7 @@ class AwesomeNotificationService {
       payload: jsonEncode({
         'tag': 'PRESENCE_STOPPED',
       }),
-    );
+    ).then((value) => removeNotificationById(123));
   }
 
   Future<void> showNotificationAfter12Hours(DateTime datePresence) async {
