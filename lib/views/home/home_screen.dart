@@ -143,11 +143,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 debugPrint("test");
                 customSnackbar1("Kehadiran hari ini telah terisi.");
               } else {
+                if (!s.isToday) return;
                 s.absensi(context);
               }
             },
-            backgroundColor:
-                s.isPresentHadir! ? colorDisabled : colorBluePrimary2,
+            backgroundColor: s.isPresentHadir! || !s.isToday
+                ? colorDisabled
+                : colorBluePrimary2,
             elevation: 0,
             isExtended: true,
             child: timerCount(context, s),

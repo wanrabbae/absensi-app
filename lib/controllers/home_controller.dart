@@ -30,6 +30,20 @@ class HomeController extends GetxController {
   //undangan
   String? emailUndangan;
 
+  bool get isToday {
+    if (currentDate != null) {
+      final currentDate = DateTime.tryParse(this.currentDate!)?.toLocal();
+      if (currentDate != null &&
+          currentDate.year == now.year &&
+          currentDate.month == now.month &&
+          currentDate.day == now.day) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   @override
   void onInit() async {
     // await Permission.location.serviceStatus.isEnabled.then((value) {
