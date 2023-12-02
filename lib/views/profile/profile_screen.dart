@@ -90,16 +90,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       context,
                       "Deteksi Lokasi",
                       FeatherIcons.mapPin,
+                      onTap: () => _requestLocationAlways(
+                        !context
+                            .read<AppCubit>()
+                            .state
+                            .allowLocationAlwaysPermission,
+                      ),
                       trailing: BlocBuilder<AppCubit, AppState>(
                         buildWhen: (previous, current) =>
                             previous.allowLocationAlwaysPermission !=
                             current.allowLocationAlwaysPermission,
                         builder: (context, state) {
                           final enabled = state.allowLocationAlwaysPermission;
-                          return Switch.adaptive(
+                          final child = Switch(
                             value: enabled,
-                            activeColor: colorGreenPrimary,
+                            activeTrackColor: colorGreenPrimary,
+                            activeColor: Colors.white,
+                            inactiveThumbColor: colorGreenPrimary,
+                            inactiveTrackColor: Colors.white,
+                            trackOutlineColor: const MaterialStatePropertyAll(colorGreenPrimary),
                             onChanged: _requestLocationAlways,
+                          );
+
+                          return SizedBox(
+                            height: 24,
+                            child: FittedBox(child: child),
                           );
                         },
                       ),
