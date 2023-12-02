@@ -209,8 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
               showDatePicker(
                 locale: const Locale("id", "ID"),
                 context: context,
-                initialDate:
-                    DateFormat("yyyy-MM-dd hh:mm:ss").parse(s.currentDate!),
+                initialDate: s.currentDate!,
                 firstDate: DateTime(now.year - 10, now.month, now.day),
                 lastDate: DateTime(now.year + 10, now.month, now.day),
                 currentDate: now,

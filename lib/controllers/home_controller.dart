@@ -11,11 +11,10 @@ class HomeController extends GetxController {
 
   //Global
   final box = GetStorage();
-  DateTime now = DateTime.now();
   final focus = FocusNode();
   Company perusahaan = const Company();
   Map? user;
-  String? currentDate;
+  DateTime? currentDate;
   var timerRecor = "00:00:00";
 
   //home
@@ -48,8 +47,9 @@ class HomeController extends GetxController {
   }
 
   bool get isToday {
+    final DateTime now = DateTime.now();
     if (currentDate != null) {
-      final currentDate = DateTime.tryParse(this.currentDate!)?.toLocal();
+      final currentDate = this.currentDate?.toLocal();
       if (currentDate != null &&
           currentDate.year == now.year &&
           currentDate.month == now.month &&
@@ -74,7 +74,8 @@ class HomeController extends GetxController {
     super.onInit();
     user = box.read(Base.dataUser);
     klikAbsen = GetStorage().read(Base.klikAbsen) ?? false;
-    currentDate = now.toString();
+    final DateTime now = DateTime.now();
+    currentDate = now;
     await dataPerusahaan();
     await dataHome();
     // await checkAnyAbsen();
@@ -201,10 +202,10 @@ class HomeController extends GetxController {
         "data perusahaan yang digunakan sudah berubah");
   }
 
-  gantiTanggal(tgl) {
+  gantiTanggal(DateTime? tgl) {
     if (tgl != null) {
       debugPrint("======== TEST GANTI TANGGAL =======");
-      currentDate = tgl.toString();
+      currentDate = tgl;
       absen?.removeRange(0, absen!.length);
       izin?.removeRange(0, izin!.length);
       update();
@@ -400,9 +401,10 @@ class HomeController extends GetxController {
       return;
     }
 
+    final tanggal = currentDate ?? DateTime.now();
     final request = {
       "idperusahaan": profile.perusahaanId!,
-      "tanggal": currentDate ?? kMysqlDateFormat.format(DateTime.now()),
+      "tanggal": kMysqlDateFormat.format(tanggal),
     };
 
     try {
