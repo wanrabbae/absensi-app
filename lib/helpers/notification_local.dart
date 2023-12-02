@@ -14,7 +14,13 @@ const AndroidNotificationChannel _kBasicChannel = AndroidNotificationChannel(
   showBadge: true,
 );
 
+final AwesomeNotificationService _service = AwesomeNotificationService._();
+
 class AwesomeNotificationService {
+  AwesomeNotificationService._();
+
+  factory AwesomeNotificationService() => _service;
+
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       $it<PushNotificationService>().local;
 
