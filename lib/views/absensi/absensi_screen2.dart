@@ -75,6 +75,17 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
         rxPositionUpdate.value = update;
       }
 
+      final broadcasterId = absence.idKaryawan;
+      if (broadcasterId != null) {
+        final data = context.read<AppCubit>().state.liveTracking(broadcasterId);
+        if (data != null && data.latitude != null && data.longitude != null) {
+          rxPosition.value = LatLng(data.latitude!, data.longitude!);
+          if (data.lastUpdate != null) {
+            rxPositionUpdate.value = data.lastUpdate;
+          }
+        }
+      }
+
       setMarker();
 
       final foto = absence.fotoKaryawan;
