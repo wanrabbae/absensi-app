@@ -243,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.only(
         left: 20,
         right: 20,
-        top: 16,
+        top: 0,
         bottom: 8,
       ),
       child: Row(
@@ -326,8 +326,10 @@ class _Toolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final top = MediaQuery.of(context).padding.top;
     return Container(
-      margin: const EdgeInsets.only(top: 50, left: 20, right: 20),
+      margin: EdgeInsets.only(top: top, left: 20, right: 16),
+      height: kToolbarHeight,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
