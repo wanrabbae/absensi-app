@@ -12,7 +12,7 @@ Widget dataHome(BuildContext context, s, bool isHadir) {
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: ListView.builder(
         shrinkWrap: true,
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.only(bottom: 72),
         itemCount: isHadir ? s.absen?.length : s.izin?.length,
         itemBuilder: (ctx, index) =>
             _ListTile(s: s, isHadir: isHadir, index: index),

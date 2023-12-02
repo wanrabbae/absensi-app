@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Padding _buildDateTile(BuildContext context, HomeController s) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 20),
+      padding: const EdgeInsets.only(left: 20, right: 20, bottom: 8),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -244,7 +244,7 @@ class _HomeScreenState extends State<HomeScreen> {
         left: 20,
         right: 20,
         top: 16,
-        bottom: 10,
+        bottom: 8,
       ),
       child: Row(
         children: [
