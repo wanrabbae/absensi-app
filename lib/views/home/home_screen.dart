@@ -3,6 +3,7 @@ import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/card_home.dart';
@@ -32,6 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    FlutterAppBadger.updateBadgeCount(0);
+
     final activeAttendanceDate = widget.activeAttendanceDate;
     if (activeAttendanceDate != null) {
       final now = DateTime.tryParse(activeAttendanceDate);
