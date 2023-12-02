@@ -144,6 +144,7 @@ class AppCubit extends HydratedCubit<AppState> {
   clearToken() {
     AwesomeNotificationService().removeNotification();
     emit(const AppState());
+    bg.BackgroundLocation.stopLocationService();
     final userId = state.currentUser?.idkaryawan;
     if (userId == null) return;
     firebaseService.setToken(userId: userId).then((value) {});
