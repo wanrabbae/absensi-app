@@ -1,10 +1,16 @@
 import 'package:app/global_resource.dart';
 import 'package:dio/dio.dart' as dio;
 
+final HomeServices _homeServices = HomeServices._();
+
 class HomeServices extends GetConnect implements GetxService {
+  HomeServices._();
+
+  factory HomeServices() => _homeServices;
+
   final box = GetStorage();
 
-  Future absenGet(params) async {
+  Future absenGet(Map<String, String> params) async {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};
     final options = dio.Options(headers: header);

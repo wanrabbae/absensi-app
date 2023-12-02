@@ -1,7 +1,14 @@
 import 'package:app/data/models/company.dart';
+import 'package:app/data/models/profile.dart';
 import 'package:app/global_resource.dart';
 
+final HomeController _homeController = HomeController._();
+
 class HomeController extends GetxController {
+  HomeController._();
+
+  factory HomeController() => _homeController;
+
   //Global
   final box = GetStorage();
   DateTime now = DateTime.now();
@@ -29,6 +36,16 @@ class HomeController extends GetxController {
 
   //undangan
   String? emailUndangan;
+
+  Profile? get userProfile {
+    if (user == null) return null;
+
+    try {
+      return Profile.fromJson(user!.cast());
+    } catch (_) {
+      return null;
+    }
+  }
 
   bool get isToday {
     if (currentDate != null) {
@@ -372,16 +389,26 @@ class HomeController extends GetxController {
   }
 
   dataHome() async {
-    try {
-      var absens = await HomeServices().absenGet({
-        "idperusahaan": user?['idperusahaan'].toString(),
-        "tanggal": currentDate.toString(),
-      });
+    final profile = userProfile;
+    if (profile == null) {
+      customSnackbar1('Data user tidak ditemukan');
+      return;
+    }
 
-      var izins = await HomeServices().izinGet({
-        "idperusahaan": user?['idperusahaan'].toString(),
-        "tanggal": currentDate.toString(),
-      });
+    if (profile.perusahaanId ==  null) {
+      customSnackbar1('Data perusahaan tidak ditemukan');
+      return;
+    }
+
+    final request = {
+      "idperusahaan": profile.perusahaanId!,
+      "tanggal": currentDate ?? kMysqlDateFormat.format(DateTime.now()),
+    };
+
+    try {
+      var absens = await HomeServices().absenGet(request);
+
+      var izins = await HomeServices().izinGet(request);
 
       if (absens.statusCode == 200 && izins.statusCode == 200) {
         absen = absens.data;
