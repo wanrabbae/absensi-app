@@ -12,6 +12,7 @@ import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/helpers/base.dart';
 import 'package:app/helpers/constant.dart';
 import 'package:app/helpers/debouncer.dart';
+import 'package:app/helpers/notification_local.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:background_location/background_location.dart' as bg;
 import 'package:flutter/foundation.dart';
@@ -141,6 +142,8 @@ class AppCubit extends HydratedCubit<AppState> {
   }
 
   clearToken() {
+    AwesomeNotificationService().removeNotification();
+    emit(const AppState());
     final userId = state.currentUser?.idkaryawan;
     if (userId == null) return;
     firebaseService.setToken(userId: userId).then((value) {});
