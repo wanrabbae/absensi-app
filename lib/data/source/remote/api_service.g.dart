@@ -119,12 +119,14 @@ class _ApiService implements ApiService {
   @override
   Future<List<Absence>> getAttendance({
     required idkaryawan,
-    required tanggal,
+    required start,
+    required end,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'idkaryawan': idkaryawan,
-      r'tanggal': tanggal,
+      r'tglstart': start,
+      r'tglend': end,
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

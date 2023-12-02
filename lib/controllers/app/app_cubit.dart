@@ -280,12 +280,21 @@ class AppCubit extends HydratedCubit<AppState> {
   Future<void> getTodayAttendance() async {
     final user = state.currentUser;
     if (user == null) return;
+
     final idkaryawan = user.idkaryawan;
     if (idkaryawan == null) return;
+
     final now = DateTime.now();
-    final tanggal = kMysqlDateFormat.format(now);
-    return api.getAttendance(idkaryawan: idkaryawan, tanggal: tanggal).then(
-        (attendances) {
+
+    final tglStart = DateTime(now.year, now.month, now.day).toUtc();
+    final start = kQueryRangeDateFormat.format(tglStart);
+
+    final tglEnd = DateTime(now.year, now.month, now.day, 23, 59, 59).toUtc();
+    final end = kQueryRangeDateFormat.format(tglEnd);
+
+    return api
+        .getAttendance(idkaryawan: idkaryawan, start: start, end: end)
+        .then((attendances) {
       if (attendances.isNotEmpty) {
         emit(state.copyWith(todayAttendance: attendances.first));
       }

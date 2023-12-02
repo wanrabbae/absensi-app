@@ -40,6 +40,7 @@ mixin $Attendance {
   @GET('api/absensi/indie')
   Future<List<Absence>> getAttendance({
     @Query("idkaryawan") required String idkaryawan,
-    @Query("tanggal") required String tanggal,
+    @Query("tglstart") required String start,
+    @Query("tglend") required String end,
   });
 }

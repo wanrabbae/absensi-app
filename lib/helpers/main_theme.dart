@@ -185,11 +185,17 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
       final tanggal = DateTime.tryParse(payload["datepresence"]);
       if (tanggal == null) return;
 
+      final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
+      final tglend =
+      DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
+      final request = {
+        "idkaryawan": homeCtrl.userProfile!.idkaryawan!,
+        "tglstart": kQueryRangeDateFormat.format(tglstart),
+        "tglend": kQueryRangeDateFormat.format(tglend),
+      };
+
       AbsensiServices()
-          .findIndiv(
-        homeCtrl.user?["idkaryawan"],
-        tanggal.toLocal().toIso8601String().substring(0, 10),
-      )
+          .findIndiv(request)
           .then((response) {
         Get.toNamed(
           RouteName.absen,

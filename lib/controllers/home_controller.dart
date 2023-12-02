@@ -159,9 +159,16 @@ class HomeController extends GetxController {
       if (klikAbsen) {
         debugPrint('$absen');
         debugPrint("=======KE PULANG========");
-        var tanggal = currentDate.toString().split(" ")[0];
-        var response =
-            await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
+        final tanggal = currentDate ?? DateTime.now();
+        final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
+        final tglend =
+        DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
+        final request = {
+          "idkaryawan": userProfile!.idkaryawan!,
+          "tglstart": kQueryRangeDateFormat.format(tglstart),
+          "tglend": kQueryRangeDateFormat.format(tglend),
+        };
+        var response = await AbsensiServices().findIndiv(request);
         debugPrint("DATA ABSEN: ${response.data.length}");
 
         box.write(Base.waktuAbsen, response.data?[0]["waktuCheckIn"]);
@@ -235,8 +242,16 @@ class HomeController extends GetxController {
     }
 
     try {
-      var response =
-          await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
+      final tanggal = currentDate ?? DateTime.now();
+      final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
+      final tglend =
+      DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
+      final request = {
+        "idkaryawan": userProfile!.idkaryawan!,
+        "tglstart": kQueryRangeDateFormat.format(tglstart),
+        "tglend": kQueryRangeDateFormat.format(tglend),
+      };
+      var response = await AbsensiServices().findIndiv(request);
       debugPrint("DATA ABSEN: ${response.data.length}");
       if (response.data.length >= 1 &&
           response.data?[0]["waktuCheckOut"] == null) {
@@ -396,15 +411,19 @@ class HomeController extends GetxController {
       return;
     }
 
-    if (profile.perusahaanId ==  null) {
+    if (profile.perusahaanId == null) {
       customSnackbar1('Data perusahaan tidak ditemukan');
       return;
     }
 
     final tanggal = currentDate ?? DateTime.now();
+    final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
+    final tglend =
+        DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
     final request = {
       "idperusahaan": profile.perusahaanId!,
-      "tanggal": kMysqlDateFormat.format(tanggal),
+      "tglstart": kQueryRangeDateFormat.format(tglstart),
+      "tglend": kQueryRangeDateFormat.format(tglend),
     };
 
     try {

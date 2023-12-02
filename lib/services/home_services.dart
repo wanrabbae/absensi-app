@@ -14,22 +14,22 @@ class HomeServices extends GetConnect implements GetxService {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};
     final options = dio.Options(headers: header);
+    final uri = Uri.parse("${Base.url}${Base.absensi}")
+        .replace(queryParameters: params);
     return await kDio.get(
-      "${Base.url}${Base.absensi}"
-      "?idperusahaan=${params['idperusahaan']}"
-      "&tanggal=${params['tanggal']}",
+      uri.toString(),
       options: options,
     );
   }
 
-  Future izinGet(params) async {
+  Future izinGet(Map<String, String> params) async {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};
     final options = dio.Options(headers: header);
+    final uri = Uri.parse("${Base.url}${Base.absenIzinEndpoint}")
+        .replace(queryParameters: params);
     return await kDio.get(
-      "${Base.url}${Base.absenIzinEndpoint}"
-      "?idperusahaan=${params['idperusahaan']}"
-      "&tanggal=${params['tanggal']}",
+      uri.toString(),
       options: options,
     );
   }

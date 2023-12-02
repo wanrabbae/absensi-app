@@ -209,10 +209,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                         if (homeCtrl.timer != null &&
                             homeCtrl.timer?.isActive) {
-                          var tanggal =
-                              homeCtrl.currentDate.toString().split(" ")[0];
-                          var findData = await AbsensiServices()
-                              .findIndiv(s.user?["idkaryawan"], tanggal);
+                          final tanggal = homeCtrl.currentDate ?? DateTime.now();
+                          final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
+                          final tglend =
+                          DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
+                          final request = {
+                            "idkaryawan": homeCtrl.userProfile!.idkaryawan!,
+                            "tglstart": kQueryRangeDateFormat.format(tglstart),
+                            "tglend": kQueryRangeDateFormat.format(tglend),
+                          };
+                          var findData = await AbsensiServices().findIndiv(request);
 
                           if (context.mounted) {
                             showConfirmationDialog(

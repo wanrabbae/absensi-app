@@ -1,7 +1,13 @@
 import 'package:app/global_resource.dart';
 import 'package:dio/dio.dart' as dio;
 
+final AbsensiServices _service = AbsensiServices._();
+
 class AbsensiServices extends GetConnect implements GetxService {
+  AbsensiServices._();
+
+  factory AbsensiServices() => _service;
+
   final box = GetStorage();
 
   Future hadirPost(body) async {
@@ -31,15 +37,15 @@ class AbsensiServices extends GetConnect implements GetxService {
     }
   }
 
-  Future findIndiv(idKaryawan, tanggal) async {
+  Future findIndiv(Map<String, String> params) async {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};
     final options = dio.Options(headers: header);
 
     try {
-      var test = await kDio.get(
-          "${Base.url}${Base.absenIndie}?idkaryawan=$idKaryawan&tanggal=$tanggal",
-          options: options);
+      final uri = Uri.parse("${Base.url}${Base.absenIndie}")
+          .replace(queryParameters: params);
+      var test = await kDio.get(uri.toString(), options: options);
       return test;
     } catch (e) {
       return [];
