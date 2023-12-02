@@ -250,7 +250,7 @@ class AppCubit extends HydratedCubit<AppState> {
         return;
       }
       emit(state.copyWith(liveTrackingList: list));
-      debugPrint('Found live tracking ${list.length} data');
+      debugPrint('$listenerId listen to tracking ${list.length} data');
     } catch (_) {}
   }
 
@@ -262,7 +262,7 @@ class AppCubit extends HydratedCubit<AppState> {
       final list = await firebaseService.getLiveTrackingList(
         broadcastId: broadcasterId,
       );
-      debugPrint('Found live tracking ${list.length} to update');
+      debugPrint('$broadcasterId broadcast tracking ${list.length} to update');
       if (list.isNotEmpty) {
         await firebaseService.updateLiveTrackingList(
           list: list,
@@ -294,7 +294,7 @@ class AppCubit extends HydratedCubit<AppState> {
       if (granted) {
         Permission.locationAlways.status.then((status) {
           if (state.allowLocationAlwaysPermission) {
-            if (status != PermissionStatus.granted) {
+            if (status == PermissionStatus.granted) {
               runRealtimeServices();
             } else {
               emit(state.copyWith(allowLocationAlwaysPermission: false));
