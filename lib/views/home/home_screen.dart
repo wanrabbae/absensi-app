@@ -17,7 +17,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with AutomaticKeepAliveClientMixin {
   String curentDate = () {
     final now = DateTime.now();
     final d = now.day.toString().padLeft(2, '0');
@@ -93,14 +94,14 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
     return FloatingActionButton(
       heroTag: "btn3",
       backgroundColor:
-          s.isPresentIzin! ? Colors.grey.shade400 : colorBlackPrimary,
+          s.isPresentIzin ? Colors.grey.shade400 : colorBlackPrimary,
       child: Icon(
         FeatherIcons.edit2,
-        color: s.isPresentIzin! ? Colors.black : Colors.white,
+        color: s.isPresentIzin ? Colors.black : Colors.white,
         size: 24,
       ),
       onPressed: () {
-        if (s.isPresentIzin!) {
+        if (s.isPresentIzin) {
           debugPrint("test");
           customSnackbar1("Kehadiran hari ini telah terisi.");
         } else {
@@ -143,15 +144,14 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             onPressed: () async {
-              if (s.isPresentHadir!) {
+              if (s.isPresentHadir) {
                 debugPrint("test");
                 customSnackbar1("Kehadiran hari ini telah terisi.");
               } else {
-                if (!s.isToday) return;
                 s.absensi(context);
               }
             },
-            backgroundColor: s.isPresentHadir! || !s.isToday
+            backgroundColor: s.isPresentHadir
                 ? colorDisabled
                 : colorBluePrimary2,
             elevation: 0,
@@ -210,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
               showDatePicker(
                 locale: const Locale("id", "ID"),
                 context: context,
-                initialDate: s.currentDate!,
+                initialDate: s.currentDate,
                 firstDate: DateTime(now.year - 10, now.month, now.day),
                 lastDate: DateTime(now.year + 10, now.month, now.day),
                 currentDate: now,

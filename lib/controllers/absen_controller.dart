@@ -734,9 +734,6 @@ class AbsenController extends GetxController {
           await HomeController().dataHome();
         } else {
           final homeCtrl = Get.put(HomeController());
-          DateTime dateCurrent = DateTime.now();
-          String formattedCurrentDate =
-              DateFormat("yyyy-MM-dd").format(dateCurrent);
           var findData = await homeCtrl.absen?.firstWhere(
               (element) => element?["idKaryawan"] == user?["idkaryawan"],
               orElse: () => null);
@@ -762,9 +759,6 @@ class AbsenController extends GetxController {
         await HomeController().dataHome();
       } else {
         final homeCtrl = Get.put(HomeController());
-        DateTime dateCurrent = DateTime.now();
-        String formattedCurrentDate =
-            DateFormat("yyyy-MM-dd").format(dateCurrent);
         var findData = await homeCtrl.absen?.firstWhere(
             (element) => element?["idKaryawan"] == user?["idkaryawan"],
             orElse: () => null);

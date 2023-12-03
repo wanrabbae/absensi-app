@@ -14,7 +14,7 @@ class HomeController extends GetxController {
   final focus = FocusNode();
   Company perusahaan = const Company();
   Map? user;
-  DateTime? currentDate;
+  DateTime currentDate = DateTime.now();
   var timerRecor = "00:00:00";
 
   //home
@@ -23,8 +23,8 @@ class HomeController extends GetxController {
   List? perusahaanList = [];
   String? perusahaanTerpilih;
   bool klikAbsen = false;
-  bool? isPresentHadir = false;
-  bool? isPresentIzin = false;
+  bool isPresentHadir = false;
+  bool isPresentIzin = false;
 
   // ignore: prefer_typing_uninitialized_variables
   var timer;
@@ -48,14 +48,11 @@ class HomeController extends GetxController {
 
   bool get isToday {
     final DateTime now = DateTime.now();
-    if (currentDate != null) {
-      final currentDate = this.currentDate?.toLocal();
-      if (currentDate != null &&
-          currentDate.year == now.year &&
-          currentDate.month == now.month &&
-          currentDate.day == now.day) {
-        return true;
-      }
+    final currentDate = this.currentDate.toLocal();
+    if (currentDate.year == now.year &&
+        currentDate.month == now.month &&
+        currentDate.day == now.day) {
+      return true;
     }
 
     return false;
@@ -74,8 +71,6 @@ class HomeController extends GetxController {
     super.onInit();
     user = box.read(Base.dataUser);
     klikAbsen = GetStorage().read(Base.klikAbsen) ?? false;
-    final DateTime now = DateTime.now();
-    currentDate = now;
     await dataPerusahaan();
     await dataHome();
     // await checkAnyAbsen();
@@ -159,10 +154,12 @@ class HomeController extends GetxController {
       if (klikAbsen) {
         debugPrint('$absen');
         debugPrint("=======KE PULANG========");
-        final tanggal = currentDate ?? DateTime.now();
-        final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
+        final tanggal = currentDate;
+        final tglstart =
+            DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
         final tglend =
-        DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
+            DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59)
+                .toUtc();
         final request = {
           "idkaryawan": userProfile!.idkaryawan!,
           "tglstart": kQueryRangeDateFormat.format(tglstart),
@@ -223,85 +220,69 @@ class HomeController extends GetxController {
 
   checkAnyAbsen() async {
     cancelTimer();
-    var tanggal = currentDate.toString().split(" ")[0];
-    bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
-    bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
+    final d = currentDate.toLocal();
+    DateTime start = DateTime(d.year, d.month, d.day);
+    DateTime end = DateTime(d.year, d.month, d.day, 23, 59, 59);
+    bool isCurrentDateGreaterThanOrEqual =
+        d.isAfter(start) || d.isAtSameMomentAs(start);
+    bool isCurrentDateLowerThan = d.isBefore(end);
 
     var findData = izin?.firstWhere(
       (element) => element?["idkaryawan"] == user?['idkaryawan'],
       orElse: () => null,
     );
 
-    if (isDateSmallerThanToday == false) {
-      isPresentHadir = false;
-      isPresentIzin = false;
-    }
-    if (isDateGreaterThanToday == false) {
-      isPresentHadir = false;
-      isPresentIzin = false;
-    }
-
     try {
-      final tanggal = currentDate ?? DateTime.now();
-      final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
-      final tglend =
-      DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
       final request = {
         "idkaryawan": userProfile!.idkaryawan!,
-        "tglstart": kQueryRangeDateFormat.format(tglstart),
-        "tglend": kQueryRangeDateFormat.format(tglend),
+        "tglstart": kQueryRangeDateFormat.format(start.toUtc()),
+        "tglend": kQueryRangeDateFormat.format(end.toUtc()),
       };
       var response = await AbsensiServices().findIndiv(request);
       debugPrint("DATA ABSEN: ${response.data.length}");
       if (response.data.length >= 1 &&
           response.data?[0]["waktuCheckOut"] == null) {
-        // timer!.cancel();
         debugPrint("ABSEN JALAN YOYY");
 
         box.write(Base.waktuAbsen, response.data[0]?["waktuCheckIn"]);
         box.write(Base.klikAbsen, true);
         klikAbsen = GetStorage().read(Base.klikAbsen);
+
+        if (isCurrentDateLowerThan && isCurrentDateGreaterThanOrEqual) {
+          isPresentHadir = false;
+          isPresentIzin = false;
+        }
+
         timer = Timer.periodic(const Duration(seconds: 1), (timer) {
           timerRecor = timerAbsen3(response.data[0]?["waktuCheckIn"], null);
           update();
         });
-      } else if (response.data.length == 0 && isDateGreaterThanToday ||
-          isDateSmallerThanToday) {
-        // timer.cancel();
+      } else if (response.data.length == 0) {
         debugPrint("ABSEN GK JALAN YOYY");
         timerRecor = "00:00:00";
-        timer = null;
         cancelTimer();
         box.remove(Base.waktuAbsen);
         box.write(Base.klikAbsen, false);
         klikAbsen = GetStorage().read(Base.klikAbsen);
-        if (isDateSmallerThanToday) {
-          isPresentHadir = true;
-          isPresentIzin = true;
+
+        if (isCurrentDateLowerThan && isCurrentDateGreaterThanOrEqual) {
+          isPresentHadir = !isToday;
+          isPresentIzin = !isToday;
         }
 
-        if (isDateGreaterThanToday) {
-          isPresentHadir = true;
-          isPresentIzin = true;
-        }
         update();
       } else {
         debugPrint(" ==== KE ELSE CHECK ANY ABSEN ====");
-        print(isDateGreaterThanToday);
-        print(isDateSmallerThanToday);
-        timer = null;
+        debugPrint(
+            'isCurrentDateGreaterThanOrEqual=$isCurrentDateGreaterThanOrEqual');
+        debugPrint('isCurrentDateLowerThan=$isCurrentDateLowerThan');
         timerRecor = "00:00:00";
         box.remove(Base.waktuAbsen);
         box.write(Base.klikAbsen, false);
         klikAbsen = GetStorage().read(Base.klikAbsen);
         cancelTimer();
 
-        if (isDateSmallerThanToday) {
-          isPresentHadir = true;
-          isPresentIzin = true;
-        }
-
-        if (isDateGreaterThanToday) {
+        if (isCurrentDateGreaterThanOrEqual && isCurrentDateLowerThan) {
           isPresentHadir = true;
           isPresentIzin = true;
         }
@@ -317,7 +298,7 @@ class HomeController extends GetxController {
     } catch (e) {
       // customSnackbar1('Oops.. terjadi kesalahan sistem.');
       debugPrint("KE CATCH CHECK ANY ABSEN");
-      print(e);
+      debugPrint(e.toString());
     }
 
     if (findData != null) {
@@ -416,7 +397,7 @@ class HomeController extends GetxController {
       return;
     }
 
-    final tanggal = currentDate ?? DateTime.now();
+    final tanggal = currentDate;
     final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
     final tglend =
         DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
@@ -442,7 +423,7 @@ class HomeController extends GetxController {
         update();
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       // customSnackbar1("")
     }
   }

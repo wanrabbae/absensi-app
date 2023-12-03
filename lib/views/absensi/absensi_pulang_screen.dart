@@ -23,9 +23,6 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
     var currentAbsen = Get.arguments?["dataAbsen"] ?? {};
     var idAbsen = Get.arguments?["dataAbsen"]?["id"];
 
-    final Completer<GoogleMapController> googleMapController =
-        Completer<GoogleMapController>();
-
     List<Widget> pages = [
       // First page: Image network
       GestureDetector(

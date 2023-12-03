@@ -210,7 +210,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
 
                         if (homeCtrl.timer != null &&
                             homeCtrl.timer?.isActive) {
-                          final tanggal = homeCtrl.currentDate ?? DateTime.now();
+                          final tanggal = homeCtrl.currentDate;
                           final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
                           final tglend =
                           DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();

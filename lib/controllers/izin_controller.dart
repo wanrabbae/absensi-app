@@ -336,9 +336,6 @@ class IzinController extends GetxController {
         } else {
           debugPrint("KE ELESE");
           final homeCtrl = Get.put(HomeController());
-          DateTime dateCurrent = DateTime.now();
-          String formattedCurrentDate =
-              DateFormat("yyyy-MM-dd").format(dateCurrent);
           var findData = await homeCtrl.absen?.firstWhere(
               (element) => element?["idkaryawan"] == user?["idkaryawan"],
               orElse: () => null);
