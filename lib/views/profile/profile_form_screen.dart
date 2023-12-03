@@ -6,7 +6,6 @@ class ProfileFormScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ProfileController());
     return GetBuilder<ProfileController>(
       init: ProfileController(),
       builder: (s) => Scaffold(

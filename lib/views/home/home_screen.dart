@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin {
   String curentDate = () {
     final now = DateTime.now();
     final d = now.day.toString().padLeft(2, '0');
@@ -57,6 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
@@ -321,6 +322,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
 
 class _Toolbar extends StatelessWidget {

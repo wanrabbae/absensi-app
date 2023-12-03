@@ -1,6 +1,12 @@
 import 'package:app/global_resource.dart';
 
+final ProfileController _controller = ProfileController._();
+
 class ProfileController extends GetxController {
+  ProfileController._();
+
+  factory ProfileController() => _controller;
+
   //Global
   final box = GetStorage();
   List? perusahaanList;

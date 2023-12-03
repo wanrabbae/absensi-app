@@ -12,11 +12,12 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveClientMixin {
   final _pageViewController = PageController();
 
   @override
   void initState() {
+    Get.put(ProfileController());
     super.initState();
   }
 
@@ -28,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ProfileController());
+    super.build(context);
     return GetBuilder<ProfileController>(
       init: ProfileController(),
       builder: (s) => Scaffold(
@@ -301,4 +302,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       context.read<AppCubit>().setAllowLocationAlwaysPermission(value);
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }
