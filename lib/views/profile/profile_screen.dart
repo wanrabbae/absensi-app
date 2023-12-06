@@ -77,49 +77,49 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      child: Text(
-                        "Setelan",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    menuProfile(
-                      context,
-                      "Deteksi Lokasi",
-                      FeatherIcons.mapPin,
-                      onTap: () => _requestLocationAlways(
-                        !context
-                            .read<AppCubit>()
-                            .state
-                            .allowLocationAlwaysPermission,
-                      ),
-                      trailing: BlocBuilder<AppCubit, AppState>(
-                        buildWhen: (previous, current) =>
-                            previous.allowLocationAlwaysPermission !=
-                            current.allowLocationAlwaysPermission,
-                        builder: (context, state) {
-                          final enabled = state.allowLocationAlwaysPermission;
-                          final child = Switch(
-                            value: enabled,
-                            activeTrackColor: colorGreenPrimary,
-                            activeColor: Colors.white,
-                            inactiveThumbColor: colorGreenPrimary,
-                            inactiveTrackColor: Colors.white,
-                            trackOutlineColor: const MaterialStatePropertyAll(colorGreenPrimary),
-                            onChanged: _requestLocationAlways,
-                          );
-
-                          return SizedBox(
-                            height: 24,
-                            child: FittedBox(child: child),
-                          );
-                        },
-                      ),
-                    ),
+                    // const Padding(
+                    //   padding: EdgeInsets.only(left: 20, right: 20),
+                    //   child: Text(
+                    //     "Setelan",
+                    //     style: TextStyle(
+                    //       fontSize: 16,
+                    //       fontWeight: FontWeight.bold,
+                    //     ),
+                    //   ),
+                    // ),
+                    // menuProfile(
+                    //   context,
+                    //   "Deteksi Lokasi",
+                    //   FeatherIcons.mapPin,
+                    //   onTap: () => _requestLocationAlways(
+                    //     !context
+                    //         .read<AppCubit>()
+                    //         .state
+                    //         .allowLocationAlwaysPermission,
+                    //   ),
+                    //   trailing: BlocBuilder<AppCubit, AppState>(
+                    //     buildWhen: (previous, current) =>
+                    //         previous.allowLocationAlwaysPermission !=
+                    //         current.allowLocationAlwaysPermission,
+                    //     builder: (context, state) {
+                    //       final enabled = state.allowLocationAlwaysPermission;
+                    //       final child = Switch(
+                    //         value: enabled,
+                    //         activeTrackColor: colorGreenPrimary,
+                    //         activeColor: Colors.white,
+                    //         inactiveThumbColor: colorGreenPrimary,
+                    //         inactiveTrackColor: Colors.white,
+                    //         trackOutlineColor: const MaterialStatePropertyAll(colorGreenPrimary),
+                    //         onChanged: _requestLocationAlways,
+                    //       );
+                    //
+                    //       return SizedBox(
+                    //         height: 24,
+                    //         child: FittedBox(child: child),
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
                     const Padding(
                       padding: EdgeInsets.only(
                         left: 20,
@@ -259,49 +259,49 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
     );
   }
 
-  _requestLocationAlways(bool value) {
-    if (value) {
-      showConfirmationDialog(
-        context,
-        'Deteksi Lokasi',
-        'Anda mengizinkan Hora untuk selalu mendeteksi lokasi?',
-      ).then((confirmed) {
-        if (confirmed == true) {
-          Permission.locationWhenInUse.request().then((status) {
-            final granted = status == PermissionStatus.granted;
-            if (granted) {
-              Permission.locationAlways.request().then((status) {
-                if (status == PermissionStatus.permanentlyDenied) {
-                  if (Platform.isAndroid) {
-                    showConfirmationDialog(
-                      context,
-                      'Ijin Belum Diberikan',
-                      'Buka setelah aplikasi dan izinkan Hora untuk selalu mendeteksi lokasi?',
-                    ).then((confirmed) {
-                      if (confirmed == true) {
-                        openAppSettings();
-                        context
-                            .read<AppCubit>()
-                            .setAllowLocationAlwaysPermission(value);
-                      }
-                    });
-                  }
-                } else if (status == PermissionStatus.granted) {
-                  customSnackbar1('Deteksi akan dilakukan secara real time');
-                  context.read<AppCubit>()
-                    ..setAllowLocationAlwaysPermission(value)
-                    ..runRealtimeServices();
-                }
-              });
-            }
-          });
-        }
-      });
-    } else {
-      customSnackbar1('Deteksi secara real time telah dinonaktifkan');
-      context.read<AppCubit>().setAllowLocationAlwaysPermission(value);
-    }
-  }
+  // _requestLocationAlways(bool value) {
+  //   if (value) {
+  //     showConfirmationDialog(
+  //       context,
+  //       'Deteksi Lokasi',
+  //       'Anda mengizinkan Hora untuk selalu mendeteksi lokasi?',
+  //     ).then((confirmed) {
+  //       if (confirmed == true) {
+  //         Permission.locationWhenInUse.request().then((status) {
+  //           final granted = status == PermissionStatus.granted;
+  //           if (granted) {
+  //             Permission.locationAlways.request().then((status) {
+  //               if (status == PermissionStatus.permanentlyDenied) {
+  //                 if (Platform.isAndroid) {
+  //                   showConfirmationDialog(
+  //                     context,
+  //                     'Ijin Belum Diberikan',
+  //                     'Buka setelah aplikasi dan izinkan Hora untuk selalu mendeteksi lokasi?',
+  //                   ).then((confirmed) {
+  //                     if (confirmed == true) {
+  //                       openAppSettings();
+  //                       context
+  //                           .read<AppCubit>()
+  //                           .setAllowLocationAlwaysPermission(value);
+  //                     }
+  //                   });
+  //                 }
+  //               } else if (status == PermissionStatus.granted) {
+  //                 customSnackbar1('Deteksi akan dilakukan secara real time');
+  //                 context.read<AppCubit>()
+  //                   ..setAllowLocationAlwaysPermission(value)
+  //                   ..runRealtimeServices();
+  //               }
+  //             });
+  //           }
+  //         });
+  //       }
+  //     });
+  //   } else {
+  //     customSnackbar1('Deteksi secara real time telah dinonaktifkan');
+  //     context.read<AppCubit>().setAllowLocationAlwaysPermission(value);
+  //   }
+  // }
 
   @override
   bool get wantKeepAlive => true;

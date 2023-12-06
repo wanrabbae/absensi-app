@@ -11,16 +11,16 @@ import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/helpers/base.dart';
 import 'package:app/helpers/constant.dart';
-import 'package:app/helpers/debouncer.dart';
+// import 'package:app/helpers/debouncer.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:app/services/push_notification_service.dart';
-import 'package:background_location/background_location.dart' as bg;
+// import 'package:background_location/background_location.dart' as bg;
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:permission_handler/permission_handler.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 part 'app_cubit.freezed.dart';
 
@@ -42,7 +42,7 @@ class AppCubit extends HydratedCubit<AppState> {
   final GetStorage box;
   final FirebaseService firebaseService;
   final PushNotificationService pushNotificationService;
-  final _deBouncer = DeBouncer(delay: const Duration(milliseconds: 1000));
+  // final _deBouncer = DeBouncer(delay: const Duration(milliseconds: 1000));
   StreamSubscription<String>? _streamSubscriptionToken;
   Timer? _liveTrackingTimer;
 
@@ -144,7 +144,7 @@ class AppCubit extends HydratedCubit<AppState> {
   clearToken() {
     AwesomeNotificationService().removeNotification();
     emit(const AppState());
-    bg.BackgroundLocation.stopLocationService();
+    // bg.BackgroundLocation.stopLocationService();
     final userId = state.currentUser?.idkaryawan;
     if (userId == null) return;
     firebaseService.setToken(userId: userId).then((value) {});
@@ -302,24 +302,24 @@ class AppCubit extends HydratedCubit<AppState> {
   }
 
   void getAllowLocationAlwaysPermission() {
-    Permission.locationWhenInUse.status.then((status) {
-      final granted = status == PermissionStatus.granted;
-      if (granted) {
-        Permission.locationAlways.status.then((status) {
-          if (state.allowLocationAlwaysPermission) {
-            if (status == PermissionStatus.granted) {
-              runRealtimeServices();
-            } else {
-              emit(state.copyWith(allowLocationAlwaysPermission: false));
-            }
-          }
-        });
-      } else {
-        if (state.allowLocationAlwaysPermission) {
-          emit(state.copyWith(allowLocationAlwaysPermission: false));
-        }
-      }
-    });
+    // Permission.locationWhenInUse.status.then((status) {
+    //   final granted = status == PermissionStatus.granted;
+    //   if (granted) {
+    //     Permission.locationAlways.status.then((status) {
+    //       if (state.allowLocationAlwaysPermission) {
+    //         if (status == PermissionStatus.granted) {
+    //           runRealtimeServices();
+    //         } else {
+    //           emit(state.copyWith(allowLocationAlwaysPermission: false));
+    //         }
+    //       }
+    //     });
+    //   } else {
+    //     if (state.allowLocationAlwaysPermission) {
+    //       emit(state.copyWith(allowLocationAlwaysPermission: false));
+    //     }
+    //   }
+    // });
   }
 
   void setAllowLocationAlwaysPermission(bool allowLocationAlwaysPermission) {
@@ -328,39 +328,39 @@ class AppCubit extends HydratedCubit<AppState> {
     ));
   }
 
-  runRealtimeServices() async {
-    final fgLocGranted = await Permission.locationWhenInUse.isGranted;
-    if (!fgLocGranted) {
-      return;
-    }
-    final bgLocGranted = await Permission.locationAlways.isGranted;
-    if (!bgLocGranted) {
-      final status = await Permission.locationAlways.request();
-      if (!status.isGranted) {
-        return;
-      }
-    }
-    await bg.BackgroundLocation.setAndroidNotification(
-      title: "Sedang mendeteksi lokasi di latar belakang",
-      message: "Diharapkan untuk tetap membuka aplikasi Hora",
-      icon: "@mipmap/ic_launcher",
-    );
-    await bg.BackgroundLocation.setAndroidConfiguration(
-      kDebugMode ? (5 * 1000) : (5 * 60 * 1000),
-    );
-    await bg.BackgroundLocation.startLocationService(
-      distanceFilter: kDebugMode ? 0 : 5,
-    );
-    bg.BackgroundLocation.getLocationUpdates((bg.Location location) {
-      _deBouncer.call(() {
-        if (!isClosed &&
-            location.latitude != null &&
-            location.longitude != null) {
-          updateLiveTrackingList(location.latitude!, location.longitude!);
-        }
-      });
-    });
-  }
+  // runRealtimeServices() async {
+  //   final fgLocGranted = await Permission.locationWhenInUse.isGranted;
+  //   if (!fgLocGranted) {
+  //     return;
+  //   }
+  //   final bgLocGranted = await Permission.locationAlways.isGranted;
+  //   if (!bgLocGranted) {
+  //     final status = await Permission.locationAlways.request();
+  //     if (!status.isGranted) {
+  //       return;
+  //     }
+  //   }
+  //   await bg.BackgroundLocation.setAndroidNotification(
+  //     title: "Sedang mendeteksi lokasi di latar belakang",
+  //     message: "Diharapkan untuk tetap membuka aplikasi Hora",
+  //     icon: "@mipmap/ic_launcher",
+  //   );
+  //   await bg.BackgroundLocation.setAndroidConfiguration(
+  //     kDebugMode ? (5 * 1000) : (5 * 60 * 1000),
+  //   );
+  //   await bg.BackgroundLocation.startLocationService(
+  //     distanceFilter: kDebugMode ? 0 : 5,
+  //   );
+  //   bg.BackgroundLocation.getLocationUpdates((bg.Location location) {
+  //     _deBouncer.call(() {
+  //       if (!isClosed &&
+  //           location.latitude != null &&
+  //           location.longitude != null) {
+  //         updateLiveTrackingList(location.latitude!, location.longitude!);
+  //       }
+  //     });
+  //   });
+  // }
 
   @override
   AppState? fromJson(Map<String, dynamic> json) {
@@ -380,7 +380,7 @@ class AppCubit extends HydratedCubit<AppState> {
   Future<void> close() {
     _streamSubscriptionToken?.cancel();
     _liveTrackingTimer?.cancel();
-    bg.BackgroundLocation.stopLocationService();
+    // bg.BackgroundLocation.stopLocationService();
 
     return super.close();
   }
