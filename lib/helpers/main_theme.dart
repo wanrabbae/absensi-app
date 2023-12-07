@@ -274,27 +274,74 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     ).then((approve) {
       if (approve == null) return;
 
-      customSnackbar1(
-        approve ? 'Menerima permintaan lokasi' : 'Menolak permintaan lokasi',
-      );
-
       if (approve) {
-        Geolocator.getCurrentPosition().then((Position position) {
-          context.read<AppCubit>().setLiveTracking(
-                broadcasterId,
-                listenerId,
-                approve,
-                position.latitude,
-                position.longitude,
-              );
+        Permission.location.serviceStatus.isEnabled.then((locationEnabled) {
+          // if location service is enabled
+          if (locationEnabled) {
+            Permission.location.status.then((permissionStatus) {
+              Future<void> getCurrentLocation() {
+                customSnackbar1('Menerima permintaan lokasi');
+                return Geolocator.getCurrentPosition()
+                    .then((Position position) {
+                  context.read<AppCubit>().setLiveTracking(
+                        broadcasterId,
+                        listenerId,
+                        approve,
+                        position.latitude,
+                        position.longitude,
+                      );
+                });
+              }
+
+              switch (permissionStatus) {
+                case PermissionStatus.denied:
+                  Permission.location.request().isGranted.then((granted) {
+                    // if location permission status is granted
+                    if (granted) {
+                      getCurrentLocation();
+                      return;
+                    }
+
+                    customSnackbar1('Ijin penggunaan lokasi ditolak');
+                  });
+                  break;
+                case PermissionStatus.granted:
+                  getCurrentLocation();
+                  break;
+                case PermissionStatus.restricted:
+                  customSnackbar1('Ijin penggunaan lokasi telah dibatasi');
+                  break;
+                case PermissionStatus.limited:
+                  customSnackbar1(
+                    'Ijin penggunaan lokasi telah ditolak permanen',
+                  );
+                  break;
+                case PermissionStatus.permanentlyDenied:
+                  customSnackbar1(
+                    'Ijin penggunaan lokasi telah ditolak permanen',
+                  );
+                  break;
+                case PermissionStatus.provisional:
+                  customSnackbar1(
+                    'Ijin penggunaan lokasi telah dibatasi untuk sementara',
+                  );
+                  break;
+              }
+            });
+            return;
+          }
+
+          customSnackbar1('Servis lokasi sedang tidak aktif!');
         });
-      } else {
-        context.read<AppCubit>().setLiveTracking(
-              broadcasterId,
-              listenerId,
-              approve,
-            );
+        return;
       }
+
+      customSnackbar1('Menolak permintaan lokasi');
+      context.read<AppCubit>().setLiveTracking(
+            broadcasterId,
+            listenerId,
+            approve,
+          );
     });
   }
 
