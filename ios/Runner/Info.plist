@@ -33,11 +33,11 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Aplikasi Hora memerlukan akses kamera untuk mengambil foto/selfie untuk keperluan data absensi.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Aplikasi Hora memerlukan akses lokasi secara realtime untuk keperluan data absensi dan tracking.</string>
+	<string>Aplikasi Hora memerlukan akses lokasi untuk keperluan data absensi.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Aplikasi Hora memerlukan akses lokasi secara realtime untuk keperluan data absensi dan tracking.</string>
+	<string>Aplikasi Hora memerlukan akses lokasi secara realtime untuk keperluan data absensi.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Aplikasi Hora memerlukan akses lokasi ketika aktif untuk keperluan data absensi dan tracking.</string>
+	<string>Aplikasi Hora memerlukan akses lokasi ketika aktif untuk keperluan data absensi.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Aplikasi Hora memerlukan akses foto galeri untuk keperluan upload foto profil, keperluan data absensi dan screenshot.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

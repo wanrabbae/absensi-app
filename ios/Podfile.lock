@@ -1,6 +1,4 @@
 PODS:
-  - background_location (0.0.1):
-    - Flutter
   - cloud_firestore (4.12.2):
     - Firebase/Firestore (= 10.16.0)
     - firebase_core
@@ -153,7 +151,6 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
-  - background_location (from `.symlinks/plugins/background_location/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - downloads_path_provider_28 (from `.symlinks/plugins/downloads_path_provider_28/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
@@ -193,8 +190,6 @@ SPEC REPOS:
     - SwiftyGif
 
 EXTERNAL SOURCES:
-  background_location:
-    :path: ".symlinks/plugins/background_location/ios"
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
   downloads_path_provider_28:
@@ -243,7 +238,6 @@ CHECKOUT OPTIONS:
     :tag: 10.16.0
 
 SPEC CHECKSUMS:
-  background_location: 1b80c1fe3abd9912bca298618f6e365abf6f588f
   cloud_firestore: 8adb36c2bc754352c717984153ecd7e6c6898047
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac
   DKPhotoGallery: fdfad5125a9fdda9cc57df834d49df790dbb4179
