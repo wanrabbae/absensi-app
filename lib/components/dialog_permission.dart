@@ -123,7 +123,7 @@ class DialogPermission extends HookConsumerWidget {
                       ),
                       onPressed: _handlePermission,
                       child: const Text(
-                        "Izinkan",
+                        "Lanjutkan",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
