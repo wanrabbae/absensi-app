@@ -1,6 +1,4 @@
 import 'package:app/global_resource.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class DialogPermission extends HookConsumerWidget {
   const DialogPermission({Key? key}) : super(key: key);
@@ -24,8 +22,11 @@ class DialogPermission extends HookConsumerWidget {
                     children: [
                       Align(
                         alignment: Alignment.topLeft,
-                        child: ovalCardIcon(context, FeatherIcons.x,
-                            onTaped: () => Get.back()),
+                        child: ovalCardIcon(
+                          context,
+                          FeatherIcons.x,
+                          onTaped: () => Get.back(),
+                        ),
                       ),
                     ],
                   ),
@@ -35,14 +36,13 @@ class DialogPermission extends HookConsumerWidget {
                   child: Text(
                     "Perizinan perangkat",
                     style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16,
-                        color: Color.fromRGBO(51, 51, 51, 1)),
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      color: Color.fromRGBO(51, 51, 51, 1),
+                    ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.center,
                   child: Image.asset(
@@ -51,128 +51,88 @@ class DialogPermission extends HookConsumerWidget {
                     height: 55,
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   "Anda diperlukan untuk memberikan izin: ",
                   style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      color: Color.fromRGBO(51, 51, 51, 1)),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    color: Color.fromRGBO(51, 51, 51, 1),
+                  ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Row(
+                const SizedBox(height: 20),
+                const Row(
                   children: [
-                    Icon(
-                      FeatherIcons.camera,
-                      size: 17,
+                    Icon(FeatherIcons.camera, size: 17),
+                    SizedBox(width: 10),
+                    Text(
+                      "Kamera",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    const Text("Kamera",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color: Colors.black)),
                   ],
                 ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
+                const SizedBox(height: 5),
+                const Row(
                   children: [
-                    Icon(
-                      FeatherIcons.mapPin,
-                      size: 17,
+                    Icon(FeatherIcons.mapPin, size: 17),
+                    SizedBox(width: 10),
+                    Text(
+                      "Lokasi",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    const Text("Lokasi",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color: Colors.black)),
                   ],
                 ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
+                const SizedBox(height: 5),
+                const Row(
                   children: [
-                    Icon(
-                      FeatherIcons.folder,
-                      size: 17,
+                    Icon(FeatherIcons.folder, size: 17),
+                    SizedBox(width: 10),
+                    Text(
+                      "Penyimpanan",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    const Text("Penyimpanan",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 16,
-                            color: Colors.black)),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Align(
-                    alignment: Alignment.bottomCenter,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 40,
-                      child: ElevatedButton(
-                        style: const ButtonStyle(
-                            backgroundColor:
-                                MaterialStatePropertyAll(colorBluePrimary),
-                            shape: MaterialStatePropertyAll(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(20))))),
-                        onPressed: () async {
-                          Map<Permission, PermissionStatus> statuses = await [
-                            Permission.camera,
-                            Permission.location,
-                            // Permission.storage,
-                          ].request();
-                          print(statuses);
-                          if (statuses[Permission.camera] ==
-                                  PermissionStatus.granted &&
-                              statuses[Permission.location] ==
-                                  PermissionStatus.granted) {
-                            print("KE THEN DIALOG PERMISSION");
-                            Get.back();
-                            Get.toNamed(RouteName.absen);
-                          } else if (statuses[Permission.camera] ==
-                                  PermissionStatus.permanentlyDenied &&
-                              statuses[Permission.location] ==
-                                  PermissionStatus.permanentlyDenied) {
-                            print("KE ELSE IF DIALOG PERMISSION");
-                            Get.back();
-                            if (Platform.isIOS) {
-                              Get.toNamed(RouteName.absen);
-                            }
-                            // openAppSettings();
-                            // await Permission.location.request();
-                          } else if (Platform.isIOS) {
-                            Get.back();
-                            Get.toNamed(RouteName.absen);
-                          }
-                        },
-                        child: const Text(
-                          "Izinkan",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white),
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 40,
+                    child: ElevatedButton(
+                      style: const ButtonStyle(
+                        backgroundColor:
+                            MaterialStatePropertyAll(colorBluePrimary),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
                         ),
                       ),
-                    ))
+                      onPressed: _handlePermission,
+                      child: const Text(
+                        "Lanjutkan",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -180,11 +140,44 @@ class DialogPermission extends HookConsumerWidget {
       ],
     );
   }
+
+  _handlePermission() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.camera,
+      Permission.location,
+    ].request();
+
+    if (statuses[Permission.camera] == PermissionStatus.granted &&
+        statuses[Permission.location] == PermissionStatus.granted) {
+      Get.back();
+      Get.toNamed(RouteName.absen);
+      return;
+    }
+
+    if (statuses[Permission.camera] == PermissionStatus.permanentlyDenied &&
+        statuses[Permission.location] == PermissionStatus.permanentlyDenied) {
+      Get.back();
+      if (Platform.isIOS) {
+        Get.toNamed(RouteName.absen);
+      }
+      return;
+    }
+
+    if (Platform.isIOS) {
+      Get.back();
+      Get.toNamed(RouteName.absen);
+    }
+  }
 }
 
 class DialogPresensi extends HookConsumerWidget {
-  var dataPresensi, isHadir;
-  DialogPresensi({@required this.dataPresensi, @required this.isHadir});
+  final dynamic dataPresensi, isHadir;
+
+  const DialogPresensi({
+    super.key,
+    required this.dataPresensi,
+    required this.isHadir,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -226,7 +219,7 @@ class DialogPresensi extends HookConsumerWidget {
               scrollDirection: Axis.vertical,
               // shrinkWrap: true,
               children: [
-                Text(
+                const Text(
                   "Tanggal",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
@@ -236,8 +229,9 @@ class DialogPresensi extends HookConsumerWidget {
                       ? changeFormatDate(5, dataPresensi["tanggalAbsensi"])
                       : changeFormatDate(5, dataPresensi["tanggalCuti"]),
                   keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  decoration: InputDecoration(
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                  decoration: const InputDecoration(
                     hintText: "Ketikkan disini",
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black, width: 1)),
@@ -249,7 +243,7 @@ class DialogPresensi extends HookConsumerWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   "Status",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
@@ -269,7 +263,7 @@ class DialogPresensi extends HookConsumerWidget {
                               ? Colors.green
                               : null
                           : null),
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: "Ketikkan disini",
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black, width: 1)),
@@ -281,7 +275,7 @@ class DialogPresensi extends HookConsumerWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   "Hadir",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
@@ -294,8 +288,9 @@ class DialogPresensi extends HookConsumerWidget {
                           : "-"
                       : "-",
                   keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  decoration: InputDecoration(
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                  decoration: const InputDecoration(
                     hintText: "Ketikkan disini",
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black, width: 1)),
@@ -307,7 +302,7 @@ class DialogPresensi extends HookConsumerWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   "Pulang",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
@@ -320,8 +315,9 @@ class DialogPresensi extends HookConsumerWidget {
                           : "-"
                       : "-",
                   keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  decoration: InputDecoration(
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                  decoration: const InputDecoration(
                     hintText: "Ketikkan disini",
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black, width: 1)),
@@ -333,7 +329,7 @@ class DialogPresensi extends HookConsumerWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
+                const Text(
                   "Izin",
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 ),
@@ -343,8 +339,9 @@ class DialogPresensi extends HookConsumerWidget {
                       ? "-"
                       : getTimeFullFromDatetime(dataPresensi?["tanggalAkhir"]),
                   keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  decoration: InputDecoration(
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                  decoration: const InputDecoration(
                     hintText: "Ketikkan disini",
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.black, width: 1)),

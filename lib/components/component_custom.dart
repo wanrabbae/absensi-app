@@ -36,18 +36,20 @@ Widget customHeaderAuth2(BuildContext context, String title, String subTitle) {
         Text(
           title,
           style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w800,
-              fontSize: 24,
-              letterSpacing: 1.5),
+            color: Colors.white,
+            fontWeight: FontWeight.w700,
+            fontSize: 24,
+            letterSpacing: 1.5,
+          ),
         ),
+        const SizedBox(height: 10),
         Text(
           subTitle,
           style: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.w500,
-              // color: Color.fromRGBO(33, 33, 33, 80),
-              fontSize: 20.0),
+            color: Colors.white,
+            fontWeight: FontWeight.w500,
+            fontSize: 20.0,
+          ),
         )
       ],
     ),
@@ -59,137 +61,157 @@ Widget customTextRich(BuildContext context, String text1, String text2,
   return SizedBox(
     width: MediaQuery.of(context).size.width,
     child: Center(
-      child: RichText(
-          text: TextSpan(
-              text: text1,
-              style: const TextStyle(
-                  color: Colors.black, fontWeight: FontWeight.w500),
-              children: [
+      child: Text.rich(
+        TextSpan(
+          text: text1,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.w500,
+          ),
+          children: [
             TextSpan(
-                text: text2,
-                style: const TextStyle(color: Colors.blue),
-                recognizer: TapGestureRecognizer()..onTap = onTextClicked)
-          ])),
+              text: text2,
+              style: const TextStyle(color: Colors.blue),
+              recognizer: TapGestureRecognizer()..onTap = onTextClicked,
+            ),
+          ],
+        ),
+      ),
     ),
   );
 }
 
 Widget customTextRich2(BuildContext context, String text1, String text2) {
-  return RichText(
-      text: TextSpan(
-          text: text1,
-          style: const TextStyle(
-              fontWeight: FontWeight.w300, fontSize: 16, color: Colors.black),
-          children: [
+  return Text.rich(
+    TextSpan(
+      text: text1,
+      style: const TextStyle(
+        fontWeight: FontWeight.w300,
+        fontSize: 16,
+        color: Colors.black,
+      ),
+      children: [
         TextSpan(
-            text: text2,
-            style: const TextStyle(
-                fontWeight: FontWeight.w300, fontSize: 16, color: Colors.black))
-      ]));
+          text: text2,
+          style: const TextStyle(
+            fontWeight: FontWeight.w300,
+            fontSize: 16,
+            color: Colors.black,
+          ),
+        )
+      ],
+    ),
+  );
 }
 
 Widget customTextRichWithLink(
   BuildContext context,
   String text1,
 ) {
-  return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: text1,
+  return Text.rich(
+    textAlign: TextAlign.center,
+    TextSpan(
+      text: text1,
+      style: TextStyle(
+        fontWeight: FontWeight.w500,
+        color: Colors.grey.shade500,
+      ),
+      children: [
+        TextSpan(
+          text: "Kebijakan Hora ",
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            // fontSize: 16,
+            color: colorBluePrimary2,
+            // decoration: TextDecoration.underline,
+          ),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              Get.toNamed(RouteName.webview,
+                  arguments: "https://docs.horaapp.id/#kebijakan");
+            },
+        ),
+        TextSpan(
+          text: "dan ",
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontFamily: 'Rubik',
+            // fontSize: 16,
             color: Colors.grey.shade500,
+            // decoration: TextDecoration.underline,
           ),
-          children: [
-            TextSpan(
-                text: "Kebijakan Hora ",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  // fontSize: 16,
-                  color: colorBluePrimary2,
-                  // decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    Get.toNamed(RouteName.webview,
-                        arguments: "https://docs.horaapp.id/#kebijakan");
-                  }),
-            TextSpan(
-              text: "dan ",
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                // fontSize: 16,
-                color: Colors.grey.shade500,
-                // decoration: TextDecoration.underline,
-              ),
-            ),
-            TextSpan(
-                text: "Privasi Pengguna",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  // fontSize: 16,
-                  color: colorBluePrimary2,
-                  // decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    Get.toNamed(RouteName.webview,
-                        arguments: "https://docs.horaapp.id/#privasi");
-                  }),
-          ]));
+        ),
+        TextSpan(
+          text: "Privasi Pengguna",
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            // fontSize: 16,
+            color: colorBluePrimary2,
+            // decoration: TextDecoration.underline,
+          ),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              Get.toNamed(RouteName.webview,
+                  arguments: "https://docs.horaapp.id/#privasi");
+            },
+        ),
+      ],
+    ),
+  );
 }
 
 Widget customTextRichWithLink2(
   BuildContext context,
   String text1,
 ) {
-  return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: text1,
+  return Text.rich(
+    textAlign: TextAlign.center,
+    TextSpan(
+      text: text1,
+      style: TextStyle(
+        fontWeight: FontWeight.w500,
+        color: Colors.grey.shade500,
+      ),
+      children: [
+        TextSpan(
+          text: "Kebijakan Hora ",
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            // fontSize: 16,
+            color: Colors.black,
+            // decoration: TextDecoration.underline,
+          ),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              Get.toNamed(RouteName.webview,
+                  arguments: "https://docs.horaapp.id/#kebijakan");
+            },
+        ),
+        TextSpan(
+          text: "dan ",
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontFamily: 'Rubik',
+            // fontSize: 16,
             color: Colors.grey.shade500,
+            // decoration: TextDecoration.underline,
           ),
-          children: [
-            TextSpan(
-                text: "Kebijakan Hora ",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  // fontSize: 16,
-                  color: Colors.black,
-                  // decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    Get.toNamed(RouteName.webview,
-                        arguments: "https://docs.horaapp.id/#kebijakan");
-                  }),
-            TextSpan(
-              text: "dan ",
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                // fontSize: 16,
-                color: Colors.grey.shade500,
-                // decoration: TextDecoration.underline,
-              ),
-            ),
-            TextSpan(
-                text: "Privasi Pengguna",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  // fontSize: 16,
-                  color: colorBluePrimary2,
-                  // decoration: TextDecoration.underline,
-                ),
-                recognizer: TapGestureRecognizer()
-                  ..onTap = () {
-                    Get.toNamed(RouteName.webview,
-                        arguments: "https://docs.horaapp.id/#privasi");
-                  }),
-          ]));
+        ),
+        TextSpan(
+          text: "Privasi Pengguna",
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            // fontSize: 16,
+            color: colorBluePrimary2,
+            // decoration: TextDecoration.underline,
+          ),
+          recognizer: TapGestureRecognizer()
+            ..onTap = () {
+              Get.toNamed(RouteName.webview,
+                  arguments: "https://docs.horaapp.id/#privasi");
+            },
+        ),
+      ],
+    ),
+  );
 }
 
 Widget buttonGreen(String title, {VoidCallback? onTap}) {
@@ -214,28 +236,57 @@ Widget buttonGreen(String title, {VoidCallback? onTap}) {
   );
 }
 
+Widget buttonBlue(String title, {VoidCallback? onTap}) {
+  return Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: ElevatedButton(
+      onPressed: onTap,
+      style: ButtonStyle(
+        backgroundColor: const MaterialStatePropertyAll<Color>(
+          colorBluePrimary,
+        ),
+        shape: MaterialStatePropertyAll<OutlinedBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 Widget buttonWhite(String title, {VoidCallback? onTap}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: ElevatedButton(
-        onPressed: onTap,
-        style: ButtonStyle(
-            backgroundColor:
-                const MaterialStatePropertyAll<Color>(Colors.white),
-            shape: MaterialStatePropertyAll<OutlinedBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)))),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(
-            title,
-            style: const TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Rubik'),
+      onPressed: onTap,
+      style: ButtonStyle(
+        backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
+        shape: MaterialStatePropertyAll<OutlinedBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
           ),
-        )),
+        ),
+      ),
+    ),
   );
 }
 
@@ -297,13 +348,13 @@ customSnackbar1(message) {
   Get.rawSnackbar(
       messageText: Text(
         message ?? "Success action",
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
       ),
       snackPosition: SnackPosition.TOP,
       borderRadius: 20,
-      padding: EdgeInsets.all(25),
-      margin: EdgeInsets.symmetric(horizontal: 20));
+      padding: const EdgeInsets.all(25),
+      margin: const EdgeInsets.symmetric(horizontal: 20));
 }
 
 loadingBar() {
@@ -326,14 +377,14 @@ customSnackbarLoading(message) {
   Get.rawSnackbar(
       messageText: Text(
         message ?? "Loading...",
-        style: TextStyle(
+        style: const TextStyle(
             fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
       ),
       snackPosition: SnackPosition.TOP,
       borderRadius: 20,
       isDismissible: false,
-      padding: EdgeInsets.all(25),
-      margin: EdgeInsets.symmetric(horizontal: 20));
+      padding: const EdgeInsets.all(25),
+      margin: const EdgeInsets.symmetric(horizontal: 20));
 }
 
 customSnackbarLoadingAsset(message, asset) {
@@ -365,19 +416,19 @@ Widget buildImageProfileBig(
         right: 1,
         child: Center(
           child: Container(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Icon(FeatherIcons.camera, color: Colors.white),
-              ),
-            ),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
                 Radius.circular(
                   50,
                 ),
               ),
               color: Colors.black,
+            ),
+            child: const Center(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Icon(FeatherIcons.camera, color: Colors.white),
+              ),
             ),
           ),
         ),
@@ -416,8 +467,8 @@ Widget buildImageBig(BuildContext context) {
 
 Widget buildImageSizeIcon(BuildContext context, String url) {
   return Container(
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     decoration: BoxDecoration(
         color: Colors.blue,
         image: DecorationImage(
@@ -445,23 +496,22 @@ Widget buildImageSizeIconNetwork(BuildContext context, String url, bool local) {
 }
 
 Widget buildImageList(BuildContext context, String url, bool local) {
-  print("LOCAL: " + local.toString());
   var img = local
       ? DecorationImage(
           image: AssetImage(url),
           onError: (exception, stackTrace) =>
-              AssetImage('assets/icons/logo/hora.png'),
+              const AssetImage('assets/icons/logo/hora.png'),
           fit: BoxFit.cover)
       : url.contains("pulang_horas.png")
           ? DecorationImage(
-              image: AssetImage('assets/icons/logo/hora.png'),
+              image: const AssetImage('assets/icons/logo/hora.png'),
               onError: (exception, stackTrace) =>
-                  AssetImage('assets/icons/logo/hora.png'),
+                  const AssetImage('assets/icons/logo/hora.png'),
               fit: BoxFit.cover)
           : DecorationImage(
               image: NetworkImage(url),
               onError: (exception, stackTrace) =>
-                  AssetImage('assets/icons/logo/hora.png'),
+                  const AssetImage('assets/icons/logo/hora.png'),
               fit: BoxFit.cover);
   return Container(
     width: 60,
@@ -485,7 +535,7 @@ Widget line(BuildContext context) {
 Widget line2(BuildContext context) {
   return Container(
     margin: const EdgeInsets.only(top: 5, bottom: 5),
-    color: Color.fromARGB(125, 135, 135, 135),
+    color: colorDivider,
     width: MediaQuery.of(context).size.width,
     height: 0.5,
   );

@@ -1,6 +1,4 @@
-import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
-import 'dart:math' as math;
 
 import 'package:flutter/services.dart';
 
@@ -16,51 +14,48 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
     ];
 
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Container(
-          // decoration: BoxDecoration(color: Colors.black),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'Surat Izin',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
-              ),
-              // Container(
-              //   padding: EdgeInsets.all(0),
-              //   child: IconButton(
-              //     icon: Icon(
-              //       FeatherIcons.download,
-              //       color: colorBluePrimary,
-              //     ),
-              //     onPressed: () {
-              //       customSnackbar1("Lampiran telah disimpan.");
-              //     },
-              //   ),
-              // ),
-            ],
-          ),
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Surat Izin',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+            ),
+            // Container(
+            //   padding: EdgeInsets.all(0),
+            //   child: IconButton(
+            //     icon: Icon(
+            //       FeatherIcons.download,
+            //       color: colorBluePrimary,
+            //     ),
+            //     onPressed: () {
+            //       customSnackbar1("Lampiran telah disimpan.");
+            //     },
+            //   ),
+            // ),
+          ],
         ),
         centerTitle: false,
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(FeatherIcons.arrowLeft),
+          icon: const Icon(FeatherIcons.arrowLeft),
           onPressed: () {
             Get.back();
           },
         ),
         actions: [
           Container(
-            padding: EdgeInsets.only(right: 6),
+            padding: const EdgeInsets.only(right: 6),
             child: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 FeatherIcons.download,
                 color: colorBluePrimary,
               ),
@@ -78,7 +73,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                   saveNetworkFile(changeUrlImage(Get.arguments?["dokumen"]));
                 } else {
                   saveNetworkFile(changeUrlImage(Get.arguments?["dokumen"]));
-                  print("FILE DOK YOYY");
+                  debugPrint("FILE DOK YOYY");
                 }
               },
             ),
@@ -102,7 +97,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Text(
+                    const Text(
                       "Nama",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -113,8 +108,8 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                           Get.arguments?["namaKaryawan"].toString() ?? "",
                       keyboardType: TextInputType.text,
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      decoration: InputDecoration(
+                          const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      decoration: const InputDecoration(
                         hintText: "Ketikkan disini",
                         enabledBorder: UnderlineInputBorder(
                             borderSide:
@@ -127,7 +122,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       "Lampiran (Harus terisi)",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -136,13 +131,13 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                       onTap: null,
                       readOnly: true,
                       style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       initialValue: Get.arguments?["dokumen"]
                               .toString()
                               .split("/")
                               .last ??
                           "",
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "File_surat_sakit.docx",
                         enabledBorder: UnderlineInputBorder(
                             borderSide:
@@ -155,7 +150,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                     const SizedBox(
                       height: 20,
                     ),
-                    Text(
+                    const Text(
                       "Alasan (Harus terisi)",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -170,7 +165,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                       child: Center(
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 FeatherIcons.chevronDown,
                                 size: 20,
                               ),
@@ -179,8 +174,7 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                               key: Key(Get.arguments?["ijin"] ?? "Izin"),
                               value: Get.arguments?["ijin"] ?? "Izin",
                               isExpanded: true,
-                              items: izinList!
-                                  .map<DropdownMenuItem<String>>(
+                              items: izinList.map<DropdownMenuItem<String>>(
                                       (value) => DropdownMenuItem<String>(
                                             value: value["value"].toString(),
                                             child: Text(
@@ -207,10 +201,10 @@ class AbsensiIzinDownloadedScreen extends StatelessWidget {
                         maxLength: null,
                         keyboardType: TextInputType.multiline,
                         maxLines: 15,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                         initialValue: Get.arguments?["keterangan"] ?? "",
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "Ketikkan disini",
                           enabledBorder: UnderlineInputBorder(
                               borderSide:

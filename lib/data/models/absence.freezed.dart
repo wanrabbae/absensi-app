@@ -20,17 +20,27 @@ Absence _$AbsenceFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Absence {
-  String? get name => throw _privateConstructorUsedError;
+  String? get idKaryawan => throw _privateConstructorUsedError;
+  String? get namaKaryawan => throw _privateConstructorUsedError;
+  DateTime? get tanggal => throw _privateConstructorUsedError;
+  DateTime? get waktuCheckIn => throw _privateConstructorUsedError;
+  DateTime? get waktuCheckOut => throw _privateConstructorUsedError;
+  String? get bluetoothID => throw _privateConstructorUsedError;
+  String? get alamatLongtitude => throw _privateConstructorUsedError;
+  String? get alamatLatitude => throw _privateConstructorUsedError;
+  String? get alamatLoc => throw _privateConstructorUsedError;
+  dynamic get telat => throw _privateConstructorUsedError;
   int? get id => throw _privateConstructorUsedError;
-  int? get companyId => throw _privateConstructorUsedError;
-  String? get companyName => throw _privateConstructorUsedError;
-  double? get locationLat => throw _privateConstructorUsedError;
-  double? get locationLng => throw _privateConstructorUsedError;
-  String? get locationName => throw _privateConstructorUsedError;
-  String? get checkInTime => throw _privateConstructorUsedError;
-  String? get checkOutTime => throw _privateConstructorUsedError;
-  String? get lastAbsenceRemark => throw _privateConstructorUsedError;
-  String? get photo => throw _privateConstructorUsedError;
+  String? get foto => throw _privateConstructorUsedError;
+  String? get fotoKaryawan => throw _privateConstructorUsedError;
+  String? get idPerusahaan => throw _privateConstructorUsedError;
+  String? get namaperusahaan => throw _privateConstructorUsedError;
+  DateTime? get tanggalAbsensi => throw _privateConstructorUsedError;
+  String? get fotoPulang => throw _privateConstructorUsedError;
+  String? get latitudePulang => throw _privateConstructorUsedError;
+  String? get longtitudePulang => throw _privateConstructorUsedError;
+  String? get durasi => throw _privateConstructorUsedError;
+  String? get alamatPulang => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,17 +53,27 @@ abstract class $AbsenceCopyWith<$Res> {
       _$AbsenceCopyWithImpl<$Res, Absence>;
   @useResult
   $Res call(
-      {String? name,
+      {String? idKaryawan,
+      String? namaKaryawan,
+      DateTime? tanggal,
+      DateTime? waktuCheckIn,
+      DateTime? waktuCheckOut,
+      String? bluetoothID,
+      String? alamatLongtitude,
+      String? alamatLatitude,
+      String? alamatLoc,
+      dynamic telat,
       int? id,
-      int? companyId,
-      String? companyName,
-      double? locationLat,
-      double? locationLng,
-      String? locationName,
-      String? checkInTime,
-      String? checkOutTime,
-      String? lastAbsenceRemark,
-      String? photo});
+      String? foto,
+      String? fotoKaryawan,
+      String? idPerusahaan,
+      String? namaperusahaan,
+      DateTime? tanggalAbsensi,
+      String? fotoPulang,
+      String? latitudePulang,
+      String? longtitudePulang,
+      String? durasi,
+      String? alamatPulang});
 }
 
 /// @nodoc
@@ -69,154 +89,265 @@ class _$AbsenceCopyWithImpl<$Res, $Val extends Absence>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? idKaryawan = freezed,
+    Object? namaKaryawan = freezed,
+    Object? tanggal = freezed,
+    Object? waktuCheckIn = freezed,
+    Object? waktuCheckOut = freezed,
+    Object? bluetoothID = freezed,
+    Object? alamatLongtitude = freezed,
+    Object? alamatLatitude = freezed,
+    Object? alamatLoc = freezed,
+    Object? telat = freezed,
     Object? id = freezed,
-    Object? companyId = freezed,
-    Object? companyName = freezed,
-    Object? locationLat = freezed,
-    Object? locationLng = freezed,
-    Object? locationName = freezed,
-    Object? checkInTime = freezed,
-    Object? checkOutTime = freezed,
-    Object? lastAbsenceRemark = freezed,
-    Object? photo = freezed,
+    Object? foto = freezed,
+    Object? fotoKaryawan = freezed,
+    Object? idPerusahaan = freezed,
+    Object? namaperusahaan = freezed,
+    Object? tanggalAbsensi = freezed,
+    Object? fotoPulang = freezed,
+    Object? latitudePulang = freezed,
+    Object? longtitudePulang = freezed,
+    Object? durasi = freezed,
+    Object? alamatPulang = freezed,
   }) {
     return _then(_value.copyWith(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      idKaryawan: freezed == idKaryawan
+          ? _value.idKaryawan
+          : idKaryawan // ignore: cast_nullable_to_non_nullable
               as String?,
+      namaKaryawan: freezed == namaKaryawan
+          ? _value.namaKaryawan
+          : namaKaryawan // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tanggal: freezed == tanggal
+          ? _value.tanggal
+          : tanggal // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      waktuCheckIn: freezed == waktuCheckIn
+          ? _value.waktuCheckIn
+          : waktuCheckIn // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      waktuCheckOut: freezed == waktuCheckOut
+          ? _value.waktuCheckOut
+          : waktuCheckOut // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      bluetoothID: freezed == bluetoothID
+          ? _value.bluetoothID
+          : bluetoothID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      alamatLongtitude: freezed == alamatLongtitude
+          ? _value.alamatLongtitude
+          : alamatLongtitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      alamatLatitude: freezed == alamatLatitude
+          ? _value.alamatLatitude
+          : alamatLatitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      alamatLoc: freezed == alamatLoc
+          ? _value.alamatLoc
+          : alamatLoc // ignore: cast_nullable_to_non_nullable
+              as String?,
+      telat: freezed == telat
+          ? _value.telat
+          : telat // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      companyId: freezed == companyId
-          ? _value.companyId
-          : companyId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      companyName: freezed == companyName
-          ? _value.companyName
-          : companyName // ignore: cast_nullable_to_non_nullable
+      foto: freezed == foto
+          ? _value.foto
+          : foto // ignore: cast_nullable_to_non_nullable
               as String?,
-      locationLat: freezed == locationLat
-          ? _value.locationLat
-          : locationLat // ignore: cast_nullable_to_non_nullable
-              as double?,
-      locationLng: freezed == locationLng
-          ? _value.locationLng
-          : locationLng // ignore: cast_nullable_to_non_nullable
-              as double?,
-      locationName: freezed == locationName
-          ? _value.locationName
-          : locationName // ignore: cast_nullable_to_non_nullable
+      fotoKaryawan: freezed == fotoKaryawan
+          ? _value.fotoKaryawan
+          : fotoKaryawan // ignore: cast_nullable_to_non_nullable
               as String?,
-      checkInTime: freezed == checkInTime
-          ? _value.checkInTime
-          : checkInTime // ignore: cast_nullable_to_non_nullable
+      idPerusahaan: freezed == idPerusahaan
+          ? _value.idPerusahaan
+          : idPerusahaan // ignore: cast_nullable_to_non_nullable
               as String?,
-      checkOutTime: freezed == checkOutTime
-          ? _value.checkOutTime
-          : checkOutTime // ignore: cast_nullable_to_non_nullable
+      namaperusahaan: freezed == namaperusahaan
+          ? _value.namaperusahaan
+          : namaperusahaan // ignore: cast_nullable_to_non_nullable
               as String?,
-      lastAbsenceRemark: freezed == lastAbsenceRemark
-          ? _value.lastAbsenceRemark
-          : lastAbsenceRemark // ignore: cast_nullable_to_non_nullable
+      tanggalAbsensi: freezed == tanggalAbsensi
+          ? _value.tanggalAbsensi
+          : tanggalAbsensi // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      fotoPulang: freezed == fotoPulang
+          ? _value.fotoPulang
+          : fotoPulang // ignore: cast_nullable_to_non_nullable
               as String?,
-      photo: freezed == photo
-          ? _value.photo
-          : photo // ignore: cast_nullable_to_non_nullable
+      latitudePulang: freezed == latitudePulang
+          ? _value.latitudePulang
+          : latitudePulang // ignore: cast_nullable_to_non_nullable
+              as String?,
+      longtitudePulang: freezed == longtitudePulang
+          ? _value.longtitudePulang
+          : longtitudePulang // ignore: cast_nullable_to_non_nullable
+              as String?,
+      durasi: freezed == durasi
+          ? _value.durasi
+          : durasi // ignore: cast_nullable_to_non_nullable
+              as String?,
+      alamatPulang: freezed == alamatPulang
+          ? _value.alamatPulang
+          : alamatPulang // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_AbsenceCopyWith<$Res> implements $AbsenceCopyWith<$Res> {
-  factory _$$_AbsenceCopyWith(
-          _$_Absence value, $Res Function(_$_Absence) then) =
-      __$$_AbsenceCopyWithImpl<$Res>;
+abstract class _$$AbsenceImplCopyWith<$Res> implements $AbsenceCopyWith<$Res> {
+  factory _$$AbsenceImplCopyWith(
+          _$AbsenceImpl value, $Res Function(_$AbsenceImpl) then) =
+      __$$AbsenceImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
-      {String? name,
+      {String? idKaryawan,
+      String? namaKaryawan,
+      DateTime? tanggal,
+      DateTime? waktuCheckIn,
+      DateTime? waktuCheckOut,
+      String? bluetoothID,
+      String? alamatLongtitude,
+      String? alamatLatitude,
+      String? alamatLoc,
+      dynamic telat,
       int? id,
-      int? companyId,
-      String? companyName,
-      double? locationLat,
-      double? locationLng,
-      String? locationName,
-      String? checkInTime,
-      String? checkOutTime,
-      String? lastAbsenceRemark,
-      String? photo});
+      String? foto,
+      String? fotoKaryawan,
+      String? idPerusahaan,
+      String? namaperusahaan,
+      DateTime? tanggalAbsensi,
+      String? fotoPulang,
+      String? latitudePulang,
+      String? longtitudePulang,
+      String? durasi,
+      String? alamatPulang});
 }
 
 /// @nodoc
-class __$$_AbsenceCopyWithImpl<$Res>
-    extends _$AbsenceCopyWithImpl<$Res, _$_Absence>
-    implements _$$_AbsenceCopyWith<$Res> {
-  __$$_AbsenceCopyWithImpl(_$_Absence _value, $Res Function(_$_Absence) _then)
+class __$$AbsenceImplCopyWithImpl<$Res>
+    extends _$AbsenceCopyWithImpl<$Res, _$AbsenceImpl>
+    implements _$$AbsenceImplCopyWith<$Res> {
+  __$$AbsenceImplCopyWithImpl(
+      _$AbsenceImpl _value, $Res Function(_$AbsenceImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
+    Object? idKaryawan = freezed,
+    Object? namaKaryawan = freezed,
+    Object? tanggal = freezed,
+    Object? waktuCheckIn = freezed,
+    Object? waktuCheckOut = freezed,
+    Object? bluetoothID = freezed,
+    Object? alamatLongtitude = freezed,
+    Object? alamatLatitude = freezed,
+    Object? alamatLoc = freezed,
+    Object? telat = freezed,
     Object? id = freezed,
-    Object? companyId = freezed,
-    Object? companyName = freezed,
-    Object? locationLat = freezed,
-    Object? locationLng = freezed,
-    Object? locationName = freezed,
-    Object? checkInTime = freezed,
-    Object? checkOutTime = freezed,
-    Object? lastAbsenceRemark = freezed,
-    Object? photo = freezed,
+    Object? foto = freezed,
+    Object? fotoKaryawan = freezed,
+    Object? idPerusahaan = freezed,
+    Object? namaperusahaan = freezed,
+    Object? tanggalAbsensi = freezed,
+    Object? fotoPulang = freezed,
+    Object? latitudePulang = freezed,
+    Object? longtitudePulang = freezed,
+    Object? durasi = freezed,
+    Object? alamatPulang = freezed,
   }) {
-    return _then(_$_Absence(
-      name: freezed == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+    return _then(_$AbsenceImpl(
+      idKaryawan: freezed == idKaryawan
+          ? _value.idKaryawan
+          : idKaryawan // ignore: cast_nullable_to_non_nullable
               as String?,
+      namaKaryawan: freezed == namaKaryawan
+          ? _value.namaKaryawan
+          : namaKaryawan // ignore: cast_nullable_to_non_nullable
+              as String?,
+      tanggal: freezed == tanggal
+          ? _value.tanggal
+          : tanggal // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      waktuCheckIn: freezed == waktuCheckIn
+          ? _value.waktuCheckIn
+          : waktuCheckIn // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      waktuCheckOut: freezed == waktuCheckOut
+          ? _value.waktuCheckOut
+          : waktuCheckOut // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      bluetoothID: freezed == bluetoothID
+          ? _value.bluetoothID
+          : bluetoothID // ignore: cast_nullable_to_non_nullable
+              as String?,
+      alamatLongtitude: freezed == alamatLongtitude
+          ? _value.alamatLongtitude
+          : alamatLongtitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      alamatLatitude: freezed == alamatLatitude
+          ? _value.alamatLatitude
+          : alamatLatitude // ignore: cast_nullable_to_non_nullable
+              as String?,
+      alamatLoc: freezed == alamatLoc
+          ? _value.alamatLoc
+          : alamatLoc // ignore: cast_nullable_to_non_nullable
+              as String?,
+      telat: freezed == telat
+          ? _value.telat
+          : telat // ignore: cast_nullable_to_non_nullable
+              as dynamic,
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      companyId: freezed == companyId
-          ? _value.companyId
-          : companyId // ignore: cast_nullable_to_non_nullable
-              as int?,
-      companyName: freezed == companyName
-          ? _value.companyName
-          : companyName // ignore: cast_nullable_to_non_nullable
+      foto: freezed == foto
+          ? _value.foto
+          : foto // ignore: cast_nullable_to_non_nullable
               as String?,
-      locationLat: freezed == locationLat
-          ? _value.locationLat
-          : locationLat // ignore: cast_nullable_to_non_nullable
-              as double?,
-      locationLng: freezed == locationLng
-          ? _value.locationLng
-          : locationLng // ignore: cast_nullable_to_non_nullable
-              as double?,
-      locationName: freezed == locationName
-          ? _value.locationName
-          : locationName // ignore: cast_nullable_to_non_nullable
+      fotoKaryawan: freezed == fotoKaryawan
+          ? _value.fotoKaryawan
+          : fotoKaryawan // ignore: cast_nullable_to_non_nullable
               as String?,
-      checkInTime: freezed == checkInTime
-          ? _value.checkInTime
-          : checkInTime // ignore: cast_nullable_to_non_nullable
+      idPerusahaan: freezed == idPerusahaan
+          ? _value.idPerusahaan
+          : idPerusahaan // ignore: cast_nullable_to_non_nullable
               as String?,
-      checkOutTime: freezed == checkOutTime
-          ? _value.checkOutTime
-          : checkOutTime // ignore: cast_nullable_to_non_nullable
+      namaperusahaan: freezed == namaperusahaan
+          ? _value.namaperusahaan
+          : namaperusahaan // ignore: cast_nullable_to_non_nullable
               as String?,
-      lastAbsenceRemark: freezed == lastAbsenceRemark
-          ? _value.lastAbsenceRemark
-          : lastAbsenceRemark // ignore: cast_nullable_to_non_nullable
+      tanggalAbsensi: freezed == tanggalAbsensi
+          ? _value.tanggalAbsensi
+          : tanggalAbsensi // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      fotoPulang: freezed == fotoPulang
+          ? _value.fotoPulang
+          : fotoPulang // ignore: cast_nullable_to_non_nullable
               as String?,
-      photo: freezed == photo
-          ? _value.photo
-          : photo // ignore: cast_nullable_to_non_nullable
+      latitudePulang: freezed == latitudePulang
+          ? _value.latitudePulang
+          : latitudePulang // ignore: cast_nullable_to_non_nullable
+              as String?,
+      longtitudePulang: freezed == longtitudePulang
+          ? _value.longtitudePulang
+          : longtitudePulang // ignore: cast_nullable_to_non_nullable
+              as String?,
+      durasi: freezed == durasi
+          ? _value.durasi
+          : durasi // ignore: cast_nullable_to_non_nullable
+              as String?,
+      alamatPulang: freezed == alamatPulang
+          ? _value.alamatPulang
+          : alamatPulang // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -224,147 +355,238 @@ class __$$_AbsenceCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Absence implements _Absence {
-  const _$_Absence(
-      {this.name,
+class _$AbsenceImpl extends _Absence {
+  const _$AbsenceImpl(
+      {this.idKaryawan,
+      this.namaKaryawan,
+      this.tanggal,
+      this.waktuCheckIn,
+      this.waktuCheckOut,
+      this.bluetoothID,
+      this.alamatLongtitude,
+      this.alamatLatitude,
+      this.alamatLoc,
+      this.telat,
       this.id,
-      this.companyId,
-      this.companyName,
-      this.locationLat,
-      this.locationLng,
-      this.locationName,
-      this.checkInTime,
-      this.checkOutTime,
-      this.lastAbsenceRemark,
-      this.photo});
+      this.foto,
+      this.fotoKaryawan,
+      this.idPerusahaan,
+      this.namaperusahaan,
+      this.tanggalAbsensi,
+      this.fotoPulang,
+      this.latitudePulang,
+      this.longtitudePulang,
+      this.durasi,
+      this.alamatPulang})
+      : super._();
 
-  factory _$_Absence.fromJson(Map<String, dynamic> json) =>
-      _$$_AbsenceFromJson(json);
+  factory _$AbsenceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AbsenceImplFromJson(json);
 
   @override
-  final String? name;
+  final String? idKaryawan;
+  @override
+  final String? namaKaryawan;
+  @override
+  final DateTime? tanggal;
+  @override
+  final DateTime? waktuCheckIn;
+  @override
+  final DateTime? waktuCheckOut;
+  @override
+  final String? bluetoothID;
+  @override
+  final String? alamatLongtitude;
+  @override
+  final String? alamatLatitude;
+  @override
+  final String? alamatLoc;
+  @override
+  final dynamic telat;
   @override
   final int? id;
   @override
-  final int? companyId;
+  final String? foto;
   @override
-  final String? companyName;
+  final String? fotoKaryawan;
   @override
-  final double? locationLat;
+  final String? idPerusahaan;
   @override
-  final double? locationLng;
+  final String? namaperusahaan;
   @override
-  final String? locationName;
+  final DateTime? tanggalAbsensi;
   @override
-  final String? checkInTime;
+  final String? fotoPulang;
   @override
-  final String? checkOutTime;
+  final String? latitudePulang;
   @override
-  final String? lastAbsenceRemark;
+  final String? longtitudePulang;
   @override
-  final String? photo;
+  final String? durasi;
+  @override
+  final String? alamatPulang;
 
   @override
   String toString() {
-    return 'Absence(name: $name, id: $id, companyId: $companyId, companyName: $companyName, locationLat: $locationLat, locationLng: $locationLng, locationName: $locationName, checkInTime: $checkInTime, checkOutTime: $checkOutTime, lastAbsenceRemark: $lastAbsenceRemark, photo: $photo)';
+    return 'Absence(idKaryawan: $idKaryawan, namaKaryawan: $namaKaryawan, tanggal: $tanggal, waktuCheckIn: $waktuCheckIn, waktuCheckOut: $waktuCheckOut, bluetoothID: $bluetoothID, alamatLongtitude: $alamatLongtitude, alamatLatitude: $alamatLatitude, alamatLoc: $alamatLoc, telat: $telat, id: $id, foto: $foto, fotoKaryawan: $fotoKaryawan, idPerusahaan: $idPerusahaan, namaperusahaan: $namaperusahaan, tanggalAbsensi: $tanggalAbsensi, fotoPulang: $fotoPulang, latitudePulang: $latitudePulang, longtitudePulang: $longtitudePulang, durasi: $durasi, alamatPulang: $alamatPulang)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Absence &&
-            (identical(other.name, name) || other.name == name) &&
+            other is _$AbsenceImpl &&
+            (identical(other.idKaryawan, idKaryawan) ||
+                other.idKaryawan == idKaryawan) &&
+            (identical(other.namaKaryawan, namaKaryawan) ||
+                other.namaKaryawan == namaKaryawan) &&
+            (identical(other.tanggal, tanggal) || other.tanggal == tanggal) &&
+            (identical(other.waktuCheckIn, waktuCheckIn) ||
+                other.waktuCheckIn == waktuCheckIn) &&
+            (identical(other.waktuCheckOut, waktuCheckOut) ||
+                other.waktuCheckOut == waktuCheckOut) &&
+            (identical(other.bluetoothID, bluetoothID) ||
+                other.bluetoothID == bluetoothID) &&
+            (identical(other.alamatLongtitude, alamatLongtitude) ||
+                other.alamatLongtitude == alamatLongtitude) &&
+            (identical(other.alamatLatitude, alamatLatitude) ||
+                other.alamatLatitude == alamatLatitude) &&
+            (identical(other.alamatLoc, alamatLoc) ||
+                other.alamatLoc == alamatLoc) &&
+            const DeepCollectionEquality().equals(other.telat, telat) &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.companyId, companyId) ||
-                other.companyId == companyId) &&
-            (identical(other.companyName, companyName) ||
-                other.companyName == companyName) &&
-            (identical(other.locationLat, locationLat) ||
-                other.locationLat == locationLat) &&
-            (identical(other.locationLng, locationLng) ||
-                other.locationLng == locationLng) &&
-            (identical(other.locationName, locationName) ||
-                other.locationName == locationName) &&
-            (identical(other.checkInTime, checkInTime) ||
-                other.checkInTime == checkInTime) &&
-            (identical(other.checkOutTime, checkOutTime) ||
-                other.checkOutTime == checkOutTime) &&
-            (identical(other.lastAbsenceRemark, lastAbsenceRemark) ||
-                other.lastAbsenceRemark == lastAbsenceRemark) &&
-            (identical(other.photo, photo) || other.photo == photo));
+            (identical(other.foto, foto) || other.foto == foto) &&
+            (identical(other.fotoKaryawan, fotoKaryawan) ||
+                other.fotoKaryawan == fotoKaryawan) &&
+            (identical(other.idPerusahaan, idPerusahaan) ||
+                other.idPerusahaan == idPerusahaan) &&
+            (identical(other.namaperusahaan, namaperusahaan) ||
+                other.namaperusahaan == namaperusahaan) &&
+            (identical(other.tanggalAbsensi, tanggalAbsensi) ||
+                other.tanggalAbsensi == tanggalAbsensi) &&
+            (identical(other.fotoPulang, fotoPulang) ||
+                other.fotoPulang == fotoPulang) &&
+            (identical(other.latitudePulang, latitudePulang) ||
+                other.latitudePulang == latitudePulang) &&
+            (identical(other.longtitudePulang, longtitudePulang) ||
+                other.longtitudePulang == longtitudePulang) &&
+            (identical(other.durasi, durasi) || other.durasi == durasi) &&
+            (identical(other.alamatPulang, alamatPulang) ||
+                other.alamatPulang == alamatPulang));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      name,
-      id,
-      companyId,
-      companyName,
-      locationLat,
-      locationLng,
-      locationName,
-      checkInTime,
-      checkOutTime,
-      lastAbsenceRemark,
-      photo);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        idKaryawan,
+        namaKaryawan,
+        tanggal,
+        waktuCheckIn,
+        waktuCheckOut,
+        bluetoothID,
+        alamatLongtitude,
+        alamatLatitude,
+        alamatLoc,
+        const DeepCollectionEquality().hash(telat),
+        id,
+        foto,
+        fotoKaryawan,
+        idPerusahaan,
+        namaperusahaan,
+        tanggalAbsensi,
+        fotoPulang,
+        latitudePulang,
+        longtitudePulang,
+        durasi,
+        alamatPulang
+      ]);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_AbsenceCopyWith<_$_Absence> get copyWith =>
-      __$$_AbsenceCopyWithImpl<_$_Absence>(this, _$identity);
+  _$$AbsenceImplCopyWith<_$AbsenceImpl> get copyWith =>
+      __$$AbsenceImplCopyWithImpl<_$AbsenceImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_AbsenceToJson(
+    return _$$AbsenceImplToJson(
       this,
     );
   }
 }
 
-abstract class _Absence implements Absence {
+abstract class _Absence extends Absence {
   const factory _Absence(
-      {final String? name,
+      {final String? idKaryawan,
+      final String? namaKaryawan,
+      final DateTime? tanggal,
+      final DateTime? waktuCheckIn,
+      final DateTime? waktuCheckOut,
+      final String? bluetoothID,
+      final String? alamatLongtitude,
+      final String? alamatLatitude,
+      final String? alamatLoc,
+      final dynamic telat,
       final int? id,
-      final int? companyId,
-      final String? companyName,
-      final double? locationLat,
-      final double? locationLng,
-      final String? locationName,
-      final String? checkInTime,
-      final String? checkOutTime,
-      final String? lastAbsenceRemark,
-      final String? photo}) = _$_Absence;
+      final String? foto,
+      final String? fotoKaryawan,
+      final String? idPerusahaan,
+      final String? namaperusahaan,
+      final DateTime? tanggalAbsensi,
+      final String? fotoPulang,
+      final String? latitudePulang,
+      final String? longtitudePulang,
+      final String? durasi,
+      final String? alamatPulang}) = _$AbsenceImpl;
+  const _Absence._() : super._();
 
-  factory _Absence.fromJson(Map<String, dynamic> json) = _$_Absence.fromJson;
+  factory _Absence.fromJson(Map<String, dynamic> json) = _$AbsenceImpl.fromJson;
 
   @override
-  String? get name;
+  String? get idKaryawan;
+  @override
+  String? get namaKaryawan;
+  @override
+  DateTime? get tanggal;
+  @override
+  DateTime? get waktuCheckIn;
+  @override
+  DateTime? get waktuCheckOut;
+  @override
+  String? get bluetoothID;
+  @override
+  String? get alamatLongtitude;
+  @override
+  String? get alamatLatitude;
+  @override
+  String? get alamatLoc;
+  @override
+  dynamic get telat;
   @override
   int? get id;
   @override
-  int? get companyId;
+  String? get foto;
   @override
-  String? get companyName;
+  String? get fotoKaryawan;
   @override
-  double? get locationLat;
+  String? get idPerusahaan;
   @override
-  double? get locationLng;
+  String? get namaperusahaan;
   @override
-  String? get locationName;
+  DateTime? get tanggalAbsensi;
   @override
-  String? get checkInTime;
+  String? get fotoPulang;
   @override
-  String? get checkOutTime;
+  String? get latitudePulang;
   @override
-  String? get lastAbsenceRemark;
+  String? get longtitudePulang;
   @override
-  String? get photo;
+  String? get durasi;
+  @override
+  String? get alamatPulang;
   @override
   @JsonKey(ignore: true)
-  _$$_AbsenceCopyWith<_$_Absence> get copyWith =>
+  _$$AbsenceImplCopyWith<_$AbsenceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

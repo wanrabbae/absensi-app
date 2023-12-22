@@ -2,7 +2,6 @@ import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'dart:core';
 
-import 'package:flutter/services.dart';
 
 class IzinController extends GetxController {
   //global
@@ -61,7 +60,7 @@ class IzinController extends GetxController {
   }
 
   cancelTimer() {
-    print("CANCEL TIMER ABSEN");
+    debugPrint("CANCEL TIMER ABSEN");
     timer?.cancel();
     timer = null;
   }
@@ -186,10 +185,10 @@ class IzinController extends GetxController {
   absenPulang(status, idAbsen) async {
     var currentDate = DateTime.now();
     var newDate =
-        new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
+        DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
             .toString()
             .split(" ")[0];
-    print("ID ABSEN: " + idAbsen.toString());
+    debugPrint("ID ABSEN: $idAbsen");
     try {
       if (status) {
         // customSnackbarLoading("Sedang Pulang...");
@@ -208,7 +207,7 @@ class IzinController extends GetxController {
         },
         'AlamatPulang': "-",
       };
-      print("FORM: " + forms.toString());
+      debugPrint("FORM: $forms");
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       if (response.statusCode == 200) {
@@ -238,7 +237,7 @@ class IzinController extends GetxController {
         Get.offAllNamed(RouteName.home, arguments: 0);
         // customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
       } else {
-        print("INI PULANG: " + response.toString());
+        debugPrint("INI PULANG: $response");
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
       }
@@ -251,10 +250,10 @@ class IzinController extends GetxController {
   absenPulangLogOut(status, idAbsen) async {
     var currentDate = DateTime.now();
     var newDate =
-        new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
+        DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
             .toString()
             .split(" ")[0];
-    print("ID ABSEN: " + idAbsen.toString());
+    debugPrint("ID ABSEN: $idAbsen");
     try {
       if (status) {
         // customSnackbarLoading("Sedang Pulang...");
@@ -273,7 +272,7 @@ class IzinController extends GetxController {
         },
         'AlamatPulang': "-",
       };
-      print("FORM: " + forms.toString());
+      debugPrint("FORM: $forms");
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       if (response.statusCode == 200) {
@@ -284,7 +283,7 @@ class IzinController extends GetxController {
         box.remove(Base.waktuAbsen);
         await HomeController().cancelTimer();
         await cancelTimer();
-        print("KELUARRR");
+        debugPrint("KELUARRR");
         ProfileController().keluar();
       } else if (response.statusCode == 401) {
         Get.back();
@@ -294,7 +293,7 @@ class IzinController extends GetxController {
         Get.offAllNamed(RouteName.home, arguments: 0);
         customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
       } else {
-        print("INI PULANG: " + response.toString());
+        debugPrint("INI PULANG: $response");
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
       }
@@ -325,9 +324,9 @@ class IzinController extends GetxController {
         'namaPerusahaan': perusahaan?['namaPerusahaan']
       };
       var response = await AbsensiServices().izinPost(forms);
-      print("RESPONSE: " + response.toString());
+      debugPrint("RESPONSE: $response");
       if (response.statusCode == 200) {
-        print("RESPON 200");
+        debugPrint("RESPON 200");
         box.write(Base.izinAbsen, DateTime.now().toString());
         if (!klikAbsen) {
           Get.back();
@@ -335,11 +334,8 @@ class IzinController extends GetxController {
           await HomeController().doneAbsensi();
           await HomeController().dataHome();
         } else {
-          print("KE ELESE");
+          debugPrint("KE ELESE");
           final homeCtrl = Get.put(HomeController());
-          DateTime dateCurrent = DateTime.now();
-          String formattedCurrentDate =
-              DateFormat("yyyy-MM-dd").format(dateCurrent);
           var findData = await homeCtrl.absen?.firstWhere(
               (element) => element?["idkaryawan"] == user?["idkaryawan"],
               orElse: () => null);
@@ -357,7 +353,7 @@ class IzinController extends GetxController {
       }
     } catch (e) {
       print(e.toString());
-      print("KE CATCH FITUR IZIN");
+      debugPrint("KE CATCH FITUR IZIN");
       Get.back();
       customSnackbar1('Oops.. terjadi kesalahan sistem.');
     }

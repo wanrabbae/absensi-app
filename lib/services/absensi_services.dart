@@ -1,9 +1,13 @@
 import 'package:app/global_resource.dart';
 import 'package:dio/dio.dart' as dio;
-import 'dart:convert';
-import 'dart:developer';
+
+final AbsensiServices _service = AbsensiServices._();
 
 class AbsensiServices extends GetConnect implements GetxService {
+  AbsensiServices._();
+
+  factory AbsensiServices() => _service;
+
   final box = GetStorage();
 
   Future hadirPost(body) async {
@@ -25,7 +29,7 @@ class AbsensiServices extends GetConnect implements GetxService {
     final options = dio.Options(headers: header);
 
     try {
-      var test = await dio.Dio()
+      var test = await kDio
           .post(Base.url + Base.absenHadir, data: formData, options: options);
       return test;
     } catch (e) {
@@ -33,17 +37,15 @@ class AbsensiServices extends GetConnect implements GetxService {
     }
   }
 
-  Future findIndiv(idKaryawan, tanggal) async {
+  Future findIndiv(Map<String, String> params) async {
     var tokens = box.read(Base.token);
     final header = {'Authorization': '$tokens'};
     final options = dio.Options(headers: header);
 
     try {
-      var test = await dio.Dio().get(
-          Base.url +
-              Base.absenIndie +
-              "?idkaryawan=${idKaryawan}&tanggal=${tanggal}",
-          options: options);
+      final uri = Uri.parse("${Base.url}${Base.absenIndie}")
+          .replace(queryParameters: params);
+      var test = await kDio.get(uri.toString(), options: options);
       return test;
     } catch (e) {
       return [];
@@ -65,8 +67,8 @@ class AbsensiServices extends GetConnect implements GetxService {
     });
 
     try {
-      var test = await dio.Dio().put(
-          Base.url + Base.absenPulang + "?id=${param['id']}",
+      var test = await kDio.put(
+          "${Base.url}${Base.absenPulang}?id=${param['id']}",
           data: formData,
           options: options);
       return test;
@@ -96,7 +98,7 @@ class AbsensiServices extends GetConnect implements GetxService {
     final options = dio.Options(headers: header);
 
     try {
-      var test = await dio.Dio()
+      var test = await kDio
           .post(Base.url + Base.absenIzin, data: formData, options: options);
       return test;
     } on dio.DioError catch (e) {

@@ -20,8 +20,20 @@ Company _$CompanyFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Company {
-  String? get name => throw _privateConstructorUsedError;
-  String? get logo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'idperusahaan')
+  String get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'namaPerusahaan')
+  String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'logoPerusahaan')
+  String get logo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'alamatLoc')
+  String get alamat => throw _privateConstructorUsedError;
+  @JsonKey(name: 'alamatLongtitude')
+  String get longitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'alamatLatitude')
+  String get latitude => throw _privateConstructorUsedError;
+  @JsonKey(name: 'totalLike')
+  int get like => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +45,14 @@ abstract class $CompanyCopyWith<$Res> {
   factory $CompanyCopyWith(Company value, $Res Function(Company) then) =
       _$CompanyCopyWithImpl<$Res, Company>;
   @useResult
-  $Res call({String? name, String? logo});
+  $Res call(
+      {@JsonKey(name: 'idperusahaan') String id,
+      @JsonKey(name: 'namaPerusahaan') String name,
+      @JsonKey(name: 'logoPerusahaan') String logo,
+      @JsonKey(name: 'alamatLoc') String alamat,
+      @JsonKey(name: 'alamatLongtitude') String longitude,
+      @JsonKey(name: 'alamatLatitude') String latitude,
+      @JsonKey(name: 'totalLike') int like});
 }
 
 /// @nodoc
@@ -49,114 +68,230 @@ class _$CompanyCopyWithImpl<$Res, $Val extends Company>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? logo = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? logo = null,
+    Object? alamat = null,
+    Object? longitude = null,
+    Object? latitude = null,
+    Object? like = null,
   }) {
     return _then(_value.copyWith(
-      name: freezed == name
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      logo: freezed == logo
+              as String,
+      logo: null == logo
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      alamat: null == alamat
+          ? _value.alamat
+          : alamat // ignore: cast_nullable_to_non_nullable
+              as String,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as String,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String,
+      like: null == like
+          ? _value.like
+          : like // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_CompanyCopyWith<$Res> implements $CompanyCopyWith<$Res> {
-  factory _$$_CompanyCopyWith(
-          _$_Company value, $Res Function(_$_Company) then) =
-      __$$_CompanyCopyWithImpl<$Res>;
+abstract class _$$CompanyImplCopyWith<$Res> implements $CompanyCopyWith<$Res> {
+  factory _$$CompanyImplCopyWith(
+          _$CompanyImpl value, $Res Function(_$CompanyImpl) then) =
+      __$$CompanyImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? name, String? logo});
+  $Res call(
+      {@JsonKey(name: 'idperusahaan') String id,
+      @JsonKey(name: 'namaPerusahaan') String name,
+      @JsonKey(name: 'logoPerusahaan') String logo,
+      @JsonKey(name: 'alamatLoc') String alamat,
+      @JsonKey(name: 'alamatLongtitude') String longitude,
+      @JsonKey(name: 'alamatLatitude') String latitude,
+      @JsonKey(name: 'totalLike') int like});
 }
 
 /// @nodoc
-class __$$_CompanyCopyWithImpl<$Res>
-    extends _$CompanyCopyWithImpl<$Res, _$_Company>
-    implements _$$_CompanyCopyWith<$Res> {
-  __$$_CompanyCopyWithImpl(_$_Company _value, $Res Function(_$_Company) _then)
+class __$$CompanyImplCopyWithImpl<$Res>
+    extends _$CompanyCopyWithImpl<$Res, _$CompanyImpl>
+    implements _$$CompanyImplCopyWith<$Res> {
+  __$$CompanyImplCopyWithImpl(
+      _$CompanyImpl _value, $Res Function(_$CompanyImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = freezed,
-    Object? logo = freezed,
+    Object? id = null,
+    Object? name = null,
+    Object? logo = null,
+    Object? alamat = null,
+    Object? longitude = null,
+    Object? latitude = null,
+    Object? like = null,
   }) {
-    return _then(_$_Company(
-      name: freezed == name
+    return _then(_$CompanyImpl(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
-      logo: freezed == logo
+              as String,
+      logo: null == logo
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      alamat: null == alamat
+          ? _value.alamat
+          : alamat // ignore: cast_nullable_to_non_nullable
+              as String,
+      longitude: null == longitude
+          ? _value.longitude
+          : longitude // ignore: cast_nullable_to_non_nullable
+              as String,
+      latitude: null == latitude
+          ? _value.latitude
+          : latitude // ignore: cast_nullable_to_non_nullable
+              as String,
+      like: null == like
+          ? _value.like
+          : like // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_Company implements _Company {
-  const _$_Company({this.name, this.logo});
+class _$CompanyImpl implements _Company {
+  const _$CompanyImpl(
+      {@JsonKey(name: 'idperusahaan') this.id = 'HORA-001',
+      @JsonKey(name: 'namaPerusahaan') this.name = 'PT HORA',
+      @JsonKey(name: 'logoPerusahaan')
+      this.logo = 'wwwroot/Images/CompanyLogo/logo_hora.png',
+      @JsonKey(name: 'alamatLoc')
+      this.alamat = 'Jl. Budiluhur No.47 Medan, Indonesia',
+      @JsonKey(name: 'alamatLongtitude') this.longitude = '98.6388869',
+      @JsonKey(name: 'alamatLatitude') this.latitude = '3.5955809',
+      @JsonKey(name: 'totalLike') this.like = 0});
 
-  factory _$_Company.fromJson(Map<String, dynamic> json) =>
-      _$$_CompanyFromJson(json);
+  factory _$CompanyImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CompanyImplFromJson(json);
 
   @override
-  final String? name;
+  @JsonKey(name: 'idperusahaan')
+  final String id;
   @override
-  final String? logo;
+  @JsonKey(name: 'namaPerusahaan')
+  final String name;
+  @override
+  @JsonKey(name: 'logoPerusahaan')
+  final String logo;
+  @override
+  @JsonKey(name: 'alamatLoc')
+  final String alamat;
+  @override
+  @JsonKey(name: 'alamatLongtitude')
+  final String longitude;
+  @override
+  @JsonKey(name: 'alamatLatitude')
+  final String latitude;
+  @override
+  @JsonKey(name: 'totalLike')
+  final int like;
 
   @override
   String toString() {
-    return 'Company(name: $name, logo: $logo)';
+    return 'Company(id: $id, name: $name, logo: $logo, alamat: $alamat, longitude: $longitude, latitude: $latitude, like: $like)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Company &&
+            other is _$CompanyImpl &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.logo, logo) || other.logo == logo));
+            (identical(other.logo, logo) || other.logo == logo) &&
+            (identical(other.alamat, alamat) || other.alamat == alamat) &&
+            (identical(other.longitude, longitude) ||
+                other.longitude == longitude) &&
+            (identical(other.latitude, latitude) ||
+                other.latitude == latitude) &&
+            (identical(other.like, like) || other.like == like));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, name, logo);
+  int get hashCode => Object.hash(
+      runtimeType, id, name, logo, alamat, longitude, latitude, like);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CompanyCopyWith<_$_Company> get copyWith =>
-      __$$_CompanyCopyWithImpl<_$_Company>(this, _$identity);
+  _$$CompanyImplCopyWith<_$CompanyImpl> get copyWith =>
+      __$$CompanyImplCopyWithImpl<_$CompanyImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CompanyToJson(
+    return _$$CompanyImplToJson(
       this,
     );
   }
 }
 
 abstract class _Company implements Company {
-  const factory _Company({final String? name, final String? logo}) = _$_Company;
+  const factory _Company(
+      {@JsonKey(name: 'idperusahaan') final String id,
+      @JsonKey(name: 'namaPerusahaan') final String name,
+      @JsonKey(name: 'logoPerusahaan') final String logo,
+      @JsonKey(name: 'alamatLoc') final String alamat,
+      @JsonKey(name: 'alamatLongtitude') final String longitude,
+      @JsonKey(name: 'alamatLatitude') final String latitude,
+      @JsonKey(name: 'totalLike') final int like}) = _$CompanyImpl;
 
-  factory _Company.fromJson(Map<String, dynamic> json) = _$_Company.fromJson;
+  factory _Company.fromJson(Map<String, dynamic> json) = _$CompanyImpl.fromJson;
 
   @override
-  String? get name;
+  @JsonKey(name: 'idperusahaan')
+  String get id;
   @override
-  String? get logo;
+  @JsonKey(name: 'namaPerusahaan')
+  String get name;
+  @override
+  @JsonKey(name: 'logoPerusahaan')
+  String get logo;
+  @override
+  @JsonKey(name: 'alamatLoc')
+  String get alamat;
+  @override
+  @JsonKey(name: 'alamatLongtitude')
+  String get longitude;
+  @override
+  @JsonKey(name: 'alamatLatitude')
+  String get latitude;
+  @override
+  @JsonKey(name: 'totalLike')
+  int get like;
   @override
   @JsonKey(ignore: true)
-  _$$_CompanyCopyWith<_$_Company> get copyWith =>
+  _$$CompanyImplCopyWith<_$CompanyImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -1,30 +1,58 @@
+import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:app/services/push_notification_service.dart';
 import 'package:flutter/services.dart';
-import 'components/card_home.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _activePage = Get.arguments ?? 0;
+  int _activePage = (Get.arguments is int) ? (Get.arguments as int) : 0;
+
+  String? get activeAttendanceDate {
+    if (Get.arguments is String) {
+      return Get.arguments;
+    }
+    return null;
+  }
+
+  @override
+  void initState() {
+    $it<PushNotificationService>().requestPermission();
+
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AppCubit>()
+        ..updateTokenFcm()
+        ..getAllowLocationAlwaysPermission();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    PageController _pageViewController =
-        PageController(initialPage: Get.arguments ?? 0);
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    PageController pageViewController = PageController(
+      initialPage: Get.arguments is int ? Get.arguments as int : 0,
+    );
 
     return Scaffold(
       body: PageView(
-        controller: _pageViewController,
-        children: [HomeScreen(), ProfileScreen()],
+        controller: pageViewController,
+        children: activeAttendanceDate != null
+            ? [
+                HomeScreen(activeAttendanceDate: activeAttendanceDate),
+                const ProfileScreen(),
+              ]
+            : const [HomeScreen(), ProfileScreen()],
         onPageChanged: (index) {
-          // print("TEST GESER");
+          // debugPrint("TEST GESER");
           setState(() {
             _activePage = index;
             // widget.index = null;
@@ -53,7 +81,7 @@ class _MainScreenState extends State<MainScreen> {
                   height: 30,
                 ),
                 label: "Kerja"),
-            BottomNavigationBarItem(
+            const BottomNavigationBarItem(
               icon: Icon(
                 FeatherIcons.user,
                 size: 30,
@@ -81,8 +109,9 @@ class _MainScreenState extends State<MainScreen> {
             // setState(() {
             //   widget.index = null;
             // });
-            _pageViewController.animateToPage(index,
-                duration: Duration(milliseconds: 200), curve: Curves.easeIn);
+            pageViewController.animateToPage(index,
+                duration: const Duration(milliseconds: 200),
+                curve: Curves.easeIn);
           },
         ),
       ),

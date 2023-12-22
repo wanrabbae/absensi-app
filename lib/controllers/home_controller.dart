@@ -1,46 +1,76 @@
-import 'package:app/controllers/izin_controller.dart';
+import 'package:app/data/models/company.dart';
+import 'package:app/data/models/profile.dart';
 import 'package:app/global_resource.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+final HomeController _homeController = HomeController._();
 
 class HomeController extends GetxController {
+  HomeController._();
+
+  factory HomeController() => _homeController;
+
   //Global
   final box = GetStorage();
-  DateTime now = DateTime.now();
   final focus = FocusNode();
-  Map? perusahaan;
+  Company perusahaan = const Company();
   Map? user;
-  String? currentDate;
+  DateTime currentDate = DateTime.now();
   var timerRecor = "00:00:00";
+
   //home
   List? absen = [];
   List? izin = [];
   List? perusahaanList = [];
   String? perusahaanTerpilih;
   bool klikAbsen = false;
-  bool? isPresentHadir = false;
-  bool? isPresentIzin = false;
+  bool isPresentHadir = false;
+  bool isPresentIzin = false;
+
   // ignore: prefer_typing_uninitialized_variables
   var timer;
+
   //search
   String? search = '';
   List? searchHasil = [];
+
   //undangan
   String? emailUndangan;
+
+  Profile? get userProfile {
+    if (user == null) return null;
+
+    try {
+      return Profile.fromJson(user!.cast());
+    } catch (_) {
+      return null;
+    }
+  }
+
+  bool get isToday {
+    final DateTime now = DateTime.now();
+    final currentDate = this.currentDate.toLocal();
+    if (currentDate.year == now.year &&
+        currentDate.month == now.month &&
+        currentDate.day == now.day) {
+      return true;
+    }
+
+    return false;
+  }
 
   @override
   void onInit() async {
     // await Permission.location.serviceStatus.isEnabled.then((value) {
-    //   print("LOCATION: " + value.toString());
+    //   debugPrint("LOCATION: " + value.toString());
     //   if (!value) {
     //     Permission.location.request();
     //   }
     // });
-    print("TOKEN: " + GetStorage().read("tokens"));
-    print("KLIK ABSEN: " + klikAbsen.toString());
+    debugPrint("TOKEN: ${GetStorage().read("tokens")}");
+    debugPrint("KLIK ABSEN: $klikAbsen");
     super.onInit();
     user = box.read(Base.dataUser);
     klikAbsen = GetStorage().read(Base.klikAbsen) ?? false;
-    currentDate = now.toString();
     await dataPerusahaan();
     await dataHome();
     // await checkAnyAbsen();
@@ -93,10 +123,10 @@ class HomeController extends GetxController {
     //   //   await IzinController().absenPulang(false, findData?[0]["id"]);
     //   // } else
     //   if (klikAbsen) {
-    //     print("KE ELSE IF 1");
+    //     debugPrint("KE ELSE IF 1");
     //     timerRecor = timerAbsen();
     //   } else if (findData != null) {
-    //     print("KE ELSE IF 2");
+    //     debugPrint("KE ELSE IF 2");
     //     timerRecor = timerAbsen2(findData?["waktuCheckIn"]);
     //     box.write(Base.waktuAbsen, findData?["waktuCheckIn"].toString());
     //     box.write(Base.klikAbsen, true);
@@ -112,7 +142,7 @@ class HomeController extends GetxController {
   }
 
   cancelTimer() {
-    print("CANCEL TIMER HOME");
+    debugPrint("CANCEL TIMER HOME");
     timer?.cancel();
     timer = null;
   }
@@ -122,38 +152,43 @@ class HomeController extends GetxController {
       customSnackbar1("Izin hari ini telah terisi.");
     } else {
       if (klikAbsen) {
-        print(absen);
-        print("=======KE PULANG========");
-        var tanggal = currentDate.toString().split(" ")[0];
-        var response =
-            await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
-        print("DATA ABSEN: " + response.data.length.toString());
+        debugPrint('$absen');
+        debugPrint("=======KE PULANG========");
+        final tanggal = currentDate;
+        final tglstart =
+            DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
+        final tglend =
+            DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59)
+                .toUtc();
+        final request = {
+          "idkaryawan": userProfile!.idkaryawan!,
+          "tglstart": kQueryRangeDateFormat.format(tglstart),
+          "tglend": kQueryRangeDateFormat.format(tglend),
+        };
+        var response = await AbsensiServices().findIndiv(request);
+        debugPrint("DATA ABSEN: ${response.data.length}");
 
         box.write(Base.waktuAbsen, response.data?[0]["waktuCheckIn"]);
         Get.back();
-        Get.toNamed(RouteName.absen,
-            arguments: {"dataAbsen": response.data?[0], "pulang": 1});
+        Get.toNamed(
+          RouteName.absen,
+          arguments: {"dataAbsen": response.data?[0], "pulang": 1},
+        );
       } else {
         if (await Permission.camera.isGranted &&
             await Permission.location.isGranted) {
-          // var IsPresent = await absen!.firstWhere(
-          //     (element) => element["idkaryawan"] == user?["idkaryawan"]);
-
-          // if (absen!.length > 0 && IsPresent != null) {
-          //   customSnackbar1("Kehadiran hari ini telah terisi.");
-          // } else {
-          // Get.back();
-          print("TEST KE IF 1 YOYYYY");
           Get.toNamed(RouteName.absen);
-          // }
         } else {
           showModalBottomSheet(
-              shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
-              context: context,
-              builder: (ctx) => const DialogPermission());
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            context: context,
+            builder: (ctx) => const DialogPermission(),
+          );
         }
       }
     }
@@ -171,10 +206,10 @@ class HomeController extends GetxController {
         "data perusahaan yang digunakan sudah berubah");
   }
 
-  gantiTanggal(tgl) {
+  gantiTanggal(DateTime? tgl) {
     if (tgl != null) {
-      print("======== TEST GANTI TANGGAL =======");
-      currentDate = tgl.toString();
+      debugPrint("======== TEST GANTI TANGGAL =======");
+      currentDate = tgl;
       absen?.removeRange(0, absen!.length);
       izin?.removeRange(0, izin!.length);
       update();
@@ -185,82 +220,74 @@ class HomeController extends GetxController {
 
   checkAnyAbsen() async {
     cancelTimer();
-    var tanggal = currentDate.toString().split(" ")[0];
-    bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
-    bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
+    final d = currentDate.toLocal();
+    DateTime start = DateTime(d.year, d.month, d.day);
+    DateTime end = DateTime(d.year, d.month, d.day, 23, 59, 59);
+    bool isCurrentDateGreaterThanOrEqual =
+        d.isAfter(start) || d.isAtSameMomentAs(start);
+    bool isCurrentDateLowerThan = d.isBefore(end);
 
     var findData = izin?.firstWhere(
       (element) => element?["idkaryawan"] == user?['idkaryawan'],
       orElse: () => null,
     );
 
-    if (isDateSmallerThanToday == false) {
-      isPresentHadir = false;
-      isPresentIzin = false;
-    }
-    if (isDateGreaterThanToday == false) {
-      isPresentHadir = false;
-      isPresentIzin = false;
-    }
-
     try {
-      var response =
-          await AbsensiServices().findIndiv(user?["idkaryawan"], tanggal);
-      print("DATA ABSEN: " + response.data.length.toString());
-      if (response.data.length == 1 &&
+      final request = {
+        "idkaryawan": userProfile!.idkaryawan!,
+        "tglstart": kQueryRangeDateFormat.format(start.toUtc()),
+        "tglend": kQueryRangeDateFormat.format(end.toUtc()),
+      };
+      var response = await AbsensiServices().findIndiv(request);
+      debugPrint("DATA ABSEN: ${response.data.length}");
+      if (response.data.length >= 1 &&
           response.data?[0]["waktuCheckOut"] == null) {
-        // timer!.cancel();
-        print("ABSEN JALAN YOYY");
+        debugPrint("ABSEN JALAN YOYY");
 
         box.write(Base.waktuAbsen, response.data[0]?["waktuCheckIn"]);
         box.write(Base.klikAbsen, true);
         klikAbsen = GetStorage().read(Base.klikAbsen);
+
+        if (isCurrentDateLowerThan && isCurrentDateGreaterThanOrEqual) {
+          isPresentHadir = false;
+          isPresentIzin = false;
+        }
+
         timer = Timer.periodic(const Duration(seconds: 1), (timer) {
           timerRecor = timerAbsen3(response.data[0]?["waktuCheckIn"], null);
           update();
         });
-      } else if (response.data.length == 0 && isDateGreaterThanToday ||
-          isDateSmallerThanToday) {
-        // timer.cancel();
-        print("ABSEN GK JALAN YOYY");
+      } else if (response.data.length == 0) {
+        debugPrint("ABSEN GK JALAN YOYY");
         timerRecor = "00:00:00";
-        timer = null;
         cancelTimer();
         box.remove(Base.waktuAbsen);
         box.write(Base.klikAbsen, false);
         klikAbsen = GetStorage().read(Base.klikAbsen);
-        if (isDateSmallerThanToday) {
-          isPresentHadir = true;
-          isPresentIzin = true;
+
+        if (isCurrentDateLowerThan && isCurrentDateGreaterThanOrEqual) {
+          isPresentHadir = !isToday;
+          isPresentIzin = !isToday;
         }
 
-        if (isDateGreaterThanToday) {
-          isPresentHadir = true;
-          isPresentIzin = true;
-        }
         update();
       } else {
-        print(" ==== KE ELSE CHECK ANY ABSEN ====");
-        print(isDateGreaterThanToday);
-        print(isDateSmallerThanToday);
-        timer = null;
+        debugPrint(" ==== KE ELSE CHECK ANY ABSEN ====");
+        debugPrint(
+            'isCurrentDateGreaterThanOrEqual=$isCurrentDateGreaterThanOrEqual');
+        debugPrint('isCurrentDateLowerThan=$isCurrentDateLowerThan');
         timerRecor = "00:00:00";
         box.remove(Base.waktuAbsen);
         box.write(Base.klikAbsen, false);
         klikAbsen = GetStorage().read(Base.klikAbsen);
         cancelTimer();
 
-        if (isDateSmallerThanToday) {
+        if (isCurrentDateGreaterThanOrEqual && isCurrentDateLowerThan) {
           isPresentHadir = true;
           isPresentIzin = true;
         }
 
-        if (isDateGreaterThanToday) {
-          isPresentHadir = true;
-          isPresentIzin = true;
-        }
-
-        if (response.data.length == 1 &&
+        if (response.data.length >= 1 &&
             response.data?[0]["waktuCheckOut"] != null) {
           isPresentHadir = true;
           isPresentIzin = true;
@@ -270,19 +297,19 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       // customSnackbar1('Oops.. terjadi kesalahan sistem.');
-      print("KE CATCH CHECK ANY ABSEN");
-      print(e);
+      debugPrint("KE CATCH CHECK ANY ABSEN");
+      debugPrint(e.toString());
     }
 
     if (findData != null) {
-      print("IZIN DATA: " + findData.toString());
+      debugPrint("IZIN DATA: $findData");
       isPresentHadir = true;
       isPresentIzin = true;
       update();
     }
 
-    print("IS HADIR: " + isPresentHadir.toString());
-    print("IS IZIN: " + isPresentIzin.toString());
+    debugPrint("IS HADIR: $isPresentHadir");
+    debugPrint("IS IZIN: $isPresentIzin");
   }
 
   gambarAbsen(data, status) {
@@ -336,11 +363,11 @@ class HomeController extends GetxController {
         var hasil = jsonDecode(box.read(Base.dataPerusahaan));
         perusahaanList = hasil;
         if (perusahaanTerpilih == null) {
-          perusahaan = hasil[0];
+          perusahaan = Company.fromJson(hasil[0]);
         } else {
-          perusahaan = hasil
+          perusahaan = Company.fromJson(hasil
               .where((value) => value['idperusahaan'] == perusahaanTerpilih)
-              .toList()[0];
+              .toList()[0]);
         }
         update();
       } else if (response.statusCode == 401) {
@@ -351,7 +378,7 @@ class HomeController extends GetxController {
         customSnackbar1("Menghubungkan kembali...");
       }
     } catch (e) {
-      print("ERROR PERUSAHAAN: " + e.toString());
+      debugPrint("ERROR PERUSAHAAN: $e");
       // SplashController().sessionHabis(user?['alamatEmail']);
       // Get.snackbar('Sesi habis', '');
       customSnackbar1("Menghubungkan kembali...");
@@ -359,16 +386,31 @@ class HomeController extends GetxController {
   }
 
   dataHome() async {
-    try {
-      var absens = await HomeServices().absenGet({
-        "idperusahaan": user?['idperusahaan'].toString(),
-        "tanggal": currentDate.toString(),
-      });
+    final profile = userProfile;
+    if (profile == null) {
+      customSnackbar1('Data user tidak ditemukan');
+      return;
+    }
 
-      var izins = await HomeServices().izinGet({
-        "idperusahaan": user?['idperusahaan'].toString(),
-        "tanggal": currentDate.toString(),
-      });
+    if (profile.perusahaanId == null) {
+      customSnackbar1('Data perusahaan tidak ditemukan');
+      return;
+    }
+
+    final tanggal = currentDate;
+    final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
+    final tglend =
+        DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
+    final request = {
+      "idperusahaan": profile.perusahaanId!,
+      "tglstart": kQueryRangeDateFormat.format(tglstart),
+      "tglend": kQueryRangeDateFormat.format(tglend),
+    };
+
+    try {
+      var absens = await HomeServices().absenGet(request);
+
+      var izins = await HomeServices().izinGet(request);
 
       if (absens.statusCode == 200 && izins.statusCode == 200) {
         absen = absens.data;
@@ -381,7 +423,7 @@ class HomeController extends GetxController {
         update();
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       // customSnackbar1("")
     }
   }
@@ -394,10 +436,10 @@ class HomeController extends GetxController {
   dataSearch() async {
     try {
       var response = search == ''
-          ? await HomeServices().searchPerusahaanGet(
-              {'idperusahaan': perusahaan?['idperusahaan']})
-          : await HomeServices().searchUserGet(
-              {'idperusahaan': perusahaan?['idperusahaan'], 'nama': search});
+          ? await HomeServices()
+              .searchPerusahaanGet({'idperusahaan': perusahaan.id})
+          : await HomeServices()
+              .searchUserGet({'idperusahaan': perusahaan.id, 'nama': search});
       if (response.statusCode == 200) {
         searchHasil?.removeRange(0, searchHasil!.length);
         searchHasil?.addAll(
@@ -427,8 +469,8 @@ class HomeController extends GetxController {
       var response = await HomeServices().undanganPost({
         'receiver': emailUndangan,
         'sender': user?['alamatEmail'],
-        'idperusahaan': perusahaan?['idperusahaan'],
-        'namaPerusahaan': perusahaan?['namaPerusahaan']
+        'idperusahaan': perusahaan.id,
+        'namaPerusahaan': perusahaan.name,
       });
       if (response.statusCode == 200) {
         Get.back();
@@ -452,90 +494,90 @@ class HomeController extends GetxController {
     update();
   }
 
-  // checkIsAbsen() {
-  //   print("CHECK ABS");
-  //   DateTime dateCurrent = DateTime.now();
-  //   String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
-  //   var idKaryawan = user?["idkaryawan"];
+// checkIsAbsen() {
+//   debugPrint("CHECK ABS");
+//   DateTime dateCurrent = DateTime.now();
+//   String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
+//   var idKaryawan = user?["idkaryawan"];
 
-  //   var findDataIzin = izin?.firstWhere(
-  //     (element) => element?["idkaryawan"] == idKaryawan,
-  //     orElse: () => null,
-  //   );
+//   var findDataIzin = izin?.firstWhere(
+//     (element) => element?["idkaryawan"] == idKaryawan,
+//     orElse: () => null,
+//   );
 
-  //   var findData = absen?.firstWhere(
-  //     (element) =>
-  //         element?["idkaryawan"] == idKaryawan &&
-  //         element?["waktuCheckOut"] == null,
-  //     orElse: () => null,
-  //   );
+//   var findData = absen?.firstWhere(
+//     (element) =>
+//         element?["idkaryawan"] == idKaryawan &&
+//         element?["waktuCheckOut"] == null,
+//     orElse: () => null,
+//   );
 
-  //   var findDataPulang = absen?.firstWhere(
-  //     (element) =>
-  //         element?["idkaryawan"] == idKaryawan &&
-  //         element?["waktuCheckOut"] != null,
-  //     orElse: () => null,
-  //   );
+//   var findDataPulang = absen?.firstWhere(
+//     (element) =>
+//         element?["idkaryawan"] == idKaryawan &&
+//         element?["waktuCheckOut"] != null,
+//     orElse: () => null,
+//   );
 
-  //   if (findDataIzin != null) {
-  //     isPresentHadir = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else if (findData != null) {
-  //     print("KESEINI ELSE IF 2");
-  //     isPresentHadir = false;
-  //     update();
-  //   } else if (findDataPulang != null) {
-  //     isPresentHadir = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else if (findData != null && findDataPulang != null) {
-  //     print("KESINI ELSE IF 3");
-  //     isPresentHadir = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else {
-  //     print("KESINI ELSE");
-  //     isPresentHadir = false;
-  //     update();
-  //   }
-  // }
+//   if (findDataIzin != null) {
+//     isPresentHadir = true;
+//     // cancelTimer();
+//     update();
+//   } else if (findData != null) {
+//     debugPrint("KESEINI ELSE IF 2");
+//     isPresentHadir = false;
+//     update();
+//   } else if (findDataPulang != null) {
+//     isPresentHadir = true;
+//     // cancelTimer();
+//     update();
+//   } else if (findData != null && findDataPulang != null) {
+//     debugPrint("KESINI ELSE IF 3");
+//     isPresentHadir = true;
+//     // cancelTimer();
+//     update();
+//   } else {
+//     debugPrint("KESINI ELSE");
+//     isPresentHadir = false;
+//     update();
+//   }
+// }
 
-  // checkIsIzin() {
-  //   print("CHECK izn");
-  //   DateTime dateCurrent = DateTime.now();
-  //   String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
-  //   var idKaryawan = user?["idkaryawan"];
-  //   bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
-  //   bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
+// checkIsIzin() {
+//   debugPrint("CHECK izn");
+//   DateTime dateCurrent = DateTime.now();
+//   String formattedCurrentDate = DateFormat("yyyy-MM-dd").format(dateCurrent);
+//   var idKaryawan = user?["idkaryawan"];
+//   bool isDateGreaterThanToday = isGreaterThanToday(currentDate.toString());
+//   bool isDateSmallerThanToday = isSmallerThanToday(currentDate.toString());
 
-  //   var findData = izin?.firstWhere(
-  //     (element) => element?["idkaryawan"] == idKaryawan,
-  //     orElse: () => null,
-  //   );
+//   var findData = izin?.firstWhere(
+//     (element) => element?["idkaryawan"] == idKaryawan,
+//     orElse: () => null,
+//   );
 
-  //   var findDataAbs = absen?.firstWhere(
-  //     (element) =>
-  //         element?["idkaryawan"] == idKaryawan &&
-  //         element?["waktuCheckOut"] != null,
-  //     orElse: () => null,
-  //   );
+//   var findDataAbs = absen?.firstWhere(
+//     (element) =>
+//         element?["idkaryawan"] == idKaryawan &&
+//         element?["waktuCheckOut"] != null,
+//     orElse: () => null,
+//   );
 
-  //   if (findData != null) {
-  //     isPresentIzin = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else if (findDataAbs != null) {
-  //     isPresentIzin = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else if (findData != null && findDataAbs != null) {
-  //     isPresentIzin = true;
-  //     // cancelTimer();
-  //     update();
-  //   } else {
-  //     isPresentIzin = false;
-  //     update();
-  //   }
-  // }
+//   if (findData != null) {
+//     isPresentIzin = true;
+//     // cancelTimer();
+//     update();
+//   } else if (findDataAbs != null) {
+//     isPresentIzin = true;
+//     // cancelTimer();
+//     update();
+//   } else if (findData != null && findDataAbs != null) {
+//     isPresentIzin = true;
+//     // cancelTimer();
+//     update();
+//   } else {
+//     isPresentIzin = false;
+//     update();
+//   }
+// }
 }

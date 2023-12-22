@@ -3,9 +3,11 @@ import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
 import 'package:app/views/absensi/absensi_pulang_screen.dart';
 import 'package:app/views/absensi/absensi_screen2.dart';
 import 'package:app/views/home/company_full_screen.dart';
+import 'package:app/views/home/company_screen.dart';
 import 'package:app/views/home/hadir_result_location_screen.dart';
 import 'package:app/views/home/hadir_result_selfie_screen.dart';
 import 'package:app/views/home/main_screen.dart';
+import 'package:app/views/home/stop_working_screen.dart';
 
 class Routes {
   static final pages = [
@@ -30,14 +32,20 @@ class Routes {
 
 //Start Home
     //Home
-    GetPage(name: RouteName.home, page: () => MainScreen()),
+    GetPage(name: RouteName.home, page: () => const MainScreen()),
     //Home
     GetPage(name: RouteName.homeSearch, page: () => const HomeSearchScreen()),
     //Home Undangan
-    GetPage(name: RouteName.homeUndangan, page: () => HomeUndanganScreen()),
+    GetPage(name: RouteName.homeUndangan, page: () => const HomeUndanganScreen()),
     GetPage(
         name: RouteName.companyFullScreen,
         page: () => const CompanyFullScreen()),
+    GetPage(
+        name: RouteName.companyScreen,
+        page: () => const CompanyScreen()),
+    GetPage(
+        name: RouteName.stopWorking,
+        page: () => const StopWorkingScreen()),
     GetPage(
         name: RouteName.hasilHadirFullScreen,
         page: () => const HasilHadirScreen()),
@@ -65,16 +73,16 @@ class Routes {
 
 //Start Absensi
     //Absen
-    GetPage(name: RouteName.absen, page: () => AbsensiScreen()),
+    GetPage(name: RouteName.absen, page: () => const AbsensiScreen()),
     GetPage(
         name: RouteName.absenPulangView,
         page: () => const AbsensiPulangScreenView()),
-    GetPage(name: RouteName.absenViewMode, page: () => AbsensiScreenView()),
+    GetPage(name: RouteName.absenViewMode, page: () => const AbsensiScreenView()),
     //Izin
-    GetPage(name: RouteName.absenIzin, page: () => AbsensiIzinScreen()),
+    GetPage(name: RouteName.absenIzin, page: () => const AbsensiIzinScreen()),
     GetPage(
         name: RouteName.absenIzinDownloaded,
-        page: () => AbsensiIzinDownloadedScreen()),
+        page: () => const AbsensiIzinDownloadedScreen()),
 //End Absensi
 
 //Start WebView

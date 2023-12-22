@@ -1,64 +1,75 @@
 import 'package:app/global_resource.dart';
-// import 'package:stop_watch_timer/stop_watch_timer.dart';
 
-Widget timerCount(BuildContext context, s) {
-  return Container(
-    child: s.timerRecor != "00:00:00"
-        ? buildDisable(context, s.timerRecor)
-        : buildEnable(context, s.timerRecor, s),
-  );
+Widget timerCount(BuildContext context, GetxController s) {
+  assert(s is AbsenController || s is HomeController);
+  String? timerRecord;
+  if (s is AbsenController) {
+    timerRecord = s.timerRecor;
+  } else if (s is HomeController) {
+    timerRecord = s.timerRecor;
+  }
+  final isEmpty = timerRecord != "00:00:00";
+  timerRecord = timerRecord?.replaceAll(':', ' : ');
+
+  return isEmpty
+      ? buildDisable(context, timerRecord, s)
+      : buildEnable(context, timerRecord, s);
 }
 
-Widget buildEnable(BuildContext context, timer, s) {
-  return Padding(
-    padding: const EdgeInsets.only(top: 20, bottom: 20),
-    child: Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(
-            FeatherIcons.clock,
-            size: 24,
-            color: Colors.white,
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Text(
-            timer,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
-          ),
-        ],
+Widget buildEnable(BuildContext context, timer, GetxController s) {
+  final children = [
+    const Icon(Icons.access_time_filled, size: 24, color: Colors.white),
+    Expanded(
+      child: Text(
+        timer,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 18,
+        ),
+        textAlign: TextAlign.center,
       ),
     ),
-  );
-}
+    const Icon(Icons.chevron_right, size: 24, color: Colors.white),
+  ];
+  const padding = EdgeInsets.fromLTRB(16, 0, 12, 0);
 
-Widget buildDisable(BuildContext context, timer) {
   return Padding(
-    padding: const EdgeInsets.only(top: 20, bottom: 20),
+    padding: padding,
     child: Row(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Icon(
-          FeatherIcons.clock,
-          size: 24,
+      children: children,
+    ),
+  );
+}
+
+Widget buildDisable(BuildContext context, timer, GetxController s) {
+  final children = [
+    const Icon(Icons.access_time_filled, size: 24, color: Colors.white),
+    Expanded(
+      child: Text(
+        timer,
+        style: const TextStyle(
           color: Colors.white,
+          fontWeight: FontWeight.w700,
+          fontSize: 18,
         ),
-        const SizedBox(
-          width: 8,
-        ),
-        Text(
-          timer,
-          style: const TextStyle(
-              color: Colors.white, fontWeight: FontWeight.w700, fontSize: 18),
-        ),
-      ],
+        textAlign: TextAlign.center,
+      ),
+    ),
+    const Icon(Icons.chevron_right, size: 24, color: Colors.white),
+  ];
+  const padding = EdgeInsets.fromLTRB(16, 0, 12, 0);
+
+  return Padding(
+    padding: padding,
+    child: Row(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: children,
     ),
   );
 }
@@ -69,18 +80,18 @@ Widget buildDisable(BuildContext context, timer) {
 //   static String millisecondsToTimeFormat(int milliseconds) {
 //     final dt = DateTime.fromMillisecondsSinceEpoch(milliseconds, isUtc: true);
 //     final format = DateFormat("HH:mm:ss").format(dt);
-//     print("object $format");
+//     debugPrint("object $format");
 //     return "00:00:00";
 //   }
 
 //   static String stWatchUp() {
 //     Stopwatch stopwatch = Stopwatch();
 //     stopwatch.start();
-//     print("object elapsed ${stopwatch.elapsed}");
-//     print("object elapsedMilliseconds ${stopwatch.elapsedMilliseconds}");
-//     print("object elapsedTicks ${stopwatch.elapsedTicks}");
-//     print("object frequency ${stopwatch.frequency}");
-//     print("object isRunning ${stopwatch.isRunning}");
+//     debugPrint("object elapsed ${stopwatch.elapsed}");
+//     debugPrint("object elapsedMilliseconds ${stopwatch.elapsedMilliseconds}");
+//     debugPrint("object elapsedTicks ${stopwatch.elapsedTicks}");
+//     debugPrint("object frequency ${stopwatch.frequency}");
+//     debugPrint("object isRunning ${stopwatch.isRunning}");
 //     return "00";
 //   }
 
@@ -99,7 +110,7 @@ Widget buildDisable(BuildContext context, timer) {
 //   }
 
 //   static Future<String> stopWatchStreamer(bool isStart) async {
-//     print("object stopWatchStreamer $isStart");
+//     debugPrint("object stopWatchStreamer $isStart");
 //     StreamController<int>? streamController;
 //     Duration timerInterval = const Duration(seconds: 5);
 //     int counter = 0;
@@ -111,7 +122,7 @@ Widget buildDisable(BuildContext context, timer) {
 //     Timer? timer = Timer.periodic(timerInterval, tick);
 
 //     void stopTimer() {
-//       print("object stopTimer ${(timer != null)}");
+//       debugPrint("object stopTimer ${(timer != null)}");
 //       timer?.cancel();
 //       timer = null;
 //       counter = 0;
@@ -122,7 +133,7 @@ Widget buildDisable(BuildContext context, timer) {
 //       if (isStart) {
 //         timer = Timer.periodic(timerInterval, tick);
 //       } else {
-//         print("object startTimer 2");
+//         debugPrint("object startTimer 2");
 //         streamController?.close();
 //         timer?.cancel();
 //         timer = null;
@@ -149,9 +160,9 @@ Widget buildDisable(BuildContext context, timer) {
 
 //   static void timerPeriod(bool isStart) {
 //     final timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-//       print("object ${timer.tick}");
+//       debugPrint("object ${timer.tick}");
 //     });
-//     print("object $isStart");
+//     debugPrint("object $isStart");
 //     timer.cancel();
 //   }
 

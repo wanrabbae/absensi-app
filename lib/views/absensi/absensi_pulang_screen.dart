@@ -1,6 +1,5 @@
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
-import 'components/layout_map.dart';
 
 class AbsensiPulangScreenView extends StatefulWidget {
   const AbsensiPulangScreenView({super.key});
@@ -11,21 +10,18 @@ class AbsensiPulangScreenView extends StatefulWidget {
 }
 
 class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int _currentPageIndex = 0;
   var isDrag = true;
-  Set<Marker> _markers = {};
+  final Set<Marker> _markers = {};
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+        const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     var currentAbsen = Get.arguments?["dataAbsen"] ?? {};
-    var idAbsen = Get.arguments?["dataAbsen"]?["id"] ?? null;
-
-    final Completer<GoogleMapController> googleMapController =
-        Completer<GoogleMapController>();
+    var idAbsen = Get.arguments?["dataAbsen"]?["id"];
 
     List<Widget> pages = [
       // First page: Image network
@@ -105,13 +101,13 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
                       Get.back();
                     },
                     child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(50.0)),
-                        child: Icon(FeatherIcons.arrowLeft)),
+                        child: const Icon(FeatherIcons.arrowLeft)),
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.topRight,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -125,7 +121,7 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
             ),
           ],
         ),
-        body: Container(
+        body: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Stack(
@@ -144,25 +140,23 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
                 right: 0,
                 left: 0,
                 top: 590,
-                child: Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.circle,
-                        size: 14,
-                        color:
-                            _currentPageIndex == 0 ? Colors.white : Colors.grey,
-                      ),
-                      SizedBox(width: 7),
-                      Icon(
-                        Icons.circle,
-                        size: 14,
-                        color:
-                            _currentPageIndex == 0 ? Colors.grey : Colors.white,
-                      ),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.circle,
+                      size: 14,
+                      color:
+                          _currentPageIndex == 0 ? Colors.white : Colors.grey,
+                    ),
+                    const SizedBox(width: 7),
+                    Icon(
+                      Icons.circle,
+                      size: 14,
+                      color:
+                          _currentPageIndex == 0 ? Colors.grey : Colors.white,
+                    ),
+                  ],
                 ),
               ),
               Positioned(
@@ -185,23 +179,29 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
                             color: Color.fromRGBO(51, 51, 51, 0.5)),
                       ),
                       Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 20, left: 20, right: 20),
-                          child: ElevatedButton(
-                              onPressed: () {
-                                s.mulaiSelesaiAbsen(context, idAbsen);
-                              },
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStatePropertyAll(
-                                      // s.klikAbsen
-                                      //     ? colorGrayPrimary
-                                      //     : colorBluePrimary
-                                      colorBluePrimary),
-                                  shape: const MaterialStatePropertyAll(
-                                      (RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(20)))))),
-                              child: timerCount(context, s)))
+                        padding: const EdgeInsets.only(
+                            top: 3, bottom: 20, left: 20, right: 20),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            s.mulaiSelesaiAbsen(context, idAbsen);
+                          },
+                          style: const ButtonStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                                // s.klikAbsen
+                                //     ? colorGrayPrimary
+                                //     : colorBluePrimary
+                                colorBluePrimary),
+                            shape: MaterialStatePropertyAll(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                              ),
+                            ),
+                          ),
+                          child: timerCount(context, s),
+                        ),
+                      )
                     ],
                   ),
                 ),

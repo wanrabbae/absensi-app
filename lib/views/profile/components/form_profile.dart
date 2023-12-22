@@ -89,10 +89,10 @@ Widget formProfile(context, s) {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Nama"),
+                                  const Text("Nama"),
                                   TextFormField(
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                     initialValue: s.user?['namaKaryawan'],
                                     onChanged: (value) => s.profileNama = value,
                                     decoration: const InputDecoration(
@@ -115,15 +115,15 @@ Widget formProfile(context, s) {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Jenis Kelamin"),
+                                  const Text("Jenis Kelamin"),
                                   DropdownButtonFormField<String>(
                                     value: s.user?["gender"],
-                                    icon: Icon(FeatherIcons.chevronDown),
+                                    icon: const Icon(FeatherIcons.chevronDown),
                                     onChanged: (newValue) {
                                       // Update the selected value when the user chooses a gender
                                       s.selectedGender = newValue;
                                     },
-                                    items: [
+                                    items: const [
                                       DropdownMenuItem(
                                         value: 'pria',
                                         child: Text(
@@ -141,7 +141,7 @@ Widget formProfile(context, s) {
                                         ),
                                       ),
                                     ],
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       border: UnderlineInputBorder(),
                                       enabledBorder: UnderlineInputBorder(),
                                       focusedBorder: UnderlineInputBorder(
@@ -163,11 +163,11 @@ Widget formProfile(context, s) {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text("Alamat e-mail"),
+                                  const Text("Alamat e-mail"),
                                   TextFormField(
                                     initialValue: s.user?['alamatEmail'],
                                     style:
-                                        TextStyle(fontWeight: FontWeight.bold),
+                                        const TextStyle(fontWeight: FontWeight.bold),
                                     readOnly: true,
                                     onTap: () {
                                       SplashController()
@@ -233,13 +233,13 @@ Widget formProfile(context, s) {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text("Alamat tempat tinggal"),
+                                      const Text("Alamat tempat tinggal"),
                                       TextFormField(
                                         key: Key(s.profileAlamat.toString()),
                                         onChanged: (value) =>
                                             s.profileAlamat = value,
                                         initialValue: s.profileAlamat,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold),
                                         keyboardType: TextInputType.multiline,
                                         maxLines: 10,
@@ -308,7 +308,7 @@ Widget formProfile(context, s) {
                 child: Center(
                     child: GestureDetector(
                   // onTap: () => s.hapusAkun(),
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Icon(
@@ -317,7 +317,7 @@ Widget formProfile(context, s) {
                         color: Color.fromRGBO(225, 24, 24, 1),
                         weight: 1.5,
                       ),
-                      const Text(
+                      Text(
                         "Hapus",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,

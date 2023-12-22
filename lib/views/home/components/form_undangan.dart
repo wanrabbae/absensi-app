@@ -8,14 +8,12 @@ Widget formUndangan(s, context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              child: Text(
-                "Undang melalui email",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w800),
-              ),
+            const Text(
+              "Undang melalui email",
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w800),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -30,9 +28,13 @@ Widget formUndangan(s, context) {
                 autofocus: true,
                 onChanged: (value) => s.emailUndangan = value,
                 keyboardType: TextInputType.emailAddress,
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                decoration: InputDecoration(
+                style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
+                decoration: const InputDecoration(
                   hintText: "e-mail teman",
+                  hintStyle: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 1.5),
                   ),
@@ -42,11 +44,9 @@ Widget formUndangan(s, context) {
                 ),
               ),
             ),
-            Container(
-              child: Text(
-                "Beritahu teman anda untuk segera memeriksa kotak masuk e-mail.",
-                style: TextStyle(color: Colors.grey),
-              ),
+            const Text(
+              "Beritahu teman anda untuk segera memeriksa kotak masuk e-mail.",
+              style: TextStyle(color: Colors.grey),
             )
           ],
         ),

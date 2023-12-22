@@ -1,6 +1,6 @@
 import 'package:app/global_resource.dart';
 
-Widget customNavbar(_pageViewController, _activePage) {
+Widget customNavbar(pageViewController, activePage) {
   return Container(
     // padding: EdgeInsets.all(10),
     decoration: const BoxDecoration(boxShadow: [
@@ -23,7 +23,7 @@ Widget customNavbar(_pageViewController, _activePage) {
               height: 30,
             ),
             label: "Kerja"),
-        BottomNavigationBarItem(
+        const BottomNavigationBarItem(
           icon: Icon(
             FeatherIcons.user,
             size: 30,
@@ -37,7 +37,7 @@ Widget customNavbar(_pageViewController, _activePage) {
         color: Colors.black,
       ),
       unselectedItemColor: Colors.black,
-      currentIndex: _activePage,
+      currentIndex: activePage,
       elevation: 10,
       selectedLabelStyle: const TextStyle(
         fontWeight: FontWeight.w300,
@@ -48,8 +48,8 @@ Widget customNavbar(_pageViewController, _activePage) {
       backgroundColor: colorBlueOpacity2,
       // backgroundColor: colorBlueOpacity2,
       onTap: (index) {
-        _pageViewController?.animateToPage(index,
-            duration: Duration(milliseconds: 200), curve: Curves.easeIn);
+        pageViewController?.animateToPage(index,
+            duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
       },
     ),
   );

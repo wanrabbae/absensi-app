@@ -14,8 +14,7 @@ class WebviewScreen extends StatelessWidget {
             color: colorBluePrimary2,
             child: Text(
               Get.arguments.toString(),
-              style: TextStyle(
-                fontFamily: 'Rubik',
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w800,
                 color: Colors.white,
@@ -24,11 +23,11 @@ class WebviewScreen extends StatelessWidget {
           ),
           centerTitle: false,
           leading: IconButton(
-            style: ButtonStyle(
+            style: const ButtonStyle(
                 iconColor: MaterialStatePropertyAll(Colors.white),
                 textStyle:
                     MaterialStatePropertyAll(TextStyle(color: Colors.white))),
-            icon: Icon(FeatherIcons.x),
+            icon: const Icon(FeatherIcons.x),
             onPressed: () {
               Get.back();
             },

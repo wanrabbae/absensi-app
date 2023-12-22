@@ -1,5 +1,9 @@
+import 'package:app/data/models/notification/push_notification.dart' as model;
+import 'package:app/data/source/firebase/firebase_service.dart';
+import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
+import 'package:in_app_review/in_app_review.dart';
 
 class AbsenController extends GetxController {
   //global
@@ -10,12 +14,10 @@ class AbsenController extends GetxController {
   int changePageScreen = 0;
   Map? user;
   Map<String, dynamic>? izinData;
+
   //absen
   LatLng currentLocation = const LatLng(5.880241, 95.336574);
   LatLng currentLocationPulang = const LatLng(5.880241, 95.336574);
-  BitmapDescriptor customMarker = BitmapDescriptor.defaultMarker;
-  Completer<GoogleMapController> googleMapController =
-      Completer<GoogleMapController>();
   String? timerRecor = "00:00:00";
   String? waktuAbsen;
   File? formFoto;
@@ -25,8 +27,10 @@ class AbsenController extends GetxController {
   bool klikAbsen = false;
   String? alamatLoc;
   String? alamatLocPulang;
+
   // ignore: prefer_typing_uninitialized_variables
   var timer;
+
   //izin
   Map? perusahaan;
   List? perusahaanList;
@@ -45,13 +49,13 @@ class AbsenController extends GetxController {
     final homeCtrl = Get.put(HomeController());
     var findData = homeCtrl.absen?.firstWhere(
       (element) =>
-          element?["idkaryawan"] == user?["idkaryawan"] &&
+          element?["idKaryawan"] == user?["idkaryawan"] &&
           element?["waktuCheckOut"] != null,
       orElse: () => null,
     );
 
     var findDataIzin = homeCtrl.izin?.firstWhere(
-      (element) => element?["idkaryawan"] == user?["idkaryawan"],
+      (element) => element?["idKaryawan"] == user?["idkaryawan"],
       orElse: () => null,
     );
     super.onInit();
@@ -65,25 +69,25 @@ class AbsenController extends GetxController {
     if (findDataIzin != null) izinData = findDataIzin;
 
     if (!klikAbsen && findData == null) {
-      print("BELUM ABSEN");
+      debugPrint("BELUM ABSEN");
       getCurrentLocation();
     }
 
     var findDataOnCheckIn = homeCtrl.absen?.firstWhere(
-      (element) => element?["idkaryawan"] == user?["idkaryawan"],
+      (element) => element?["idKaryawan"] == user?["idkaryawan"],
       orElse: () => null,
     );
 
     if (klikAbsen && timer?.isActive) {
-      print("TEST TOAST");
-      print("DATA CHECKIN: " + findDataOnCheckIn.toString());
-      print("STATUS STATE: " + statusState.toString());
+      debugPrint("TEST TOAST");
+      debugPrint("DATA CHECKIN: $findDataOnCheckIn");
+      debugPrint("STATUS STATE: $statusState");
       mulaiPulangRevisi1(findDataOnCheckIn?['id']);
     }
   }
 
   updateStatusStateFromNotif() {
-    print("UPDATE STATE YOYY");
+    debugPrint("UPDATE STATE YOYY");
     statusState = "dariNotif";
     update();
   }
@@ -92,18 +96,18 @@ class AbsenController extends GetxController {
     final homeCtrl = Get.put(HomeController());
     var findData = homeCtrl.absen?.firstWhere(
       (element) =>
-          element?["idkaryawan"] == user?["idkaryawan"] &&
+          element?["idKaryawan"] == user?["idkaryawan"] &&
           element?["waktuCheckOut"] == null,
       orElse: () => null,
     );
 
     var checkData = homeCtrl.absen?.firstWhere(
-      (element) => element?["idkaryawan"] == user?["idkaryawan"],
+      (element) => element?["idKaryawan"] == user?["idkaryawan"],
       orElse: () => null,
     );
 
     if (checkData == null) {
-      print("===== CHECK DATA NULL ====");
+      debugPrint("===== CHECK DATA NULL ====");
       box.remove(Base.klikAbsen);
       box.remove(Base.waktuAbsen);
       cancelTimer();
@@ -111,7 +115,7 @@ class AbsenController extends GetxController {
 
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (klikAbsen) {
-        print("KE IF TIMER 1");
+        debugPrint("KE IF TIMER 1");
         timerRecor = timerAbsen4();
       } else if (findData != null) {
         timerRecor = timerAbsen3(findData?["waktuCheckIn"], null);
@@ -125,7 +129,7 @@ class AbsenController extends GetxController {
   }
 
   cancelTimer() {
-    print("CANCEL TIMER ABSEN");
+    debugPrint("CANCEL TIMER ABSEN");
     timer?.cancel();
     timer = null;
   }
@@ -148,7 +152,7 @@ class AbsenController extends GetxController {
       LocationPermission permission;
 
       await Permission.location.serviceStatus.isEnabled.then((value) {
-        print("LOCATION: " + value.toString());
+        debugPrint("LOCATION: $value");
         if (!value) {
           Permission.location.request();
         }
@@ -191,7 +195,7 @@ class AbsenController extends GetxController {
   lokasiDetect() async {
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
-    // print("========== TEST TOST YOYYYY =======");
+    // debugPrint("========== TEST TOST YOYYYY =======");
     // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
@@ -202,25 +206,12 @@ class AbsenController extends GetxController {
       customSnackbarLoadingAsset(
           "Titik lokasi anda ditemukan.", "images/check-gif.gif");
       Future.delayed(
-        Duration(seconds: 2),
+        const Duration(seconds: 2),
         () {
           Get.back();
           mulaiAbsen();
         },
       );
-      await googleMapController.future.then((newController) {
-        BitmapDescriptor.fromAssetImage(
-                const ImageConfiguration(textDirection: TextDirection.ltr),
-                "assets/icons/map-pin.png")
-            .then((value) => customMarker = value);
-        newController.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(
-                target: LatLng(position.latitude, position.longitude),
-                zoom: 15),
-          ),
-        );
-      });
       update();
     });
   }
@@ -291,36 +282,27 @@ class AbsenController extends GetxController {
     lokasiDetectPulang2(idAbsen);
   }
 
-  lokasiDetectPulang(idAbsen) async {
-    print("ID ABSEN FROM DETECTED: " + idAbsen.toString());
+  lokasiDetectPulang(idAbsen) {
+    debugPrint("ID ABSEN FROM DETECTED: $idAbsen");
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
     // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
-    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
-        .then((Position position) async {
+    Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then(
+        (Position position) async {
+      debugPrint('Current location updated = $position');
       currentLocationPulang = LatLng(position.latitude, position.longitude);
       getAddressFromLatLngPulang();
       Get.back();
       customSnackbarLoadingAsset(
           "Titik lokasi anda ditemukan.", "images/check-gif.gif");
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         Get.back();
         mulaiPulangAct(idAbsen);
       });
-      await googleMapController.future.then((newController) {
-        BitmapDescriptor.fromAssetImage(
-                const ImageConfiguration(textDirection: TextDirection.ltr),
-                "assets/icons/map-pin.png")
-            .then((value) => customMarker = value);
-        newController.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(
-                target: LatLng(position.latitude, position.longitude),
-                zoom: 15),
-          ),
-        );
-      });
       update();
+    }, onError: (e, s) {
+      debugPrint(e.toString());
+      debugPrintStack(stackTrace: s);
     });
   }
 
@@ -336,24 +318,11 @@ class AbsenController extends GetxController {
       Get.back();
       customSnackbarLoadingAsset(
           "Titik lokasi anda ditemukan.", "images/check-gif.gif");
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(const Duration(seconds: 2), () {
         Get.back();
         mulaiPulangAct2(idAbsen);
       });
 
-      await googleMapController.future.then((newController) {
-        BitmapDescriptor.fromAssetImage(
-                const ImageConfiguration(textDirection: TextDirection.ltr),
-                "assets/icons/map-pin.png")
-            .then((value) => customMarker = value);
-        newController.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(
-                target: LatLng(position.latitude, position.longitude),
-                zoom: 15),
-          ),
-        );
-      });
       update();
     });
   }
@@ -368,12 +337,16 @@ class AbsenController extends GetxController {
     });
   }
 
-  getAddressFromLatLngPulang() async {
-    await placemarkFromCoordinates(
+  Future<void> getAddressFromLatLngPulang() {
+    return placemarkFromCoordinates(
             currentLocationPulang.latitude, currentLocationPulang.longitude)
         .then((List<Placemark> placemarks) {
-      alamatLocPulang =
-          "${placemarks[0].street}, ${placemarks[0].subLocality}, ${placemarks[0].locality}, ${placemarks[0].subAdministrativeArea}, ${placemarks[0].administrativeArea}, ${placemarks[0].postalCode} ";
+      alamatLocPulang = "${placemarks[0].street}, "
+          "${placemarks[0].subLocality}, "
+          "${placemarks[0].locality}, "
+          "${placemarks[0].subAdministrativeArea}, "
+          "${placemarks[0].administrativeArea}, "
+          "${placemarks[0].postalCode} ";
       update();
     });
   }
@@ -558,10 +531,10 @@ class AbsenController extends GetxController {
         box.write(Base.waktuAbsen, DateTime.now().toString());
         box.write(Base.klikAbsen, true);
         Get.offAllNamed(RouteName.home, arguments: 0);
-        await AwesomeNotificationService()
-            .showNotificationAbsen(DateTime.now().toString());
-        await AwesomeNotificationService()
-            .showNotificationAfter12Hours(DateTime.now().toString());
+        final now = DateTime.now();
+        AwesomeNotificationService()
+          ..showNotificationAbsen(now)
+          ..showNotificationAfter12Hours(now);
       } else if (response.statusCode == 401) {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
@@ -570,8 +543,8 @@ class AbsenController extends GetxController {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
         // Get.snackbar('Oops.. terjadi kesalahan sistem.', response.toString());
-        // print("INI HADIR: " + (response as Response<dynamic>).toString());
-        // print("CODE: " + response.statusCode.toString());
+        // debugPrint("INI HADIR: " + (response as Response<dynamic>).toString());
+        // debugPrint("CODE: " + response.statusCode.toString());
       }
     } catch (e) {
       // customSnackbar1("Menghubungkan kembali...");
@@ -592,8 +565,8 @@ class AbsenController extends GetxController {
         // Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
         // Get.snackbar('Oops.. terjadi kesalahan sistem.', response.toString());
-        // print("INI HADIR: " + (response as Response<dynamic>).toString());
-        // print("CODE: " + response.statusCode.toString());
+        // debugPrint("INI HADIR: " + (response as Response<dynamic>).toString());
+        // debugPrint("CODE: " + response.statusCode.toString());
       }
     } catch (e) {
       // customSnackbar1("Menghubungkan kembali...");
@@ -601,13 +574,18 @@ class AbsenController extends GetxController {
     }
   }
 
-  absenPulang(status, idAbsen) async {
+  absenPulang(status, idAbsen, [String? tanggal]) async {
+    if (idAbsen == null) {
+      customSnackbar1("Oops..ID absensi tidak ditemukan");
+      return;
+    }
+
     var currentDate = DateTime.now();
     var newDate =
-        new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
+        DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
             .toString()
             .split(" ")[0];
-    print("ID ABSEN PULANG: " + idAbsen.toString());
+    debugPrint("ID ABSEN PULANG: $idAbsen");
     try {
       // if (status) {
       //   customSnackbarLoading("Sedang Pulang...");
@@ -627,35 +605,53 @@ class AbsenController extends GetxController {
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       print(response);
       if (response.statusCode == 200) {
-        await AwesomeNotificationService().removeNotification();
         Get.back();
         box.write(Base.klikAbsen, false);
         box.remove(Base.waktuAbsen);
         await HomeController().cancelTimer();
         await cancelTimer();
         await AwesomeNotificationService().showNotificationAbsenDone();
+
+        dynamic args = 0;
+        if (Get.isRegistered<HomeController>()) {
+          final homeCtrl = Get.find<HomeController>();
+          var findDataOnCheckIn = homeCtrl.absen?.firstWhere(
+            (element) => element?["idKaryawan"] == user?["idkaryawan"],
+            orElse: () => null,
+          );
+          if (findDataOnCheckIn is Map) {
+            final tanggal = findDataOnCheckIn['tanggal'];
+            if (tanggal is String) {
+              final date = DateTime.tryParse(tanggal)?.toLocal();
+              if (date != null) {
+                args = kMysqlDateFormat.format(date);
+              }
+            }
+          }
+        }
         if (status) {
           // Get.snackbar("Anda Sudah Pulang", "waktu telah dihentikan");
           customSnackbar1("Kehadiran hari ini telah terisi.");
-          Get.offAllNamed(RouteName.home, arguments: 0);
+          Get.offAllNamed(RouteName.home, arguments: args);
           await HomeController().dataHome();
         } else {
           // Get.snackbar("Mengajukan Izin Berhasil",
           //     "Berhasil mematikan absen sebelumnya. Berhasil mengirimkan izin. Silahkan hubungi admin.");
-          Get.offAllNamed(RouteName.home, arguments: 0);
+          Get.offAllNamed(RouteName.home, arguments: args);
           await HomeController().dataHome();
         }
+        _showReviewAndClearLiveTracking(user?["idkaryawan"]);
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
       } else if (response.statusCode == 400) {
-        print("STATUS CODE 400");
+        debugPrint("STATUS CODE 400");
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
       } else {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
-        print("INI PULANG: " + response.toString());
+        debugPrint("INI PULANG: $response");
       }
     } catch (e) {
       print(e);
@@ -664,13 +660,13 @@ class AbsenController extends GetxController {
   }
 
   absenPulang2(status, idAbsen) async {
-    print("PULANG YOYY");
+    debugPrint("PULANG YOYY");
     var currentDate = DateTime.now();
     var newDate =
-        new DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
+        DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
             .toString()
             .split(" ")[0];
-    print("ID ABSEN PULANG: " + idAbsen.toString());
+    debugPrint("ID ABSEN PULANG: $idAbsen");
     try {
       // if (status) {
       //   customSnackbarLoading("Sedang Pulang...");
@@ -686,17 +682,19 @@ class AbsenController extends GetxController {
         },
         'AlamatPulang': alamatLocPulang,
       };
-      print("FORMS PULANG 2: " + forms.toString());
+      debugPrint("FORMS PULANG 2: $forms");
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
       print(response);
       if (response.statusCode == 200) {
-        await AwesomeNotificationService().removeNotification();
         box.write(Base.klikAbsen, false);
         box.remove(Base.waktuAbsen);
         await HomeController().cancelTimer();
         await cancelTimer();
-        await AwesomeNotificationService().showNotificationAbsenDone();
+        AwesomeNotificationService()
+          ..removeNotification()
+          ..showNotificationAbsenDone();
+        _showReviewAndClearLiveTracking(user?["idkaryawan"]);
         ProfileController().keluar();
       } else if (response.statusCode == 401) {
         Get.back();
@@ -707,7 +705,7 @@ class AbsenController extends GetxController {
       } else {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
-        print("INI PULANG: " + response.toString());
+        debugPrint("INI PULANG: $response");
       }
     } catch (e) {
       print(e);
@@ -736,11 +734,8 @@ class AbsenController extends GetxController {
           await HomeController().dataHome();
         } else {
           final homeCtrl = Get.put(HomeController());
-          DateTime dateCurrent = DateTime.now();
-          String formattedCurrentDate =
-              DateFormat("yyyy-MM-dd").format(dateCurrent);
           var findData = await homeCtrl.absen?.firstWhere(
-              (element) => element?["idkaryawan"] == user?["idkaryawan"],
+              (element) => element?["idKaryawan"] == user?["idkaryawan"],
               orElse: () => null);
 
           absenPulang(false, findData?["id"]);
@@ -754,7 +749,7 @@ class AbsenController extends GetxController {
         //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
       }
     } catch (e) {
-      print("KE CATCH");
+      debugPrint("KE CATCH");
       // print(e);
       // customSnackbar1("Terjadi kesalahan");
       box.write(Base.izinAbsen, DateTime.now().toString());
@@ -764,15 +759,43 @@ class AbsenController extends GetxController {
         await HomeController().dataHome();
       } else {
         final homeCtrl = Get.put(HomeController());
-        DateTime dateCurrent = DateTime.now();
-        String formattedCurrentDate =
-            DateFormat("yyyy-MM-dd").format(dateCurrent);
         var findData = await homeCtrl.absen?.firstWhere(
-            (element) => element?["idkaryawan"] == user?["idkaryawan"],
+            (element) => element?["idKaryawan"] == user?["idkaryawan"],
             orElse: () => null);
 
         absenPulang(false, findData?["id"]);
       }
     }
+  }
+}
+
+_showReviewAndClearLiveTracking(dynamic broadcasterId) async {
+  final InAppReview inAppReview = InAppReview.instance;
+  if (await inAppReview.isAvailable()) {
+    inAppReview.requestReview();
+  }
+
+  if (broadcasterId is String) {
+    final firebaseService = $it<FirebaseService>();
+    final pushNotificationApiService = $it<PushNotificationApiService>();
+    firebaseService
+        .clearAllLiveTracking(broadcasterId)
+        .then((idKaryawans) {
+      pushNotificationApiService.sendPushNotification(
+        model.PushNotification(
+          notification: const model.Notification(
+            title: 'Pengiriman lokasi dihentikan',
+            body: 'Sentuh untuk membuka aplikasi',
+          ),
+          data: {
+            'tag': 'STOP_REQUEST_LIVE_TRACKING',
+          },
+          android: const model.Android(
+            notification: model.AndroidNotification(),
+          ),
+          karyawanIds: idKaryawans,
+        ),
+      );
+    });
   }
 }

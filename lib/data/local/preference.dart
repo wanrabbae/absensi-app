@@ -23,9 +23,7 @@ class Preference {
       "keyCurrentDateSelectedFormated";
   static const String keyRageDate = "keyRageDate";
 
-  /**
-   * Get Preference
-   */
+  /// Get Preference
   Future<bool> isAdmin() async {
     return await _pref.getPref(keyAdmin) ?? false;
   }
@@ -71,9 +69,7 @@ class Preference {
     return await _pref.getPref(keyRageDate);
   }
 
-  /**
-   * Set Preference
-   */
+  /// Set Preference
   void setIsAdmin(bool value) {
     _pref.setPref(keyAdmin, value);
   }

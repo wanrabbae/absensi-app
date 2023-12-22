@@ -1,12 +1,11 @@
 import 'package:app/global_resource.dart';
-import 'package:app/helpers/notification_local.dart';
 
 class SplashController extends GetxController {
   final box = GetStorage();
   @override
   void onInit() async {
     super.onInit();
-    Timer(const Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 2), () {
       var splashScreen = box.read(Base.splash);
       var user = box.read(Base.dataUser);
       if (user == null) {
@@ -87,29 +86,29 @@ class SplashController extends GetxController {
       context: Get.overlayContext!,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.all(5),
+          contentPadding: const EdgeInsets.all(5),
           backgroundColor: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           title: Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
-          content: Container(
+          content: SizedBox(
             height: 70,
             child: Column(
               children: [
                 Text(
                   message,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     TextButton(
-                      child: Text(
+                      child: const Text(
                         'Tidak',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -118,7 +117,7 @@ class SplashController extends GetxController {
                       },
                     ),
                     TextButton(
-                      child: Text('Ya',
+                      child: const Text('Ya',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context)
@@ -151,29 +150,29 @@ class SplashController extends GetxController {
       context: Get.overlayContext!,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.all(5),
+          contentPadding: const EdgeInsets.all(5),
           backgroundColor: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           title: Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
-          content: Container(
+          content: SizedBox(
             height: 70,
             child: Column(
               children: [
                 Text(
                   message,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     TextButton(
-                      child: Text(
+                      child: const Text(
                         'Tidak',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -182,7 +181,7 @@ class SplashController extends GetxController {
                       },
                     ),
                     TextButton(
-                      child: Text('Ya',
+                      child: const Text('Ya',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context)
@@ -216,29 +215,29 @@ class SplashController extends GetxController {
       context: Get.overlayContext!,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.all(5),
+          contentPadding: const EdgeInsets.all(5),
           backgroundColor: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           title: Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
-          content: Container(
+          content: SizedBox(
             height: 70,
             child: Column(
               children: [
                 Text(
                   message,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     TextButton(
-                      child: Text(
+                      child: const Text(
                         'Batal',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -247,7 +246,7 @@ class SplashController extends GetxController {
                       },
                     ),
                     TextButton(
-                      child: Text('Oke',
+                      child: const Text('Oke',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context)
@@ -274,35 +273,35 @@ class SplashController extends GetxController {
     });
   }
 
-  showConfirmationDialog4(
+  Future showConfirmationDialog4(
       String title, String message, VoidCallback? actionFunc) {
-    showDialog(
+    return showDialog(
       context: Get.overlayContext!,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.all(5),
+          contentPadding: const EdgeInsets.all(5),
           backgroundColor: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           title: Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
-          content: Container(
+          content: SizedBox(
             height: 70,
             child: Column(
               children: [
                 Text(
                   message,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     TextButton(
-                      child: Text(
+                      child: const Text(
                         'Tidak',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -311,7 +310,7 @@ class SplashController extends GetxController {
                       },
                     ),
                     TextButton(
-                      child: Text('Ya',
+                      child: const Text('Ya',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context)
@@ -344,29 +343,29 @@ class SplashController extends GetxController {
       context: Get.overlayContext!,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.all(5),
+          contentPadding: const EdgeInsets.all(5),
           backgroundColor: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           title: Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
-          content: Container(
+          content: SizedBox(
             height: 70,
             child: Column(
               children: [
                 Text(
                   message,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     TextButton(
-                      child: Text(
+                      child: const Text(
                         'Tidak',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
@@ -375,7 +374,7 @@ class SplashController extends GetxController {
                       },
                     ),
                     TextButton(
-                      child: Text('Ya',
+                      child: const Text('Ya',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context)
@@ -408,9 +407,9 @@ class SplashController extends GetxController {
         titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         titlePadding: const EdgeInsets.all(10),
         content: Padding(
-          padding: EdgeInsets.all(5),
+          padding: const EdgeInsets.all(5),
           child: Text(message,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
         ),
         buttonColor: Colors.transparent,
         cancelTextColor: colorBluePrimary,
@@ -427,29 +426,29 @@ class SplashController extends GetxController {
       context: Get.overlayContext!,
       builder: (BuildContext context) {
         return AlertDialog(
-          contentPadding: EdgeInsets.all(5),
+          contentPadding: const EdgeInsets.all(5),
           backgroundColor: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           title: Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
           ),
-          content: Container(
+          content: SizedBox(
             height: 70,
             child: Column(
               children: [
                 Text(
                   message,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                      child: Text('Ok',
+                      child: const Text('Ok',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       onPressed: () {
                         Navigator.of(context)
@@ -487,18 +486,18 @@ class SplashController extends GetxController {
           title: Text(
             title,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 14),
+            style: const TextStyle(fontSize: 14),
           ),
           content: Text(
             message,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12),
+            style: const TextStyle(fontSize: 12),
           ),
           actionsAlignment: MainAxisAlignment.center,
           actions: <Widget>[
             Center(
               child: TextButton(
-                child: Text('Ok'),
+                child: const Text('Ok'),
                 onPressed: () {
                   Get.back();
                 },

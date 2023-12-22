@@ -11,6 +11,10 @@ const colorGrayPrimary = Color.fromRGBO(238, 240, 244, 1);
 const colorGreenPrimary = Color.fromRGBO(0, 234, 37, 1);
 const colorGreenPrimary2 = Color(0xff18E22C);
 const colorBlackPrimary = Color(0xff333333);
+const colorBlackPrimaryHalf = Color(0x80333333);
+const colorDivider = Color(0xFF7D7D7D);
+const colorDisabled = Color(0xFFD9D9D9);
+const colorSplash = Color(0xFFE8F0FC);
 const LatLng currentLatLng = LatLng(-6.175221730228861, 106.827163526188);
 
 Widget modalSelectCompany(BuildContext context, s) {
@@ -42,11 +46,11 @@ Widget modalSelectCompany(BuildContext context, s) {
                 alignment: Alignment.center,
                 width: double.infinity,
                 child: SingleChildScrollView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   child: ListView.separated(
                     itemCount: 1,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     // scrollDirection: Axis.horizontal,
                     separatorBuilder: (ctx, pos) => const Divider(
                       color: Color.fromRGBO(238, 240, 244, 1),
@@ -66,9 +70,9 @@ Widget modalSelectCompany(BuildContext context, s) {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Text(
+                              const Text(
                                 "Perusahaan",
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontWeight: FontWeight.w900,
                                   fontSize: 16,
                                 ),
@@ -231,7 +235,7 @@ Widget customDialogLoadingImage(
       backgroundColor: Colors.transparent,
       elevation: 0,
       titlePadding: EdgeInsets.zero,
-      content: Container(
+      content: SizedBox(
         height: 300,
         child: Column(
           children: [
@@ -249,14 +253,14 @@ Widget customDialogLoadingImage(
               ),
             ),
             Container(
-              padding: EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 20),
               child: Text(
                 msg,
                 style: const TextStyle(
                     fontSize: 16,
                     color: Colors.white,
-                    fontFamily: 'Rubik',
-                    fontWeight: FontWeight.bold),
+                    fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
@@ -283,9 +287,9 @@ Widget customDialogOk(BuildContext context, String msg) {
             onPressed: () {
               Get.back();
             },
-            child: Text(
+            child: const Text(
               'Ok',
-              style: const TextStyle(
+              style: TextStyle(
                   fontSize: 14,
                   color: colorBluePrimary,
                   fontWeight: FontWeight.w500),

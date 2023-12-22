@@ -1,19 +1,20 @@
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
-import 'package:flutter/services.dart';
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:gallery_saver/gallery_saver.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'dart:convert';
-import 'dart:io';
-import 'package:dio/dio.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+const String kGlobalFontFamily = 'Montserrat';
+final DateFormat kMysqlDateFormat = DateFormat('yyyy-MM-dd');
+final DateFormat kLastUpdatePositionDateFormat = DateFormat('dd/MM/yyyy HH:mm:ss');
+final DateFormat kQueryRangeDateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
 final box = GetStorage();
 
 String getTimeFromDatetime(String createdAt) {
-  DateTime dateTime = DateTime.parse(createdAt);
+  DateTime dateTime = DateTime.parse(createdAt).toLocal();
 
   String formattedTime =
       "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
@@ -22,7 +23,7 @@ String getTimeFromDatetime(String createdAt) {
 }
 
 String getTimeFullFromDatetime(String createdAt) {
-  DateTime dateTime = DateTime.parse(createdAt);
+  DateTime dateTime = DateTime.parse(createdAt).toLocal();
 
   String formattedTime =
       "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}:${dateTime.second.toString().padLeft(2, '0')}";
@@ -55,7 +56,7 @@ changeFormatDate(status, date) {
 Future<File> readAssetFileImg(String assetFilePath, String fileName) async {
   // Load the image file from the assets using rootBundle
   ByteData? byteData = await rootBundle.load(assetFilePath);
-  Uint8List bytes = byteData!.buffer.asUint8List();
+  Uint8List bytes = byteData.buffer.asUint8List();
 
   // Get the temporary directory path using the path_provider package
   Directory tempDir = await getTemporaryDirectory();
@@ -105,14 +106,14 @@ bool isSmallerThanToday(String dateString) {
 
   // Get the current date today
   DateTime currentDate = DateTime.now();
-  DateTime addedOneDay = parsedDate.add(Duration(days: 1));
+  DateTime addedOneDay = parsedDate.add(const Duration(days: 1));
   // Compare the dates
   return addedOneDay.isBefore(currentDate);
 }
 
 timerAbsen() {
   var waktuAbsen = box.read(Base.waktuAbsen);
-  print(waktuAbsen);
+  debugPrint('$waktuAbsen');
   var time = DateTime.parse(waktuAbsen!).difference(DateTime.now());
   var waktu = DateTime.parse(
       '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
@@ -124,7 +125,7 @@ timerAbsen() {
 
 timerAbsen2(waktuAbsen) {
   var time = DateTime.parse(waktuAbsen!).difference(DateTime.now());
-  print(time.inHours);
+  debugPrint('${time.inHours}');
   var waktu = DateTime.parse(
       '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
   var hours = waktu.hour < 10 ? '0${waktu.hour}' : waktu.hour;
@@ -142,12 +143,12 @@ timerAbsen3(waktuCheckIn, String? checkOut) {
     checkOutDateTime = DateTime.now();
   }
 
-  var time = DateTime.parse(waktuCheckIn!).difference(checkOutDateTime);
+  if (waktuCheckIn == null) {
+    return '';
+  }
+
   Duration timeDifference =
       DateTime.parse(waktuCheckIn!).difference(checkOutDateTime);
-  print(timeDifference.inHours);
-  var waktu = DateTime.parse(
-      '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
 
   var hours = timeDifference.inHours.abs() < 10
       ? '0${timeDifference.inHours.abs()}'
@@ -163,14 +164,10 @@ timerAbsen3(waktuCheckIn, String? checkOut) {
 
 timerAbsen4() {
   var waktuAbsen = box.read(Base.waktuAbsen);
-  print(waktuAbsen);
-  var time = DateTime.parse(waktuAbsen!).difference(DateTime.now());
+  if (waktuAbsen == null) return '';
 
   Duration timeDifference =
       DateTime.parse(waktuAbsen!).difference(DateTime.now());
-  print(timeDifference.inHours);
-  var waktu = DateTime.parse(
-      '2023-05-11 ${time.inHours.abs() < 10 ? '0' : ''}${time.abs().toString()}');
 
   var hours = timeDifference.inHours.abs() < 10
       ? '0${timeDifference.inHours.abs()}'
@@ -188,7 +185,7 @@ izinAbs() {
   var izinAbse = box.read(Base.izinAbsen);
   var sekarang = DateTime.now();
   if (izinAbse != null) {
-    var izin = DateTime.parse(izinAbse);
+    var izin = DateTime.parse(izinAbse).toLocal();
     var tanggalAwal =
         "${izin.year}-${izin.month < 10 ? '0${izin.month}' : izin.month}-${izin.day < 10 ? '0${izin.day}' : izin.day} 00:00:00";
     var tanggalAkhir = DateTime.parse(
@@ -235,8 +232,9 @@ void printTime(int timeInSeconds) {
   int hours = timeInSeconds ~/ 3600;
   int minutes = (timeInSeconds % 3600) ~/ 60;
   int seconds = timeInSeconds % 60;
-  print(
-      '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}');
+  debugPrint(
+    '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}',
+  );
 }
 
 String formatDuration(Duration duration) {
@@ -265,9 +263,9 @@ Future<void> downloadImage(String imageUrl) async {
     // Write the image data to the file
     await imageFile.writeAsBytes(response.data);
 
-    print('Image downloaded successfully. File path: ${imageFile.path}');
+    debugPrint('Image downloaded successfully. File path: ${imageFile.path}');
   } catch (e) {
-    print('Error downloading the image: $e');
+    debugPrint('Error downloading the image: $e');
   }
 }
 
@@ -291,15 +289,14 @@ Future<void> openMap(String? latitude, String? longitude) async {
   double longitude2 = double.parse(longitude.toString());
   String googleUrl =
       'https://www.google.com/maps/search/?api=1&query=$latitude2,$longitude2';
-  if (await canLaunch(googleUrl)) {
-    await launch(googleUrl);
+  if (await canLaunchUrlString(googleUrl)) {
+    await launchUrlString(googleUrl);
   } else {
     throw 'Could not open the map.';
   }
 }
 
 saveNetworkImage(url) async {
-  String path = url.toString();
   var dir = await DownloadsPathProvider.downloadsDirectory;
 
   PermissionStatus status = await Permission.storage.status;
@@ -319,26 +316,26 @@ saveNetworkImage(url) async {
   }
 
   var dir2 = await getApplicationDocumentsDirectory();
-  if (dir != null || dir2 != null) {
+  if (dir != null) {
     String savename = url.toString().split("/").last;
     String savePath = Platform.isIOS
-        ? dir2.path + "/$savename"
-        : "${dir?.path.toString()}/Hora/$savename";
+        ? "${dir2.path}/$savename"
+        : "${dir.path.toString()}/Hora/$savename";
 
     try {
       customSnackbarLoading("Mengunduh dokumen...");
       await Dio().download(url, savePath, onReceiveProgress: (received, total) {
         if (total != -1) {
-          print((received / total * 100).toStringAsFixed(0) + "%");
+          debugPrint("${(received / total * 100).toStringAsFixed(0)}%");
           // create progress bar
         }
       });
-      print("File is saved to download folder.");
+      debugPrint("File is saved to download folder.");
       customSnackbar1("Tangkapan layar telah disimpan.");
       await AwesomeNotificationService()
           .showNotificationCapture(path: savePath);
     } on DioError catch (e) {
-      print(e.message);
+      debugPrint(e.message);
       customSnackbar1("Oops.. terjadi kesalahan sistem.");
     }
   }
@@ -363,28 +360,28 @@ saveNetworkFile(url) async {
 
   var dir = await DownloadsPathProvider.downloadsDirectory;
   var dir2 = await getApplicationDocumentsDirectory();
-  if (dir != null || dir2 != null) {
+  if (dir != null) {
     String savename = url.toString().split("/").last;
     String savePath = Platform.isIOS
-        ? dir2.path + "/$savename"
-        : "${dir?.path}/Hora/$savename";
+        ? "${dir2.path}/$savename"
+        : "${dir.path}/Hora/$savename";
 
     try {
       customSnackbarLoading("Mengunduh dokumen...");
       await Dio().download(url, savePath, onReceiveProgress: (received, total) {
         if (total != -1) {
-          print((received / total * 100).toStringAsFixed(0) + "%");
+          debugPrint("${(received / total * 100).toStringAsFixed(0)}%");
           // create progress bar
           // loadingBar();
         }
       });
       // Get.back();
-      print("File is saved to download folder.");
+      debugPrint("File is saved to download folder.");
       customSnackbar1("Lampiran telah disimpan.");
       await AwesomeNotificationService()
           .showNotificationDownloadedFile(path: savePath.toString());
     } on DioError catch (e) {
-      print(e.message);
+      debugPrint(e.message);
       customSnackbar1("Oops.. terjadi kesalahan sistem.");
     }
   }

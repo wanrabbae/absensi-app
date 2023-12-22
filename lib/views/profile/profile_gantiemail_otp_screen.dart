@@ -1,6 +1,5 @@
 import 'package:app/global_resource.dart';
 import 'package:app/views/profile/components/form_gantiemail_otp.dart';
-import 'package:flutter/cupertino.dart';
 import 'dart:math' as math;
 
 class ProfileGantiemailScreen extends StatelessWidget {
@@ -37,11 +36,11 @@ class ProfileGantiemailScreen extends StatelessWidget {
                         Get.back();
                       },
                       child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
-                          child: Icon(FeatherIcons.arrowLeft)),
+                          child: const Icon(FeatherIcons.arrowLeft)),
                     ),
                   ),
                 ),
@@ -56,13 +55,13 @@ class ProfileGantiemailScreen extends StatelessWidget {
                         s.verifyUbahEmail();
                       },
                       child: Container(
-                          padding: EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(50.0)),
                           child: Transform.rotate(
                             angle: math.pi / 4,
-                            child: Icon(
+                            child: const Icon(
                               FeatherIcons.send,
                               color: colorBluePrimary,
                             ),
@@ -94,7 +93,7 @@ class ProfileGantiemailScreen extends StatelessWidget {
                                 color: Colors.grey.shade500,
                                 fontWeight: FontWeight.w500),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           GestureDetector(
@@ -102,12 +101,12 @@ class ProfileGantiemailScreen extends StatelessWidget {
                               s.ubahEmail("Mengirimkan kode OTP...", 1);
                             },
                             child: Container(
-                              padding: EdgeInsets.all(15),
+                              padding: const EdgeInsets.all(15),
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius: BorderRadius.circular(20)),
-                              child: Center(
+                              child: const Center(
                                 child: Text(
                                   "Kirim ulang OTP",
                                   style: TextStyle(

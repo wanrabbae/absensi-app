@@ -1,7 +1,12 @@
 import 'package:app/global_resource.dart';
-import 'package:app/views/home/main_screen.dart';
+
+final ProfileController _controller = ProfileController._();
 
 class ProfileController extends GetxController {
+  ProfileController._();
+
+  factory ProfileController() => _controller;
+
   //Global
   final box = GetStorage();
   List? perusahaanList;
@@ -26,7 +31,7 @@ class ProfileController extends GetxController {
     super.onInit();
     user = box.read(Base.dataUser);
     user = await dataProfile(user?['alamatEmail']);
-    print("PROFILE CTRL: " + user.toString());
+    debugPrint("PROFILE CTRL: $user");
     await dataPerusahaan();
   }
 
