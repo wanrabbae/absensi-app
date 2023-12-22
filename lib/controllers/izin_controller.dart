@@ -337,9 +337,10 @@ class IzinController extends GetxController {
           debugPrint("KE ELESE");
           final homeCtrl = Get.put(HomeController());
           var findData = await homeCtrl.absen?.firstWhere(
-              (element) => element?["idkaryawan"] == user?["idkaryawan"],
+              (element) => element?["idKaryawan"] == user?["idkaryawan"],
               orElse: () => null);
 
+          if (findData?["id"] == null) return;
           absenPulang(false, findData?["id"]);
         }
       } else if (response.statusCode == 401) {
