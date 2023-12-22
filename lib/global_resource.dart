@@ -175,7 +175,7 @@ initialize() async {
       () => PushNotificationService()..initializeLocalNotification(),
     )
     ..registerLazySingleton(() => FirebaseService())
-    ..registerLazySingleton(() async => await PackageInfo.fromPlatform())
+    ..registerSingleton(await PackageInfo.fromPlatform())
     ..registerSingleton(box)
     ..registerSingleton(kDio)
     ..registerSingleton(pushNotificationApi)
