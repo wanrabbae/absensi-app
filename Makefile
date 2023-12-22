@@ -3,7 +3,7 @@ VERSION:=`cider version`
 APP_NAME:=Hora
 PATH_IPA:=`PWD`/build/ios/ipa/Hora.ipa
 PATH_APK:=`PWD`/build/app/outputs/flutter-apk
-PATH_APK_GOOGLE:=$(GOOGLE_DRIVE_YMEET)/Hora/APK
+PATH_APK_GOOGLE:=$(GOOGLE_DRIVE2)/Hora/APK
 
 ifeq ($(OS),Windows_NT)
 	PATH_APP_BUNDLE:=.\build\app\outputs\bundle
