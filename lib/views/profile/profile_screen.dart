@@ -2,6 +2,7 @@ import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/dialogs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import 'components/menu.dart';
 
@@ -192,7 +193,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                     ),
                     menuProfile(
                       context,
-                      "v1.9.1 (Agus)",
+                      'v${$it<PackageInfo>().version}',
                       FeatherIcons.info,
                       onTap: () {
                         Get.toNamed(

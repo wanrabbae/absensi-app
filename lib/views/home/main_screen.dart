@@ -13,6 +13,9 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _activePage = (Get.arguments is int) ? (Get.arguments as int) : 0;
+  final PageController pageViewController = PageController(
+    initialPage: Get.arguments is int ? Get.arguments as int : 0,
+  );
 
   String? get activeAttendanceDate {
     if (Get.arguments is String) {
@@ -32,15 +35,16 @@ class _MainScreenState extends State<MainScreen> {
         ..updateTokenFcm()
         ..getAllowLocationAlwaysPermission();
     });
+
+    pageViewController.addListener(() {
+      Tooltip.dismissAllToolTips();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    PageController pageViewController = PageController(
-      initialPage: Get.arguments is int ? Get.arguments as int : 0,
-    );
 
     return Scaffold(
       body: PageView(
@@ -112,6 +116,7 @@ class _MainScreenState extends State<MainScreen> {
             pageViewController.animateToPage(index,
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.easeIn);
+            Tooltip.dismissAllToolTips();
           },
         ),
       ),

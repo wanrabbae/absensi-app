@@ -10,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -174,6 +175,7 @@ initialize() async {
       () => PushNotificationService()..initializeLocalNotification(),
     )
     ..registerLazySingleton(() => FirebaseService())
+    ..registerSingleton(await PackageInfo.fromPlatform())
     ..registerSingleton(box)
     ..registerSingleton(kDio)
     ..registerSingleton(pushNotificationApi)
