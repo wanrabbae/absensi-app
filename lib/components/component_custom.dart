@@ -327,19 +327,23 @@ Widget buildImageProfile(BuildContext context, String? url, bool local) {
 }
 
 Widget buildImageProfilePage(BuildContext context, String? url, bool local) {
+  final ImageProvider image =
+      (local ? AssetImage(url!) : NetworkImage(url!)) as ImageProvider<Object>;
   return Container(
     width: double.infinity,
     height: 292,
-    decoration: local
-        ? BoxDecoration(
-            image: DecorationImage(image: AssetImage(url!), fit: BoxFit.cover),
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20))
-        : BoxDecoration(
-            image:
-                DecorationImage(image: NetworkImage(url!), fit: BoxFit.cover),
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20)),
+    decoration: BoxDecoration(
+      image: DecorationImage(
+        image: image,
+        fit: BoxFit.cover,
+      ),
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(
+        color: colorSplash,
+        width: 3,
+      )
+    ),
   );
 }
 
