@@ -1,12 +1,17 @@
 import 'package:app/components/empty_view.dart';
 import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/controllers/izin_controller.dart';
+import 'package:app/core/enums.dart';
 import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/card_home.dart';
+import 'components/home_tab_view.dart';
+import 'components/home_toolbar.dart';
+import 'klaim/klaim_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, this.activeAttendanceDate});
@@ -26,9 +31,6 @@ class _HomeScreenState extends State<HomeScreen>
     final y = now.year;
     return "$d/$m/$y";
   }();
-
-  var hadirHighlight = true;
-  var izinHighlight = false;
 
   File? formFotoIzin;
 
@@ -78,14 +80,25 @@ class _HomeScreenState extends State<HomeScreen>
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            _Toolbar(s),
+            HomeToolbar(s),
             _buildTabBar(),
             _buildDateTile(context, s),
-            _buildContent(s, context),
+            Expanded(child: _buildContent(s, context)),
           ],
         ),
-        floatingActionButton:
-            hadirHighlight ? _buildHadirFAB(s, context) : _buildIzinFAB(s),
+        floatingActionButton: BlocBuilder<HomeCubit, HomeState>(
+          buildWhen: (previous, current) => previous.tab != current.tab,
+          builder: (context, state) {
+            switch (state.tab) {
+              case HomeTab.hadir:
+                return _buildHadirFAB(s, context);
+              case HomeTab.izin:
+                return _buildIzinFAB(s);
+              case HomeTab.klaim:
+                return _buildKlaimFAB();
+            }
+          },
+        ),
       ),
     );
   }
@@ -151,9 +164,8 @@ class _HomeScreenState extends State<HomeScreen>
                 s.absensi(context);
               }
             },
-            backgroundColor: s.isPresentHadir
-                ? colorDisabled
-                : colorBluePrimary2,
+            backgroundColor:
+                s.isPresentHadir ? colorDisabled : colorBluePrimary2,
             elevation: 0,
             isExtended: true,
             child: timerCount(context, s),
@@ -163,10 +175,27 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Expanded _buildContent(HomeController s, BuildContext context) {
-    return Expanded(
-        child: s.absen!.isEmpty && hadirHighlight
-            ? Container(
+  Widget _buildKlaimFAB() {
+    return FloatingActionButton(
+      heroTag: "fab-klaim",
+      backgroundColor: colorBlackPrimary,
+      child: const Icon(
+        FeatherIcons.camera,
+        color: Colors.white,
+        size: 24,
+      ),
+      onPressed: () {},
+    );
+  }
+
+  Widget _buildContent(HomeController s, BuildContext context) {
+    return BlocBuilder<HomeCubit, HomeState>(
+      buildWhen: (previous, current) => previous.tab != current.tab,
+      builder: (context, state) {
+        switch (state.tab) {
+          case HomeTab.hadir:
+            if (s.absen!.isEmpty) {
+              return Container(
                 padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
                 child: const EmptyView(
                   image: 'assets/icons/absen-ilus.png',
@@ -174,18 +203,27 @@ class _HomeScreenState extends State<HomeScreen>
                   subtitle:
                       'Fitur ini akan mencatat, menyimpan dan menampilkan detail presensi anda secara berkala.',
                 ),
-              )
-            : s.izin!.isEmpty && izinHighlight
-                ? Container(
-                    padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
-                    child: const EmptyView(
-                      image: 'assets/icons/aizin-ilus.png',
-                      title: 'Izin',
-                      subtitle:
-                          'Fitur ini akan mencatat, menyimpan dan menampilkan detail izin anda secara berkala.',
-                    ),
-                  )
-                : dataHome(context, s, hadirHighlight));
+              );
+            }
+            return dataHome(context, s, true);
+          case HomeTab.izin:
+            if (s.izin!.isEmpty) {
+              return Container(
+                padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
+                child: const EmptyView(
+                  image: 'assets/icons/aizin-ilus.png',
+                  title: 'Izin',
+                  subtitle:
+                      'Fitur ini akan mencatat, menyimpan dan menampilkan detail izin anda secara berkala.',
+                ),
+              );
+            }
+            return dataHome(context, s, false);
+          case HomeTab.klaim:
+            return const KlaimView();
+        }
+      },
+    );
   }
 
   Padding _buildDateTile(BuildContext context, HomeController s) {
@@ -246,78 +284,29 @@ class _HomeScreenState extends State<HomeScreen>
   Padding _buildTabBar() {
     return Padding(
       padding: const EdgeInsets.only(
-        left: 20,
+        left: 17,
         right: 20,
         top: 0,
         bottom: 8,
       ),
       child: Row(
         children: [
-          TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(
-                hadirHighlight ? colorBlueOpacity : Colors.white,
-              ),
-              padding: const MaterialStatePropertyAll(EdgeInsets.all(5)),
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  side: hadirHighlight
-                      ? BorderSide.none
-                      : const BorderSide(
-                          color: colorBlueOpacity,
-                          width: 2,
-                        ),
-                ),
-              ),
+          for (int i = 0; i < HomeTab.values.length; i++) ...{
+            BlocBuilder<HomeCubit, HomeState>(
+              buildWhen: (previous, current) => previous.tab != current.tab,
+              builder: (context, state) {
+                final tab = HomeTab.values[i];
+                return HomeTabView(
+                  tab: tab.tab,
+                  onChanged: (value) {
+                    context.read<HomeCubit>().setHomeTab(value);
+                  },
+                  value: tab,
+                  selected: state.tab == tab,
+                );
+              },
             ),
-            onPressed: () {
-              setState(() {
-                hadirHighlight = true;
-                izinHighlight = false;
-              });
-            },
-            child: Text(
-              "Hadir",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: hadirHighlight ? FontWeight.w700 : FontWeight.w600,
-              ),
-            ),
-          ),
-          const SizedBox(width: 5),
-          TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(
-                izinHighlight ? colorBlueOpacity : Colors.white,
-              ),
-              padding: const MaterialStatePropertyAll(EdgeInsets.all(5)),
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  side: izinHighlight
-                      ? BorderSide.none
-                      : const BorderSide(
-                          color: colorBlueOpacity,
-                          width: 2,
-                        ),
-                ),
-              ),
-            ),
-            onPressed: () {
-              setState(() {
-                izinHighlight = true;
-                hadirHighlight = false;
-              });
-            },
-            child: Text(
-              "Izin",
-              style: TextStyle(
-                color: Colors.black,
-                fontWeight: izinHighlight ? FontWeight.w700 : FontWeight.w600,
-              ),
-            ),
-          ),
+          },
         ],
       ),
     );
@@ -325,74 +314,4 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   bool get wantKeepAlive => true;
-}
-
-class _Toolbar extends StatelessWidget {
-  const _Toolbar(this.s);
-
-  final HomeController s;
-
-  @override
-  Widget build(BuildContext context) {
-    final top = MediaQuery.of(context).padding.top;
-    return Container(
-      margin: EdgeInsets.only(top: top, left: 20, right: 16),
-      height: kToolbarHeight,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: Row(
-              children: [
-                Image.asset('assets/icons/logo/hora.png', height: 24),
-                const SizedBox(width: 5),
-                const Text(
-                  "HORA",
-                  style: TextStyle(
-                    fontSize: 28,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w700,
-                  ),
-                )
-              ],
-            ),
-          ),
-          const SizedBox(width: 10),
-          IconButton(
-            onPressed: () {
-              Get.toNamed(RouteName.homeSearch);
-              s.dataSearch();
-            },
-            icon: const Icon(
-              FeatherIcons.search,
-              size: 24,
-              color: colorBluePrimary,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              Get.toNamed(RouteName.homeUndangan);
-            },
-            icon: const Icon(
-              FeatherIcons.userPlus,
-              size: 24,
-              color: colorBluePrimary,
-            ),
-          ),
-          const SizedBox(width: 4),
-          GestureDetector(
-            onTap: () {
-              Get.toNamed(RouteName.companyScreen);
-            },
-            child: buildImageSizeIcon(
-              context,
-              changeUrlImage(s.perusahaan.logo),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
 }

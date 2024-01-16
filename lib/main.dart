@@ -1,4 +1,5 @@
 import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/data/local/base_preference.dart';
 import 'package:app/global_resource.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -40,8 +41,13 @@ void main() async {
       supportedLocales: const [Locale("id", "ID"), Locale("en", "US")],
       fallbackLocale: const Locale("id", "ID"),
       path: 'assets/lang',
-      child: BlocProvider(
-        create: (context) => AppCubit($it(), $it(), $it(), $it(), $it()),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AppCubit($it(), $it(), $it(), $it(), $it()),
+          ),
+          BlocProvider(create: (context) => HomeCubit()),
+        ],
         child: const MainApp(),
       ),
     ),

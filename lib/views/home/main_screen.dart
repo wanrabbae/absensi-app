@@ -1,4 +1,5 @@
 import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:flutter/services.dart';
@@ -34,6 +35,7 @@ class _MainScreenState extends State<MainScreen> {
       context.read<AppCubit>()
         ..updateTokenFcm()
         ..getAllowLocationAlwaysPermission();
+      context.read<HomeCubit>().getDataKlaim();
     });
 
     pageViewController.addListener(() {
