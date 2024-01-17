@@ -7,10 +7,33 @@ part of 'klaim.dart';
 // **************************************************************************
 
 _$KlaimImpl _$$KlaimImplFromJson(Map<String, dynamic> json) => _$KlaimImpl(
-      id: json['id'] as int,
+      id: json['idklaim'] as int,
+      idKaryawan: json['idKaryawan'] as String,
+      namaKaryawan: json['namaKaryawan'] as String,
+      tanggal: DateTime.parse(json['tanggal'] as String),
+      file: json['fileReimb'] as String,
+      idPerusahaan: json['idPerusahaan'] as String,
+      namaPerusahaan: json['namaperusahaan'] as String,
+      keterangan: json['keterangan'] as String?,
     );
 
-Map<String, dynamic> _$$KlaimImplToJson(_$KlaimImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-    };
+Map<String, dynamic> _$$KlaimImplToJson(_$KlaimImpl instance) {
+  final val = <String, dynamic>{
+    'idklaim': instance.id,
+    'idKaryawan': instance.idKaryawan,
+    'namaKaryawan': instance.namaKaryawan,
+    'tanggal': instance.tanggal.toIso8601String(),
+    'fileReimb': instance.file,
+    'idPerusahaan': instance.idPerusahaan,
+    'namaperusahaan': instance.namaPerusahaan,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('keterangan', instance.keterangan);
+  return val;
+}

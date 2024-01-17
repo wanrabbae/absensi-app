@@ -52,9 +52,12 @@ class _HomeScreenState extends State<HomeScreen>
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<AppCubit>()
+      final app = context.read<AppCubit>()
         ..getProfile()
         ..getCompany();
+
+      final idPerusahaan = app.state.company.id;
+      context.read<HomeCubit>().getDataKlaim(idPerusahaan);
     });
   }
 
@@ -244,6 +247,7 @@ class _HomeScreenState extends State<HomeScreen>
           ),
           GestureDetector(
             onTap: () {
+              final home = context.read<HomeCubit>();
               final now = DateTime.now();
               showDatePicker(
                 locale: const Locale("id", "ID"),
@@ -261,6 +265,9 @@ class _HomeScreenState extends State<HomeScreen>
                       "${value.day.toString().padLeft(2, "0")}/${value.month.toString().padLeft(2, "0")}/${value.year}";
                 });
                 s.gantiTanggal(value);
+                if (!home.isClosed) {
+                  home.setDateTime(value);
+                }
               });
             },
             child: const Row(

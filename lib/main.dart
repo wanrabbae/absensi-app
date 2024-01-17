@@ -2,12 +2,9 @@ import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/data/local/base_preference.dart';
 import 'package:app/global_resource.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:timezone/data/latest.dart' as tz;
-
-import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,8 +22,6 @@ void main() async {
     const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   Permission.notification.isDenied.then((value) {
     if (value) {
       Permission.notification.request();
@@ -43,10 +38,8 @@ void main() async {
       path: 'assets/lang',
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(
-            create: (context) => AppCubit($it(), $it(), $it(), $it(), $it()),
-          ),
-          BlocProvider(create: (context) => HomeCubit()),
+          BlocProvider<AppCubit>(create: (context) => $it()),
+          BlocProvider(create: (context) => HomeCubit($it())),
         ],
         child: const MainApp(),
       ),

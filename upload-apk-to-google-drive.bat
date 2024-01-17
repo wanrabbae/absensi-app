@@ -1,7 +1,7 @@
 @echo off
 cls
 set app=Hora
-set gdrive=%GOOGLE_DRIVE_YMEET%
+set gdrive=%GOOGLE_DRIVE_KANG_ALAN%
 rem Preparing version label
 for /F "tokens=*" %%g in ('cider version') do (set version=%%g)
 for /F "usebackq tokens=1,2 delims==" %%i in (`wmic os get LocalDateTime /VALUE 2^>NUL`) do if '.%%i.'=='.LocalDateTime.' set ldt=%%j

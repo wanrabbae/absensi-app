@@ -35,7 +35,6 @@ class _MainScreenState extends State<MainScreen> {
       context.read<AppCubit>()
         ..updateTokenFcm()
         ..getAllowLocationAlwaysPermission();
-      context.read<HomeCubit>().getDataKlaim();
     });
 
     pageViewController.addListener(() {

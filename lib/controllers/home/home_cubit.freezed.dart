@@ -16,7 +16,9 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$HomeState {
+  String? get idPerusahaan => throw _privateConstructorUsedError;
   HomeTab get tab => throw _privateConstructorUsedError;
+  DateTime get dateTime => throw _privateConstructorUsedError;
   List<Klaim>? get klaimList => throw _privateConstructorUsedError;
   String? get klaimError => throw _privateConstructorUsedError;
 
@@ -30,7 +32,12 @@ abstract class $HomeStateCopyWith<$Res> {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
       _$HomeStateCopyWithImpl<$Res, HomeState>;
   @useResult
-  $Res call({HomeTab tab, List<Klaim>? klaimList, String? klaimError});
+  $Res call(
+      {String? idPerusahaan,
+      HomeTab tab,
+      DateTime dateTime,
+      List<Klaim>? klaimList,
+      String? klaimError});
 }
 
 /// @nodoc
@@ -46,15 +53,25 @@ class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? idPerusahaan = freezed,
     Object? tab = null,
+    Object? dateTime = null,
     Object? klaimList = freezed,
     Object? klaimError = freezed,
   }) {
     return _then(_value.copyWith(
+      idPerusahaan: freezed == idPerusahaan
+          ? _value.idPerusahaan
+          : idPerusahaan // ignore: cast_nullable_to_non_nullable
+              as String?,
       tab: null == tab
           ? _value.tab
           : tab // ignore: cast_nullable_to_non_nullable
               as HomeTab,
+      dateTime: null == dateTime
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       klaimList: freezed == klaimList
           ? _value.klaimList
           : klaimList // ignore: cast_nullable_to_non_nullable
@@ -75,7 +92,12 @@ abstract class _$$HomeStateImplCopyWith<$Res>
       __$$HomeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({HomeTab tab, List<Klaim>? klaimList, String? klaimError});
+  $Res call(
+      {String? idPerusahaan,
+      HomeTab tab,
+      DateTime dateTime,
+      List<Klaim>? klaimList,
+      String? klaimError});
 }
 
 /// @nodoc
@@ -89,15 +111,25 @@ class __$$HomeStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? idPerusahaan = freezed,
     Object? tab = null,
+    Object? dateTime = null,
     Object? klaimList = freezed,
     Object? klaimError = freezed,
   }) {
     return _then(_$HomeStateImpl(
+      idPerusahaan: freezed == idPerusahaan
+          ? _value.idPerusahaan
+          : idPerusahaan // ignore: cast_nullable_to_non_nullable
+              as String?,
       tab: null == tab
           ? _value.tab
           : tab // ignore: cast_nullable_to_non_nullable
               as HomeTab,
+      dateTime: null == dateTime
+          ? _value.dateTime
+          : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       klaimList: freezed == klaimList
           ? _value._klaimList
           : klaimList // ignore: cast_nullable_to_non_nullable
@@ -114,12 +146,20 @@ class __$$HomeStateImplCopyWithImpl<$Res>
 
 class _$HomeStateImpl implements _HomeState {
   const _$HomeStateImpl(
-      {this.tab = HomeTab.hadir, final List<Klaim>? klaimList, this.klaimError})
+      {this.idPerusahaan,
+      this.tab = HomeTab.hadir,
+      required this.dateTime,
+      final List<Klaim>? klaimList,
+      this.klaimError})
       : _klaimList = klaimList;
 
   @override
+  final String? idPerusahaan;
+  @override
   @JsonKey()
   final HomeTab tab;
+  @override
+  final DateTime dateTime;
   final List<Klaim>? _klaimList;
   @override
   List<Klaim>? get klaimList {
@@ -135,7 +175,7 @@ class _$HomeStateImpl implements _HomeState {
 
   @override
   String toString() {
-    return 'HomeState(tab: $tab, klaimList: $klaimList, klaimError: $klaimError)';
+    return 'HomeState(idPerusahaan: $idPerusahaan, tab: $tab, dateTime: $dateTime, klaimList: $klaimList, klaimError: $klaimError)';
   }
 
   @override
@@ -143,7 +183,11 @@ class _$HomeStateImpl implements _HomeState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$HomeStateImpl &&
+            (identical(other.idPerusahaan, idPerusahaan) ||
+                other.idPerusahaan == idPerusahaan) &&
             (identical(other.tab, tab) || other.tab == tab) &&
+            (identical(other.dateTime, dateTime) ||
+                other.dateTime == dateTime) &&
             const DeepCollectionEquality()
                 .equals(other._klaimList, _klaimList) &&
             (identical(other.klaimError, klaimError) ||
@@ -151,7 +195,7 @@ class _$HomeStateImpl implements _HomeState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, tab,
+  int get hashCode => Object.hash(runtimeType, idPerusahaan, tab, dateTime,
       const DeepCollectionEquality().hash(_klaimList), klaimError);
 
   @JsonKey(ignore: true)
@@ -163,12 +207,18 @@ class _$HomeStateImpl implements _HomeState {
 
 abstract class _HomeState implements HomeState {
   const factory _HomeState(
-      {final HomeTab tab,
+      {final String? idPerusahaan,
+      final HomeTab tab,
+      required final DateTime dateTime,
       final List<Klaim>? klaimList,
       final String? klaimError}) = _$HomeStateImpl;
 
   @override
+  String? get idPerusahaan;
+  @override
   HomeTab get tab;
+  @override
+  DateTime get dateTime;
   @override
   List<Klaim>? get klaimList;
   @override

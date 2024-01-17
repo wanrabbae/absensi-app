@@ -6,6 +6,7 @@
 import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
@@ -14,7 +15,9 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+import 'controllers/app/app_cubit.dart';
 import 'data/source/firebase/firebase_service.dart';
+import 'firebase_options.dart';
 import 'helpers/base.dart';
 import 'services/push_notification_service.dart';
 
@@ -170,6 +173,12 @@ initialize() async {
       },
   );
 
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getApplicationDocumentsDirectory(),
+  );
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   $it
     ..registerLazySingleton(
       () => PushNotificationService()..initializeLocalNotification(),
@@ -179,9 +188,6 @@ initialize() async {
     ..registerSingleton(box)
     ..registerSingleton(kDio)
     ..registerSingleton(pushNotificationApi)
-    ..registerSingleton(api);
-
-  HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: await getApplicationDocumentsDirectory(),
-  );
+    ..registerSingleton(api)
+    ..registerSingleton(AppCubit(api, pushNotificationApi, box, $it(), $it()));
 }

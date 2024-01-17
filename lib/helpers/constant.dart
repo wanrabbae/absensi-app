@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 const String kGlobalFontFamily = 'Montserrat';
+final DateFormat kTimeFormat = DateFormat('HH:mm');
 final DateFormat kMysqlDateFormat = DateFormat('yyyy-MM-dd');
 final DateFormat kLastUpdatePositionDateFormat = DateFormat('dd/MM/yyyy HH:mm:ss');
 final DateFormat kQueryRangeDateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");

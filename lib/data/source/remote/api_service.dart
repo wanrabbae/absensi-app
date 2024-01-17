@@ -1,5 +1,6 @@
 import 'package:app/data/models/absence.dart';
 import 'package:app/data/models/company.dart';
+import 'package:app/data/models/klaim/klaim.dart';
 import 'package:app/data/models/profile.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
@@ -7,7 +8,7 @@ import 'package:retrofit/http.dart';
 part 'api_service.g.dart';
 
 @RestApi()
-abstract class ApiService with $Company, $Profile, $Attendance {
+abstract class ApiService with $Company, $Profile, $Attendance, $Reimburse {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 }
 
@@ -40,6 +41,15 @@ mixin $Attendance {
   @GET('api/absensi/indie')
   Future<List<Absence>> getAttendance({
     @Query("idkaryawan") required String idkaryawan,
+    @Query("tglstart") required String start,
+    @Query("tglend") required String end,
+  });
+}
+
+mixin $Reimburse {
+  @GET('api/absensi/ReimbView')
+  Future<List<Klaim>> getReimburse({
+    @Query("idperusahaan") required String idPerusahaan,
     @Query("tglstart") required String start,
     @Query("tglend") required String end,
   });
