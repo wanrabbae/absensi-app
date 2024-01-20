@@ -26,7 +26,7 @@ class KlaimView extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
             child: EmptyView(
-              image: 'assets/icons/klaim-ilus.png',
+              image: 'assets/icons/klaim-ilus.webp',
               title: 'Klaim',
               subtitle: error,
             ),
@@ -37,7 +37,7 @@ class KlaimView extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
             child: const EmptyView(
-              image: 'assets/icons/klaim-ilus.png',
+              image: 'assets/icons/klaim-ilus.webp',
               title: 'Klaim',
               subtitle:
                   'Fitur ini akan mencatat, menyimpan dan menampilkan detail klaim anda secara berkala.',

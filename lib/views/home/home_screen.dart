@@ -201,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen>
               return Container(
                 padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
                 child: const EmptyView(
-                  image: 'assets/icons/absen-ilus.png',
+                  image: 'assets/icons/absen-ilus.webp',
                   title: 'Hadir',
                   subtitle:
                       'Fitur ini akan mencatat, menyimpan dan menampilkan detail presensi anda secara berkala.',
@@ -214,7 +214,7 @@ class _HomeScreenState extends State<HomeScreen>
               return Container(
                 padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
                 child: const EmptyView(
-                  image: 'assets/icons/aizin-ilus.png',
+                  image: 'assets/icons/aizin-ilus.webp',
                   title: 'Izin',
                   subtitle:
                       'Fitur ini akan mencatat, menyimpan dan menampilkan detail izin anda secara berkala.',
