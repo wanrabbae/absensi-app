@@ -182,6 +182,63 @@ class _ApiService implements ApiService {
     return value;
   }
 
+  @override
+  Future<dynamic> submitReimburse({
+    required idKaryawan,
+    required namaKaryawan,
+    required keterangan,
+    required idPerusahaan,
+    required namaPerusahaan,
+    required file,
+  }) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'IDKaryawan',
+      idKaryawan,
+    ));
+    _data.fields.add(MapEntry(
+      'NamaKaryawan',
+      namaKaryawan,
+    ));
+    _data.fields.add(MapEntry(
+      'Keterangan',
+      keterangan,
+    ));
+    _data.fields.add(MapEntry(
+      'IDPerusahaan',
+      idPerusahaan,
+    ));
+    _data.fields.add(MapEntry(
+      'NamaPerusahaan',
+      namaPerusahaan,
+    ));
+    _data.files.add(MapEntry(
+      'File',
+      MultipartFile.fromFileSync(
+        file.path,
+        filename: file.path.split(Platform.pathSeparator).last,
+        contentType: MediaType.parse('image/*'),
+      ),
+    ));
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'api/absensi/Reimb',
+          queryParameters: queryParameters,
+          data: _data,
+        )
+        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data;
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

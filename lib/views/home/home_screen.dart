@@ -4,6 +4,7 @@ import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/controllers/izin_controller.dart';
 import 'package:app/core/enums.dart';
 import 'package:app/global_resource.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +25,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with AutomaticKeepAliveClientMixin {
+  final _imagePicker = ImagePicker();
   String curentDate = () {
     final now = DateTime.now();
     final d = now.day.toString().padLeft(2, '0');
@@ -182,13 +184,48 @@ class _HomeScreenState extends State<HomeScreen>
     return FloatingActionButton(
       heroTag: "fab-klaim",
       backgroundColor: colorBlackPrimary,
+      onPressed: _handleFabKlaim,
       child: const Icon(
         FeatherIcons.camera,
         color: Colors.white,
         size: 24,
       ),
-      onPressed: () {},
     );
+  }
+
+  _handleFabKlaim() async {
+    final cameraStatus = await Permission.camera.status;
+    if (cameraStatus.isDenied) {
+      Permission.camera.request();
+      return;
+    }
+
+    if (cameraStatus.isGranted) {
+      try {
+        final photo = await _imagePicker.pickImage(
+          source: kDebugMode ? ImageSource.gallery : ImageSource.camera,
+          preferredCameraDevice: CameraDevice.rear,
+          imageQuality: 60,
+        );
+
+        if (photo != null) {
+          Get.toNamed(RouteName.klaimForm, arguments: photo)?.then((succeed) {
+            if (succeed == true) {
+              final cubit = context.read<HomeCubit>();
+              final idPerusahaan = cubit.state.idPerusahaan!;
+              cubit.getDataKlaim(idPerusahaan);
+            }
+          });
+        } else {
+          customSnackbar1("Batal mengambil foto");
+        }
+      } catch (e) {
+        customSnackbar1("Terjadi kesalahan saat mengambil foto");
+      }
+      return;
+    }
+
+    customSnackbar1("Tidak bisa melanjutkan tanpa foto");
   }
 
   Widget _buildContent(HomeController s, BuildContext context) {

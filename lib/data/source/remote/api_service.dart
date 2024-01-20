@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:app/data/models/absence.dart';
 import 'package:app/data/models/company.dart';
 import 'package:app/data/models/klaim/klaim.dart';
 import 'package:app/data/models/profile.dart';
 import 'package:dio/dio.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:retrofit/http.dart';
 
 part 'api_service.g.dart';
@@ -52,5 +55,15 @@ mixin $Reimburse {
     @Query("idperusahaan") required String idPerusahaan,
     @Query("tglstart") required String start,
     @Query("tglend") required String end,
+  });
+
+  @POST('api/absensi/Reimb')
+  Future<dynamic> submitReimburse({
+    @Part(name: "IDKaryawan") required String idKaryawan,
+    @Part(name: "NamaKaryawan") required String namaKaryawan,
+    @Part(name: "Keterangan") required String keterangan,
+    @Part(name: "IDPerusahaan") required String idPerusahaan,
+    @Part(name: "NamaPerusahaan") required String namaPerusahaan,
+    @Part(name: "File", contentType: "image/*") required File file,
   });
 }

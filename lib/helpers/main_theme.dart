@@ -50,8 +50,8 @@ class MainTheme {
       locale: context.locale,
       title: "Hora",
       getPages: Routes.pages,
-      theme: _buildTheme(),
-      darkTheme: _buildTheme(),
+      theme: _buildTheme(context),
+      darkTheme: _buildTheme(context),
       home: SafeArea(
         bottom: false,
         top: false,
@@ -60,12 +60,21 @@ class MainTheme {
     );
   }
 
-  static ThemeData _buildTheme() {
+  static ThemeData _buildTheme(BuildContext context) {
+    final theme = Theme.of(context);
+
     return ThemeData(
       useMaterial3: true,
       colorScheme: lightColorScheme,
       inputDecorationTheme: _kInputDecorationTheme,
       fontFamily: kGlobalFontFamily,
+      appBarTheme: AppBarTheme(
+        titleTextStyle: theme.primaryTextTheme.titleLarge?.copyWith(
+          fontSize: 16,
+          fontWeight: FontWeight.w800,
+          color: Colors.black,
+        ),
+      ),
     );
   }
 }
@@ -185,18 +194,18 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
       final tanggal = DateTime.tryParse(payload["datepresence"]);
       if (tanggal == null) return;
 
-      final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
+      final tglstart =
+          DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
       final tglend =
-      DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
+          DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59)
+              .toUtc();
       final request = {
         "idkaryawan": homeCtrl.userProfile!.idkaryawan!,
         "tglstart": kQueryRangeDateFormat.format(tglstart),
         "tglend": kQueryRangeDateFormat.format(tglend),
       };
 
-      AbsensiServices()
-          .findIndiv(request)
-          .then((response) {
+      AbsensiServices().findIndiv(request).then((response) {
         Get.toNamed(
           RouteName.absen,
           arguments: {"dataAbsen": response.data?[0]},

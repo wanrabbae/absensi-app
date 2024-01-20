@@ -109,4 +109,7 @@ abstract class RouteName {
 
   //Webview
   static const webview = "/webview_screen";
+
+  // Klaim
+  static const klaimForm = "/klaim/form";
 }
