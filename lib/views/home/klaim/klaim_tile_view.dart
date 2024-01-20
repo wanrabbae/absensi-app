@@ -1,7 +1,5 @@
-import 'package:app/components/component_modal.dart';
 import 'package:app/data/models/klaim/klaim.dart';
-import 'package:app/helpers/constant.dart';
-import 'package:flutter/material.dart';
+import 'package:app/global_resource.dart';
 
 class KlaimTileView extends StatelessWidget {
   const KlaimTileView(this.klaim, {super.key, required this.onTap});
@@ -66,11 +64,19 @@ class KlaimTileView extends StatelessWidget {
       height: 60,
       decoration: BoxDecoration(
         color: Colors.white,
-        image: DecorationImage(
-          image: NetworkImage(changeUrlImage(klaim.file)),
-          fit: BoxFit.cover,
-        ),
+        image: klaim.foto.startsWith('assets')
+            ? DecorationImage(
+                image: AssetImage(klaim.foto),
+                fit: BoxFit.cover,
+              )
+            : DecorationImage(
+                image: NetworkImage(changeUrlImage(klaim.foto)),
+                fit: BoxFit.cover,
+              ),
         borderRadius: const BorderRadius.all(Radius.circular(50)),
+        border: const Border.fromBorderSide(
+          BorderSide(color: colorSplash, width: 3),
+        ),
       ),
     );
   }

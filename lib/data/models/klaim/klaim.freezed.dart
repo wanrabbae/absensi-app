@@ -26,6 +26,8 @@ mixin _$Klaim {
   String get idKaryawan => throw _privateConstructorUsedError;
   @JsonKey(name: 'namaKaryawan')
   String get namaKaryawan => throw _privateConstructorUsedError;
+  @JsonKey(name: 'foto')
+  String get foto => throw _privateConstructorUsedError;
   DateTime get tanggal => throw _privateConstructorUsedError;
   @JsonKey(name: 'fileReimb')
   String get file => throw _privateConstructorUsedError;
@@ -49,6 +51,7 @@ abstract class $KlaimCopyWith<$Res> {
       {@JsonKey(name: 'idklaim') int id,
       @JsonKey(name: 'idKaryawan') String idKaryawan,
       @JsonKey(name: 'namaKaryawan') String namaKaryawan,
+      @JsonKey(name: 'foto') String foto,
       DateTime tanggal,
       @JsonKey(name: 'fileReimb') String file,
       @JsonKey(name: 'idPerusahaan') String idPerusahaan,
@@ -72,6 +75,7 @@ class _$KlaimCopyWithImpl<$Res, $Val extends Klaim>
     Object? id = null,
     Object? idKaryawan = null,
     Object? namaKaryawan = null,
+    Object? foto = null,
     Object? tanggal = null,
     Object? file = null,
     Object? idPerusahaan = null,
@@ -90,6 +94,10 @@ class _$KlaimCopyWithImpl<$Res, $Val extends Klaim>
       namaKaryawan: null == namaKaryawan
           ? _value.namaKaryawan
           : namaKaryawan // ignore: cast_nullable_to_non_nullable
+              as String,
+      foto: null == foto
+          ? _value.foto
+          : foto // ignore: cast_nullable_to_non_nullable
               as String,
       tanggal: null == tanggal
           ? _value.tanggal
@@ -126,6 +134,7 @@ abstract class _$$KlaimImplCopyWith<$Res> implements $KlaimCopyWith<$Res> {
       {@JsonKey(name: 'idklaim') int id,
       @JsonKey(name: 'idKaryawan') String idKaryawan,
       @JsonKey(name: 'namaKaryawan') String namaKaryawan,
+      @JsonKey(name: 'foto') String foto,
       DateTime tanggal,
       @JsonKey(name: 'fileReimb') String file,
       @JsonKey(name: 'idPerusahaan') String idPerusahaan,
@@ -147,6 +156,7 @@ class __$$KlaimImplCopyWithImpl<$Res>
     Object? id = null,
     Object? idKaryawan = null,
     Object? namaKaryawan = null,
+    Object? foto = null,
     Object? tanggal = null,
     Object? file = null,
     Object? idPerusahaan = null,
@@ -165,6 +175,10 @@ class __$$KlaimImplCopyWithImpl<$Res>
       namaKaryawan: null == namaKaryawan
           ? _value.namaKaryawan
           : namaKaryawan // ignore: cast_nullable_to_non_nullable
+              as String,
+      foto: null == foto
+          ? _value.foto
+          : foto // ignore: cast_nullable_to_non_nullable
               as String,
       tanggal: null == tanggal
           ? _value.tanggal
@@ -197,6 +211,7 @@ class _$KlaimImpl implements _Klaim {
       {@JsonKey(name: 'idklaim') required this.id,
       @JsonKey(name: 'idKaryawan') required this.idKaryawan,
       @JsonKey(name: 'namaKaryawan') required this.namaKaryawan,
+      @JsonKey(name: 'foto') this.foto = 'assets/icons/logo/hora.png',
       required this.tanggal,
       @JsonKey(name: 'fileReimb') required this.file,
       @JsonKey(name: 'idPerusahaan') required this.idPerusahaan,
@@ -216,6 +231,9 @@ class _$KlaimImpl implements _Klaim {
   @JsonKey(name: 'namaKaryawan')
   final String namaKaryawan;
   @override
+  @JsonKey(name: 'foto')
+  final String foto;
+  @override
   final DateTime tanggal;
   @override
   @JsonKey(name: 'fileReimb')
@@ -231,7 +249,7 @@ class _$KlaimImpl implements _Klaim {
 
   @override
   String toString() {
-    return 'Klaim(id: $id, idKaryawan: $idKaryawan, namaKaryawan: $namaKaryawan, tanggal: $tanggal, file: $file, idPerusahaan: $idPerusahaan, namaPerusahaan: $namaPerusahaan, keterangan: $keterangan)';
+    return 'Klaim(id: $id, idKaryawan: $idKaryawan, namaKaryawan: $namaKaryawan, foto: $foto, tanggal: $tanggal, file: $file, idPerusahaan: $idPerusahaan, namaPerusahaan: $namaPerusahaan, keterangan: $keterangan)';
   }
 
   @override
@@ -244,6 +262,7 @@ class _$KlaimImpl implements _Klaim {
                 other.idKaryawan == idKaryawan) &&
             (identical(other.namaKaryawan, namaKaryawan) ||
                 other.namaKaryawan == namaKaryawan) &&
+            (identical(other.foto, foto) || other.foto == foto) &&
             (identical(other.tanggal, tanggal) || other.tanggal == tanggal) &&
             (identical(other.file, file) || other.file == file) &&
             (identical(other.idPerusahaan, idPerusahaan) ||
@@ -257,7 +276,7 @@ class _$KlaimImpl implements _Klaim {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, idKaryawan, namaKaryawan,
-      tanggal, file, idPerusahaan, namaPerusahaan, keterangan);
+      foto, tanggal, file, idPerusahaan, namaPerusahaan, keterangan);
 
   @JsonKey(ignore: true)
   @override
@@ -278,6 +297,7 @@ abstract class _Klaim implements Klaim {
       {@JsonKey(name: 'idklaim') required final int id,
       @JsonKey(name: 'idKaryawan') required final String idKaryawan,
       @JsonKey(name: 'namaKaryawan') required final String namaKaryawan,
+      @JsonKey(name: 'foto') final String foto,
       required final DateTime tanggal,
       @JsonKey(name: 'fileReimb') required final String file,
       @JsonKey(name: 'idPerusahaan') required final String idPerusahaan,
@@ -295,6 +315,9 @@ abstract class _Klaim implements Klaim {
   @override
   @JsonKey(name: 'namaKaryawan')
   String get namaKaryawan;
+  @override
+  @JsonKey(name: 'foto')
+  String get foto;
   @override
   DateTime get tanggal;
   @override

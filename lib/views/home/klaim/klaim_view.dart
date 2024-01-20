@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:app/components/component_modal.dart';
 import 'package:app/components/empty_view.dart';
 import 'package:app/controllers/home/home_cubit.dart';
@@ -5,12 +7,23 @@ import 'package:app/views/home/klaim/klaim_tile_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+Completer<bool>? _completer;
+
 class KlaimView extends StatelessWidget {
   const KlaimView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
+    return BlocConsumer<HomeCubit, HomeState>(
+      listenWhen: (previous, current) =>
+          previous.klaimError != current.klaimError ||
+          previous.klaimList != current.klaimList,
+      listener: (context, state) {
+        if (_completer != null) {
+          _completer!.complete(true);
+          _completer = null;
+        }
+      },
       buildWhen: (previous, current) =>
           previous.klaimError != current.klaimError ||
           previous.klaimList != current.klaimList,
@@ -46,7 +59,7 @@ class KlaimView extends StatelessWidget {
         }
 
         return RefreshIndicator(
-          onRefresh: onRefresh,
+          onRefresh: () => onRefresh(context),
           color: colorBluePrimary2,
           child: ListView.builder(
             itemBuilder: (context, index) {
@@ -61,5 +74,12 @@ class KlaimView extends StatelessWidget {
     );
   }
 
-  Future<void> onRefresh() async {}
+  Future<void> onRefresh(BuildContext context) async {
+    final cubit = context.read<HomeCubit>();
+    final idPerusahaan = cubit.state.idPerusahaan!;
+    cubit.getDataKlaim(idPerusahaan);
+
+    _completer = Completer();
+    await _completer!.future;
+  }
 }

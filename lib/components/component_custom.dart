@@ -333,17 +333,16 @@ Widget buildImageProfilePage(BuildContext context, String? url, bool local) {
     width: double.infinity,
     height: 292,
     decoration: BoxDecoration(
-      image: DecorationImage(
-        image: image,
-        fit: BoxFit.cover,
-      ),
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(20),
-      border: Border.all(
-        color: colorSplash,
-        width: 3,
-      )
-    ),
+        image: DecorationImage(
+          image: image,
+          fit: BoxFit.cover,
+        ),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: colorSplash,
+          width: 3,
+        )),
   );
 }
 
@@ -521,9 +520,13 @@ Widget buildImageList(BuildContext context, String url, bool local) {
     width: 60,
     height: 60,
     decoration: BoxDecoration(
-        color: Colors.white,
-        image: img,
-        borderRadius: const BorderRadius.all(Radius.circular(50))),
+      color: Colors.white,
+      image: img,
+      borderRadius: const BorderRadius.all(Radius.circular(50)),
+      border: const Border.fromBorderSide(
+        BorderSide(color: colorSplash, width: 3),
+      ),
+    ),
   );
 }
 

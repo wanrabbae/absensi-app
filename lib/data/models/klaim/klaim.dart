@@ -10,6 +10,7 @@ class Klaim with _$Klaim {
     @JsonKey(name: 'idklaim') required int id,
     @JsonKey(name: 'idKaryawan') required String idKaryawan,
     @JsonKey(name: 'namaKaryawan') required String namaKaryawan,
+    @Default('assets/icons/logo/hora.png') @JsonKey(name: 'foto') String foto,
     required DateTime tanggal,
     @JsonKey(name: 'fileReimb') required String file,
     @JsonKey(name: 'idPerusahaan') required String idPerusahaan,
