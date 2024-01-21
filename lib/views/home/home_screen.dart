@@ -203,7 +203,9 @@ class _HomeScreenState extends State<HomeScreen>
     if (cameraStatus.isGranted) {
       try {
         final photo = await _imagePicker.pickImage(
-          source: kDebugMode ? ImageSource.gallery : ImageSource.camera,
+          source: kDebugMode && Platform.isIOS
+              ? ImageSource.gallery
+              : ImageSource.camera,
           preferredCameraDevice: CameraDevice.rear,
           imageQuality: 60,
         );
