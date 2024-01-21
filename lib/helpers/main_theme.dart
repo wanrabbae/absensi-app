@@ -71,6 +71,7 @@ class MainTheme {
       appBarTheme: AppBarTheme(
         titleTextStyle: theme.primaryTextTheme.titleLarge?.copyWith(
           fontSize: 16,
+          fontFamily: kGlobalFontFamily,
           fontWeight: FontWeight.w800,
           color: Colors.black,
         ),
