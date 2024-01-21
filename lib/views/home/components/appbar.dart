@@ -8,6 +8,7 @@ class HoraAppBar extends AppBar {
   HoraAppBar(
     BuildContext context, {
     super.key,
+    Widget? leading,
     super.title,
     super.actions,
     super.flexibleSpace,
@@ -21,7 +22,7 @@ class HoraAppBar extends AppBar {
     super.actionsIconTheme,
   }) : super(
           centerTitle: false,
-          leading: () {
+          leading: leading ?? () {
             final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
             final bool canPop = parentRoute?.canPop ?? false;
             final bool useCloseButton = parentRoute is PageRoute<dynamic> &&

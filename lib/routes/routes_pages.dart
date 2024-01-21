@@ -8,6 +8,7 @@ import 'package:app/views/home/company_screen.dart';
 import 'package:app/views/home/hadir_result_location_screen.dart';
 import 'package:app/views/home/hadir_result_selfie_screen.dart';
 import 'package:app/views/home/klaim/klaim_form.dart';
+import 'package:app/views/home/klaim/klaim_image_viewer.dart';
 import 'package:app/views/home/main_screen.dart';
 import 'package:app/views/home/stop_working_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -103,12 +104,15 @@ class Routes {
     GetPage(
       name: RouteName.klaimForm,
       page: () {
-        print(Get.arguments.runtimeType);
         return BlocProvider(
           create: (context) => KlaimFormCubit(api: $it(), file: Get.arguments),
           child: const KlaimForm(),
         );
       },
+    ),
+    GetPage(
+      name: RouteName.klaimImageViewer,
+      page: () => KlaimImageViewer(file: Get.arguments),
     ),
     // endregion
   ];

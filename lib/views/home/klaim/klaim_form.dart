@@ -1,14 +1,11 @@
 import 'dart:math' as math;
 import 'dart:typed_data';
 
-import 'package:app/components/component_custom.dart';
-import 'package:app/components/component_modal.dart';
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/klaim/form/klaim_form_cubit.dart';
+import 'package:app/global_resource.dart';
 import 'package:app/views/home/components/appbar.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class KlaimForm extends StatelessWidget {
   const KlaimForm({super.key});
@@ -78,19 +75,30 @@ class KlaimForm extends StatelessWidget {
                           Positioned.fill(
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
-                              child: Image.memory(snapshot.data!),
+                              child: Hero(
+                                tag: 'img',
+                                child: Image.memory(snapshot.data!),
+                              ),
                             ),
                           ),
                           Positioned(
                             top: 16,
                             right: 16,
-                            child: CircleAvatar(
-                              backgroundColor: colorBluePrimary,
-                              child: Transform.rotate(
-                                angle: math.pi / -4,
-                                child: const Icon(
-                                  FeatherIcons.code,
-                                  color: Colors.white,
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.toNamed(
+                                  RouteName.klaimImageViewer,
+                                  arguments: snapshot.data!,
+                                );
+                              },
+                              child: CircleAvatar(
+                                backgroundColor: colorBluePrimary,
+                                child: Transform.rotate(
+                                  angle: math.pi / -4,
+                                  child: const Icon(
+                                    FeatherIcons.code,
+                                    color: Colors.white,
+                                  ),
                                 ),
                               ),
                             ),
@@ -105,9 +113,7 @@ class KlaimForm extends StatelessWidget {
             SafeArea(
               minimum: const EdgeInsets.fromLTRB(16, 8, 16, 16),
               child: TextFormField(
-                controller: context
-                    .read<KlaimFormCubit>()
-                    .keteranganController,
+                controller: context.read<KlaimFormCubit>().keteranganController,
                 decoration: const InputDecoration(
                   hintText: 'Tidak ada keterangan',
                   enabledBorder: UnderlineInputBorder(
