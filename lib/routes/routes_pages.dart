@@ -7,6 +7,7 @@ import 'package:app/views/home/company_full_screen.dart';
 import 'package:app/views/home/company_screen.dart';
 import 'package:app/views/home/hadir_result_location_screen.dart';
 import 'package:app/views/home/hadir_result_selfie_screen.dart';
+import 'package:app/views/home/klaim/klaim_detail_view.dart';
 import 'package:app/views/home/klaim/klaim_form.dart';
 import 'package:app/views/home/klaim/klaim_image_viewer.dart';
 import 'package:app/views/home/main_screen.dart';
@@ -113,6 +114,10 @@ class Routes {
     GetPage(
       name: RouteName.klaimImageViewer,
       page: () => KlaimImageViewer(file: Get.arguments),
+    ),
+    GetPage(
+      name: RouteName.klaimDetail,
+      page: () => KlaimDetailView(klaim: Get.arguments),
     ),
     // endregion
   ];

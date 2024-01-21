@@ -113,4 +113,5 @@ abstract class RouteName {
   // Klaim
   static const klaimForm = "/klaim/form";
   static const klaimImageViewer = "/klaim/image-viewer";
+  static const klaimDetail = "/klaim/detail";
 }
