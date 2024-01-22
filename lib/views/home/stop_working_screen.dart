@@ -25,14 +25,14 @@ class StopWorkingScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Image.asset(
-                      'assets/icons/illustration-stop-working.webp',
+                      'images/illustration-invitation.gif',
                       width: 255,
                     ),
                     const SizedBox(height: 32),
                     const Text(
-                      'Anda dapat menggunakan Hora kembali\n'
-                      'dengan undangan Admin perusahaan.\n'
-                      'Terima kasih.',
+                      'Anda dapat menggunakan Hora\n'
+                      'kembali dengan undangan\n'
+                      'Admin perusahaan. Terima kasih.',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -49,7 +49,10 @@ class StopWorkingScreen extends StatelessWidget {
       ),
       bottomNavigationBar: SafeArea(
         minimum: const EdgeInsets.all(20),
-        child: buttonBlue('Oke', onTap: () => SplashController().removeData()),
+        child: buttonBlue(
+          'Keluar',
+          onTap: () => SplashController().removeData(),
+        ),
       ),
     );
   }
