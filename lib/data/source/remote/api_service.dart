@@ -11,7 +11,8 @@ import 'package:retrofit/http.dart';
 part 'api_service.g.dart';
 
 @RestApi()
-abstract class ApiService with $Company, $Profile, $Attendance, $Reimburse {
+abstract class ApiService
+    with $Company, $Profile, $Attendance, $Reimburse, $Report {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 }
 
@@ -65,5 +66,24 @@ mixin $Reimburse {
     @Part(name: "IDPerusahaan") required String idPerusahaan,
     @Part(name: "NamaPerusahaan") required String namaPerusahaan,
     @Part(name: "File", contentType: "image/*") required File file,
+  });
+}
+
+mixin $Report {
+  @GET('api/absensi/Report')
+  Future<String> sendReport({
+    @Query("idperusahaan") required String idPerusahaan,
+    @Query("tglstart") required String start,
+    @Query("tglend") required String end,
+    @Query("emailrep") required String email,
+  });
+
+  @GET('api/absensi/ReportIzin')
+  Future<String> sendReportIzin({
+    @Query("idperusahaan") required String idPerusahaan,
+    @Query("tglstart") required String start,
+    @Query("tglend") required String end,
+    @Query("emailrep") required String email,
+    @Query("Status") required String status,
   });
 }

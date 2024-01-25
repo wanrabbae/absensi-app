@@ -1,4 +1,6 @@
+import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/klaim/form/klaim_form_cubit.dart';
+import 'package:app/controllers/management/management_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
 import 'package:app/views/absensi/absensi_pulang_screen.dart';
@@ -125,7 +127,15 @@ class Routes {
     // region management
     GetPage(
       name: RouteName.management,
-      page: () => const DataManagementPage(),
+      page: () {
+        return BlocProvider(
+          create: (context) {
+            final app = context.read<AppCubit>();
+            return ManagementCubit($it(), app.state.currentUser!);
+          },
+          child: const DataManagementPage(),
+        );
+      },
     ),
     // endregion
   ];

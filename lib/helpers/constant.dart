@@ -11,6 +11,7 @@ final DateFormat kTimeFormat = DateFormat('HH:mm');
 final DateFormat kMysqlDateFormat = DateFormat('yyyy-MM-dd');
 final DateFormat kLastUpdatePositionDateFormat = DateFormat('dd/MM/yyyy HH:mm:ss');
 final DateFormat kQueryRangeDateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+final DateFormat kDateFullFormat = DateFormat('dd MMM yyyy');
 
 final box = GetStorage();
 
