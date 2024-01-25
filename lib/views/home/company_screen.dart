@@ -246,7 +246,7 @@ class CompanyScreen extends StatelessWidget {
   }
 
   _handleShowDataManagement(BuildContext context) {
-
+    Get.toNamed(RouteName.management);
   }
 
   _handleStopWorking(BuildContext context) {
