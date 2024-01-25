@@ -13,6 +13,8 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import 'components/appbar.dart';
+
 const CameraPosition _kDefaultCenter = CameraPosition(
   target: LatLng(3.5729021, 98.6292165),
   zoom: 17,
@@ -36,36 +38,67 @@ class CompanyScreen extends StatelessWidget {
             leading: Container(
               margin: const EdgeInsets.only(left: 20),
               decoration: kCircleButtonDecoration,
-              child: const BackButton(),
+              child: const HoraBackButton(),
             ),
             actions: [
               Container(
                 decoration: kCircleButtonDecoration,
-                child: BlocBuilder<AppCubit, AppState>(
-                  buildWhen: (previous, current) =>
-                      previous.currentUser != current.currentUser,
-                  builder: (context, state) {
-                    final profile = state.currentUser;
-                    final liked = profile?.liked == 'yes';
-
-                    return IconButton(
-                      onPressed: () {
-                        context.read<AppCubit>().toggleLikeUnlike();
-                      },
-                      icon: liked
-                          ? const Icon(Icons.favorite)
-                          : const Icon(Icons.favorite_border),
-                    );
-                  },
+                child: IconButton(
+                  onPressed: () => _handleShowDataManagement(context),
+                  icon: const Icon(FeatherIcons.barChart2),
                 ),
               ),
               const SizedBox(width: 10),
               Container(
                 decoration: kCircleButtonDecoration,
-                child: IconButton(
-                  onPressed: () => _handleStopWorking(context),
-                  color: Colors.red,
-                  icon: const Icon(FeatherIcons.userX),
+                child: PopupMenuButton<String>(
+                  padding: EdgeInsets.zero,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  surfaceTintColor: Colors.white,
+                  itemBuilder: (BuildContext context) {
+                    return [
+                      PopupMenuItem(
+                        value: 'favorite',
+                        child: BlocBuilder<AppCubit, AppState>(
+                          buildWhen: (previous, current) =>
+                              previous.currentUser != current.currentUser,
+                          builder: (context, state) {
+                            final profile = state.currentUser;
+                            final liked = profile?.liked == 'yes';
+
+                            return ListTile(
+                              contentPadding: const EdgeInsets.only(left: 8),
+                              leading: liked
+                                  ? const Icon(Icons.favorite)
+                                  : const Icon(Icons.favorite_border),
+                              minLeadingWidth: 0,
+                              title: liked
+                                  ? const Text('Hapus Favorit')
+                                  : const Text('Favoritkan'),
+                            );
+                          },
+                        ),
+                      ),
+                      const PopupMenuItem(
+                        value: 'stop-working',
+                        child: ListTile(
+                          contentPadding: EdgeInsets.only(left: 8),
+                          leading: Icon(FeatherIcons.userX),
+                          minLeadingWidth: 0,
+                          title: Text('Berhenti'),
+                        ),
+                      ),
+                    ];
+                  },
+                  onSelected: (value) {
+                    if (value == 'favorite') {
+                      context.read<AppCubit>().toggleLikeUnlike();
+                    } else if (value == 'stop-working') {
+                      _handleStopWorking(context);
+                    }
+                  },
                 ),
               ),
               const SizedBox(width: 20),
@@ -210,6 +243,10 @@ class CompanyScreen extends StatelessWidget {
         );
       },
     );
+  }
+
+  _handleShowDataManagement(BuildContext context) {
+
   }
 
   _handleStopWorking(BuildContext context) {
