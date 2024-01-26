@@ -14,6 +14,11 @@
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
+	<key>CFBundleLocalizations</key>
+    <array>
+    	<string>id</string>
+    	<string>en</string>
+    </array>
 	<key>CFBundleName</key>
 	<string>Hora</string>
 	<key>CFBundlePackageType</key>

@@ -13,7 +13,8 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveClientMixin {
+class _ProfileScreenState extends State<ProfileScreen>
+    with AutomaticKeepAliveClientMixin {
   final _pageViewController = PageController();
 
   @override
@@ -40,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
         appBar: AppBar(
           backgroundColor: Colors.white,
           title: Text(
-            "Hai, ${s.user?['namaKaryawan']}",
+            tr('profile_hi', args: [s.user?['namaKaryawan']]),
             overflow: TextOverflow.ellipsis,
             style: const TextStyle(
               fontSize: 16,
@@ -121,16 +122,16 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                     //     },
                     //   ),
                     // ),
-                    const Padding(
-                      padding: EdgeInsets.only(
+                    Padding(
+                      padding: const EdgeInsets.only(
                         left: 20,
                         right: 20,
                         top: 10,
                         bottom: 10,
                       ),
                       child: Text(
-                        "Tentang",
-                        style: TextStyle(
+                        tr('profile_about'),
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
@@ -138,7 +139,52 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                     ),
                     menuProfile(
                       context,
-                      "Kebijakan Hora",
+                      tr('profile_change_language'),
+                      FeatherIcons.airplay,
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return SimpleDialog(
+                              children: [
+                                SimpleDialogOption(
+                                  child: Text(
+                                    'Indonesia',
+                                    style: context.locale == kLocaleID
+                                        ? const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          )
+                                        : null,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.pop(context, kLocaleID);
+                                  },
+                                ),
+                                SimpleDialogOption(
+                                  child: Text('English',
+                                      style: context.locale == kLocaleEN
+                                          ? const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                            )
+                                          : null),
+                                  onPressed: () {
+                                    Navigator.pop(context, kLocaleEN);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        ).then((value) {
+                          if (value is Locale) {
+                            context.setLocale(value);
+                            Get.updateLocale(value);
+                          }
+                        });
+                      },
+                    ),
+                    menuProfile(
+                      context,
+                      tr('profile_terms'),
                       FeatherIcons.book,
                       onTap: () {
                         Get.toNamed(
@@ -149,7 +195,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                     ),
                     menuProfile(
                       context,
-                      "Privasi Pengguna",
+                      tr('profile_privacy'),
                       FeatherIcons.lock,
                       onTap: () {
                         Get.toNamed(
@@ -160,7 +206,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                     ),
                     menuProfile(
                       context,
-                      "Kisah Hora",
+                      tr('profile_story'),
                       FeatherIcons.command,
                       onTap: () {
                         Get.toNamed(
@@ -171,7 +217,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                     ),
                     menuProfile(
                       context,
-                      "Perangkat lunak",
+                      tr('profile_software'),
                       FeatherIcons.terminal,
                       onTap: () {
                         Get.toNamed(
@@ -182,7 +228,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                     ),
                     menuProfile(
                       context,
-                      "Tanya jawab",
+                      tr('profile_faq'),
                       FeatherIcons.helpCircle,
                       onTap: () {
                         Get.toNamed(
@@ -204,7 +250,7 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                     ),
                     menuProfile(
                       context,
-                      "Keluar",
+                      tr('profile_logout'),
                       FeatherIcons.logOut,
                       onTap: () async {
                         final homeCtrl = Get.put(HomeController());
@@ -212,15 +258,19 @@ class _ProfileScreenState extends State<ProfileScreen> with AutomaticKeepAliveCl
                         if (homeCtrl.timer != null &&
                             homeCtrl.timer?.isActive) {
                           final tanggal = homeCtrl.currentDate;
-                          final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
-                          final tglend =
-                          DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
+                          final tglstart =
+                              DateTime(tanggal.year, tanggal.month, tanggal.day)
+                                  .toUtc();
+                          final tglend = DateTime(tanggal.year, tanggal.month,
+                                  tanggal.day, 23, 59, 59)
+                              .toUtc();
                           final request = {
                             "idkaryawan": homeCtrl.userProfile!.idkaryawan!,
                             "tglstart": kQueryRangeDateFormat.format(tglstart),
                             "tglend": kQueryRangeDateFormat.format(tglend),
                           };
-                          var findData = await AbsensiServices().findIndiv(request);
+                          var findData =
+                              await AbsensiServices().findIndiv(request);
 
                           if (context.mounted) {
                             showConfirmationDialog(

@@ -1,5 +1,4 @@
 import 'package:app/controllers/app/app_cubit.dart';
-import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:flutter/services.dart';
@@ -75,23 +74,21 @@ class _MainScreenState extends State<MainScreen> {
         child: BottomNavigationBar(
           items: [
             BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/icons/briefcase.png',
-                  width: 30,
-                  height: 30,
-                ),
-                activeIcon: Image.asset(
-                  'assets/icons/briefcase-active.png',
-                  width: 30,
-                  height: 30,
-                ),
-                label: "Kerja"),
-            const BottomNavigationBarItem(
-              icon: Icon(
-                FeatherIcons.user,
-                size: 30,
+              icon: Image.asset(
+                'assets/icons/briefcase.png',
+                width: 30,
+                height: 30,
               ),
-              label: "Profil",
+              activeIcon: Image.asset(
+                'assets/icons/briefcase-active.png',
+                width: 30,
+                height: 30,
+              ),
+              label: tr('menu_work'),
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(FeatherIcons.user, size: 30),
+              label: tr('menu_profile'),
             ),
           ],
           unselectedLabelStyle: const TextStyle(

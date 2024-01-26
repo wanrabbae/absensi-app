@@ -1,4 +1,13 @@
 {
-    "title":"Title in id-ID",
-    "name":"Nama"
+  "menu_work": "Kerja",
+  "menu_profile": "Profil",
+  "profile_hi": "Hai, {}",
+  "profile_about": "Tentang",
+  "profile_change_language": "Ganti Bahasa",
+  "profile_terms": "Kebijakan Hora",
+  "profile_privacy": "Privasi Pengguna",
+  "profile_story": "Kisah Hora",
+  "profile_software": "Perangkat Lunak",
+  "profile_faq": "Tanya Jawab",
+  "profile_logout": "Keluar"
 }

@@ -6,6 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+const Locale kLocaleID = Locale("id", "ID");
+const Locale kLocaleEN = Locale("en", "US");
+
 const String kGlobalFontFamily = 'Montserrat';
 final DateFormat kTimeFormat = DateFormat('HH:mm');
 final DateFormat kMysqlDateFormat = DateFormat('yyyy-MM-dd');

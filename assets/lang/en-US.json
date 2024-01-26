@@ -1,4 +1,13 @@
 {
-    "title":"Title in en-US",
-    "name":"Name"
+  "menu_work": "Work",
+  "menu_profile": "Profile",
+  "profile_hi": "Hi, {}",
+  "profile_about": "About",
+  "profile_change_language": "Language",
+  "profile_terms": "Hora Terms",
+  "profile_privacy": "Privacy Policy",
+  "profile_story": "Hora Story",
+  "profile_software": "Software",
+  "profile_faq": "FAQ",
+  "profile_logout": "Logout"
 }

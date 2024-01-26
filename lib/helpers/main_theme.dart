@@ -47,6 +47,7 @@ class MainTheme {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
       locale: context.locale,
       title: "Hora",
       getPages: Routes.pages,
