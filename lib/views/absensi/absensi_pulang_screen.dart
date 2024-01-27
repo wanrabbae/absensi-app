@@ -171,26 +171,28 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text(
-                        "Tekan tombol untuk masuk/pulang",
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w500,
-                            color: Color.fromRGBO(51, 51, 51, 0.5)),
+                      Text(
+                        tr('presence_description_text'),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Color.fromRGBO(51, 51, 51, 0.5),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
-                            top: 3, bottom: 20, left: 20, right: 20),
+                          top: 3,
+                          bottom: 20,
+                          left: 20,
+                          right: 20,
+                        ),
                         child: ElevatedButton(
                           onPressed: () {
                             s.mulaiSelesaiAbsen(context, idAbsen);
                           },
                           style: const ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll(
-                                // s.klikAbsen
-                                //     ? colorGrayPrimary
-                                //     : colorBluePrimary
-                                colorBluePrimary),
+                            backgroundColor:
+                                MaterialStatePropertyAll(colorBluePrimary),
                             shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(
@@ -201,11 +203,11 @@ class _AbsensiPulangScreenViewState extends State<AbsensiPulangScreenView> {
                           ),
                           child: timerCount(context, s),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),

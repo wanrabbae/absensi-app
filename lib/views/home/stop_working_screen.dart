@@ -1,5 +1,6 @@
 import 'package:app/components/component_custom.dart';
 import 'package:app/controllers/splash_controller.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class StopWorkingScreen extends StatelessWidget {
@@ -29,11 +30,9 @@ class StopWorkingScreen extends StatelessWidget {
                       width: 255,
                     ),
                     const SizedBox(height: 32),
-                    const Text(
-                      'Anda dapat menggunakan Hora\n'
-                      'kembali dengan undangan\n'
-                      'Admin perusahaan. Terima kasih.',
-                      style: TextStyle(
+                    Text(
+                      tr('stop_working_description'),
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -50,7 +49,7 @@ class StopWorkingScreen extends StatelessWidget {
       bottomNavigationBar: SafeArea(
         minimum: const EdgeInsets.all(20),
         child: buttonBlue(
-          'Keluar',
+          tr('profile_logout'),
           onTap: () => SplashController().removeData(),
         ),
       ),

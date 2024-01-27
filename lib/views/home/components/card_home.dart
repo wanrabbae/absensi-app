@@ -39,36 +39,6 @@ class _ListTile extends StatelessWidget {
         Future.delayed(const Duration(seconds: 1), () {
           Tooltip.dismissAllToolTips();
         });
-        //   isHadir
-        //       ? showModalBottomSheet(
-        //           shape: const RoundedRectangleBorder(
-        //               borderRadius: BorderRadius.only(
-        //                   topLeft: Radius.circular(20),
-        //                   topRight: Radius.circular(20))),
-        //           context: context,
-        //           builder: (ctx) => DialogPresensi(
-        //                 dataPresensi: s.absen[index],
-        //                 isHadir: isHadir,
-        //               )).then((value) {
-        //           if (value != null) {
-        //             Get.back();
-        //             Get.toNamed(RouteName.absen);
-        //           }
-        //         })
-        //       : showModalBottomSheet(
-        //           shape: const RoundedRectangleBorder(
-        //               borderRadius: BorderRadius.only(
-        //                   topLeft: Radius.circular(20),
-        //                   topRight: Radius.circular(20))),
-        //           context: context,
-        //           builder: (ctx) => DialogPresensi(
-        //               dataPresensi: s.izin[index],
-        //               isHadir: isHadir)).then((value) {
-        //           if (value != null) {
-        //             Get.back();
-        //             Get.toNamed(RouteName.absen);
-        //           }
-        //         });
       },
       onTap: () {
         isHadir
@@ -101,7 +71,7 @@ class _ListTile extends StatelessWidget {
                           child: Tooltip(
                             triggerMode: TooltipTriggerMode.manual,
                             showDuration: const Duration(seconds: 1),
-                            message: 'Aktif',
+                            message: tr('active'),
                             textStyle: const TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w700,

@@ -113,36 +113,6 @@ class _AbsensiScreenState extends State<AbsensiScreen>
               state.controller!.cancelTimer();
             },
             builder: (AbsenController s) {
-              // Scaffold(
-              //   extendBodyBehindAppBar: true,
-              //   backgroundColor: const Color.fromRGBO(238, 240, 244, 1),
-              //   appBar: _buildAppBar(s),
-              //   body: WillPopScope(
-              //     onWillPop: () => _popupConfirmationClose(s)
-              //         .then((confirmExit) => confirmExit == true),
-              //     child: Container(
-              //       width: MediaQuery.of(context).size.width,
-              //       height: MediaQuery.of(context).size.height,
-              //       padding: Platform.isAndroid
-              //           ? const EdgeInsets.only(top: 100)
-              //           : const EdgeInsets.only(top: 130),
-              //       color: Colors.white,
-              //       child: Column(
-              //         children: [
-              //           Expanded(
-              //             child: TabBarView(children: <Widget>[
-              //               _HadirView(s: s, currentAbsen: currentAbsen),
-              //               _PulangView(s: s, currentAbsen: currentAbsen),
-              //             ]),
-              //           ),
-              //           const SizedBox(height: 10),
-              //           _FooterButton(s: s, idAbsen: idAbsen),
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // );
-
               return WillPopScope(
                 onWillPop: () => _popupConfirmationClose(s)
                     .then((confirmExit) => confirmExit == true),
@@ -289,8 +259,10 @@ class _AbsensiScreenState extends State<AbsensiScreen>
 
   Future _popupConfirmationClose(AbsenController s) =>
       SplashController().showConfirmationDialog4(
-        "Hadir",
-        s.timer != null ? "Anda batal pulang?" : "Batal mengisi kehadiran?",
+        tr('present'),
+        s.timer != null
+            ? tr('gohome_cancel_confirmation')
+            : tr('presence_cancel_confirmation'),
         () => Get.back(),
       );
 }
@@ -315,9 +287,9 @@ class _HadirView extends StatelessWidget {
           // shrinkWrap: true,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Foto",
-              style: TextStyle(
+            Text(
+              tr('photo'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -375,57 +347,49 @@ class _HadirView extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Text(
-              "Jam",
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+            Text(
+              tr('hour'),
+              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: colorBlueOpacity2,
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Center(
-                      child: Image.asset(
-                        'assets/icons/clock.png',
-                        width: 20,
-                        height: 20,
-                      ),
-                    )),
-                const SizedBox(
-                  width: 10,
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: colorBlueOpacity2,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Center(
+                    child: Image.asset(
+                      'assets/icons/clock.png',
+                      width: 20,
+                      height: 20,
+                    ),
+                  ),
                 ),
+                const SizedBox(width: 10),
                 Text(
                   currentAbsen?['waktuCheckIn'] != null
                       ? getTimeFullFromDatetime(currentAbsen?['waktuCheckIn'])
                       : '-',
                   style: const TextStyle(
-                      fontWeight: FontWeight.w500, fontSize: 16),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
                 ),
               ],
             ),
-            const SizedBox(
-              height: 2,
+            const SizedBox(height: 2),
+            const Divider(color: colorBlueOpacity2),
+            const SizedBox(height: 10),
+            Text(
+              tr('location'),
+              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
             ),
-            const Divider(
-              color: colorBlueOpacity2,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text(
-              "Lokasi",
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
+            const SizedBox(height: 5),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -469,32 +433,35 @@ class _HadirView extends StatelessWidget {
                       await openMap(currentAbsen?['alamatLatitude'],
                           currentAbsen?['alamatLongtitude']);
                     } else {
-                      debugPrint("KE ELSE");
-                      s.alamatLoc == null
-                          ? debugPrint("TEST")
-                          : await openMap(s.currentLocation.latitude.toString(),
-                              s.currentLocation.longitude.toString());
+                      if (s.alamatLoc != null) {
+                        await openMap(
+                          s.currentLocation.latitude.toString(),
+                          s.currentLocation.longitude.toString(),
+                        );
+                      }
                     }
                   },
                   style: ButtonStyle(
                     elevation: const MaterialStatePropertyAll(0),
                     backgroundColor: MaterialStatePropertyAll(
-                        currentAbsen?['alamatLongtitude'] != null &&
-                                    currentAbsen?['alamatLatitude'] != null ||
-                                s.alamatLoc != null
-                            ? colorBlueOpacity2
-                            : colorBlueOpacity4),
+                      currentAbsen?['alamatLongtitude'] != null &&
+                                  currentAbsen?['alamatLatitude'] != null ||
+                              s.alamatLoc != null
+                          ? colorBlueOpacity2
+                          : colorBlueOpacity4,
+                    ),
                   ),
                   child: Text(
-                    "Buka",
+                    tr('open'),
                     style: TextStyle(
-                        color: currentAbsen?['alamatLongtitude'] != null &&
-                                    currentAbsen?['alamatLatitude'] != null ||
-                                s.alamatLoc != null
-                            ? colorBluePrimary2
-                            : colorBluePrimary3.withOpacity(0.5),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
+                      color: currentAbsen?['alamatLongtitude'] != null &&
+                                  currentAbsen?['alamatLatitude'] != null ||
+                              s.alamatLoc != null
+                          ? colorBluePrimary2
+                          : colorBluePrimary3.withOpacity(0.5),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
@@ -502,9 +469,9 @@ class _HadirView extends StatelessWidget {
             const SizedBox(height: 2),
             const Divider(color: colorBlueOpacity2),
             const SizedBox(height: 10),
-            const Text(
-              "Izin",
-              style: TextStyle(
+            Text(
+              tr('permit'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -563,7 +530,7 @@ class _HadirView extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "Buka",
+                    tr('open'),
                     style: TextStyle(
                       color: s.izinData != null
                           ? colorBluePrimary2
@@ -602,9 +569,9 @@ class _PulangView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Foto",
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+            Text(
+              tr('photo'),
+              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
             ),
             const SizedBox(height: 10),
             Container(
@@ -653,9 +620,9 @@ class _PulangView extends StatelessWidget {
                         ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              "Jam",
-              style: TextStyle(
+            Text(
+              tr('hour'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -694,9 +661,9 @@ class _PulangView extends StatelessWidget {
             const SizedBox(height: 2),
             const Divider(color: colorBlueOpacity2),
             const SizedBox(height: 10),
-            const Text(
-              "Lokasi",
-              style: TextStyle(
+            Text(
+              tr('location'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -744,12 +711,12 @@ class _PulangView extends StatelessWidget {
                       await openMap(currentAbsen?['latitudePulang'],
                           currentAbsen?['longtitudePulang']);
                     } else {
-                      debugPrint("kesini");
-                      s.alamatLocPulang == null
-                          ? debugPrint("TEST")
-                          : await openMap(
-                              s.currentLocationPulang.latitude.toString(),
-                              s.currentLocationPulang.longitude.toString());
+                      if (s.alamatLocPulang != null) {
+                        await openMap(
+                          s.currentLocationPulang.latitude.toString(),
+                          s.currentLocationPulang.longitude.toString(),
+                        );
+                      }
                     }
                   },
                   style: ButtonStyle(
@@ -763,7 +730,7 @@ class _PulangView extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "Buka",
+                    tr('open'),
                     style: TextStyle(
                       color: currentAbsen?['longtitudePulang'] != null &&
                                   currentAbsen?['latitudePulang'] != null ||
@@ -780,9 +747,9 @@ class _PulangView extends StatelessWidget {
             const SizedBox(height: 2),
             const Divider(color: colorBlueOpacity2),
             const SizedBox(height: 10),
-            const Text(
-              "Izin",
-              style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+            Text(
+              tr('permit'),
+              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
             ),
             const SizedBox(height: 5),
             Row(
@@ -840,7 +807,7 @@ class _PulangView extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                    "Buka",
+                    tr('open'),
                     style: TextStyle(
                       color: s.izinData != null
                           ? colorBluePrimary2
@@ -884,9 +851,9 @@ class _MainTabBar extends StatelessWidget {
       indicatorColor: colorBluePrimary2,
       indicatorWeight: 3,
       indicatorSize: TabBarIndicatorSize.tab,
-      tabs: const [
-        Tab(child: Text('Hadir')),
-        Tab(child: Text('Pulang')),
+      tabs: [
+        Tab(child: Text(tr('present'))),
+        Tab(child: Text(tr('go_home'))),
       ],
     );
   }

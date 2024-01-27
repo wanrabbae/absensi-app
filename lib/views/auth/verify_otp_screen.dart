@@ -1,6 +1,8 @@
-import 'package:app/global_resource.dart';
-import 'components/verify_otp_form.dart';
 import 'dart:math' as math;
+
+import 'package:app/global_resource.dart';
+
+import 'components/verify_otp_form.dart';
 
 class VerifyOtpScreen extends StatelessWidget {
   const VerifyOtpScreen({super.key});
@@ -19,14 +21,6 @@ class VerifyOtpScreen extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: [
-              // Positioned(
-              //     child: Align(
-              //   alignment: Alignment.topCenter,
-              //   child: Padding(
-              //     padding: const EdgeInsets.only(top: 80),
-              //     child: customHeaderAuth(context, "Verifikasi", "e-mail"),
-              //   ),
-              // )),
               Positioned(
                 child: Align(
                   alignment: Alignment.topLeft,
@@ -37,11 +31,13 @@ class VerifyOtpScreen extends StatelessWidget {
                         Get.back();
                       },
                       child: Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(50.0)),
-                          child: const Icon(FeatherIcons.arrowLeft)),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
+                        child: const Icon(FeatherIcons.arrowLeft),
+                      ),
                     ),
                   ),
                 ),
@@ -52,84 +48,77 @@ class VerifyOtpScreen extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 60, right: 20),
                     child: GestureDetector(
-                      onTap: () {
-                        s.otpKirim(emailBefore);
-                      },
+                      onTap: () => s.otpKirim(emailBefore),
                       child: Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(50.0)),
-                          child: Transform.rotate(
-                            angle: math.pi / 4,
-                            child: const Icon(
-                              FeatherIcons.send,
-                              color: colorBluePrimary,
-                            ),
-                          )),
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(50.0),
+                        ),
+                        child: Transform.rotate(
+                          angle: math.pi / 4,
+                          child: const Icon(
+                            FeatherIcons.send,
+                            color: colorBluePrimary,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
               ),
               formData(s, context),
               Positioned(
-                  child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.only(bottom: 20, left: 20, right: 20),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          // customTextRich(
-                          //     context, "Baca tentang ", "Kemanan Akun.",
-                          //     onTextClicked: () {
-                          //   Get.toNamed(RouteName.webview,
-                          //       arguments: "https://docs.horaapp.id/#privasi");
-                          // }),
-                          Text(
-                            'Kirim ulang kode OTP?',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              tr('resend_otp_question'),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
                                 color: Colors.grey.shade500,
-                                fontWeight: FontWeight.w500),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              s.emailKirim(emailBefore, 1);
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(15),
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: const Center(
-                                child: Text(
-                                  "Kirim ulang OTP",
-                                  style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            GestureDetector(
+                              onTap: () => s.emailKirim(emailBefore, 1),
+                              child: Container(
+                                padding: const EdgeInsets.all(15),
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20)),
+                                child: Center(
+                                  child: Text(
+                                    tr('resend_otp'),
+                                    style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ))
+              ),
             ],
           ),
         ),

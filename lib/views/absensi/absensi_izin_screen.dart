@@ -1,7 +1,7 @@
-import 'package:app/controllers/izin_controller.dart';
-import 'package:app/global_resource.dart';
 import 'dart:math' as math;
 
+import 'package:app/controllers/izin_controller.dart';
+import 'package:app/global_resource.dart';
 import 'package:flutter/services.dart';
 
 class AbsensiIzinScreen extends StatefulWidget {
@@ -14,6 +14,7 @@ class AbsensiIzinScreen extends StatefulWidget {
 class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
   bool _validateAlasan = false;
   bool _validateLampiran = false;
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -33,9 +34,10 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                'Surat Izin',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+              Text(
+                tr('permit_letter'),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
               ),
               Transform.rotate(
                 angle: math.pi / 4,
@@ -62,8 +64,8 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                       if (_validateAlasan == false &&
                           _validateLampiran == false) {
                         SplashController().showConfirmationDialog2(
-                          "Izin",
-                          "Ajukan izin sekarang?",
+                          tr('permit'),
+                          tr('apply_for_permit'),
                           izin,
                         );
                       }
@@ -78,8 +80,8 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
           leading: IconButton(
             icon: const Icon(FeatherIcons.arrowLeft),
             onPressed: () {
-              SplashController()
-                  .showConfirmationDialog4("Izin", "Batal mengisi izin?", () {
+              SplashController().showConfirmationDialog4(
+                  tr('permit'), tr('apply_for_permit_cancellation'), () {
                 Get.back();
               });
             },
@@ -90,8 +92,8 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
             // This function will be called when the user presses the back button
             // Return true to allow the default back button behavior or false to perform custom actions
             // For example, you can show a confirmation dialog here
-            bool confirmExit = await SplashController()
-                .showConfirmationDialog4("Izin", "Batal mengisi izin?", () {
+            bool confirmExit = await SplashController().showConfirmationDialog4(
+                tr('permit'), tr('apply_for_permit_cancellation'), () {
               Get.back();
             });
 
@@ -114,10 +116,12 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        const Text(
-                          "Nama",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
+                        Text(
+                          tr('name'),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         TextFormField(
                           readOnly: true,
@@ -126,23 +130,29 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                           keyboardType: TextInputType.text,
                           style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
-                          decoration: const InputDecoration(
-                            hintText: "Ketikkan disini",
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 1)),
-                            focusedBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.black, width: 1.5)),
+                          decoration: InputDecoration(
+                            hintText: tr('type_here'),
+                            enabledBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1,
+                              ),
+                            ),
+                            focusedBorder: const UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.5,
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          "Lampiran (Harus terisi)",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
+                        const SizedBox(height: 20),
+                        Text(
+                          tr('attachment_required'),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         TextFormField(
                           onTap: () {
@@ -154,41 +164,53 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                               fontSize: 16, fontWeight: FontWeight.bold),
                           decoration: InputDecoration(
                             hintText: (s.fileName == null)
-                                ? "File_surat_sakit.docx"
+                                ? tr('attachment_hint')
                                 : s.fileName,
                             errorText: _validateLampiran ? "" : null,
                             errorStyle: const TextStyle(height: 0),
                             errorBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
-                                  width: 1.5, color: Colors.red), //<-- SEE HERE
+                                width: 1.5,
+                                color: Colors.red,
+                              ),
                             ),
                             focusedErrorBorder: const UnderlineInputBorder(
                               borderSide: BorderSide(
-                                  width: 1.5, color: Colors.red), //<-- SEE HERE
+                                width: 1.5,
+                                color: Colors.red,
+                              ),
                             ),
                             hintStyle: const TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                             enabledBorder: const UnderlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 1)),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1,
+                              ),
+                            ),
                             focusedBorder: const UnderlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Colors.black, width: 1.5)),
+                              borderSide: BorderSide(
+                                color: Colors.black,
+                                width: 1.5,
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          "Alasan (Harus terisi)",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w500),
+                        const SizedBox(height: 20),
+                        Text(
+                          tr('reason_required'),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                         Center(
                           child: FormField(
                             builder: (c) => InputDecorator(
                               decoration: InputDecoration(
-                                hintText: "Pilih alasan",
+                                hintText: tr('choose_reason'),
                                 hintStyle: const TextStyle(
                                     fontSize: 16, fontWeight: FontWeight.bold),
                                 contentPadding: const EdgeInsets.all(0),
@@ -199,57 +221,63 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                                   borderSide: BorderSide(
                                     width: 1,
                                     color: Colors.black,
-                                  ), //<-- SEE HERE
+                                  ),
                                 ),
                                 errorBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide(
-                                      width: 1.5,
-                                      color: Colors.red), //<-- SEE HERE
+                                    width: 1.5,
+                                    color: Colors.red,
+                                  ),
                                 ),
                                 focusedBorder: const UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black, width: 1.5)),
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                    width: 1.5,
+                                  ),
+                                ),
                               ),
                               isEmpty: s.formIzin == null,
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton(
-                                    icon: const Icon(
-                                      FeatherIcons.chevronDown,
-                                      size: 20,
-                                    ),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(20.0)),
-                                    key: Key(s.formIzin ?? "Izin"),
-                                    value: s.formIzin,
-                                    isExpanded: true,
-                                    items: s.izinList!
-                                        .map<DropdownMenuItem<String>>(
-                                            (value) => DropdownMenuItem<String>(
-                                                  value:
-                                                      value["value"].toString(),
-                                                  child: Text(
-                                                    '${value["nama"]}',
-                                                    style: const TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ))
-                                        .toList(),
-                                    onChanged: (value) {
-                                      if (value != null) {
-                                        s.updateFormIzin(value);
-                                      }
-                                    }),
+                                  icon: const Icon(
+                                    FeatherIcons.chevronDown,
+                                    size: 20,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(20.0),
+                                  ),
+                                  key: Key(s.formIzin ?? tr('permit')),
+                                  value: s.formIzin,
+                                  isExpanded: true,
+                                  items: s.izinList!
+                                      .map<DropdownMenuItem<String>>((value) =>
+                                          DropdownMenuItem<String>(
+                                            value: value["value"].toString(),
+                                            child: Text(
+                                              '${value["nama"]}',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ))
+                                      .toList(),
+                                  onChanged: (value) {
+                                    if (value != null) {
+                                      s.updateFormIzin(value);
+                                    }
+                                  },
+                                ),
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
+                        const SizedBox(height: 20),
+                        customTextRich2(
+                          context,
+                          tr('description'),
+                          tr('description_end'),
                         ),
-                        customTextRich2(context, "Keterangan",
-                            " (Kosongkan jika tidak ada)"),
                         SizedBox(
                           height: 120,
                           child: TextFormField(
@@ -259,20 +287,24 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
                             maxLines: 15,
                             style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
-                            decoration: const InputDecoration(
-                              hintText: "Ketikkan disini",
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.black, width: 1)),
-                              focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.black, width: 1.5)),
+                            decoration: InputDecoration(
+                              hintText: tr('type_here'),
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                              ),
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+                                  width: 1.5,
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                       ],
                     ),
                   ),
