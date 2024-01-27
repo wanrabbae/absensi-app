@@ -26,5 +26,14 @@
   "dialog_button_ok": "Ya",
   "dialog_logout_cancel": "Tidak",
   "dialog_presence_title": "Presensi",
-  "dialog_presence_message": "Anda ingin pulang?"
+  "dialog_presence_message": "Anda ingin pulang?",
+  "tutorial_title": "Petunjuk Pemakaian",
+  "tutorial_content_1": "Sentuh tombol timer untuk memulai kehadiran",
+  "tutorial_content_2": "Izinkan Hora untuk mengakses lokasi perangkat Anda",
+  "tutorial_content_3": "Izinkan Hora untuk mengakses kamera perangkat Anda",
+  "tutorial_content_4": "Izinkan Hora untuk mengakses penyimpanan perangkat Anda",
+  "tutorial_content_5a": "Kirimkan e-mail di ",
+  "tutorial_content_5b": " jika menemukan kesulitan",
+  "tutorial_footer_text": "Anda sudah mengerti?",
+  "tutorial_footer_button": "Saya mengerti"
 }

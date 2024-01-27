@@ -24,5 +24,16 @@
   "dialog_logout_title": "Account",
   "dialog_logout_message": "Do you want to logout?",
   "dialog_button_ok": "Yes",
-  "dialog_logout_cancel": "Cancel"
+  "dialog_logout_cancel": "Cancel",
+  "dialog_presence_title": "Presence",
+  "dialog_presence_message": "Do you want to check out?",
+  "tutorial_title": "User Guide",
+  "tutorial_content_1": "Touch the timer button to start attendance",
+  "tutorial_content_2": "Allow Hora to access your device's location",
+  "tutorial_content_3": "Allow Hora to access your device's camera",
+  "tutorial_content_4": "Allow Hora to access your device storage",
+  "tutorial_content_5a": "Send an e-mail at ",
+  "tutorial_content_5b": " if you encounter difficulties",
+  "tutorial_footer_text": "Do you understand?",
+  "tutorial_footer_button": "I understand"
 }

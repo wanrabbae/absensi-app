@@ -16,33 +16,33 @@ class TutorialScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 60, 16, 0),
-              child: customHeaderAuth2(context, "HORA", "Petunjuk Pemakaian"),
+              child: customHeaderAuth2(context, "HORA", tr('tutorial_title')),
             ),
             PageView(
               controller: pageController,
               children: [
-                const _TutorialContent(
+                _TutorialContent(
                   'assets/icons/tutorial/clock.png',
-                  'Sentuh tombol timer untuk memulai kehadiran',
+                  tr('tutorial_content_1'),
                 ),
-                const _TutorialContent(
+                _TutorialContent(
                   'assets/icons/tutorial/marker.webp',
-                  'Izinkan Hora untuk mengakses lokasi perangkat Anda',
+                  tr('tutorial_content_2'),
                 ),
-                const _TutorialContent(
+                _TutorialContent(
                   'assets/icons/tutorial/camera.webp',
-                  'Izinkan Hora untuk mengakses kamera perangkat Anda',
+                  tr('tutorial_content_3'),
                 ),
-                const _TutorialContent(
+                _TutorialContent(
                   'assets/icons/tutorial/folder.webp',
-                  'Izinkan Hora untuk mengakses penyimpanan perangkat Anda',
+                  tr('tutorial_content_4'),
                 ),
                 _TutorialContent(
                   'assets/icons/tutorial/chat.png',
                   Text.rich(
                     TextSpan(
                       children: [
-                        const TextSpan(text: 'Kirimkan e-mail di '),
+                        TextSpan(text: tr('tutorial_content_5a')),
                         TextSpan(
                           text: 'cs@horaapp.id',
                           style: const TextStyle(
@@ -54,7 +54,7 @@ class TutorialScreen extends StatelessWidget {
                               launchUrlString('mailto:cs@horaapp.id');
                             },
                         ),
-                        const TextSpan(text: ' jika menemukan kesulitan'),
+                        TextSpan(text: tr('tutorial_content_5b')),
                       ],
                     ),
                     style: const TextStyle(
@@ -111,14 +111,14 @@ class _Footer extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 64),
-          const Text(
-            "Anda sudah mengerti?",
+          Text(
+            tr('tutorial_footer_text'),
             textAlign: TextAlign.center,
-            style: TextStyle(color: Colors.white, fontSize: 12),
+            style: const TextStyle(color: Colors.white, fontSize: 12),
           ),
           const SizedBox(height: 4),
           buttonWhite(
-            "Saya mengerti",
+            tr('tutorial_footer_button'),
             onTap: () {
               Get.toNamed(RouteName.greeting);
             },
