@@ -20,5 +20,9 @@
   "claim": "Claim",
   "present_empty": "This feature will record, save and display your attendance details periodically",
   "permit_empty": "This feature will record, store and display your permission details periodically",
-  "claim_empty": "This feature will record, save and display your claim details periodically"
+  "claim_empty": "This feature will record, save and display your claim details periodically",
+  "dialog_logout_title": "Account",
+  "dialog_logout_message": "Do you want to logout?",
+  "dialog_button_ok": "Yes",
+  "dialog_logout_cancel": "Cancel"
 }
