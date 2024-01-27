@@ -18,6 +18,7 @@
   "present": "Present",
   "permit": "Permit",
   "claim": "Claim",
+  "leave": "Leave",
   "present_empty": "This feature will record, save and display your attendance details periodically",
   "permit_empty": "This feature will record, store and display your permission details periodically",
   "claim_empty": "This feature will record, save and display your claim details periodically",
@@ -82,5 +83,13 @@
   "address": "Address",
   "delete": "Delete",
   "change_email": "Change email",
-  "input_new_email": "Type your new email"
+  "input_new_email": "Type your new email",
+  "management_title": "Data Management",
+  "management_interval": "Date Range",
+  "management_present_description": "Attendance data will be sent to the email address registered with Hora.",
+  "management_leave_description": "Leave data will be sent to the email address registered with Hora.",
+  "management_permit_description": "Permission data will be sent to the email address registered with Hora.",
+  "management_share_to_email": "Share by email",
+  "snackbar_sending_management": "Currently sending management data...",
+  "snackbar_validation_management": "Enter a date range"
 }

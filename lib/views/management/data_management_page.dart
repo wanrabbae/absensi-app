@@ -13,7 +13,7 @@ class DataManagementPage extends StatelessWidget {
     return Scaffold(
       appBar: HoraAppBar(
         context,
-        title: const Text('Data Manajemen'),
+        title: Text(tr('management_title')),
       ),
       body: ListView(
         padding: const EdgeInsets.all(20),
@@ -80,9 +80,9 @@ class DataManagementPage extends StatelessWidget {
                             ),
                           );
                         },
-                        child: const Text(
-                          'Interval',
-                          style: TextStyle(
+                        child: Text(
+                          tr('management_interval'),
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
@@ -98,50 +98,47 @@ class DataManagementPage extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           ManagementCard(
-            title: 'Hadir',
-            description:
-                'Data kehadiran akan dikirimkan ke alamat email yang terdaftar di Hora.',
+            title: tr('present'),
+            description: tr('management_present_description'),
             onShareEmail: () {
               final range = rxDateRange.value;
               if (range != null) {
-                customSnackbar1('Sedang mengirimkan data manajemen...');
+                customSnackbar1(tr('snackbar_sending_management'));
                 context
                     .read<ManagementCubit>()
                     .sendReportAbsensi(range, customSnackbar1);
               } else {
-                customSnackbar1('Masukkan interval tanggal');
+                customSnackbar1(tr('snackbar_validation_management'));
               }
             },
           ),
           ManagementCard(
-            title: 'Cuti',
-            description:
-                'Data cuti akan dikirimkan ke alamat email yang terdaftar di Hora.',
+            title: tr('leave'),
+            description: tr('management_leave_description'),
             onShareEmail: () {
               final range = rxDateRange.value;
               if (range != null) {
-                customSnackbar1('Sedang mengirimkan data manajemen...');
+                customSnackbar1(tr('snackbar_sending_management'));
                 context
                     .read<ManagementCubit>()
                     .sendReportCuti(range, customSnackbar1);
               } else {
-                customSnackbar1('Masukkan interval tanggal');
+                customSnackbar1(tr('snackbar_validation_management'));
               }
             },
           ),
           ManagementCard(
-            title: 'Izin',
-            description:
-                'Data izin akan dikirimkan ke alamat email yang terdaftar di Hora.',
+            title: tr('permit'),
+            description: tr('management_permit_description'),
             onShareEmail: () {
               final range = rxDateRange.value;
               if (range != null) {
-                customSnackbar1('Sedang mengirimkan data manajemen...');
+                customSnackbar1(tr('snackbar_sending_management'));
                 context
                     .read<ManagementCubit>()
                     .sendReportIzin(range, customSnackbar1);
               } else {
-                customSnackbar1('Masukkan interval tanggal');
+                customSnackbar1(tr('snackbar_validation_management'));
               }
             },
           ),
@@ -206,14 +203,14 @@ class ManagementCard extends StatelessWidget {
               ),
               padding: const EdgeInsets.symmetric(vertical: 24),
               alignment: Alignment.center,
-              child: const Row(
+              child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(FeatherIcons.share, color: Colors.white),
-                  SizedBox(width: 8),
+                  const Icon(FeatherIcons.share, color: Colors.white),
+                  const SizedBox(width: 8),
                   Text(
-                    'Bagikan ke email',
-                    style: TextStyle(
+                    tr('management_share_to_email'),
+                    style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       color: Colors.white,
