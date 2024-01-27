@@ -51,5 +51,9 @@
   "camera": "Camera",
   "location": "Location",
   "storage": "Storage",
-  "next": "Next"
+  "next": "Next",
+  "search": "Search",
+  "invitation_title": "Invite via email",
+  "invitation_hint_email": "Email a friend",
+  "invitation_help_email": "Tell your friends to immediately check their e-mail inbox"
 }

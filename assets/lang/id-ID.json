@@ -51,5 +51,9 @@
   "camera": "Kamera",
   "location": "Lokasi",
   "storage": "Penyimpanan",
-  "next": "Lanjutkan"
+  "next": "Lanjutkan",
+  "search": "Pencarian",
+  "invitation_title": "Undang melalui email",
+  "invitation_hint_email": "E-mail teman",
+  "invitation_help_email": "Beritahu teman anda untuk segera memeriksa kotak masuk e-mail"
 }
