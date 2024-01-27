@@ -61,5 +61,9 @@
   "company_stop_working": "Berhenti",
   "company_stop_working_confirmation": "Anda ingin berhenti bekerja?",
   "people": "orang",
-  "company_office_location": "Lokasi Kantor"
+  "company_office_location": "Lokasi Kantor",
+  "claim_form_title": "Unggah Klaim",
+  "claim_form_field_hint": "Tidak ada keterangan",
+  "snackbar_sending_claim": "Sedang mengunggah klaim...",
+  "snackbar_claim_sent": "Klaim telah terunggah"
 }

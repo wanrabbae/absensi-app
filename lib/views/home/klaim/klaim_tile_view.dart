@@ -96,7 +96,7 @@ class KlaimTileView extends StatelessWidget {
 
   Widget _buildSubtitle() {
     return Text(
-      klaim.keterangan ?? 'Tidak ada keterangan',
+      klaim.keterangan ?? tr('claim_form_field_hint'),
       overflow: TextOverflow.ellipsis,
       maxLines: 1,
       style: const TextStyle(

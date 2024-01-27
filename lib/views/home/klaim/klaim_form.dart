@@ -21,18 +21,18 @@ class KlaimForm extends StatelessWidget {
             return;
           }
 
-          customSnackbar1('Klaim telah terunggah.');
+          customSnackbar1(tr('snackbar_claim_sent'));
           Navigator.pop(context, true);
         }
       },
       child: Scaffold(
         appBar: HoraAppBar(
           context,
-          title: const Text('Unggah Klaim'),
+          title: Text(tr('claim_form_title')),
           actions: [
             IconButton(
               onPressed: () {
-                customSnackbar1('Sedang mengunggah klaim...');
+                customSnackbar1(tr('snackbar_sending_claim'));
                 final app = context.read<AppCubit>();
                 final state = app.state;
                 final profile = state.currentUser!;
@@ -114,12 +114,12 @@ class KlaimForm extends StatelessWidget {
               minimum: const EdgeInsets.fromLTRB(16, 8, 16, 16),
               child: TextFormField(
                 controller: context.read<KlaimFormCubit>().keteranganController,
-                decoration: const InputDecoration(
-                  hintText: 'Tidak ada keterangan',
-                  enabledBorder: UnderlineInputBorder(
+                decoration: InputDecoration(
+                  hintText: tr('claim_form_field_hint'),
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 2),
                   ),
-                  focusedBorder: UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: colorBluePrimary, width: 2),
                   ),
                 ),

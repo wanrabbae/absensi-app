@@ -61,5 +61,9 @@
   "company_stop_working": "Stop Working",
   "company_stop_working_confirmation": "Do you want to stop working?",
   "people": "people",
-  "company_office_location": "Office Location"
+  "company_office_location": "Office Location",
+  "claim_form_title": "Upload Claim",
+  "claim_form_field_hint": "No description",
+  "snackbar_sending_claim": "Currently uploading claims...",
+  "snackbar_claim_sent": "Claim has been uploaded"
 }

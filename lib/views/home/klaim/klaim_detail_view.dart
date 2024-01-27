@@ -69,12 +69,12 @@ class KlaimDetailView extends StatelessWidget {
             minimum: const EdgeInsets.fromLTRB(16, 8, 16, 16),
             child: TextFormField(
               controller: keteranganController,
-              decoration: const InputDecoration(
-                hintText: 'Tidak ada keterangan',
-                enabledBorder: UnderlineInputBorder(
+              decoration: InputDecoration(
+                hintText: tr('claim_form_field_hint'),
+                enabledBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 2),
                 ),
-                focusedBorder: UnderlineInputBorder(
+                focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: colorBluePrimary, width: 2),
                 ),
               ),
