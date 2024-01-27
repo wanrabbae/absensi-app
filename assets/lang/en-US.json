@@ -45,5 +45,11 @@
   "login_validation_email": "You have not entered an email address",
   "login_help_email": "Log in using the email that was previously invited",
   "login_footer_text": "Make sure you are connected to the internet",
-  "login_footer_button": "Check connection"
+  "login_footer_button": "Check connection",
+  "dialog_permission_title": "Device permissions",
+  "dialog_permission_message": "You are required to grant permission:",
+  "camera": "Camera",
+  "location": "Location",
+  "storage": "Storage",
+  "next": "Next"
 }

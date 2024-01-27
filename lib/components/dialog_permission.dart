@@ -31,11 +31,11 @@ class DialogPermission extends HookConsumerWidget {
                     ],
                   ),
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "Perizinan perangkat",
-                    style: TextStyle(
+                    tr('dialog_permission_title'),
+                    style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 16,
                       color: Color.fromRGBO(51, 51, 51, 1),
@@ -52,22 +52,22 @@ class DialogPermission extends HookConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  "Anda diperlukan untuk memberikan izin: ",
-                  style: TextStyle(
+                Text(
+                  tr('dialog_permission_message'),
+                  style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                     color: Color.fromRGBO(51, 51, 51, 1),
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Row(
+                Row(
                   children: [
-                    Icon(FeatherIcons.camera, size: 17),
-                    SizedBox(width: 10),
+                    const Icon(FeatherIcons.camera, size: 17),
+                    const SizedBox(width: 10),
                     Text(
-                      "Kamera",
-                      style: TextStyle(
+                      tr('camera'),
+                      style: const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                         color: Colors.black,
@@ -76,13 +76,13 @@ class DialogPermission extends HookConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 5),
-                const Row(
+                Row(
                   children: [
-                    Icon(FeatherIcons.mapPin, size: 17),
-                    SizedBox(width: 10),
+                    const Icon(FeatherIcons.mapPin, size: 17),
+                    const SizedBox(width: 10),
                     Text(
-                      "Lokasi",
-                      style: TextStyle(
+                      tr('location'),
+                      style: const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                         color: Colors.black,
@@ -91,13 +91,13 @@ class DialogPermission extends HookConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 5),
-                const Row(
+                Row(
                   children: [
-                    Icon(FeatherIcons.folder, size: 17),
-                    SizedBox(width: 10),
+                    const Icon(FeatherIcons.folder, size: 17),
+                    const SizedBox(width: 10),
                     Text(
-                      "Penyimpanan",
-                      style: TextStyle(
+                      tr('storage'),
+                      style: const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                         color: Colors.black,
@@ -117,14 +117,16 @@ class DialogPermission extends HookConsumerWidget {
                             MaterialStatePropertyAll(colorBluePrimary),
                         shape: MaterialStatePropertyAll(
                           RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
                           ),
                         ),
                       ),
                       onPressed: _handlePermission,
-                      child: const Text(
-                        "Lanjutkan",
-                        style: TextStyle(
+                      child: Text(
+                        tr('next'),
+                        style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                           color: Colors.white,

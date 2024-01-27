@@ -45,5 +45,11 @@
   "login_validation_email": "Anda belum memasukan alamat email",
   "login_help_email": "Masuk menggunakan e-mail yang telah diundang sebelumnya",
   "login_footer_text": "Pastikan anda terhubung dengan internet",
-  "login_footer_button": "Cek koneksi"
+  "login_footer_button": "Cek koneksi",
+  "dialog_permission_title": "Perizinan perangkat",
+  "dialog_permission_message": "Anda diperlukan untuk memberikan izin:",
+  "camera": "Kamera",
+  "location": "Lokasi",
+  "storage": "Penyimpanan",
+  "next": "Lanjutkan"
 }
