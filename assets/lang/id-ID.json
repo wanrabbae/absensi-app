@@ -24,7 +24,7 @@
   "dialog_logout_title": "Akun",
   "dialog_logout_message": "Anda ingin keluar?",
   "dialog_button_ok": "Ya",
-  "dialog_logout_cancel": "Tidak",
+  "dialog_button_cancel": "Tidak",
   "dialog_presence_title": "Presensi",
   "dialog_presence_message": "Anda ingin pulang?",
   "tutorial_title": "Petunjuk Pemakaian",
@@ -55,5 +55,11 @@
   "search": "Pencarian",
   "invitation_title": "Undang melalui email",
   "invitation_hint_email": "E-mail teman",
-  "invitation_help_email": "Beritahu teman anda untuk segera memeriksa kotak masuk e-mail"
+  "invitation_help_email": "Beritahu teman anda untuk segera memeriksa kotak masuk e-mail",
+  "company_set_favorite": "Favoritkan",
+  "company_unset_favorite": "Hapus Favorit",
+  "company_stop_working": "Berhenti",
+  "company_stop_working_confirmation": "Anda ingin berhenti bekerja?",
+  "people": "orang",
+  "company_office_location": "Lokasi Kantor"
 }

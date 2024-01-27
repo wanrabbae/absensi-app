@@ -7,6 +7,7 @@ import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:app/helpers/base.dart';
 import 'package:app/helpers/constant.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -75,19 +76,19 @@ class CompanyScreen extends StatelessWidget {
                                   : const Icon(Icons.favorite_border),
                               minLeadingWidth: 0,
                               title: liked
-                                  ? const Text('Hapus Favorit')
-                                  : const Text('Favoritkan'),
+                                  ? Text(tr('company_unset_favorite'))
+                                  : Text(tr('company_set_favorite')),
                             );
                           },
                         ),
                       ),
-                      const PopupMenuItem(
+                      PopupMenuItem(
                         value: 'stop-working',
                         child: ListTile(
-                          contentPadding: EdgeInsets.only(left: 8),
-                          leading: Icon(FeatherIcons.userX),
+                          contentPadding: const EdgeInsets.only(left: 8),
+                          leading: const Icon(FeatherIcons.userX),
                           minLeadingWidth: 0,
-                          title: Text('Berhenti'),
+                          title: Text(tr('company_stop_working')),
                         ),
                       ),
                     ];
@@ -168,7 +169,7 @@ class CompanyScreen extends StatelessWidget {
                                           size: 20,
                                         ),
                                 ),
-                                TextSpan(text: ' $like orang'),
+                                TextSpan(text: ' $like ${tr('people')}'),
                               ],
                             ),
                             style: const TextStyle(
@@ -185,11 +186,11 @@ class CompanyScreen extends StatelessWidget {
                       color: colorDivider,
                       height: 3,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
                       child: Text(
-                        'Lokasi Kantor',
-                        style: TextStyle(
+                        tr('company_office_location'),
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                           color: colorBlackPrimary,
@@ -259,35 +260,35 @@ class CompanyScreen extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          title: const Text(
-            'Berhenti',
+          title: Text(
+            tr('company_stop_working'),
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 16),
-              const Text(
-                'Anda ingin berhenti bekerja?',
+              Text(
+                tr('company_stop_working_confirmation'),
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   TextButton(
-                    child: const Text(
-                      'Tidak',
-                      style: TextStyle(fontSize: 16),
+                    child: Text(
+                      tr('dialog_button_cancel'),
+                      style: const TextStyle(fontSize: 16),
                     ),
                     onPressed: () => Navigator.pop(context),
                   ),
                   TextButton(
-                    child: const Text(
-                      'Ya',
-                      style: TextStyle(fontSize: 16),
+                    child: Text(
+                      tr('dialog_button_ok'),
+                      style: const TextStyle(fontSize: 16),
                     ),
                     onPressed: () => Navigator.pop(context, true),
                   ),

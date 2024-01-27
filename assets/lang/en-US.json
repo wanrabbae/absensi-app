@@ -24,7 +24,7 @@
   "dialog_logout_title": "Account",
   "dialog_logout_message": "Do you want to logout?",
   "dialog_button_ok": "Yes",
-  "dialog_logout_cancel": "Cancel",
+  "dialog_button_cancel": "No",
   "dialog_presence_title": "Presence",
   "dialog_presence_message": "Do you want to check out?",
   "tutorial_title": "User Guide",
@@ -55,5 +55,11 @@
   "search": "Search",
   "invitation_title": "Invite via email",
   "invitation_hint_email": "Email a friend",
-  "invitation_help_email": "Tell your friends to immediately check their e-mail inbox"
+  "invitation_help_email": "Tell your friends to immediately check their e-mail inbox",
+  "company_set_favorite": "Set Favorite",
+  "company_unset_favorite": "Unset Favorite",
+  "company_stop_working": "Stop Working",
+  "company_stop_working_confirmation": "Do you want to stop working?",
+  "people": "people",
+  "company_office_location": "Office Location"
 }
