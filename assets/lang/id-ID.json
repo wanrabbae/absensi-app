@@ -9,5 +9,16 @@
   "profile_story": "Kisah Hora",
   "profile_software": "Perangkat Lunak",
   "profile_faq": "Tanya Jawab",
-  "profile_logout": "Keluar"
+  "profile_logout": "Keluar",
+  "snackbar_already_permit": "Kehadiran hari ini telah terisi",
+  "snackbar_already_present": "Kehadiran hari ini telah terisi",
+  "snackbar_photo_required": "Tidak bisa melanjutkan tanpa foto",
+  "snackbar_taking_photo_canceled": "Batal mengambil foto",
+  "snackbar_taking_photo_failed": "Terjadi kesalahan saat mengambil foto",
+  "present": "Hadir",
+  "permit": "Izin",
+  "claim": "Klaim",
+  "present_empty": "Fitur ini akan mencatat, menyimpan dan menampilkan detail presensi anda secara berkala",
+  "permit_empty": "Fitur ini akan mencatat, menyimpan dan menampilkan detail izin anda secara berkala",
+  "claim_empty": "Fitur ini akan mencatat, menyimpan dan menampilkan detail klaim anda secara berkala"
 }

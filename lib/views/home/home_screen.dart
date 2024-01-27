@@ -120,8 +120,7 @@ class _HomeScreenState extends State<HomeScreen>
       ),
       onPressed: () {
         if (s.isPresentIzin) {
-          debugPrint("test");
-          customSnackbar1("Kehadiran hari ini telah terisi.");
+          customSnackbar1(tr('snackbar_already_permit'));
         } else {
           ImagePicker()
               .pickImage(
@@ -141,9 +140,7 @@ class _HomeScreenState extends State<HomeScreen>
                 "isFoto": true,
               });
             } else {
-              customSnackbar1(
-                "Tidak bisa melanjutkan tanpa foto",
-              );
+              customSnackbar1(tr('snackbar_photo_required'));
             }
           });
         }
@@ -163,8 +160,7 @@ class _HomeScreenState extends State<HomeScreen>
             ),
             onPressed: () async {
               if (s.isPresentHadir) {
-                debugPrint("test");
-                customSnackbar1("Kehadiran hari ini telah terisi.");
+                customSnackbar1(tr('snackbar_already_present'));
               } else {
                 s.absensi(context);
               }
@@ -219,15 +215,15 @@ class _HomeScreenState extends State<HomeScreen>
             }
           });
         } else {
-          customSnackbar1("Batal mengambil foto");
+          customSnackbar1(tr('snackbar_taking_photo_canceled'));
         }
       } catch (e) {
-        customSnackbar1("Terjadi kesalahan saat mengambil foto");
+        customSnackbar1(tr('snackbar_taking_photo_failed'));
       }
       return;
     }
 
-    customSnackbar1("Tidak bisa melanjutkan tanpa foto");
+    customSnackbar1(tr('snackbar_photo_required'));
   }
 
   Widget _buildContent(HomeController s, BuildContext context) {
@@ -239,11 +235,10 @@ class _HomeScreenState extends State<HomeScreen>
             if (s.absen!.isEmpty) {
               return Container(
                 padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
-                child: const EmptyView(
+                child: EmptyView(
                   image: 'assets/icons/absen-ilus.webp',
-                  title: 'Hadir',
-                  subtitle:
-                      'Fitur ini akan mencatat, menyimpan dan menampilkan detail presensi anda secara berkala.',
+                  title: tr('present'),
+                  subtitle: tr('present_empty'),
                 ),
               );
             }
@@ -252,11 +247,10 @@ class _HomeScreenState extends State<HomeScreen>
             if (s.izin!.isEmpty) {
               return Container(
                 padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
-                child: const EmptyView(
+                child: EmptyView(
                   image: 'assets/icons/aizin-ilus.webp',
-                  title: 'Izin',
-                  subtitle:
-                      'Fitur ini akan mencatat, menyimpan dan menampilkan detail izin anda secara berkala.',
+                  title: tr('permit'),
+                  subtitle: tr('permit_empty'),
                 ),
               );
             }
@@ -289,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen>
               final home = context.read<HomeCubit>();
               final now = DateTime.now();
               showDatePicker(
-                locale: const Locale("id", "ID"),
+                locale: context.locale,
                 context: context,
                 initialDate: s.currentDate,
                 firstDate: DateTime(now.year - 10, now.month, now.day),
@@ -343,7 +337,7 @@ class _HomeScreenState extends State<HomeScreen>
               builder: (context, state) {
                 final tab = HomeTab.values[i];
                 return HomeTabView(
-                  tab: tab.tab,
+                  tab: tr(tab.tab),
                   onChanged: (value) {
                     context.read<HomeCubit>().setHomeTab(value);
                   },

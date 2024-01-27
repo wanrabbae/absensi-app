@@ -1,11 +1,7 @@
-import 'dart:async';
-
-import 'package:app/components/component_modal.dart';
 import 'package:app/components/empty_view.dart';
 import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/views/home/klaim/klaim_tile_view.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Completer<bool>? _completer;
@@ -41,7 +37,7 @@ class KlaimView extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
             child: EmptyView(
               image: 'assets/icons/klaim-ilus.webp',
-              title: 'Klaim',
+              title: tr('claim'),
               subtitle: error,
             ),
           );
@@ -50,11 +46,10 @@ class KlaimView extends StatelessWidget {
         if (data!.isEmpty) {
           return Container(
             padding: const EdgeInsets.fromLTRB(40, 0, 40, 80),
-            child: const EmptyView(
+            child: EmptyView(
               image: 'assets/icons/klaim-ilus.webp',
-              title: 'Klaim',
-              subtitle:
-                  'Fitur ini akan mencatat, menyimpan dan menampilkan detail klaim anda secara berkala.',
+              title: tr('claim'),
+              subtitle: tr('claim_empty'),
             ),
           );
         }

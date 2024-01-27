@@ -56,20 +56,14 @@ class _MainScreenState extends State<MainScreen> {
               ]
             : const [HomeScreen(), ProfileScreen()],
         onPageChanged: (index) {
-          // debugPrint("TEST GESER");
           setState(() {
             _activePage = index;
-            // widget.index = null;
           });
         },
       ),
       bottomNavigationBar: Container(
-        // padding: EdgeInsets.all(10),
         decoration: const BoxDecoration(boxShadow: [
-          BoxShadow(
-            color: colorGrayPrimary,
-            blurRadius: 10,
-          ),
+          BoxShadow(color: colorGrayPrimary, blurRadius: 10),
         ]),
         child: BottomNavigationBar(
           items: [
@@ -106,11 +100,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           fixedColor: colorBluePrimary,
           backgroundColor: colorBlueOpacity2,
-          // backgroundColor: colorBlueOpacity2,
           onTap: (index) {
-            // setState(() {
-            //   widget.index = null;
-            // });
             pageViewController.animateToPage(index,
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.easeIn);

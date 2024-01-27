@@ -1,7 +1,7 @@
 enum HomeTab {
-  hadir('Hadir'),
-  izin('Izin'),
-  klaim('Klaim');
+  hadir('present'),
+  izin('permit'),
+  klaim('claim');
 
   const HomeTab(this.tab);
 

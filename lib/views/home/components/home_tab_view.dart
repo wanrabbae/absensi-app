@@ -25,7 +25,7 @@ class HomeTabView extends StatelessWidget {
           backgroundColor: MaterialStatePropertyAll(
             selected ? colorBlueOpacity : Colors.white,
           ),
-          padding: const MaterialStatePropertyAll(EdgeInsets.all(5)),
+          padding: const MaterialStatePropertyAll(EdgeInsets.fromLTRB(10, 5, 10, 5)),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
               borderRadius: const BorderRadius.all(Radius.circular(10)),
