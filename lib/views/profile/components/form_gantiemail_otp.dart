@@ -4,6 +4,7 @@ class OTPForm extends StatefulWidget {
   final ProfileController s;
 
   const OTPForm({super.key, required this.s});
+
   @override
   State<OTPForm> createState() => _OTPFormState();
 }
@@ -50,12 +51,13 @@ class _OTPFormState extends State<OTPForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Kode OTP",
-                style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.black,
-                    fontWeight: FontWeight.w800),
+              Text(
+                tr('otp_code'),
+                style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -70,14 +72,17 @@ class _OTPFormState extends State<OTPForm> {
                     suffix: Text(
                       formattedTimer,
                       style: const TextStyle(
-                          color: colorBluePrimary, fontWeight: FontWeight.w500),
+                        color: colorBluePrimary,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                     enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black, width: 2)),
+                      borderSide: BorderSide(color: Colors.black, width: 2),
+                    ),
                     focusedBorder: const UnderlineInputBorder(
-                        borderSide:
-                            BorderSide(color: colorBluePrimary, width: 2)),
-                    hintText: "Masukkan 6 angka kode",
+                      borderSide: BorderSide(color: colorBluePrimary, width: 2),
+                    ),
+                    hintText: tr('input_otp_code'),
                     hintStyle: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
@@ -89,10 +94,12 @@ class _OTPFormState extends State<OTPForm> {
                   ),
                 ),
               ),
-              const Text(
-                "Temukan 6 angka kode OTP pada kotak masuk e-mail anda.",
-                style: TextStyle(
-                    color: Colors.grey, fontWeight: FontWeight.w500),
+              Text(
+                tr('input_otp_code_help'),
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ],
           ),

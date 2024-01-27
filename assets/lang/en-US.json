@@ -65,5 +65,12 @@
   "claim_form_title": "Upload Claim",
   "claim_form_field_hint": "No description",
   "snackbar_sending_claim": "Currently uploading claims...",
-  "snackbar_claim_sent": "Claim has been uploaded"
+  "snackbar_claim_sent": "Claim has been uploaded",
+  "snackbar_sending_otp": "Mengirimkan kode OTP...",
+  "resend_otp": "Resend OTP",
+  "resend_otp_question": "Resend OTP code?",
+  "otp_code": "OTP Code",
+  "input_otp_code": "Input 6 digit code",
+  "input_otp_code_help": "Find the 6 digit OTP code in your e-mail inbox",
+  "edit": "Edit"
 }

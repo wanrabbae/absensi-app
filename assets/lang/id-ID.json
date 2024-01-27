@@ -65,5 +65,12 @@
   "claim_form_title": "Unggah Klaim",
   "claim_form_field_hint": "Tidak ada keterangan",
   "snackbar_sending_claim": "Sedang mengunggah klaim...",
-  "snackbar_claim_sent": "Klaim telah terunggah"
+  "snackbar_claim_sent": "Klaim telah terunggah",
+  "snackbar_sending_otp": "Mengirimkan kode OTP...",
+  "resend_otp": "Kirim ulang OTP",
+  "resend_otp_question": "Kirim ulang kode OTP?",
+  "otp_code": "Kode OTP",
+  "input_otp_code": "Masukkan 6 angka kode",
+  "input_otp_code_help": "Temukan 6 angka kode OTP pada kotak masuk e-mail anda",
+  "edit": "Sunting"
 }
