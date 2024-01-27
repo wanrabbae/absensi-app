@@ -118,95 +118,38 @@ Widget customTextRichWithLink(
       ),
       children: [
         TextSpan(
-          text: "Kebijakan Hora ",
+          text: "${tr('profile_terms')} ",
           style: const TextStyle(
             fontWeight: FontWeight.w500,
-            // fontSize: 16,
             color: colorBluePrimary2,
-            // decoration: TextDecoration.underline,
           ),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              Get.toNamed(RouteName.webview,
-                  arguments: "https://docs.horaapp.id/#kebijakan");
+              Get.toNamed(
+                RouteName.webview,
+                arguments: "https://docs.horaapp.id/#kebijakan",
+              );
             },
         ),
         TextSpan(
-          text: "dan ",
+          text: "${tr('and')} ",
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            // fontSize: 16,
             color: Colors.grey.shade500,
-            // decoration: TextDecoration.underline,
           ),
         ),
         TextSpan(
-          text: "Privasi Pengguna",
+          text: tr('profile_privacy'),
           style: const TextStyle(
             fontWeight: FontWeight.w500,
-            // fontSize: 16,
             color: colorBluePrimary2,
-            // decoration: TextDecoration.underline,
           ),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              Get.toNamed(RouteName.webview,
-                  arguments: "https://docs.horaapp.id/#privasi");
-            },
-        ),
-      ],
-    ),
-  );
-}
-
-Widget customTextRichWithLink2(
-  BuildContext context,
-  String text1,
-) {
-  return Text.rich(
-    textAlign: TextAlign.center,
-    TextSpan(
-      text: text1,
-      style: TextStyle(
-        fontWeight: FontWeight.w500,
-        color: Colors.grey.shade500,
-      ),
-      children: [
-        TextSpan(
-          text: "Kebijakan Hora ",
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            // fontSize: 16,
-            color: Colors.black,
-            // decoration: TextDecoration.underline,
-          ),
-          recognizer: TapGestureRecognizer()
-            ..onTap = () {
-              Get.toNamed(RouteName.webview,
-                  arguments: "https://docs.horaapp.id/#kebijakan");
-            },
-        ),
-        TextSpan(
-          text: "dan ",
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            // fontSize: 16,
-            color: Colors.grey.shade500,
-            // decoration: TextDecoration.underline,
-          ),
-        ),
-        TextSpan(
-          text: "Privasi Pengguna",
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
-            // fontSize: 16,
-            color: colorBluePrimary2,
-            // decoration: TextDecoration.underline,
-          ),
-          recognizer: TapGestureRecognizer()
-            ..onTap = () {
-              Get.toNamed(RouteName.webview,
-                  arguments: "https://docs.horaapp.id/#privasi");
+              Get.toNamed(
+                RouteName.webview,
+                arguments: "https://docs.horaapp.id/#privasi",
+              );
             },
         ),
       ],

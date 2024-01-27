@@ -35,5 +35,9 @@
   "tutorial_content_5a": "Kirimkan e-mail di ",
   "tutorial_content_5b": " jika menemukan kesulitan",
   "tutorial_footer_text": "Anda sudah mengerti?",
-  "tutorial_footer_button": "Saya mengerti"
+  "tutorial_footer_button": "Saya mengerti",
+  "greeting_welcome": "Selamat Datang",
+  "greeting_approval": "Tekan “SETUJU DAN LANJUTKAN” untuk menyetujui ",
+  "greeting_button": "SETUJU DAN LANJUTKAN",
+  "and": "dan"
 }

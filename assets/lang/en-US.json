@@ -35,5 +35,9 @@
   "tutorial_content_5a": "Send an e-mail at ",
   "tutorial_content_5b": " if you encounter difficulties",
   "tutorial_footer_text": "Do you understand?",
-  "tutorial_footer_button": "I understand"
+  "tutorial_footer_button": "I understand",
+  "greeting_welcome": "Welcome",
+  "greeting_approval": "Press “AGREE AND CONTINUE” to agree ",
+  "greeting_button": "AGREE AND CONTINUE",
+  "and": "and"
 }

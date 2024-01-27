@@ -14,46 +14,37 @@ class GreetingScreen extends StatelessWidget {
         body: Stack(
           children: [
             Positioned(
-                top: 60,
-                child: customHeaderAuth(context, "HORA", "Selamat Datang")),
+              top: 60,
+              child: customHeaderAuth(context, "HORA", tr('greeting_welcome')),
+            ),
             Center(
-                child: Image.asset(
-              "assets/icons/logo/main_logo.png",
-              width: 100,
-              height: 100,
-            )),
+              child: Image.asset(
+                "assets/icons/logo/main_logo.png",
+                width: 100,
+                height: 100,
+              ),
+            ),
             Positioned(
-                bottom: 20,
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        // customTextRich(
-                        //     context, "Baca tentang ", "Kebijakan Privasi.",
-                        //     onTextClicked: () {
-                        //   Get.toNamed(RouteName.webview,
-                        //       arguments: "https://docs.horaapp.id/#kebijakan");
-                        // }),
-                        // const SizedBox(
-                        //   height: 5,
-                        // ),
-                        customTextRichWithLink(context,
-                            "Tekan “SETUJU DAN LANJUTKAN” untuk menyetujui "),
-                        buttonGreen(
-                          "SETUJU DAN LANJUTKAN",
-                          onTap: () {
-                            Get.toNamed(RouteName.login);
-                          },
-                        )
-                      ],
-                    ),
+              bottom: 20,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 20, top: 8),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      customTextRichWithLink(context, tr('greeting_approval')),
+                      buttonGreen(
+                        tr('greeting_button'),
+                        onTap: () => Get.toNamed(RouteName.login),
+                      )
+                    ],
                   ),
-                ))
+                ),
+              ),
+            ),
           ],
         ),
       ),
