@@ -39,5 +39,11 @@
   "greeting_welcome": "Welcome",
   "greeting_approval": "Press “AGREE AND CONTINUE” to agree ",
   "greeting_button": "AGREE AND CONTINUE",
-  "and": "and"
+  "and": "and",
+  "login_title": "Login",
+  "login_hint_email": "Use your email",
+  "login_validation_email": "You have not entered an email address",
+  "login_help_email": "Log in using the email that was previously invited",
+  "login_footer_text": "Make sure you are connected to the internet",
+  "login_footer_button": "Check connection"
 }

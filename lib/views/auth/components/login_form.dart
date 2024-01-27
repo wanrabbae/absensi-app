@@ -8,12 +8,13 @@ Widget formData(s, context) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Masuk",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontWeight: FontWeight.w800),
+            Text(
+              tr('login_title'),
+              style: const TextStyle(
+                fontSize: 20,
+                color: Colors.black,
+                fontWeight: FontWeight.w800,
+              ),
             ),
             SizedBox(
               width: MediaQuery.of(context).size.width,
@@ -21,32 +22,37 @@ Widget formData(s, context) {
               child: TextFormField(
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Anda belum memasukan alamat email";
+                    return tr('login_validation_email');
                   }
                   return null;
                 },
                 onChanged: (value) => s.emailForm = value,
                 keyboardType: TextInputType.emailAddress,
-                style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
-                decoration: const InputDecoration(
-                  hintText: "Gunakan e-mail anda",
-                  hintStyle: TextStyle(
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+                decoration: InputDecoration(
+                  hintText: tr('login_hint_email'),
+                  hintStyle: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                   ),
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 1.5),
                   ),
-                  focusedBorder: UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: colorBluePrimary, width: 1.5),
                   ),
                 ),
               ),
             ),
-            const Text(
-              "Masuk menggunakan e-mail yang telah diundang sebelumnya.",
-              style:
-                  TextStyle(color: Colors.grey, fontWeight: FontWeight.w500),
+            Text(
+              tr('login_help_email'),
+              style: const TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.w500,
+              ),
             )
           ],
         ),

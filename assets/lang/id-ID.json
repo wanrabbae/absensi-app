@@ -39,5 +39,11 @@
   "greeting_welcome": "Selamat Datang",
   "greeting_approval": "Tekan “SETUJU DAN LANJUTKAN” untuk menyetujui ",
   "greeting_button": "SETUJU DAN LANJUTKAN",
-  "and": "dan"
+  "and": "dan",
+  "login_title": "Masuk",
+  "login_hint_email": "Gunakan e-mail anda",
+  "login_validation_email": "Anda belum memasukan alamat email",
+  "login_help_email": "Masuk menggunakan e-mail yang telah diundang sebelumnya",
+  "login_footer_text": "Pastikan anda terhubung dengan internet",
+  "login_footer_button": "Cek koneksi"
 }
