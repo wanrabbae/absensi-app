@@ -72,5 +72,15 @@
   "otp_code": "OTP Code",
   "input_otp_code": "Input 6 digit code",
   "input_otp_code_help": "Find the 6 digit OTP code in your e-mail inbox",
-  "edit": "Edit"
+  "edit": "Edit",
+  "name": "Name",
+  "gender": "Gender",
+  "gender_male": "Male",
+  "gender_female": "Female",
+  "email": "Email address",
+  "email_change_confirmation": "Do you want to change email?",
+  "address": "Address",
+  "delete": "Delete",
+  "change_email": "Change email",
+  "input_new_email": "Type your new email"
 }

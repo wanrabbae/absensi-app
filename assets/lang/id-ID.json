@@ -72,5 +72,15 @@
   "otp_code": "Kode OTP",
   "input_otp_code": "Masukkan 6 angka kode",
   "input_otp_code_help": "Temukan 6 angka kode OTP pada kotak masuk e-mail anda",
-  "edit": "Sunting"
+  "edit": "Sunting",
+  "name": "Nama",
+  "gender": "Jenis Kelamin",
+  "gender_male": "Pria",
+  "gender_female": "Wanita",
+  "email": "Alamat e-mail",
+  "email_change_confirmation": "Anda ingin mengubah email?",
+  "address": "Alamat tempat tinggal",
+  "delete": "Hapus",
+  "change_email": "Mengubah email",
+  "input_new_email": "Masuk menggunakan e-mail baru anda"
 }

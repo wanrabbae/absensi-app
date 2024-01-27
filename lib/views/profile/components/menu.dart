@@ -21,7 +21,7 @@ Widget menuProfile(
             size: 20,
             fill: 0,
             weight: 0.1,
-            color: title == "Keluar" ? colorBluePrimary2 : null,
+            color: title == tr('profile_logout') ? colorBluePrimary2 : null,
           ),
           const SizedBox(width: 15),
           Expanded(
@@ -30,7 +30,7 @@ Widget menuProfile(
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
-                color: title == "Keluar"
+                color: title == tr('profile_logout')
                     ? colorBluePrimary2
                     : const Color.fromRGBO(51, 51, 51, 1),
               ),
