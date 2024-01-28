@@ -111,5 +111,10 @@
   "presence_cancel_confirmation": "Cancel attendance?",
   "hour": "Hour",
   "open": "Open",
-  "go_home": "Go Home"
+  "go_home": "Go Home",
+  "snackbar_not_present": "You haven't done your attendance today",
+  "snackbar_cannot_request_self_location": "Cannot make location requests to your own data",
+  "snackbar_request_last_location": "Location request sent",
+  "snackbar_detecting_new_location": "Currently detecting the latest location...",
+  "updated": "Updated"
 }
