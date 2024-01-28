@@ -32,6 +32,7 @@ class DataManagementPage extends StatelessWidget {
 
                   showDateRangePicker(
                     context: context,
+                    locale: context.locale,
                     firstDate: DateTime(2010),
                     lastDate: DateTime(now.year, now.month, now.day),
                     initialDateRange: initialDateRange,
