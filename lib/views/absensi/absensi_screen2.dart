@@ -176,20 +176,21 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                                 ? null
                                 : () {
                                     if (todayAttendance == null) {
-                                      customSnackbar1('Anda belum melakukan absensi hari ini');
+                                      customSnackbar1(
+                                          tr('snackbar_not_present'));
                                       return;
                                     }
 
                                     if (disabled) {
                                       customSnackbar1(
-                                        'Tidak bisa melakukan permintaan lokasi kepada data sendiri',
+                                        tr('snackbar_cannot_request_self_location'),
                                       );
                                       return;
                                     }
 
                                     if (broadcasterId != null) {
                                       customSnackbar1(
-                                          'Permintaan lokasi terkirim');
+                                          tr('snackbar_request_last_location'));
                                       context
                                           .read<AppCubit>()
                                           .requestLiveTracking(broadcasterId);
@@ -386,7 +387,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
         final data = state.liveTracking(broadcasterId);
         if (data == null) return;
         if (data.latitude != null && data.longitude != null) {
-          customSnackbar1('Sedang mendeteksi lokasi terbaru...');
+          customSnackbar1(tr('snackbar_detecting_new_location'));
           rxPosition.value = LatLng(data.latitude!, data.longitude!);
           if (data.lastUpdate != null) {
             rxPositionUpdate.value = data.lastUpdate;
@@ -416,10 +417,9 @@ class _LastUpdatePositionContainer extends StatelessWidget {
             Radius.circular(20),
           ),
         ),
-        padding:
-            const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
         child: Text(
-          'Diperbarui ${kLastUpdatePositionDateFormat.format(date.toLocal())}',
+          '${tr('updated')} ${kLastUpdatePositionDateFormat.format(date.toLocal())}',
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
@@ -452,9 +452,9 @@ class _PulangView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Foto",
-              style: TextStyle(
+            Text(
+              tr('photo'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -462,9 +462,9 @@ class _PulangView extends StatelessWidget {
             const SizedBox(height: 10),
             _PulangFotoView(currentAbsen: currentAbsen, izinData: izinData),
             const SizedBox(height: 20),
-            const Text(
-              "Jam",
-              style: TextStyle(
+            Text(
+              tr('hour'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -476,9 +476,9 @@ class _PulangView extends StatelessWidget {
             ),
             const Divider(color: colorBlueOpacity2),
             const SizedBox(height: 10),
-            const Text(
-              "Lokasi",
-              style: TextStyle(
+            Text(
+              tr('location'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -488,9 +488,9 @@ class _PulangView extends StatelessWidget {
             const SizedBox(height: 2),
             const Divider(color: colorBlueOpacity2),
             const SizedBox(height: 10),
-            const Text(
-              "Izin",
-              style: TextStyle(
+            Text(
+              tr('permit'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -566,7 +566,7 @@ class _PulangIzinView extends StatelessWidget {
             ),
           ),
           child: Text(
-            "Buka",
+            tr('open'),
             style: TextStyle(
               color: izinData != null
                   ? colorBluePrimary2
@@ -653,7 +653,7 @@ class _PulangLocationView extends StatelessWidget {
             ),
           ),
           child: Text(
-            "Buka",
+            tr('open'),
             style: TextStyle(
               color: currentAbsen?['longtitudePulang'] != null &&
                       currentAbsen?['latitudePulang'] != null
@@ -850,9 +850,9 @@ class _HadirView extends StatelessWidget {
           // shrinkWrap: true,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "Foto",
-              style: TextStyle(
+            Text(
+              tr('photo'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -860,9 +860,9 @@ class _HadirView extends StatelessWidget {
             const SizedBox(height: 10),
             _HadirFotoView(currentAbsen: currentAbsen),
             const SizedBox(height: 20),
-            const Text(
-              "Jam",
-              style: TextStyle(
+            Text(
+              tr('hour'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -872,9 +872,9 @@ class _HadirView extends StatelessWidget {
             const SizedBox(height: 2),
             const Divider(color: colorBlueOpacity2),
             const SizedBox(height: 10),
-            const Text(
-              "Lokasi",
-              style: TextStyle(
+            Text(
+              tr('location'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -884,9 +884,9 @@ class _HadirView extends StatelessWidget {
             const SizedBox(height: 2),
             const Divider(color: colorBlueOpacity2),
             const SizedBox(height: 10),
-            const Text(
-              "Izin",
-              style: TextStyle(
+            Text(
+              tr('permit'),
+              style: const TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: 16,
               ),
@@ -965,7 +965,7 @@ class _HadirIzinView extends StatelessWidget {
             ),
           ),
           child: Text(
-            "Buka",
+            tr('open'),
             style: TextStyle(
                 color: izinData != null
                     ? colorBluePrimary2
@@ -1038,9 +1038,9 @@ class _HadirLocationView extends StatelessWidget {
               colorBlueOpacity2,
             ),
           ),
-          child: const Text(
-            "Buka",
-            style: TextStyle(
+          child: Text(
+            tr('open'),
+            style: const TextStyle(
               color: colorBluePrimary2,
               fontSize: 16,
               fontWeight: FontWeight.bold,
@@ -1177,9 +1177,9 @@ class _MainTabBar extends StatelessWidget {
       indicatorColor: colorBluePrimary2,
       indicatorWeight: 3,
       indicatorSize: TabBarIndicatorSize.tab,
-      tabs: const [
-        Tab(child: Text('Hadir')),
-        Tab(child: Text('Pulang')),
+      tabs: [
+        Tab(child: Text(tr('present'))),
+        Tab(child: Text(tr('go_home'))),
       ],
     );
   }

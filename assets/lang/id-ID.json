@@ -50,6 +50,7 @@
   "login_footer_button": "Cek koneksi",
   "dialog_permission_title": "Perizinan perangkat",
   "dialog_permission_message": "Anda diperlukan untuk memberikan izin:",
+  "photo": "Foto",
   "camera": "Kamera",
   "location": "Lokasi",
   "storage": "Penyimpanan",
@@ -110,5 +111,10 @@
   "presence_cancel_confirmation": "Batal mengisi kehadiran?",
   "hour": "Jam",
   "open": "Buka",
-  "go_home": "Pulang"
+  "go_home": "Pulang",
+  "snackbar_not_present": "Anda belum melakukan absensi hari ini",
+  "snackbar_cannot_request_self_location": "Tidak bisa melakukan permintaan lokasi kepada data sendiri",
+  "snackbar_request_last_location": "Permintaan lokasi terkirim",
+  "snackbar_detecting_new_location": "Sedang mendeteksi lokasi terbaru...",
+  "updated": "Diperbarui"
 }
