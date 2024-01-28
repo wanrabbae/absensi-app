@@ -69,7 +69,6 @@ class AbsenController extends GetxController {
     if (findDataIzin != null) izinData = findDataIzin;
 
     if (!klikAbsen && findData == null) {
-      debugPrint("BELUM ABSEN");
       getCurrentLocation();
     }
 
@@ -79,15 +78,11 @@ class AbsenController extends GetxController {
     );
 
     if (klikAbsen && timer?.isActive) {
-      debugPrint("TEST TOAST");
-      debugPrint("DATA CHECKIN: $findDataOnCheckIn");
-      debugPrint("STATUS STATE: $statusState");
       mulaiPulangRevisi1(findDataOnCheckIn?['id']);
     }
   }
 
   updateStatusStateFromNotif() {
-    debugPrint("UPDATE STATE YOYY");
     statusState = "dariNotif";
     update();
   }
@@ -107,7 +102,6 @@ class AbsenController extends GetxController {
     );
 
     if (checkData == null) {
-      debugPrint("===== CHECK DATA NULL ====");
       box.remove(Base.klikAbsen);
       box.remove(Base.waktuAbsen);
       cancelTimer();
@@ -115,7 +109,6 @@ class AbsenController extends GetxController {
 
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (klikAbsen) {
-        debugPrint("KE IF TIMER 1");
         timerRecor = timerAbsen4();
       } else if (findData != null) {
         timerRecor = timerAbsen3(findData?["waktuCheckIn"], null);
@@ -129,7 +122,6 @@ class AbsenController extends GetxController {
   }
 
   cancelTimer() {
-    debugPrint("CANCEL TIMER ABSEN");
     timer?.cancel();
     timer = null;
   }
@@ -152,7 +144,6 @@ class AbsenController extends GetxController {
       LocationPermission permission;
 
       await Permission.location.serviceStatus.isEnabled.then((value) {
-        debugPrint("LOCATION: $value");
         if (!value) {
           Permission.location.request();
         }
@@ -195,8 +186,6 @@ class AbsenController extends GetxController {
   lokasiDetect() async {
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
-    // debugPrint("========== TEST TOST YOYYYY =======");
-    // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       currentLocation = LatLng(position.latitude, position.longitude);
@@ -283,13 +272,11 @@ class AbsenController extends GetxController {
   }
 
   lokasiDetectPulang(idAbsen) {
-    debugPrint("ID ABSEN FROM DETECTED: $idAbsen");
     customSnackbarLoadingAsset(
         "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
     // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
     Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then(
         (Position position) async {
-      debugPrint('Current location updated = $position');
       currentLocationPulang = LatLng(position.latitude, position.longitude);
       getAddressFromLatLngPulang();
       Get.back();
@@ -542,9 +529,6 @@ class AbsenController extends GetxController {
       } else {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
-        // Get.snackbar('Oops.. terjadi kesalahan sistem.', response.toString());
-        // debugPrint("INI HADIR: " + (response as Response<dynamic>).toString());
-        // debugPrint("CODE: " + response.statusCode.toString());
       }
     } catch (e) {
       // customSnackbar1("Menghubungkan kembali...");
@@ -564,9 +548,6 @@ class AbsenController extends GetxController {
       } else {
         // Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
-        // Get.snackbar('Oops.. terjadi kesalahan sistem.', response.toString());
-        // debugPrint("INI HADIR: " + (response as Response<dynamic>).toString());
-        // debugPrint("CODE: " + response.statusCode.toString());
       }
     } catch (e) {
       // customSnackbar1("Menghubungkan kembali...");
@@ -585,7 +566,6 @@ class AbsenController extends GetxController {
         DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
             .toString()
             .split(" ")[0];
-    debugPrint("ID ABSEN PULANG: $idAbsen");
     try {
       // if (status) {
       //   customSnackbarLoading("Sedang Pulang...");
@@ -603,7 +583,7 @@ class AbsenController extends GetxController {
 
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
-      print(response);
+
       if (response.statusCode == 200) {
         Get.back();
         box.write(Base.klikAbsen, false);
@@ -645,33 +625,28 @@ class AbsenController extends GetxController {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
       } else if (response.statusCode == 400) {
-        debugPrint("STATUS CODE 400");
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
       } else {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
-        debugPrint("INI PULANG: $response");
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       customSnackbar1("Oops.. terjadi kesalahan sistem.");
     }
   }
 
   absenPulang2(status, idAbsen) async {
-    debugPrint("PULANG YOYY");
     var currentDate = DateTime.now();
     var newDate =
         DateTime(currentDate.year, currentDate.month, currentDate.day + 1)
             .toString()
             .split(" ")[0];
-    debugPrint("ID ABSEN PULANG: $idAbsen");
     try {
       // if (status) {
       //   customSnackbarLoading("Sedang Pulang...");
       // }
-      print(user);
       final forms = {
         'LatitudePulang': currentLocationPulang.latitude,
         'LongtitudePulang': currentLocationPulang.longitude,
@@ -682,10 +657,9 @@ class AbsenController extends GetxController {
         },
         'AlamatPulang': alamatLocPulang,
       };
-      debugPrint("FORMS PULANG 2: $forms");
       var response = await AbsensiServices()
           .pulangPut({'id': idAbsen, 'tanggal': newDate}, forms);
-      print(response);
+
       if (response.statusCode == 200) {
         box.write(Base.klikAbsen, false);
         box.remove(Base.waktuAbsen);
@@ -705,10 +679,9 @@ class AbsenController extends GetxController {
       } else {
         Get.back();
         customSnackbar1("Oops.. terjadi kesalahan sistem.");
-        debugPrint("INI PULANG: $response");
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       customSnackbar1("Oops.. terjadi kesalahan sistem.");
     }
   }
@@ -749,9 +722,6 @@ class AbsenController extends GetxController {
         //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
       }
     } catch (e) {
-      debugPrint("KE CATCH");
-      // print(e);
-      // customSnackbar1("Terjadi kesalahan");
       box.write(Base.izinAbsen, DateTime.now().toString());
       if (!klikAbsen) {
         Get.back();
