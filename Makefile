@@ -59,5 +59,5 @@ ipa-publish:
 		--type ios \
 		--username "$(APP_STORE_USERNAME)" \
 		--password "$(APP_STORE_PASSWORD)"
-ipa-validation: ipa ipa-validation
-ipa-publish: ipa ipa-publish
+ipa2-validation: ipa ipa-validation
+ipa2-publish: ipa ipa-publish

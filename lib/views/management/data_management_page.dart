@@ -143,6 +143,21 @@ class DataManagementPage extends StatelessWidget {
               }
             },
           ),
+          ManagementCard(
+            title: tr('sick'),
+            description: tr('management_sick_description'),
+            onShareEmail: () {
+              final range = rxDateRange.value;
+              if (range != null) {
+                customSnackbar1(tr('snackbar_sending_management'));
+                context
+                    .read<ManagementCubit>()
+                    .sendReportSakit(range, customSnackbar1);
+              } else {
+                customSnackbar1(tr('snackbar_validation_management'));
+              }
+            },
+          ),
         ],
       ),
     );

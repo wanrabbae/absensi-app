@@ -91,6 +91,7 @@
   "management_present_description": "Attendance data will be sent to the email address registered with Hora.",
   "management_leave_description": "Leave data will be sent to the email address registered with Hora.",
   "management_permit_description": "Permission data will be sent to the email address registered with Hora.",
+  "management_sick_description": "Sickness data will be sent to the email address registered with Hora.",
   "management_share_to_email": "Share by email",
   "snackbar_sending_management": "Currently sending management data...",
   "snackbar_validation_management": "Enter a date range",

@@ -91,6 +91,7 @@
   "management_present_description": "Data kehadiran akan dikirimkan ke alamat email yang terdaftar di Hora.",
   "management_leave_description": "Data cuti akan dikirimkan ke alamat email yang terdaftar di Hora.",
   "management_permit_description": "Data izin akan dikirimkan ke alamat email yang terdaftar di Hora.",
+  "management_sick_description": "Data sakit akan dikirimkan ke alamat email yang terdaftar di Hora.",
   "management_share_to_email": "Bagikan ke email",
   "snackbar_sending_management": "Sedang mengirimkan data manajemen...",
   "snackbar_validation_management": "Masukkan interval tanggal",
