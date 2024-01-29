@@ -26,12 +26,9 @@ export 'dart:convert';
 export 'dart:io' hide HeaderValue;
 
 export 'package:app/components/component_custom.dart';
-export 'package:app/components/component_custom_navbar.dart';
 
 //Components
 export 'package:app/components/component_modal.dart';
-export 'package:app/components/dialog_detect_location.dart';
-export 'package:app/components/dialog_gender.dart';
 export 'package:app/components/dialog_permission.dart';
 
 //Controller

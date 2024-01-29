@@ -16,9 +16,10 @@ Widget customHeaderAuth(BuildContext context, String title, String subTitle) {
         Text(
           subTitle,
           style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              // color: Color.fromRGBO(33, 33, 33, 80),
-              fontSize: 20.0),
+            fontWeight: FontWeight.w500,
+            // color: Color.fromRGBO(33, 33, 33, 80),
+            fontSize: 20.0,
+          ),
         )
       ],
     ),
@@ -52,31 +53,6 @@ Widget customHeaderAuth2(BuildContext context, String title, String subTitle) {
           ),
         )
       ],
-    ),
-  );
-}
-
-Widget customTextRich(BuildContext context, String text1, String text2,
-    {required VoidCallback onTextClicked}) {
-  return SizedBox(
-    width: MediaQuery.of(context).size.width,
-    child: Center(
-      child: Text.rich(
-        TextSpan(
-          text: text1,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.w500,
-          ),
-          children: [
-            TextSpan(
-              text: text2,
-              style: const TextStyle(color: Colors.blue),
-              recognizer: TapGestureRecognizer()..onTap = onTextClicked,
-            ),
-          ],
-        ),
-      ),
     ),
   );
 }
@@ -161,21 +137,26 @@ Widget buttonGreen(String title, {VoidCallback? onTap}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: ElevatedButton(
-        onPressed: onTap,
-        style: ButtonStyle(
-            backgroundColor:
-                const MaterialStatePropertyAll<Color>(colorGreenPrimary),
-            shape: MaterialStatePropertyAll<OutlinedBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)))),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Text(
-            title,
-            style: const TextStyle(
-                color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+      onPressed: onTap,
+      style: ButtonStyle(
+        backgroundColor:
+            const MaterialStatePropertyAll<Color>(colorGreenPrimary),
+        shape: MaterialStatePropertyAll<OutlinedBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
           ),
-        )),
+        ),
+      ),
+    ),
   );
 }
 
@@ -233,42 +214,6 @@ Widget buttonWhite(String title, {VoidCallback? onTap}) {
   );
 }
 
-Widget buildRoundedActionNext(BuildContext context,
-    {required VoidCallback onTap}) {
-  return GestureDetector(
-    onTap: onTap,
-    child: SizedBox(
-      width: 60,
-      height: 60,
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.blue, borderRadius: BorderRadius.circular(20)),
-        child: const Icon(
-          Icons.arrow_forward_rounded,
-          color: Colors.white,
-        ),
-      ),
-    ),
-  );
-}
-
-Widget buildImageProfile(BuildContext context, String? url, bool local) {
-  return Container(
-    width: 120,
-    height: 120,
-    decoration: local
-        ? BoxDecoration(
-            image: DecorationImage(image: AssetImage(url!), fit: BoxFit.cover),
-            color: Colors.white,
-            shape: BoxShape.circle)
-        : BoxDecoration(
-            image:
-                DecorationImage(image: NetworkImage(url!), fit: BoxFit.cover),
-            color: Colors.white,
-            shape: BoxShape.circle),
-  );
-}
-
 Widget buildImageProfilePage(BuildContext context, String? url, bool local) {
   final ImageProvider image =
       (local ? AssetImage(url!) : NetworkImage(url!)) as ImageProvider<Object>;
@@ -276,74 +221,66 @@ Widget buildImageProfilePage(BuildContext context, String? url, bool local) {
     width: double.infinity,
     height: 292,
     decoration: BoxDecoration(
-        image: DecorationImage(
-          image: image,
-          fit: BoxFit.cover,
-        ),
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: colorSplash,
-          width: 3,
-        )),
+      image: DecorationImage(image: image, fit: BoxFit.cover),
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(
+        color: colorSplash,
+        width: 3,
+      ),
+    ),
   );
 }
 
 customSnackbar1(message) {
   message = message.toString().replaceAll('.', '');
   Get.rawSnackbar(
-      messageText: Text(
-        message ?? "Success action",
-        style: const TextStyle(
-            fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
-      ),
-      snackPosition: SnackPosition.TOP,
-      borderRadius: 20,
-      padding: const EdgeInsets.all(25),
-      margin: const EdgeInsets.symmetric(horizontal: 20));
-}
-
-loadingBar() {
-  return Center(
-    child: Container(
-      width: 50,
-      height: 50,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(20)),
-      child: const Center(
-        child: CircularProgressIndicator(
-          color: Colors.blue,
-        ),
+    messageText: Text(
+      message ?? "Success action",
+      style: const TextStyle(
+        fontSize: 16,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
       ),
     ),
+    snackPosition: SnackPosition.TOP,
+    borderRadius: 20,
+    padding: const EdgeInsets.all(25),
+    margin: const EdgeInsets.symmetric(horizontal: 20),
   );
 }
 
 customSnackbarLoading(message) {
   Get.rawSnackbar(
-      messageText: Text(
-        message ?? "Loading...",
-        style: const TextStyle(
-            fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
-      ),
-      snackPosition: SnackPosition.TOP,
-      borderRadius: 20,
-      isDismissible: false,
-      padding: const EdgeInsets.all(25),
-      margin: const EdgeInsets.symmetric(horizontal: 20));
+    messageText: Text(
+      message ?? "Loading...",
+      style: const TextStyle(
+          fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+    ),
+    snackPosition: SnackPosition.TOP,
+    borderRadius: 20,
+    isDismissible: false,
+    padding: const EdgeInsets.all(25),
+    margin: const EdgeInsets.symmetric(horizontal: 20),
+  );
 }
 
 customSnackbarLoadingAsset(message, asset) {
   showDialog(
-      context: Get.overlayContext!,
-      barrierDismissible: false,
-      builder: (ctx) {
-        return customDialogLoadingImage(ctx, message, asset);
-      });
+    context: Get.overlayContext!,
+    barrierDismissible: false,
+    builder: (ctx) {
+      return customDialogLoadingImage(ctx, message, asset);
+    },
+  );
 }
 
 Widget buildImageProfileBig(
-    BuildContext context, String urlPhoto, bool isLocal, file) {
+  BuildContext context,
+  String urlPhoto,
+  bool isLocal,
+  file,
+) {
   return Stack(
     children: [
       Container(
@@ -363,11 +300,7 @@ Widget buildImageProfileBig(
         child: Center(
           child: Container(
             decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  50,
-                ),
-              ),
+              borderRadius: BorderRadius.all(Radius.circular(50)),
               color: Colors.black,
             ),
             child: const Center(
@@ -399,18 +332,6 @@ DecorationImage networkImage(String url, file) {
   }
 }
 
-Widget buildImageBig(BuildContext context) {
-  return Container(
-    width: MediaQuery.of(context).size.width,
-    height: 240,
-    decoration: const BoxDecoration(
-        color: Colors.blue,
-        image: DecorationImage(
-            image: AssetImage("assets/icons/logo/hora.png"), fit: BoxFit.cover),
-        borderRadius: BorderRadius.all(Radius.circular(20))),
-  );
-}
-
 Widget buildImageSizeIcon(BuildContext context, String url) {
   return Container(
     width: 30,
@@ -435,9 +356,10 @@ Widget buildImageSizeIconNetwork(BuildContext context, String url, bool local) {
     width: 100,
     height: 100,
     decoration: BoxDecoration(
-        color: Colors.blue,
-        image: img,
-        borderRadius: const BorderRadius.all(Radius.circular(50))),
+      color: Colors.blue,
+      image: img,
+      borderRadius: const BorderRadius.all(Radius.circular(50)),
+    ),
   );
 }
 
@@ -453,12 +375,14 @@ Widget buildImageList(BuildContext context, String url, bool local) {
               image: const AssetImage('assets/icons/logo/hora.png'),
               onError: (exception, stackTrace) =>
                   const AssetImage('assets/icons/logo/hora.png'),
-              fit: BoxFit.cover)
+              fit: BoxFit.cover,
+            )
           : DecorationImage(
               image: NetworkImage(url),
               onError: (exception, stackTrace) =>
                   const AssetImage('assets/icons/logo/hora.png'),
-              fit: BoxFit.cover);
+              fit: BoxFit.cover,
+            );
   return Container(
     width: 60,
     height: 60,
@@ -473,132 +397,17 @@ Widget buildImageList(BuildContext context, String url, bool local) {
   );
 }
 
-Widget line(BuildContext context) {
-  return Container(
-    margin: const EdgeInsets.only(top: 5, bottom: 5),
-    color: const Color.fromRGBO(51, 51, 51, 0.5),
-    width: MediaQuery.of(context).size.width,
-    height: 1,
-  );
-}
-
-Widget line2(BuildContext context) {
-  return Container(
-    margin: const EdgeInsets.only(top: 5, bottom: 5),
-    color: colorDivider,
-    width: MediaQuery.of(context).size.width,
-    height: 0.5,
-  );
-}
-
-Widget emptyLayout(BuildContext context) {
-  return SizedBox(
-    width: MediaQuery.of(context).size.width,
-    height: MediaQuery.of(context).size.height / 2,
-    child: Center(
-      child: Image.asset(
-        "assets/icons/logo/hora.png",
-        height: 100,
-        width: 100,
-      ),
-    ),
-  );
-}
-
-Widget ovalCardIcon(BuildContext context, IconData icon,
-    {required VoidCallback onTaped}) {
+Widget ovalCardIcon(
+  BuildContext context,
+  IconData icon, {
+  required VoidCallback onTaped,
+}) {
   return GestureDetector(
     onTap: onTaped,
     child: SizedBox(
       child: Center(
         child: Icon(
           icon,
-          color: const Color.fromRGBO(51, 51, 51, 1),
-        ),
-      ),
-    ),
-  );
-}
-
-Widget ovalCardIconRounded(BuildContext context, IconData icon,
-    {required VoidCallback onTaped}) {
-  return GestureDetector(
-    onTap: onTaped,
-    child: SizedBox(
-      width: 50,
-      height: 50,
-      child: Card(
-        color: Colors.white,
-        surfaceTintColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Center(
-          child: Icon(
-            icon,
-            color: const Color.fromRGBO(51, 51, 51, 1),
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-Widget ovalCardIconAsset(BuildContext context, String icon,
-    {required VoidCallback onTaped}) {
-  return GestureDetector(
-    onTap: onTaped,
-    child: SizedBox(
-      width: 40,
-      height: 40,
-      child: Center(
-        child: Image.asset(
-          icon,
-          width: 24,
-          height: 24,
-          fit: BoxFit.fill,
-        ),
-      ),
-    ),
-  );
-}
-
-Widget ovalCardIconAssetCard(BuildContext context, String icon,
-    {required VoidCallback onTaped}) {
-  return GestureDetector(
-    onTap: onTaped,
-    child: SizedBox(
-      width: 40,
-      height: 40,
-      child: Card(
-        color: Colors.white,
-        surfaceTintColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        child: Center(
-          child: Image.asset(
-            icon,
-            width: 20,
-            height: 20,
-            fit: BoxFit.fill,
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
-Widget ovalCardIcon55(BuildContext context, IconData icon,
-    {required VoidCallback onTaped}) {
-  return GestureDetector(
-    onTap: onTaped,
-    child: SizedBox(
-      width: 55,
-      height: 55,
-      child: Card(
-        color: Colors.white,
-        surfaceTintColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-        child: Icon(
-          icon,
-          size: 15,
           color: const Color.fromRGBO(51, 51, 51, 1),
         ),
       ),
@@ -607,7 +416,10 @@ Widget ovalCardIcon55(BuildContext context, IconData icon,
 }
 
 Widget ovalCardIconGender(
-    BuildContext context, String genderName, bool genderSelected) {
+  BuildContext context,
+  String genderName,
+  bool genderSelected,
+) {
   return Container(
     color: Colors.transparent,
     width: double.infinity,
@@ -618,12 +430,14 @@ Widget ovalCardIconGender(
       surfaceTintColor:
           (genderSelected) ? Colors.white : const Color.fromRGBO(51, 51, 51, 1),
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-          side: BorderSide(
-              width: 1.0,
-              color: (!genderSelected)
-                  ? Colors.white
-                  : const Color.fromRGBO(51, 51, 51, 1))),
+        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(
+          width: 1.0,
+          color: (!genderSelected)
+              ? Colors.white
+              : const Color.fromRGBO(51, 51, 51, 1),
+        ),
+      ),
       child: Center(
         child: Text(
           genderName,
