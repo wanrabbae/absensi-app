@@ -153,8 +153,12 @@ class _ProfileScreenState extends State<ProfileScreen>
                                     style: context.locale == kLocaleID
                                         ? const TextStyle(
                                             fontWeight: FontWeight.bold,
+                                            fontSize: 16,
                                           )
-                                        : null,
+                                        : const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                          ),
                                   ),
                                   onPressed: () {
                                     Navigator.pop(context, kLocaleID);
