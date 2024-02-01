@@ -91,7 +91,7 @@
   "management_present_description": "Presence data will be sent to the admin email address.",
   "management_leave_description": "Vacation Leave data will be sent to the admin email address.",
   "management_permit_description": "Leave data will be sent to the admin email address.",
-  "management_sick_description": "Sickness data will be sent to the email address registered with Hora.",
+  "management_sick_description": "Sickness data will be sent to the admin email address.",
   "management_share_to_email": "Send to email",
   "snackbar_sending_management": "Sending management data...",
   "snackbar_validation_management": "Enter a date interval",
