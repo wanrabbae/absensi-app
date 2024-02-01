@@ -117,5 +117,20 @@
   "snackbar_cannot_request_self_location": "Unable to request location from your own data.",
   "snackbar_request_last_location": "Location request sent.",
   "snackbar_detecting_new_location": "Detecting latest location...",
-  "updated": "Updated"
+  "updated": "Updated",
+  "screenshot_saved": "Screenshot has been saved",
+  "request_permission_location_denied": "Request permission location is denied",
+  "request_permission_location_restricted": "Request permission location is restricted",
+  "request_permission_location_limited": "Request permission location is limited",
+  "request_permission_location_permanently_denied": "Request permission location is permanently denied",
+  "request_permission_location_provisional": "Request permission location is provisional",
+  "service_location_disabled": "Location service is disabled!",
+  "service_location_denied": "Location service denied",
+  "request_location_rejected": "Request location rejected",
+  "request_location_approved": "Request location approved",
+  "request_location_sent": "Request location sent",
+  "request_location_received": "Request location received",
+  "request_location_stopped": "Request location stopped",
+  "approve": "Approve",
+  "reject": "Reject"
 }

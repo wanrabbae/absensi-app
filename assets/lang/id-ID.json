@@ -117,5 +117,20 @@
   "snackbar_cannot_request_self_location": "Tidak bisa melakukan permintaan lokasi kepada data sendiri",
   "snackbar_request_last_location": "Permintaan lokasi terkirim",
   "snackbar_detecting_new_location": "Sedang mendeteksi lokasi terbaru...",
-  "updated": "Diperbarui"
+  "updated": "Diperbarui",
+  "screenshot_saved": "Tangkapan layar telah disimpan",
+  "request_permission_location_denied": "Ijin penggunaan lokasi ditolak",
+  "request_permission_location_restricted": "Ijin penggunaan lokasi dilarang",
+  "request_permission_location_limited": "Ijin penggunaan lokasi telah telah dibatasi",
+  "request_permission_location_permanently_denied": "Ijin penggunaan lokasi ditolak permanen",
+  "request_permission_location_provisional": "Ijin penggunaan lokasi dibatasi untuk sementara",
+  "service_location_disabled": "Servis lokasi sedang tidak aktif!",
+  "service_location_denied": "Menolak permintaan lokasi",
+  "request_location_rejected": "Permintaan lokasi ditolak",
+  "request_location_approved": "Menerima permintaan lokasi",
+  "request_location_sent": "Permintaan lokasi terkirim",
+  "request_location_received": "Permintaan lokasi diterima",
+  "request_location_stopped": "Permintaan lokasi dihentikan",
+  "approve": "Terima",
+  "reject": "Tolak"
 }

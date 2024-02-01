@@ -232,11 +232,11 @@ Widget buildImageProfilePage(BuildContext context, String? url, bool local) {
   );
 }
 
-customSnackbar1(message) {
+customSnackbar1(String message) {
   message = message.toString().replaceAll('.', '');
   Get.rawSnackbar(
     messageText: Text(
-      message ?? "Success action",
+      message,
       style: const TextStyle(
         fontSize: 16,
         color: Colors.white,
@@ -250,12 +250,15 @@ customSnackbar1(message) {
   );
 }
 
-customSnackbarLoading(message) {
+customSnackbarLoading(String message) {
   Get.rawSnackbar(
     messageText: Text(
-      message ?? "Loading...",
+      message,
       style: const TextStyle(
-          fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+        fontSize: 16,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      ),
     ),
     snackPosition: SnackPosition.TOP,
     borderRadius: 20,
