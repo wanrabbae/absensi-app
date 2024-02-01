@@ -301,7 +301,7 @@ class CompanyScreen extends StatelessWidget {
     ).then((confirmed) {
       if (confirmed == true) {
         context.read<AppCubit>().stopWorking(([String? error]) {
-          if (error != null) {
+          if (error == null) {
             Get.offNamed(RouteName.stopWorking);
           } else {
             customSnackbar1(error);
