@@ -1,17 +1,14 @@
 import 'package:app/global_resource.dart';
 
-class HomeToolbar extends StatelessWidget {
+class HomeToolbar extends StatelessWidget implements PreferredSizeWidget {
   const HomeToolbar(this.s, {super.key});
 
   final HomeController s;
 
   @override
   Widget build(BuildContext context) {
-    final top = MediaQuery.of(context).padding.top;
-    return Container(
-      margin: EdgeInsets.only(top: top, left: 20, right: 16),
-      height: kToolbarHeight,
-      child: Row(
+    return AppBar(
+      title: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -68,4 +65,7 @@ class HomeToolbar extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

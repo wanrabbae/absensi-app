@@ -72,20 +72,16 @@ class _HomeScreenState extends State<HomeScreen>
     Get.put(HomeController());
     return GetBuilder<HomeController>(
       init: HomeController(),
-      dispose: (state) {
-        state.controller!.onInit();
-        state.controller!.checkAnyAbsen();
-      },
       builder: (HomeController s) => Scaffold(
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: false,
+        appBar: HomeToolbar(s),
         body: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            HomeToolbar(s),
             _buildTabBar(),
             _buildDateTile(context, s),
             Expanded(child: _buildContent(s, context)),
