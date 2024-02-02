@@ -351,21 +351,6 @@ Widget buildImageSizeIcon(BuildContext context, String url) {
   );
 }
 
-Widget buildImageSizeIconNetwork(BuildContext context, String url, bool local) {
-  var img = local
-      ? DecorationImage(image: AssetImage(url), fit: BoxFit.cover)
-      : DecorationImage(image: NetworkImage(url), fit: BoxFit.cover);
-  return Container(
-    width: 100,
-    height: 100,
-    decoration: BoxDecoration(
-      color: Colors.blue,
-      image: img,
-      borderRadius: const BorderRadius.all(Radius.circular(50)),
-    ),
-  );
-}
-
 Widget buildImageList(BuildContext context, String url, bool local) {
   var img = local
       ? DecorationImage(
@@ -412,43 +397,6 @@ Widget ovalCardIcon(
         child: Icon(
           icon,
           color: const Color.fromRGBO(51, 51, 51, 1),
-        ),
-      ),
-    ),
-  );
-}
-
-Widget ovalCardIconGender(
-  BuildContext context,
-  String genderName,
-  bool genderSelected,
-) {
-  return Container(
-    color: Colors.transparent,
-    width: double.infinity,
-    height: 60,
-    child: Card(
-      color:
-          (genderSelected) ? Colors.white : const Color.fromRGBO(51, 51, 51, 1),
-      surfaceTintColor:
-          (genderSelected) ? Colors.white : const Color.fromRGBO(51, 51, 51, 1),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-        side: BorderSide(
-          width: 1.0,
-          color: (!genderSelected)
-              ? Colors.white
-              : const Color.fromRGBO(51, 51, 51, 1),
-        ),
-      ),
-      child: Center(
-        child: Text(
-          genderName,
-          style: TextStyle(
-            color: (!genderSelected)
-                ? Colors.white
-                : const Color.fromRGBO(51, 51, 51, 1),
-          ),
         ),
       ),
     ),

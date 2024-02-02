@@ -1,5 +1,6 @@
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
+import 'package:app/views/_components/dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +13,8 @@ const Locale kLocaleEN = Locale("en", "US");
 const String kGlobalFontFamily = 'Montserrat';
 final DateFormat kTimeFormat = DateFormat('HH:mm');
 final DateFormat kMysqlDateFormat = DateFormat('yyyy-MM-dd');
-final DateFormat kLastUpdatePositionDateFormat = DateFormat('dd/MM/yyyy HH:mm:ss');
+final DateFormat kLastUpdatePositionDateFormat =
+    DateFormat('dd/MM/yyyy HH:mm:ss');
 final DateFormat kQueryRangeDateFormat = DateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 final DateFormat kDateFullFormat = DateFormat('dd MMM yyyy');
 
@@ -311,8 +313,8 @@ saveNetworkImage(url) async {
     status = await Permission.storage.request();
     if (!status.isGranted) {
       // If the user denies the permission, open app settings
-      SplashController().showConfirmationDialog2(
-          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+      showConfirmationDialog2(
+        tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
         // Redirect to allow location setting on phone
         openAppSettings();
       });
@@ -328,7 +330,7 @@ saveNetworkImage(url) async {
         : "${dir.path.toString()}/Hora/$savename";
 
     try {
-      customSnackbarLoading("Mengunduh dokumen...");
+      customSnackbarLoading(tr('snackbar_download_document'));
       await Dio().download(url, savePath, onReceiveProgress: (received, total) {
         if (total != -1) {
           debugPrint("${(received / total * 100).toStringAsFixed(0)}%");
@@ -336,12 +338,12 @@ saveNetworkImage(url) async {
         }
       });
       debugPrint("File is saved to download folder.");
-      customSnackbar1("Tangkapan layar telah disimpan.");
+      customSnackbar1(tr('screenshot_saved'));
       await AwesomeNotificationService()
           .showNotificationCapture(path: savePath);
     } on DioError catch (e) {
       debugPrint(e.message);
-      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 }
@@ -354,8 +356,8 @@ saveNetworkFile(url) async {
     status = await Permission.storage.request();
     if (!status.isGranted) {
       // If the user denies the permission, open app settings
-      SplashController().showConfirmationDialog2(
-          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+      showConfirmationDialog2(
+        tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
         // Redirect to allow location setting on phone
         openAppSettings();
       });
@@ -372,7 +374,7 @@ saveNetworkFile(url) async {
         : "${dir.path}/Hora/$savename";
 
     try {
-      customSnackbarLoading("Mengunduh dokumen...");
+      customSnackbarLoading(tr('snackbar_download_document'));
       await Dio().download(url, savePath, onReceiveProgress: (received, total) {
         if (total != -1) {
           debugPrint("${(received / total * 100).toStringAsFixed(0)}%");
@@ -382,12 +384,12 @@ saveNetworkFile(url) async {
       });
       // Get.back();
       debugPrint("File is saved to download folder.");
-      customSnackbar1("Lampiran telah disimpan.");
+      customSnackbar1(tr('snackbar_attachment_saved'));
       await AwesomeNotificationService()
           .showNotificationDownloadedFile(path: savePath.toString());
     } on DioError catch (e) {
       debugPrint(e.message);
-      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 }

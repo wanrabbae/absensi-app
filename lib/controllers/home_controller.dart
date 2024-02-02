@@ -149,7 +149,7 @@ class HomeController extends GetxController {
 
   absensi(context) async {
     if (izinAbs()) {
-      customSnackbar1("Izin hari ini telah terisi.");
+      customSnackbar1(tr('snackbar_already_permit'));
     } else {
       if (klikAbsen) {
         debugPrint('$absen');
@@ -296,7 +296,6 @@ class HomeController extends GetxController {
         update();
       }
     } catch (e) {
-      // customSnackbar1('Oops.. terjadi kesalahan sistem.');
       debugPrint("KE CATCH CHECK ANY ABSEN");
       debugPrint(e.toString());
     }
@@ -373,27 +372,23 @@ class HomeController extends GetxController {
       } else if (response.statusCode == 401) {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
-        // SplashController().sessionHabis(user?['alamatEmail']);
-        // Get.snackbar('Sesi habis', '');
-        customSnackbar1("Menghubungkan kembali...");
+        customSnackbar1(tr('snackbar_reconnecting'));
       }
     } catch (e) {
       debugPrint("ERROR PERUSAHAAN: $e");
-      // SplashController().sessionHabis(user?['alamatEmail']);
-      // Get.snackbar('Sesi habis', '');
-      customSnackbar1("Menghubungkan kembali...");
+      customSnackbar1(tr('snackbar_reconnecting'));
     }
   }
 
   dataHome() async {
     final profile = userProfile;
     if (profile == null) {
-      customSnackbar1('Data user tidak ditemukan');
+      customSnackbar1(tr('snackbar_user_not_found'));
       return;
     }
 
     if (profile.perusahaanId == null) {
-      customSnackbar1('Data perusahaan tidak ditemukan');
+      customSnackbar1(tr('snackbar_company_not_found'));
       return;
     }
 
@@ -424,7 +419,6 @@ class HomeController extends GetxController {
       }
     } catch (e) {
       debugPrint(e.toString());
-      // customSnackbar1("")
     }
   }
 
@@ -453,19 +447,19 @@ class HomeController extends GetxController {
       // }
     } catch (e) {
       // print(e);
-      // Get.snackbar('Oops.. terjadi kesalahan sistem.', e.toString());
+      // Get.snackbar(tr('snackbar_error_system'), e.toString());
     }
   }
 
   kirimUndangan() async {
     var isValidEmail = isEmailValid(emailUndangan.toString());
     if (!isValidEmail) {
-      customSnackbar1("Silakan masuk kembali.");
+      customSnackbar1(tr('snackbar_please_relogin'));
       return;
     }
 
     try {
-      customSnackbarLoading("Mengirimkan undangan...");
+      customSnackbarLoading(tr('snackbar_sending_invitation'));
       var response = await HomeServices().undanganPost({
         'receiver': emailUndangan,
         'sender': user?['alamatEmail'],
@@ -475,16 +469,16 @@ class HomeController extends GetxController {
       if (response.statusCode == 200) {
         Get.back();
         Get.back();
-        customSnackbar1('Undangan terkirim.');
+        customSnackbar1(tr('snackbar_invitation_sent'));
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1('Email telah terdaftar');
+        customSnackbar1(tr('snackbar_email_registered'));
       }
     } catch (e) {
-      customSnackbar1("Menghubungkan kembali...");
+      customSnackbar1(tr('snackbar_reconnecting'));
     }
   }
 

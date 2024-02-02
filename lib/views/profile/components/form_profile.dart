@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:app/views/_components/dialog.dart';
 
 Widget formProfile(context, s) {
   return Column(
@@ -171,8 +172,7 @@ Widget formProfile(context, s) {
                                       fontWeight: FontWeight.bold),
                                   readOnly: true,
                                   onTap: () {
-                                    SplashController()
-                                        .showConfirmationDialogEmail(
+                                    showConfirmationDialogEmail(
                                       tr('email'),
                                       tr('email_change_confirmation'),
                                       () => Get.toNamed(

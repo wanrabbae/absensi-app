@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:app/views/_components/dialog.dart';
 
 final ProfileController _controller = ProfileController._();
 
@@ -13,6 +14,7 @@ class ProfileController extends GetxController {
   Map? perusahaan;
   Map? user;
   String version = "Versi 01.02.03";
+
   //Detail Profile
   String? profileNama;
   String? profileGender;
@@ -21,8 +23,10 @@ class ProfileController extends GetxController {
   File? formFoto;
   String? selectedGender = '';
   Position? _currentPosition;
+
   //Ganti Email
   String? emailBaru;
+
   //Otp Verifikasi
   String? otp;
 
@@ -136,48 +140,12 @@ class ProfileController extends GetxController {
 
   keluar() {
     SplashController().removeData();
-    // Get.defaultDialog(
-    //     title: "Akun",
-    //     titleStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-    //     titlePadding: const EdgeInsets.all(10),
-    //     content: const Padding(
-    //       padding: EdgeInsets.all(5),
-    //       child: Text('Anda ingin keluar?', style: TextStyle(fontSize: 16)),
-    //     ),
-    //     buttonColor: Colors.transparent,
-    //     cancelTextColor: colorBluePrimary,
-    //     confirmTextColor: colorBluePrimary,
-    //     textCancel: "Tidak",
-    //     textConfirm: "Ya",
-    //     backgroundColor: Colors.white,
-    //     onConfirm: () {
-    //       SplashController().removeData();
-    //     });
   }
 
   hapusAkun() {
-    SplashController()
-        .showConfirmationDialog2("Profil", "Anda ingin menghapus profil?", () {
+    showConfirmationDialog2(tr('menu_profile'), tr('profile_delete_confirmation'), () {
       hapusData();
     });
-    // Get.defaultDialog(
-    //     title: "Profil",
-    //     titleStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-    //     titlePadding: const EdgeInsets.all(10),
-    //     content: const Padding(
-    //       padding: EdgeInsets.all(5),
-    //       child: Text('Anda ingin menghapus profil?',
-    //           style: TextStyle(fontSize: 12)),
-    //     ),
-    //     buttonColor: Colors.transparent,
-    //     cancelTextColor: colorBluePrimary,
-    //     confirmTextColor: colorBluePrimary,
-    //     backgroundColor: Colors.white,
-    //     textCancel: "Tidak",
-    //     textConfirm: "Ya",
-    //     onConfirm: () {
-    //       hapusData();
-    //     });
   }
 
   dataProfile(mail) async {
@@ -191,15 +159,10 @@ class ProfileController extends GetxController {
       } else if (response.statusCode == 401) {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
-        // SplashController().sessionHabis(user?['alamatEmail']);
-        customSnackbar1("Menghubungkan kembali...");
-        // Get.snackbar(
-        //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
+        customSnackbar1(tr('snackbar_reconnecting'));
       }
     } catch (e) {
-      // Get.snackbar('Oops.. terjadi kesalahan sistem.', e.toString());
-      // SplashController().sessionHabis(user?['alamatEmail']);
-      customSnackbar1("Menghubungkan kembali...");
+      customSnackbar1(tr('snackbar_reconnecting'));
     }
   }
 
@@ -225,28 +188,25 @@ class ProfileController extends GetxController {
         'perusahaan': perusahaan?['idperusahaan']
       }, forms);
       if (response.statusCode == 200) {
-        customSnackbar1("Profil baru telah tersimpan.");
+        customSnackbar1(tr('snackbar_profile_saved'));
         await dataProfile(user?['alamatEmail']);
         Get.offAllNamed(RouteName.home, arguments: 1);
-        // Get.offAll(() => MainScreen(
-        //       index: 1,
-        //     ));
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
       }
     } catch (e) {
       Get.back();
-      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 
   hapusData() async {
     try {
-      customSnackbarLoading("Menghapus akun...");
+      customSnackbarLoading(tr('snackbar_delete_account'));
       var response = await ProfileServices().profileDeletePut({
         'email': user?['alamatEmail'],
         'perusahaan': perusahaan?['idperusahaan']
@@ -254,24 +214,24 @@ class ProfileController extends GetxController {
       if (response.statusCode == 200) {
         Get.back();
         SplashController().removeData();
-        customSnackbar1("Akun berhasil dihapus.");
+        customSnackbar1(tr('snackbar_account_deleted'));
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
       }
     } catch (e) {
       Get.back();
-      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 
   ubahEmail(msg, status) async {
     var isValidEmail = isEmailValid(emailBaru.toString());
     if (!isValidEmail) {
-      customSnackbar1("Silakan masuk kembali.");
+      customSnackbar1(tr('snackbar_please_relogin'));
       return;
     }
     try {
@@ -285,11 +245,10 @@ class ProfileController extends GetxController {
         'Idperusahaan': perusahaan?['idperusahaan'],
         'NamaPerusahaan': perusahaan?['namaPerusahaan'],
       });
-      print(response);
+
       if (response.statusCode == 200) {
         Get.back();
-        customSnackbar1("Kode OTP terkirim.");
-        // Get.snackbar("Otp Berhasil Dikirim !!", response.body.toString());
+        customSnackbar1(tr('snackbar_otp_sent'));
         if (status == 1) {
           Get.toNamed(RouteName.profileGantiemailOtp);
         } else {
@@ -300,18 +259,18 @@ class ProfileController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       Get.back();
-      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 
   verifyUbahEmail() async {
     try {
-      customSnackbarLoading("Mengubah email...");
+      customSnackbarLoading(tr('change_email'));
       var response = await ProfileServices().ubahEmailVerifyPost({
         'email': emailBaru,
         'otp': otp,
@@ -322,22 +281,18 @@ class ProfileController extends GetxController {
         await dataProfile(emailBaru);
         Get.back();
         Get.offAllNamed(RouteName.home, arguments: 1);
-        // Get.snackbar("Berhasil !!", "email telah dirubah");
-        customSnackbar1("Email berhasil diubah.");
+        customSnackbar1(tr('snackbar_email_changed'));
       } else if (response.statusCode == 401) {
         Get.back();
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        // Get.snackbar(
-        //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
-        customSnackbar1("Kode OTP tidak valid.");
+        customSnackbar1(tr('snackbar_otp_invalid'));
       }
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       Get.back();
-      // Get.snackbar('Oops.. terjadi kesalahan sistem.', e.toString());
-      customSnackbar1("Kode OTP tidak valid.");
+      customSnackbar1(tr('snackbar_otp_invalid'));
     }
   }
 }

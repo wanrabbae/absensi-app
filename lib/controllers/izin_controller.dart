@@ -1,7 +1,8 @@
-import 'package:app/global_resource.dart';
-import 'package:app/helpers/notification_local.dart';
 import 'dart:core';
 
+import 'package:app/global_resource.dart';
+import 'package:app/helpers/notification_local.dart';
+import 'package:app/views/_components/dialog.dart';
 
 class IzinController extends GetxController {
   //global
@@ -10,6 +11,7 @@ class IzinController extends GetxController {
   String? fileName;
   PlatformFile? file;
   Map? user;
+
   //absen
   LatLng currentLocation = const LatLng(5.880241, 95.336574);
   BitmapDescriptor customMarker = BitmapDescriptor.defaultMarker;
@@ -21,8 +23,10 @@ class IzinController extends GetxController {
   File? formFotoIzin;
   bool klikAbsen = false;
   String? alamatLoc;
+
   // ignore: prefer_typing_uninitialized_variables
   var timer;
+
   //izin
   Map? perusahaan;
   List? perusahaanList;
@@ -84,8 +88,8 @@ class IzinController extends GetxController {
       status = await Permission.storage.request();
       if (!status.isGranted) {
         // If the user denies the permission, open app settings
-        SplashController().showConfirmationDialog2(
-            "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+        showConfirmationDialog2(
+          tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
           // Redirect to allow location setting on phone
           openAppSettings();
         });
@@ -97,7 +101,7 @@ class IzinController extends GetxController {
   }
 
   lokasiDetect() async {
-    customSnackbarLoading("Sedang mendeteksi lokasi anda...");
+    customSnackbarLoading(tr('snackbar_detecting_location'));
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       currentLocation = LatLng(position.latitude, position.longitude);
@@ -220,7 +224,7 @@ class IzinController extends GetxController {
         await cancelTimer();
         if (status) {
           // Get.snackbar("Anda Sudah Pulang", "waktu telah dihentikan");
-          customSnackbar1("Kehadiran hari ini telah terisi.");
+          customSnackbar1(tr('snackbar_already_present'));
           Get.offAllNamed(RouteName.home, arguments: 0);
           await HomeController().dataHome();
         } else {
@@ -239,11 +243,11 @@ class IzinController extends GetxController {
       } else {
         debugPrint("INI PULANG: $response");
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
       }
     } catch (e) {
       print(e);
-      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 
@@ -291,26 +295,26 @@ class IzinController extends GetxController {
       } else if (response.statusCode == 400) {
         box.write(Base.klikAbsen, false);
         Get.offAllNamed(RouteName.home, arguments: 0);
-        customSnackbar1("Terjadi kesalahan Pada Absen Pulang");
+        customSnackbar1(tr('snackbar_error_when_check_out'));
       } else {
         debugPrint("INI PULANG: $response");
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
       }
     } catch (e) {
-      print(e);
-      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      debugPrint(e.toString());
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 
   absenIzin() async {
     if (fileName == null) {
-      customSnackbar1("Lengkapi lampiran terlebih dahulu.");
+      customSnackbar1(tr('snackbar_atachment_required'));
       return;
     }
 
     try {
-      customSnackbarLoading("Mengajukan surat izin...");
+      customSnackbarLoading(tr('snackbar_submiting_permit'));
       var forms = {
         'idkaryawan': user?['idkaryawan'],
         'namaKaryawan': user?['namaKaryawan'],
@@ -348,15 +352,13 @@ class IzinController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1('Oops.. terjadi kesalahan sistem.');
-        // Get.snackbar(
-        //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
+        customSnackbar1(tr('snackbar_error_system'));
       }
     } catch (e) {
       print(e.toString());
       debugPrint("KE CATCH FITUR IZIN");
       Get.back();
-      customSnackbar1('Oops.. terjadi kesalahan sistem.');
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 }

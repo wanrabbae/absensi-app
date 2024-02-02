@@ -281,8 +281,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                               context,
                               tr('dialog_presence_title'),
                               tr('dialog_presence_message'),
-                              buttonOk: tr('dialog_button_ok'),
-                              buttonCancel: tr('dialog_button_cancel'),
+                              buttonOk: tr('dialog_button_yes'),
+                              buttonCancel: tr('dialog_button_no'),
                             ).then((confirmed) {
                               if (confirmed == true) {
                                 Get.toNamed(RouteName.absen, arguments: {
@@ -297,8 +297,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                             context,
                             tr('dialog_logout_title'),
                             tr('dialog_logout_message'),
-                            buttonOk: tr('dialog_button_ok'),
-                            buttonCancel: tr('dialog_button_cancel'),
+                            buttonOk: tr('dialog_button_yes'),
+                            buttonCancel: tr('dialog_button_no'),
                           ).then((confirmed) {
                             if (confirmed == true) {
                               s.keluar();

@@ -2,6 +2,7 @@ import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:app/components/component_constant.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/images.dart';
+import 'package:app/views/_components/dialog.dart';
 import 'package:assorted_layout_widgets/assorted_layout_widgets.dart';
 import 'package:flutter/services.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -257,8 +258,7 @@ class _AbsensiScreenState extends State<AbsensiScreen>
     );
   }
 
-  Future _popupConfirmationClose(AbsenController s) =>
-      SplashController().showConfirmationDialog4(
+  Future _popupConfirmationClose(AbsenController s) => showConfirmationDialog4(
         tr('present'),
         s.timer != null
             ? tr('gohome_cancel_confirmation')

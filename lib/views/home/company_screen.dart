@@ -280,14 +280,14 @@ class CompanyScreen extends StatelessWidget {
                 children: [
                   TextButton(
                     child: Text(
-                      tr('dialog_button_cancel'),
+                      tr('dialog_button_no'),
                       style: const TextStyle(fontSize: 16),
                     ),
                     onPressed: () => Navigator.pop(context),
                   ),
                   TextButton(
                     child: Text(
-                      tr('dialog_button_ok'),
+                      tr('dialog_button_yes'),
                       style: const TextStyle(fontSize: 16),
                     ),
                     onPressed: () => Navigator.pop(context, true),

@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/views/_components/dialog.dart';
 import 'package:flutter/services.dart';
 
 class AbsensiIzinScreen extends StatefulWidget {
@@ -63,7 +64,7 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
 
                       if (_validateAlasan == false &&
                           _validateLampiran == false) {
-                        SplashController().showConfirmationDialog2(
+                        showConfirmationDialog2(
                           tr('permit'),
                           tr('apply_for_permit'),
                           izin,
@@ -80,7 +81,7 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
           leading: IconButton(
             icon: const Icon(FeatherIcons.arrowLeft),
             onPressed: () {
-              SplashController().showConfirmationDialog4(
+              showConfirmationDialog4(
                   tr('permit'), tr('apply_for_permit_cancellation'), () {
                 Get.back();
               });
@@ -92,7 +93,7 @@ class _AbsensiIzinScreenState extends State<AbsensiIzinScreen> {
             // This function will be called when the user presses the back button
             // Return true to allow the default back button behavior or false to perform custom actions
             // For example, you can show a confirmation dialog here
-            bool confirmExit = await SplashController().showConfirmationDialog4(
+            bool confirmExit = await showConfirmationDialog4(
                 tr('permit'), tr('apply_for_permit_cancellation'), () {
               Get.back();
             });

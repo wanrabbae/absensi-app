@@ -20,42 +20,42 @@ class LoginController extends GetxController {
 
     var isValidEmail = isEmailValid(emailForm.toString());
     if (!isValidEmail) {
-      customSnackbar1("Silakan masuk kembali.");
+      customSnackbar1(tr('snackbar_please_relogin'));
       return;
     }
 
     try {
-      customSnackbarLoading("Mengirimkan kode OTP...");
+      customSnackbarLoading(tr('snackbar_sending_otp'));
       var response = await AuthServices().sendLinkPost(mail ?? emailForm);
       if (response.statusCode == 200) {
         if (response.data.toString() == 'OTP Terkirim') {
           Get.back();
           if (status != 1) {
-            customSnackbar1('Kode OTP terkirim.');
+            customSnackbar1(tr('snackbar_otp_sent'));
             Get.toNamed(RouteName.otpLogin, arguments: emailForm);
           } else {
-            customSnackbar1('Kode OTP terkirim.');
+            customSnackbar1(tr('snackbar_otp_sent'));
           }
         } else {
           Get.back();
-          customSnackbar1("Periksa kotak masuk email anda.");
+          customSnackbar1(tr('snackbar_check_inbox'));
         }
       } else {
         debugPrint("EMAIL KIRIM ERROR: $response");
         Get.back();
-        customSnackbar1("Email telah terdaftar");
+        customSnackbar1(tr('snackbar_email_registered'));
       }
     } catch (e) {
       debugPrint("CATCH EMAIL KIRIM: $e");
       Get.back();
-      customSnackbar1("Email anda belum terdaftar.");
+      customSnackbar1(tr('snackbar_email_not_registered'));
       Get.offAllNamed(RouteName.login);
     }
   }
 
   otpKirim(email) async {
     try {
-      customSnackbarLoading("Mengonfirmasi masuk...");
+      customSnackbarLoading(tr('snackbar_enter_confirmation'));
       var response = await AuthServices().verifyOtpGet(
           {"email": user?['alamatEmail'] ?? email, "otp": otpForm});
       if (response.statusCode == 200) {
@@ -66,11 +66,11 @@ class LoginController extends GetxController {
         Get.offAllNamed(RouteName.home, arguments: 0);
       } else {
         Get.back();
-        customSnackbar1("Kode OTP tidak valid.");
+        customSnackbar1(tr('snackbar_otp_invalidar_otp_invalid'));
       }
     } catch (e) {
       Get.back();
-      customSnackbar1("Kode OTP tidak valid.");
+      customSnackbar1(tr('snackbar_otp_invalidar_otp_invalid'));
     }
   }
 }

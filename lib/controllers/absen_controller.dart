@@ -3,6 +3,7 @@ import 'package:app/data/source/firebase/firebase_service.dart';
 import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
+import 'package:app/views/_components/dialog.dart';
 import 'package:in_app_review/in_app_review.dart';
 
 class AbsenController extends GetxController {
@@ -155,8 +156,8 @@ class AbsenController extends GetxController {
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
-          SplashController().showConfirmationDialog2(
-              "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+          showConfirmationDialog2(
+            tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
             // Redirect to allow location setting on phone
             openAppSettings();
           });
@@ -164,8 +165,8 @@ class AbsenController extends GetxController {
         }
       }
       if (permission == LocationPermission.deniedForever) {
-        SplashController().showConfirmationDialog2(
-            "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+        showConfirmationDialog2(
+          tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
           // Redirect to allow location setting on phone
           openAppSettings();
         });
@@ -173,7 +174,7 @@ class AbsenController extends GetxController {
       }
       if (!serviceEnabled) {
         Get.offAllNamed(RouteName.home);
-        customSnackbar1("Mohon aktifkan lokasi anda");
+        customSnackbar1(tr('snackbar_please_enable_location'));
         return false;
       }
       update();
@@ -185,7 +186,7 @@ class AbsenController extends GetxController {
 
   lokasiDetect() async {
     customSnackbarLoadingAsset(
-        "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
+        tr('snackbar_finding_location'), "images/map-pin-gif.gif");
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       currentLocation = LatLng(position.latitude, position.longitude);
@@ -193,7 +194,7 @@ class AbsenController extends GetxController {
 
       Get.back();
       customSnackbarLoadingAsset(
-          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
+          tr('snackbar_location_found'), "images/check-gif.gif");
       Future.delayed(
         const Duration(seconds: 2),
         () {
@@ -211,15 +212,15 @@ class AbsenController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      customSnackbar1("Lokasi Tidak Aktif");
+      customSnackbar1(tr('snackbar_location_disabled'));
       return false;
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        SplashController().showConfirmationDialog2(
-            "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+        showConfirmationDialog2(
+          tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
           // Redirect to allow location setting on phone
           openAppSettings();
         });
@@ -227,8 +228,8 @@ class AbsenController extends GetxController {
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      SplashController().showConfirmationDialog2(
-          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+      showConfirmationDialog2(
+        tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
         // Redirect to allow location setting on phone
         openAppSettings();
       });
@@ -244,15 +245,15 @@ class AbsenController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      customSnackbar1("Lokasi Tidak Aktif");
+      customSnackbar1(tr('snackbar_location_disabled'));
       return false;
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        SplashController().showConfirmationDialog2(
-            "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+        showConfirmationDialog2(
+          tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
           // Redirect to allow location setting on phone
           openAppSettings();
         });
@@ -260,8 +261,8 @@ class AbsenController extends GetxController {
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      SplashController().showConfirmationDialog2(
-          "Perizinan", "Buka pengaturan perizinan perangkat?", () {
+      showConfirmationDialog2(
+        tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
         // Redirect to allow location setting on phone
         openAppSettings();
       });
@@ -273,15 +274,14 @@ class AbsenController extends GetxController {
 
   lokasiDetectPulang(idAbsen) {
     customSnackbarLoadingAsset(
-        "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
-    // customSnackbarLoading("Sedang mendeteksi lokasi anda...");
+        tr('snackbar_finding_location'), "images/map-pin-gif.gif");
     Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high).then(
         (Position position) async {
       currentLocationPulang = LatLng(position.latitude, position.longitude);
       getAddressFromLatLngPulang();
       Get.back();
       customSnackbarLoadingAsset(
-          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
+          tr('snackbar_location_found'), "images/check-gif.gif");
       Future.delayed(const Duration(seconds: 2), () {
         Get.back();
         mulaiPulangAct(idAbsen);
@@ -295,7 +295,7 @@ class AbsenController extends GetxController {
 
   lokasiDetectPulang2(idAbsen) async {
     customSnackbarLoadingAsset(
-        "Mencari titik lokasi anda...", "images/map-pin-gif.gif");
+        tr('snackbar_finding_location'), "images/map-pin-gif.gif");
 
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
@@ -304,7 +304,7 @@ class AbsenController extends GetxController {
 
       Get.back();
       customSnackbarLoadingAsset(
-          "Titik lokasi anda ditemukan.", "images/check-gif.gif");
+          tr('snackbar_location_found'), "images/check-gif.gif");
       Future.delayed(const Duration(seconds: 2), () {
         Get.back();
         mulaiPulangAct2(idAbsen);
@@ -340,8 +340,7 @@ class AbsenController extends GetxController {
 
   mulaiSelesaiAbsen(context, idAbsen) {
     if (!klikAbsen) {
-      SplashController()
-          .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
+      showConfirmationDialog2(tr('selfie'), tr('snackbar_take_photo_now'), () {
         Get.back();
         ImagePicker()
             .pickImage(
@@ -354,13 +353,12 @@ class AbsenController extends GetxController {
             update();
             absenHadir();
           } else {
-            customSnackbar1("Tidak bisa melanjutkan tanpa foto");
+            customSnackbar1(tr('snackbar_no_photo'));
           }
         });
       });
     } else {
-      SplashController()
-          .showConfirmationDialog2("Presensi", "Anda ingin pulang?", () {
+      showConfirmationDialog2(tr('dialog_presence_title'), tr('dialog_presence_message'), () {
         Get.back();
         ImagePicker()
             .pickImage(
@@ -373,7 +371,7 @@ class AbsenController extends GetxController {
             update();
             absenPulang(true, idAbsen);
           } else {
-            customSnackbar1("Tidak bisa melanjutkan tanpa foto");
+            customSnackbar1(tr('snackbar_no_photo'));
           }
         });
       });
@@ -381,8 +379,7 @@ class AbsenController extends GetxController {
   }
 
   mulaiAbsen() async {
-    SplashController()
-        .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
+    showConfirmationDialog2(tr('selfie'), tr('snackbar_take_photo_now'), () {
       // Get.back();
       ImagePicker()
           .pickImage(
@@ -395,15 +392,14 @@ class AbsenController extends GetxController {
           update();
           absenHadir();
         } else {
-          customSnackbar1("Tidak bisa melanjutkan tanpa foto");
+          customSnackbar1(tr('snackbar_no_photo'));
         }
       });
     });
   }
 
   mulaiPulang(context, idAbsen) {
-    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?",
-        () async {
+    showConfirmationDialog2(tr('dialog_presence_title'), tr('dialog_presence_message'), () async {
       // Get.back();
       // changePageScreen = 1;
       // update();
@@ -416,8 +412,7 @@ class AbsenController extends GetxController {
   }
 
   mulaiPulang2(idAbsen) {
-    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?",
-        () async {
+    showConfirmationDialog2(tr('dialog_presence_title'), tr('dialog_presence_message'), () async {
       // Get.back();
       // changePageScreen = 1;
       // update();
@@ -429,15 +424,13 @@ class AbsenController extends GetxController {
   }
 
   mulaiPulangFromNotif(idAbsen) {
-    SplashController().showConfirmationDialog2("Presensi", "Anda ingin pulang?",
-        () async {
+    showConfirmationDialog2(tr('dialog_presence_title'), tr('dialog_presence_message'), () async {
       await getCurrentLocationPulang(idAbsen?["id"]);
     });
   }
 
   mulaiPulangAct(idAbsen) {
-    SplashController()
-        .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
+    showConfirmationDialog2(tr('selfie'), tr('snackbar_take_photo_now'), () {
       ImagePicker()
           .pickImage(
               source: ImageSource.camera,
@@ -449,15 +442,14 @@ class AbsenController extends GetxController {
           update();
           absenPulang(true, idAbsen);
         } else {
-          customSnackbar1("Tidak bisa melanjutkan tanpa foto");
+          customSnackbar1(tr('snackbar_no_photo'));
         }
       });
     });
   }
 
   mulaiPulangAct2(idAbsen) {
-    SplashController()
-        .showConfirmationDialog2("Swafoto", "Ambil foto sekarang?", () {
+    showConfirmationDialog2(tr('selfie'), tr('snackbar_take_photo_now'), () {
       ImagePicker()
           .pickImage(
               source: ImageSource.camera,
@@ -469,7 +461,7 @@ class AbsenController extends GetxController {
           update();
           absenPulang2(true, idAbsen);
         } else {
-          customSnackbar1("Tidak bisa melanjutkan tanpa foto");
+          customSnackbar1(tr('snackbar_no_photo'));
         }
       });
     });
@@ -495,7 +487,7 @@ class AbsenController extends GetxController {
 
   absenHadir() async {
     try {
-      customSnackbarLoading("Mendaftarkan kehadiran...");
+      customSnackbarLoading(tr('snackbar_submiting_presence'));
       final forms = {
         'IDKaryawan': user?['idkaryawan'],
         'NamaKaryawan': user?['namaKaryawan'],
@@ -514,7 +506,6 @@ class AbsenController extends GetxController {
       var response = await AbsensiServices().hadirPost(forms);
       if (response.statusCode == 200) {
         Get.back();
-        // customSnackbar1("Anda sudah absen.");
         box.write(Base.waktuAbsen, DateTime.now().toString());
         box.write(Base.klikAbsen, true);
         Get.offAllNamed(RouteName.home, arguments: 0);
@@ -524,15 +515,14 @@ class AbsenController extends GetxController {
           ..showNotificationAfter12Hours(now);
       } else if (response.statusCode == 401) {
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
         // SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
       }
     } catch (e) {
-      // customSnackbar1("Menghubungkan kembali...");
-      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 
@@ -543,21 +533,20 @@ class AbsenController extends GetxController {
         return response.data;
       } else if (response.statusCode == 401) {
         // Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
         // SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         // Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
       }
     } catch (e) {
-      // customSnackbar1("Menghubungkan kembali...");
-      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 
   absenPulang(status, idAbsen, [String? tanggal]) async {
     if (idAbsen == null) {
-      customSnackbar1("Oops..ID absensi tidak ditemukan");
+      customSnackbar1(tr('snackbar_presence_not_found'));
       return;
     }
 
@@ -567,9 +556,6 @@ class AbsenController extends GetxController {
             .toString()
             .split(" ")[0];
     try {
-      // if (status) {
-      //   customSnackbarLoading("Sedang Pulang...");
-      // }
       final forms = {
         'LatitudePulang': currentLocationPulang.latitude,
         'LongtitudePulang': currentLocationPulang.longitude,
@@ -610,13 +596,10 @@ class AbsenController extends GetxController {
           }
         }
         if (status) {
-          // Get.snackbar("Anda Sudah Pulang", "waktu telah dihentikan");
-          customSnackbar1("Kehadiran hari ini telah terisi.");
+          customSnackbar1(tr('snackbar_already_present'));
           Get.offAllNamed(RouteName.home, arguments: args);
           await HomeController().dataHome();
         } else {
-          // Get.snackbar("Mengajukan Izin Berhasil",
-          //     "Berhasil mematikan absen sebelumnya. Berhasil mengirimkan izin. Silahkan hubungi admin.");
           Get.offAllNamed(RouteName.home, arguments: args);
           await HomeController().dataHome();
         }
@@ -626,14 +609,14 @@ class AbsenController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else if (response.statusCode == 400) {
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
       } else {
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
       }
     } catch (e) {
       debugPrint(e.toString());
-      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 
@@ -644,9 +627,6 @@ class AbsenController extends GetxController {
             .toString()
             .split(" ")[0];
     try {
-      // if (status) {
-      //   customSnackbarLoading("Sedang Pulang...");
-      // }
       final forms = {
         'LatitudePulang': currentLocationPulang.latitude,
         'LongtitudePulang': currentLocationPulang.longitude,
@@ -675,20 +655,20 @@ class AbsenController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else if (response.statusCode == 400) {
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
       } else {
         Get.back();
-        customSnackbar1("Oops.. terjadi kesalahan sistem.");
+        customSnackbar1(tr('snackbar_error_system'));
       }
     } catch (e) {
       debugPrint(e.toString());
-      customSnackbar1("Oops.. terjadi kesalahan sistem.");
+      customSnackbar1(tr('snackbar_error_system'));
     }
   }
 
   absenIzin() async {
     try {
-      customSnackbarLoading("Mengajukan surat izin...");
+      customSnackbarLoading(tr('snackbar_submiting_permit'));
       final FormData forms = FormData({
         'IDKaryawan': user?['idkaryawan'],
         'NamaKaryawan': user?['namaKaryawan'],
@@ -718,8 +698,6 @@ class AbsenController extends GetxController {
         SplashController().sessionHabis(user?['alamatEmail']);
       } else {
         Get.back();
-        // Get.snackbar(
-        //     'Oops.. terjadi kesalahan sistem.', response.body.toString());
       }
     } catch (e) {
       box.write(Base.izinAbsen, DateTime.now().toString());
@@ -748,9 +726,7 @@ _showReviewAndClearLiveTracking(dynamic broadcasterId) async {
   if (broadcasterId is String) {
     final firebaseService = $it<FirebaseService>();
     final pushNotificationApiService = $it<PushNotificationApiService>();
-    firebaseService
-        .clearAllLiveTracking(broadcasterId)
-        .then((idKaryawans) {
+    firebaseService.clearAllLiveTracking(broadcasterId).then((idKaryawans) {
       pushNotificationApiService.sendPushNotification(
         model.PushNotification(
           notification: const model.Notification(
