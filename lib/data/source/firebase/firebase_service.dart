@@ -1,4 +1,5 @@
 import 'package:app/data/models/livetracking/live_tracking.dart';
+import 'package:app/data/models/livetracking/log/live_location_log.dart';
 import 'package:app/data/models/token/fcm_token.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -42,6 +43,23 @@ class FirebaseService {
     return docs.map((doc) {
       final json = doc.data();
       return LiveTracking.fromJson(json).copyWith(uid: doc.id);
+    }).toList();
+  }
+
+  Future<List<LiveLocationLog>> getLiveTrackingLogList({
+    required String userId,
+    int limit = 10,
+  }) async {
+    final query = _collectionLiveLocationLog
+        .where('user_id', isEqualTo: userId)
+        .orderBy('timestamp', descending: true)
+        .limit(limit);
+    final snapshot = await query.get();
+
+    final docs = snapshot.docs;
+    return docs.map((doc) {
+      final json = doc.data();
+      return LiveLocationLog.fromJson(json).copyWith(uid: doc.id);
     }).toList();
   }
 

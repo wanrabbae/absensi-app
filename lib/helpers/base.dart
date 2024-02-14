@@ -106,6 +106,7 @@ abstract class RouteName {
   //Absen Izin
   static const absenIzin = "/absen_izin_screen";
   static const absenIzinDownloaded = "/absen_izin_downloaded_screen";
+  static const absenLocationLog = "/absen_location_log";
 
   //Webview
   static const webview = "/webview_screen";

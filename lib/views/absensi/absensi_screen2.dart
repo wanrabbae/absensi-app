@@ -36,12 +36,13 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
   );
   Map<String, dynamic>? izinData;
 
-  dynamic get currentAbsen => Get.arguments?["dataAbsen"] ?? <String, dynamic>{};
+  late final dynamic currentAbsen;
 
   Absence get absence => Absence.fromJson(currentAbsen);
 
   @override
   void initState() {
+    currentAbsen = Get.arguments?["dataAbsen"] ?? <String, dynamic>{};
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
@@ -154,6 +155,23 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                     statusBarColor: Colors.white,
                   ),
                   actions: [
+                    Container(
+                      width: 40,
+                      decoration: kCircleButtonDecoration,
+                      child: IconButton(
+                        onPressed: () {
+                          Get.toNamed(
+                            RouteName.absenLocationLog,
+                            arguments: absence.idKaryawan,
+                          );
+                        },
+                        icon: const Icon(
+                          FeatherIcons.list,
+                          color: colorBluePrimary,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
                     Container(
                       width: 40,
                       decoration: kCircleButtonDecoration,

@@ -1,10 +1,12 @@
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/klaim/form/klaim_form_cubit.dart';
+import 'package:app/controllers/live_location_log/live_location_log_cubit.dart';
 import 'package:app/controllers/management/management_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
 import 'package:app/views/absensi/absensi_pulang_screen.dart';
 import 'package:app/views/absensi/absensi_screen2.dart';
+import 'package:app/views/absensi/location_log/location_log_screen.dart';
 import 'package:app/views/home/company_full_screen.dart';
 import 'package:app/views/home/company_screen.dart';
 import 'package:app/views/home/hadir_result_location_screen.dart';
@@ -97,6 +99,15 @@ class Routes {
     GetPage(
       name: RouteName.absenIzinDownloaded,
       page: () => const AbsensiIzinDownloadedScreen(),
+    ),
+    GetPage(
+      name: RouteName.absenLocationLog,
+      page: () => BlocProvider(
+        create: (context) {
+          return LiveLocationLogCubit($it(), Get.arguments);
+        },
+        child: const LocationLogScreen(),
+      ),
     ),
     // endregion Absensi
 

@@ -169,5 +169,6 @@
   "snackbar_profile_saved": "Profile has been saved",
   "snackbar_atachment_required": "Attachment is required",
   "snackbar_email_not_registered": "Email is not registered",
-  "snackbar_check_inbox": "Plesae check your email inbox."
+  "snackbar_check_inbox": "Plesae check your email inbox.",
+  "location_history": "Location History"
 }
