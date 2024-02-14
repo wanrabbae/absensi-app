@@ -1,3 +1,4 @@
+import 'package:app/components/component_modal.dart';
 import 'package:app/components/empty_view.dart';
 import 'package:app/controllers/live_location_log/live_location_log_cubit.dart';
 import 'package:app/views/absensi/location_log/location_log_tile.dart';
@@ -65,6 +66,17 @@ class _LocationLogScreenState extends State<LocationLogScreen> {
             ],
           );
         },
+      ),
+      bottomNavigationBar: Container(
+        color: colorBlueOpacity,
+        child: SafeArea(
+          minimum: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          child: Text(
+            tr('live_location_log_footer'),
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            textAlign: TextAlign.center,
+          ),
+        ),
       ),
     );
   }

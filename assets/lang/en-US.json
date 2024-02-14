@@ -170,5 +170,6 @@
   "snackbar_atachment_required": "Attachment is required",
   "snackbar_email_not_registered": "Email is not registered",
   "snackbar_check_inbox": "Plesae check your email inbox.",
-  "location_history": "Location History"
+  "location_history": "Location History",
+  "live_location_log_footer": "Tap location to open map"
 }

@@ -18,7 +18,7 @@ class LocationLogTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    final child = Padding(
       padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
       child: TimelineTile(
         isFirst: first,
@@ -79,6 +79,13 @@ class LocationLogTile extends StatelessWidget {
           ),
         ),
       ),
+    );
+
+    return InkWell(
+      onTap: () {
+        openMap(log.latitude.toString(), log.longitude.toString());
+      },
+      child: child,
     );
   }
 }
