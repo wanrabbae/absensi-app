@@ -3,6 +3,7 @@ import 'package:app/global_resource.dart';
 import 'package:app/helpers/dialogs.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -292,15 +293,34 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
             Permission.location.status.then((permissionStatus) {
               Future<void> getCurrentLocation() {
                 customSnackbar1(tr('request_location_approved'));
-                return Geolocator.getCurrentPosition()
-                    .then((Position position) {
+                Position? position;
+                return Geolocator.getCurrentPosition().then((Position p) {
+                  position = p;
+                  return placemarkFromCoordinates(
+                    p.latitude,
+                    p.longitude,
+                    localeIdentifier: 'id_ID',
+                  );
+                }).then((placeMarks) {
+                  String? address;
+                  if (placeMarks.isNotEmpty) {
+                    final p = placeMarks.first;
+                    address =
+                        '${p.street}, ${p.subAdministrativeArea}, ${p.administrativeArea}, ${p.country} ${p.postalCode}';
+                  }
                   context.read<AppCubit>().setLiveTracking(
                         broadcasterId,
                         listenerId,
                         approve,
-                        position.latitude,
-                        position.longitude,
+                        position?.latitude,
+                        position?.longitude,
+                        address,
                       );
+                }, onError: (e, s) {
+                  if (kDebugMode) {
+                    print(e);
+                    debugPrintStack(stackTrace: s);
+                  }
                 });
               }
 

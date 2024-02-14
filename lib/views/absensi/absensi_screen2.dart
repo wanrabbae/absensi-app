@@ -36,7 +36,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
   );
   Map<String, dynamic>? izinData;
 
-  dynamic get currentAbsen => Get.arguments?["dataAbsen"] ?? {};
+  dynamic get currentAbsen => Get.arguments?["dataAbsen"] ?? <String, dynamic>{};
 
   Absence get absence => Absence.fromJson(currentAbsen);
 

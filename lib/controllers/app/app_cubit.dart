@@ -201,6 +201,7 @@ class AppCubit extends HydratedCubit<AppState> {
     bool approve, [
     double? latitude,
     double? longitude,
+    String? address,
   ]) {
     if (state.currentUser!.idkaryawan != null) {
       final name = state.currentUser!.name ?? 'Karyawan-$listenerId';
@@ -212,6 +213,7 @@ class AppCubit extends HydratedCubit<AppState> {
         requestApproved: approve,
         latitude: latitude,
         longitude: longitude,
+        address: address,
       )
           .then((tracking) {
         _sendPushNotification(

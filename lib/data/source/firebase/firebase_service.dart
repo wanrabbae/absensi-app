@@ -14,6 +14,9 @@ class FirebaseService {
   CollectionReference<Map<String, dynamic>> get _collectionLiveLocation =>
       _firestore.collection('live_location');
 
+  CollectionReference<Map<String, dynamic>> get _collectionLiveLocationLog =>
+      _firestore.collection('live_location_log');
+
   CollectionReference<Map<String, dynamic>> get _collectionToken =>
       _firestore.collection('tokens');
 
@@ -48,6 +51,7 @@ class FirebaseService {
     bool requestApproved = false,
     double? latitude,
     double? longitude,
+    String? address,
   }) async {
     final data = LiveTracking(
       broadcasterId: broadcasterId,
@@ -63,6 +67,17 @@ class FirebaseService {
         .where('listener_id', isEqualTo: listenerId)
         .limit(1)
         .get();
+
+    if (latitude != null && longitude != null && address != null) {
+      final log = {
+        'address': address,
+        'latitude': latitude,
+        'longitude': longitude,
+        'timestamp': DateTime.now(),
+        'user_id': broadcasterId,
+      };
+      _collectionLiveLocationLog.add(log).then((value) {}, onError: (e, s) {});
+    }
 
     if (snapshot.size > 0) {
       final doc = snapshot.docs.first;
