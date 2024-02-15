@@ -63,9 +63,8 @@ class _ListTile extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      _buildNamaKaryawan(isHadir, s, index),
-                      if (isHadir &&
-                          s.absen[index]["waktuCheckOut"] == null)
+                      _buildNamaKaryawan(context, isHadir, s, index),
+                      if (isHadir && s.absen[index]["waktuCheckOut"] == null)
                         Padding(
                           padding: const EdgeInsets.only(left: 8, bottom: 4),
                           child: Tooltip(
@@ -220,18 +219,23 @@ class _ListTile extends StatelessWidget {
     );
   }
 
-  Widget _buildNamaKaryawan(bool isHadir, s, int index) {
-    return Text(
-      isHadir
-          ? s.absen[index]['namaKaryawan']
-          : s.izin?[index]['namaKaryawan'],
-      overflow: TextOverflow.ellipsis,
-      maxLines: 1,
-      strutStyle: const StrutStyle(fontSize: 12.0),
-      style: const TextStyle(
-        color: Colors.black,
-        fontWeight: FontWeight.w700,
-        fontSize: 16,
+  Widget _buildNamaKaryawan(BuildContext context, bool isHadir, s, int index) {
+    return Container(
+      constraints: BoxConstraints(
+        maxWidth: MediaQuery.of(context).size.width * 0.5,
+      ),
+      child: Text(
+        isHadir
+            ? s.absen[index]['namaKaryawan']
+            : s.izin?[index]['namaKaryawan'],
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
+        strutStyle: const StrutStyle(fontSize: 12.0),
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.w700,
+          fontSize: 16,
+        ),
       ),
     );
   }
