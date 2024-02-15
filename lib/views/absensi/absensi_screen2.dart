@@ -162,7 +162,7 @@ class _AbsensiScreenViewState extends State<AbsensiScreenView>
                         onPressed: () {
                           Get.toNamed(
                             RouteName.absenLocationLog,
-                            arguments: absence.idKaryawan,
+                            arguments: absence,
                           );
                         },
                         icon: const Icon(

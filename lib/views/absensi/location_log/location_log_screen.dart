@@ -1,10 +1,12 @@
-import 'package:app/components/component_modal.dart';
 import 'package:app/components/empty_view.dart';
 import 'package:app/controllers/live_location_log/live_location_log_cubit.dart';
+import 'package:app/global_resource.dart';
+import 'package:app/helpers/notification_local.dart';
 import 'package:app/views/absensi/location_log/location_log_tile.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
 
 class LocationLogScreen extends StatefulWidget {
   const LocationLogScreen({super.key});
@@ -14,6 +16,8 @@ class LocationLogScreen extends StatefulWidget {
 }
 
 class _LocationLogScreenState extends State<LocationLogScreen> {
+  final screenshotController = ScreenshotController();
+
   @override
   void initState() {
     super.initState();
@@ -25,8 +29,81 @@ class _LocationLogScreenState extends State<LocationLogScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
+    final cubit = context.read<LiveLocationLogCubit>();
+    final attendance = cubit.attendance;
+    final img = attendance.fotoKaryawan;
+    final name = attendance.namaKaryawan ?? '';
+
+    final child = Scaffold(
+      appBar: AppBar(
+        titleSpacing: 0,
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            img != null
+                ? CircleAvatar(
+                    backgroundImage: NetworkImage(changeUrlImage(img)),
+                    radius: 15,
+                  )
+                : const CircleAvatar(
+                    backgroundImage: AssetImage('assets/icons/logo/hora.png'),
+                    radius: 15,
+                  ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                name,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          BlocBuilder<LiveLocationLogCubit, LiveLocationLogState>(
+            builder: (context, state) {
+              final showData = state.data != null &&
+                  state.data!.isNotEmpty &&
+                  state.error == null;
+              return IconButton(
+                onPressed: !showData
+                    ? null
+                    : () async {
+                        final pixelRatio =
+                            MediaQuery.of(context).devicePixelRatio;
+                        final path =
+                            (await getApplicationDocumentsDirectory()).path;
+                        final fileName =
+                            '${DateTime.now().microsecondsSinceEpoch}.png';
+                        screenshotController
+                            .captureAndSave(
+                          path,
+                          fileName: fileName,
+                          pixelRatio: pixelRatio,
+                        )
+                            .then((savePath) {
+                          if (savePath != null) {
+                            AwesomeNotificationService()
+                                .showNotificationCapture(path: savePath);
+                          }
+                        }).catchError((onError) {
+                          if (kDebugMode) {
+                            print(onError);
+                          }
+                        });
+                      },
+                icon: Image.asset(
+                  'assets/icons/ic_screen_shot.png',
+                  color: colorBluePrimary,
+                  height: 24,
+                  width: 24,
+                ),
+              );
+            },
+          ),
+          const SizedBox(width: 12),
+        ],
+      ),
       body: BlocBuilder<LiveLocationLogCubit, LiveLocationLogState>(
         builder: (context, state) {
           final data = state.data;
@@ -78,6 +155,11 @@ class _LocationLogScreenState extends State<LocationLogScreen> {
           ),
         ),
       ),
+    );
+
+    return Screenshot(
+      controller: screenshotController,
+      child: child,
     );
   }
 }
