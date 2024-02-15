@@ -1199,6 +1199,7 @@ class _MainTabBar extends StatelessWidget {
         Tab(child: Text(tr('present'))),
         Tab(child: Text(tr('go_home'))),
       ],
+      tabAlignment: TabAlignment.center,
     );
   }
 }
