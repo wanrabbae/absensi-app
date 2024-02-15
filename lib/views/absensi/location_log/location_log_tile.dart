@@ -57,7 +57,10 @@ class LocationLogTile extends StatelessWidget {
                     color: first ? colorBluePrimary : null,
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                     border: first
-                        ? null
+                        ? Border.all(
+                            color: colorBluePrimary,
+                            width: 2,
+                          )
                         : Border.all(
                             color: Colors.black,
                             width: 2,
