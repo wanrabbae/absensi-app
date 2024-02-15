@@ -32,6 +32,11 @@ class _MainScreenState extends State<MainScreen> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AppCubit>()
+        ..checkForUpdates(context.locale.countryCode!).then((result) {
+          if (result.canUpdate == true) {
+            Get.toNamed(RouteName.appUpdate, arguments: result);
+          }
+        })
         ..updateTokenFcm()
         ..getAllowLocationAlwaysPermission();
     });

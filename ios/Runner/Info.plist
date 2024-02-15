@@ -35,6 +35,11 @@
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+	    <key>NSAllowsArbitraryLoads</key>
+	    <true/>
+    </dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Aplikasi Hora memerlukan akses kamera untuk mengambil foto/selfie untuk keperluan data absensi.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>

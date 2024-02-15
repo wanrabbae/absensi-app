@@ -17,6 +17,7 @@ import 'package:app/views/home/klaim/klaim_image_viewer.dart';
 import 'package:app/views/home/main_screen.dart';
 import 'package:app/views/home/stop_working_screen.dart';
 import 'package:app/views/management/data_management_page.dart';
+import 'package:app/views/tutorial/app_update_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Routes {
@@ -27,6 +28,7 @@ class Routes {
 
     // region Tutorial
     GetPage(name: RouteName.tutorial, page: () => const TutorialScreen()),
+    GetPage(name: RouteName.appUpdate, page: () => const AppUpdateScreen()),
     // endregion Tutorial
 
     // region Greeting

@@ -171,5 +171,8 @@
   "snackbar_email_not_registered": "Email is not registered",
   "snackbar_check_inbox": "Plesae check your email inbox.",
   "location_history": "Location History",
-  "live_location_log_footer": "Tap location to open map"
+  "live_location_log_footer": "Tap location to open map",
+  "app_update": "Latest version Hora is ready!",
+  "app_update_button_skip": "Skip",
+  "app_update_button_update": "Update"
 }

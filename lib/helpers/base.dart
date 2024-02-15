@@ -59,6 +59,7 @@ abstract class RouteName {
 
   //Tutorial Screen
   static const tutorial = "/tutorial_screen";
+  static const appUpdate = "/app_update";
 
   //Onboarding Screen
   static const onboarding = "/onboarding_screen";

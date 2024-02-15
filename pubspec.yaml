@@ -54,6 +54,7 @@ dependencies:
   timezone: ^0.9.2
   timeline_tile: ^2.0.0
   screenshot: ^2.1.0
+  app_version_update: ^4.0.1
 
 dev_dependencies:
   flutter_test:

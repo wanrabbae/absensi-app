@@ -171,5 +171,8 @@
   "snackbar_email_not_registered": "Email anda belum terdaftar",
   "snackbar_check_inbox": "Periksa kotak masuk email anda",
   "location_history": "Riwayat Lokasi",
-  "live_location_log_footer": "Sentuh lokasi untuk membuka peta"
+  "live_location_log_footer": "Sentuh lokasi untuk membuka peta",
+  "app_update": "Versi terbaru Hora\ntelah tersedia!",
+  "app_update_button_skip": "Lewati",
+  "app_update_button_update": "Perbarui"
 }
