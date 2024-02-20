@@ -15,6 +15,7 @@ const colorBlackPrimaryHalf = Color(0x80333333);
 const colorDivider = Color(0xFF7D7D7D);
 const colorDisabled = Color(0xFFD9D9D9);
 const colorSplash = Color(0xFFE8F0FC);
+const colorSplash30 = Color(0x4DE8F0FC);
 const LatLng currentLatLng = LatLng(-6.175221730228861, 106.827163526188);
 
 Widget dialogViewImage(BuildContext context, String url, bool local) {

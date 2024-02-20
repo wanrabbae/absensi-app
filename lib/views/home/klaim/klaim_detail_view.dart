@@ -77,6 +77,8 @@ class KlaimDetailView extends StatelessWidget {
                 focusedBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: colorBluePrimary, width: 2),
                 ),
+                fillColor: colorSplash30,
+                filled: true,
               ),
               readOnly: true,
               minLines: 5,

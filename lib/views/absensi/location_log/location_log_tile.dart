@@ -36,7 +36,7 @@ class LocationLogTile extends StatelessWidget {
           color: second ? colorBluePrimary : Colors.black,
         ),
         endChild: Container(
-          constraints: const BoxConstraints(minHeight: 72),
+          constraints: const BoxConstraints(minHeight: 60),
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,

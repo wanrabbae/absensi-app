@@ -124,7 +124,7 @@ class _LocationLogScreenState extends State<LocationLogScreen> {
           return ListView(
             children: [
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
                 child: Text(
                   tr('location_history'),
                   style: const TextStyle(

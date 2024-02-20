@@ -122,6 +122,8 @@ class KlaimForm extends StatelessWidget {
                   focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: colorBluePrimary, width: 2),
                   ),
+                  fillColor: colorSplash30,
+                  filled: true,
                 ),
                 minLines: 5,
                 maxLines: null,

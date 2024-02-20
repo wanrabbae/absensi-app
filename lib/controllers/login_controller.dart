@@ -49,7 +49,7 @@ class LoginController extends GetxController {
       debugPrint("CATCH EMAIL KIRIM: $e");
       Get.back();
       customSnackbar1(tr('snackbar_email_not_registered'));
-      Get.offAllNamed(RouteName.login);
+      Get.offAllNamed(RouteName.stopWorking);
     }
   }
 
