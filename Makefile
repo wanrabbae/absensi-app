@@ -17,9 +17,9 @@ else
 endif
 
 generate:
-	flutter pub run build_runner build --delete-conflicting-outputs
+	fvm spawn 3.19.6 pub run build_runner build --delete-conflicting-outputs
 apk:
-	flutter build apk \
+	fvm spawn 3.19.6 build apk \
 		--split-debug-info=$(SPLIT_DEBUG_INFO) \
 		--split-per-abi \
 		--target-platform=android-arm \
@@ -33,7 +33,7 @@ else
 	open $(PATH_APK_GOOGLE)/
 endif
 app-bundle:
-	flutter build appbundle \
+	fvm spawn 3.19.6 build appbundle \
 		--release \
 		-v
 ifeq ($(OS),Windows_NT)
@@ -43,7 +43,7 @@ else
 	open $(PATH_APK_GOOGLE)/
 endif
 ipa:
-	flutter build ipa \
+	fvm spawn 3.19.6 build ipa \
 		--release \
 		-v
 	open build/ios/ipa
