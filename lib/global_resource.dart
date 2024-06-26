@@ -165,6 +165,9 @@ initialize() async {
   final pushNotificationApi = PushNotificationApiService(
     kDio
       ..options.contentType = Headers.jsonContentType
+      ..options.validateStatus = (status) {
+        return true;
+      }
       ..options.headers = {
         'X-Hora-Api-Key': '019DB7E5-2EA7-4920-A8C5-E7CFF8105FDC',
       },
