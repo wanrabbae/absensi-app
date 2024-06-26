@@ -14,7 +14,7 @@ import 'package:app/views/home/hadir_result_selfie_screen.dart';
 import 'package:app/views/home/klaim/klaim_detail_view.dart';
 import 'package:app/views/home/klaim/klaim_form.dart';
 import 'package:app/views/home/klaim/klaim_image_viewer.dart';
-import 'package:app/views/home/main_screen.dart';
+import 'package:app/views/dashboard/dashboard_screen.dart';
 import 'package:app/views/home/stop_working_screen.dart';
 import 'package:app/views/management/data_management_page.dart';
 import 'package:app/views/tutorial/app_update_screen.dart';

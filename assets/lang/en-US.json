@@ -1,4 +1,6 @@
 {
+  "menu_office": "Office",
+  "menu_search": "Search",
   "menu_work": "Work",
   "menu_profile": "Profile",
   "profile_delete_confirmation": "Would you want to delete your profile?",
