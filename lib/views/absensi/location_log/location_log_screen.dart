@@ -1,4 +1,4 @@
-import 'package:app/components/empty_view.dart';
+import 'package:app/presentation/widgets/empty_view.dart';
 import 'package:app/controllers/live_location_log/live_location_log_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';

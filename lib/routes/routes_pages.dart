@@ -3,6 +3,7 @@ import 'package:app/controllers/klaim/form/klaim_form_cubit.dart';
 import 'package:app/controllers/live_location_log/live_location_log_cubit.dart';
 import 'package:app/controllers/management/management_cubit.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/views/dashboard/dashboard_screen.dart';
 import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
 import 'package:app/views/absensi/absensi_pulang_screen.dart';
 import 'package:app/views/absensi/absensi_screen2.dart';
@@ -14,7 +15,6 @@ import 'package:app/views/home/hadir_result_selfie_screen.dart';
 import 'package:app/views/home/klaim/klaim_detail_view.dart';
 import 'package:app/views/home/klaim/klaim_form.dart';
 import 'package:app/views/home/klaim/klaim_image_viewer.dart';
-import 'package:app/views/dashboard/dashboard_screen.dart';
 import 'package:app/views/home/stop_working_screen.dart';
 import 'package:app/views/management/data_management_page.dart';
 import 'package:app/views/tutorial/app_update_screen.dart';
@@ -44,7 +44,7 @@ class Routes {
 
     // region Home
     // Home
-    GetPage(name: RouteName.home, page: () => const MainScreen()),
+    GetPage(name: RouteName.home, page: () => const DashboardScreen()),
     // Home
     GetPage(name: RouteName.homeSearch, page: () => const HomeSearchScreen()),
     // Home Undangan

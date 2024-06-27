@@ -1,5 +1,5 @@
-import 'package:app/components/component_modal.dart';
 import 'package:app/core/enums.dart';
+import 'package:app/core/themes.dart';
 import 'package:flutter/material.dart';
 
 class HomeTabView extends StatelessWidget {

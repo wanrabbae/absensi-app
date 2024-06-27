@@ -336,18 +336,22 @@ DecorationImage networkImage(String url, file) {
 }
 
 Widget buildImageSizeIcon(BuildContext context, String url) {
+  final ImageProvider image = url.startsWith('http')
+      ? NetworkImage(url)
+      : AssetImage(url) as ImageProvider<Object>;
+
   return Container(
     width: 30,
     height: 30,
     decoration: BoxDecoration(
-        color: Colors.blue,
-        image: DecorationImage(
-            filterQuality: FilterQuality.high,
-            image: NetworkImage(
-              url,
-            ),
-            fit: BoxFit.cover),
-        borderRadius: BorderRadius.circular(20)),
+      color: Colors.blue,
+      image: DecorationImage(
+        filterQuality: FilterQuality.high,
+        image: image,
+        fit: BoxFit.cover,
+      ),
+      borderRadius: BorderRadius.circular(20),
+    ),
   );
 }
 

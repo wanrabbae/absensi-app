@@ -92,7 +92,7 @@ Future<File> readAssetFile(String assetContent, String fileName) async {
   return tempFile;
 }
 
-changeUrlImage(data) {
+changeUrlImage(String data) {
   return data.replaceAll("wwwroot/", Base.url).toLowerCase();
 }
 

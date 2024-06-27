@@ -38,6 +38,10 @@ export 'package:app/controllers/login_controller.dart';
 export 'package:app/controllers/profile_controller.dart';
 export 'package:app/controllers/splash_controller.dart';
 
+// core
+export 'package:app/core/enums.dart';
+export 'package:app/core/themes.dart';
+
 //Helpers
 export 'package:app/helpers/base.dart';
 export 'package:app/helpers/color_scheme.dart';

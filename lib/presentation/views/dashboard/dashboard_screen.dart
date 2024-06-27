@@ -1,19 +1,20 @@
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/views/offfice/office_screen.dart';
 import 'package:app/services/push_notification_service.dart';
-import 'package:app/views/dashboard/dashboard_navigation_bar.dart';
-import 'package:app/views/offfice/office_screen.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+import 'dashboard_navigation_bar.dart';
+
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _MainScreenState extends State<MainScreen>
+class _DashboardScreenState extends State<DashboardScreen>
     with SingleTickerProviderStateMixin {
   late final TabController tabController;
 
@@ -55,7 +56,7 @@ class _MainScreenState extends State<MainScreen>
   @override
   void dispose() {
     tabController.dispose();
-    
+
     super.dispose();
   }
 
@@ -70,7 +71,7 @@ class _MainScreenState extends State<MainScreen>
         controller: tabController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          const OfficeScreen(),
+          const DefaultTabController(length: 4, child: OfficeScreen()),
           const HomeSearchScreen(),
           activeAttendanceDate != null
               ? HomeScreen(activeAttendanceDate: activeAttendanceDate)

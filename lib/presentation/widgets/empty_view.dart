@@ -1,6 +1,5 @@
+import 'package:app/core/themes.dart';
 import 'package:flutter/material.dart';
-
-import 'component_modal.dart';
 
 class EmptyView extends StatelessWidget {
   const EmptyView({
