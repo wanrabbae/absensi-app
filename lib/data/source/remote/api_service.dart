@@ -4,6 +4,7 @@ import 'package:app/data/models/absence.dart';
 import 'package:app/data/models/company.dart';
 import 'package:app/data/models/klaim/klaim.dart';
 import 'package:app/data/models/profile.dart';
+import 'package:app/data/models/report/report.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:retrofit/http.dart';
@@ -92,5 +93,26 @@ mixin $Report {
     @Query("tglend") required String end,
     @Query("emailrep") required String email,
     @Query("Status") required String status,
+  });
+
+  @GET('api/absensi/HomeI')
+  Future<List<Report>> getPermitList({
+    @Query("idperusahaan") required String idperusahaan,
+    @Query("tglstart") required String start,
+    @Query("tglend") required String end,
+  });
+
+  @GET('api/absensi/HomeC')
+  Future<List<Report>> getLeaveList({
+    @Query("idperusahaan") required String idperusahaan,
+    @Query("tglstart") required String start,
+    @Query("tglend") required String end,
+  });
+
+  @GET('api/absensi/HomeS')
+  Future<List<Report>> getSickList({
+    @Query("idperusahaan") required String idperusahaan,
+    @Query("tglstart") required String start,
+    @Query("tglend") required String end,
   });
 }

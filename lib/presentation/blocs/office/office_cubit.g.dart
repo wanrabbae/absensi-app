@@ -15,6 +15,9 @@ _$OfficeStateImpl _$$OfficeStateImplFromJson(Map<String, dynamic> json) =>
           ? const OfficeAttendance()
           : OfficeAttendance.fromJson(
               json['attendance'] as Map<String, dynamic>),
+      permit: json['permit'] == null
+          ? const OfficePermit()
+          : OfficePermit.fromJson(json['permit'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$OfficeStateImplToJson(_$OfficeStateImpl instance) {
@@ -28,6 +31,7 @@ Map<String, dynamic> _$$OfficeStateImplToJson(_$OfficeStateImpl instance) {
 
   writeNotNull('selectedDate', instance.selectedDate?.toIso8601String());
   val['attendance'] = instance.attendance.toJson();
+  val['permit'] = instance.permit.toJson();
   return val;
 }
 
@@ -56,6 +60,29 @@ Map<String, dynamic> _$$OfficeAttendanceImplToJson(
   writeNotNull('currentAttendance', instance.currentAttendance?.toJson());
   writeNotNull('listAttendance',
       instance.listAttendance?.map((e) => e.toJson()).toList());
+  writeNotNull('error', instance.error);
+  return val;
+}
+
+_$OfficePermitImpl _$$OfficePermitImplFromJson(Map<String, dynamic> json) =>
+    _$OfficePermitImpl(
+      listPermit: (json['listPermit'] as List<dynamic>?)
+          ?.map((e) => Report.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      error: json['error'] as String?,
+    );
+
+Map<String, dynamic> _$$OfficePermitImplToJson(_$OfficePermitImpl instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull(
+      'listPermit', instance.listPermit?.map((e) => e.toJson()).toList());
   writeNotNull('error', instance.error);
   return val;
 }

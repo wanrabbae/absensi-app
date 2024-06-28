@@ -1,5 +1,6 @@
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/data/models/absence.dart';
+import 'package:app/data/models/report/report.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/global_resource.dart';
 import 'package:bloc/bloc.dart';
@@ -28,7 +29,9 @@ class OfficeCubit extends Cubit<OfficeState> {
       emit(state.copyWith(selectedDate: DateTime.now()));
     }
 
-    return reloadAttendance();
+    return reloadAttendance().then((_) {
+      return getCurrentPermitList();
+    });
   }
 
   Future<void> reloadAttendance() {
@@ -101,6 +104,38 @@ class OfficeCubit extends Cubit<OfficeState> {
       emit(state.copyWith(
         attendance: state.attendance.copyWith(
           listAttendance: null,
+          error: e is DioError ? e.message ?? 'Error' : 'Data not found',
+        ),
+      ));
+    });
+  }
+
+  Future<void> getCurrentPermitList() async {
+    final company = app.state.company;
+    final idperusahaan = company.id;
+
+    final DateTime date = state.selectedDate!;
+
+    final tglStart = DateTime(date.year, date.month, date.day).toUtc();
+    final start = kQueryRangeDateFormat.format(tglStart);
+
+    final tglEnd =
+        DateTime(date.year, date.month, date.day, 23, 59, 59).toUtc();
+    final end = kQueryRangeDateFormat.format(tglEnd);
+
+    return api
+        .getPermitList(idperusahaan: idperusahaan, start: start, end: end)
+        .then((permits) {
+      emit(state.copyWith(
+        permit: state.permit.copyWith(
+          listPermit: permits,
+          error: null,
+        ),
+      ));
+    }, onError: (e, __) {
+      emit(state.copyWith(
+        permit: state.permit.copyWith(
+          listPermit: null,
           error: e is DioError ? e.message ?? 'Error' : 'Data not found',
         ),
       ));

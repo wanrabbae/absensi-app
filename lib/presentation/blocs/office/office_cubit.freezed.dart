@@ -22,6 +22,7 @@ OfficeState _$OfficeStateFromJson(Map<String, dynamic> json) {
 mixin _$OfficeState {
   DateTime? get selectedDate => throw _privateConstructorUsedError;
   OfficeAttendance get attendance => throw _privateConstructorUsedError;
+  OfficePermit get permit => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,9 +36,13 @@ abstract class $OfficeStateCopyWith<$Res> {
           OfficeState value, $Res Function(OfficeState) then) =
       _$OfficeStateCopyWithImpl<$Res, OfficeState>;
   @useResult
-  $Res call({DateTime? selectedDate, OfficeAttendance attendance});
+  $Res call(
+      {DateTime? selectedDate,
+      OfficeAttendance attendance,
+      OfficePermit permit});
 
   $OfficeAttendanceCopyWith<$Res> get attendance;
+  $OfficePermitCopyWith<$Res> get permit;
 }
 
 /// @nodoc
@@ -55,6 +60,7 @@ class _$OfficeStateCopyWithImpl<$Res, $Val extends OfficeState>
   $Res call({
     Object? selectedDate = freezed,
     Object? attendance = null,
+    Object? permit = null,
   }) {
     return _then(_value.copyWith(
       selectedDate: freezed == selectedDate
@@ -65,6 +71,10 @@ class _$OfficeStateCopyWithImpl<$Res, $Val extends OfficeState>
           ? _value.attendance
           : attendance // ignore: cast_nullable_to_non_nullable
               as OfficeAttendance,
+      permit: null == permit
+          ? _value.permit
+          : permit // ignore: cast_nullable_to_non_nullable
+              as OfficePermit,
     ) as $Val);
   }
 
@@ -73,6 +83,14 @@ class _$OfficeStateCopyWithImpl<$Res, $Val extends OfficeState>
   $OfficeAttendanceCopyWith<$Res> get attendance {
     return $OfficeAttendanceCopyWith<$Res>(_value.attendance, (value) {
       return _then(_value.copyWith(attendance: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OfficePermitCopyWith<$Res> get permit {
+    return $OfficePermitCopyWith<$Res>(_value.permit, (value) {
+      return _then(_value.copyWith(permit: value) as $Val);
     });
   }
 }
@@ -85,10 +103,15 @@ abstract class _$$OfficeStateImplCopyWith<$Res>
       __$$OfficeStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({DateTime? selectedDate, OfficeAttendance attendance});
+  $Res call(
+      {DateTime? selectedDate,
+      OfficeAttendance attendance,
+      OfficePermit permit});
 
   @override
   $OfficeAttendanceCopyWith<$Res> get attendance;
+  @override
+  $OfficePermitCopyWith<$Res> get permit;
 }
 
 /// @nodoc
@@ -104,6 +127,7 @@ class __$$OfficeStateImplCopyWithImpl<$Res>
   $Res call({
     Object? selectedDate = freezed,
     Object? attendance = null,
+    Object? permit = null,
   }) {
     return _then(_$OfficeStateImpl(
       selectedDate: freezed == selectedDate
@@ -114,6 +138,10 @@ class __$$OfficeStateImplCopyWithImpl<$Res>
           ? _value.attendance
           : attendance // ignore: cast_nullable_to_non_nullable
               as OfficeAttendance,
+      permit: null == permit
+          ? _value.permit
+          : permit // ignore: cast_nullable_to_non_nullable
+              as OfficePermit,
     ));
   }
 }
@@ -122,7 +150,9 @@ class __$$OfficeStateImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$OfficeStateImpl implements _OfficeState {
   const _$OfficeStateImpl(
-      {this.selectedDate, this.attendance = const OfficeAttendance()});
+      {this.selectedDate,
+      this.attendance = const OfficeAttendance(),
+      this.permit = const OfficePermit()});
 
   factory _$OfficeStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$OfficeStateImplFromJson(json);
@@ -132,10 +162,13 @@ class _$OfficeStateImpl implements _OfficeState {
   @override
   @JsonKey()
   final OfficeAttendance attendance;
+  @override
+  @JsonKey()
+  final OfficePermit permit;
 
   @override
   String toString() {
-    return 'OfficeState(selectedDate: $selectedDate, attendance: $attendance)';
+    return 'OfficeState(selectedDate: $selectedDate, attendance: $attendance, permit: $permit)';
   }
 
   @override
@@ -146,12 +179,14 @@ class _$OfficeStateImpl implements _OfficeState {
             (identical(other.selectedDate, selectedDate) ||
                 other.selectedDate == selectedDate) &&
             (identical(other.attendance, attendance) ||
-                other.attendance == attendance));
+                other.attendance == attendance) &&
+            (identical(other.permit, permit) || other.permit == permit));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, selectedDate, attendance);
+  int get hashCode =>
+      Object.hash(runtimeType, selectedDate, attendance, permit);
 
   @JsonKey(ignore: true)
   @override
@@ -170,7 +205,8 @@ class _$OfficeStateImpl implements _OfficeState {
 abstract class _OfficeState implements OfficeState {
   const factory _OfficeState(
       {final DateTime? selectedDate,
-      final OfficeAttendance attendance}) = _$OfficeStateImpl;
+      final OfficeAttendance attendance,
+      final OfficePermit permit}) = _$OfficeStateImpl;
 
   factory _OfficeState.fromJson(Map<String, dynamic> json) =
       _$OfficeStateImpl.fromJson;
@@ -179,6 +215,8 @@ abstract class _OfficeState implements OfficeState {
   DateTime? get selectedDate;
   @override
   OfficeAttendance get attendance;
+  @override
+  OfficePermit get permit;
   @override
   @JsonKey(ignore: true)
   _$$OfficeStateImplCopyWith<_$OfficeStateImpl> get copyWith =>
@@ -390,5 +428,170 @@ abstract class _OfficeAttendance implements OfficeAttendance {
   @override
   @JsonKey(ignore: true)
   _$$OfficeAttendanceImplCopyWith<_$OfficeAttendanceImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+OfficePermit _$OfficePermitFromJson(Map<String, dynamic> json) {
+  return _OfficePermit.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OfficePermit {
+  List<Report>? get listPermit => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OfficePermitCopyWith<OfficePermit> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OfficePermitCopyWith<$Res> {
+  factory $OfficePermitCopyWith(
+          OfficePermit value, $Res Function(OfficePermit) then) =
+      _$OfficePermitCopyWithImpl<$Res, OfficePermit>;
+  @useResult
+  $Res call({List<Report>? listPermit, String? error});
+}
+
+/// @nodoc
+class _$OfficePermitCopyWithImpl<$Res, $Val extends OfficePermit>
+    implements $OfficePermitCopyWith<$Res> {
+  _$OfficePermitCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? listPermit = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_value.copyWith(
+      listPermit: freezed == listPermit
+          ? _value.listPermit
+          : listPermit // ignore: cast_nullable_to_non_nullable
+              as List<Report>?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$OfficePermitImplCopyWith<$Res>
+    implements $OfficePermitCopyWith<$Res> {
+  factory _$$OfficePermitImplCopyWith(
+          _$OfficePermitImpl value, $Res Function(_$OfficePermitImpl) then) =
+      __$$OfficePermitImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Report>? listPermit, String? error});
+}
+
+/// @nodoc
+class __$$OfficePermitImplCopyWithImpl<$Res>
+    extends _$OfficePermitCopyWithImpl<$Res, _$OfficePermitImpl>
+    implements _$$OfficePermitImplCopyWith<$Res> {
+  __$$OfficePermitImplCopyWithImpl(
+      _$OfficePermitImpl _value, $Res Function(_$OfficePermitImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? listPermit = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_$OfficePermitImpl(
+      listPermit: freezed == listPermit
+          ? _value._listPermit
+          : listPermit // ignore: cast_nullable_to_non_nullable
+              as List<Report>?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$OfficePermitImpl implements _OfficePermit {
+  const _$OfficePermitImpl({final List<Report>? listPermit, this.error})
+      : _listPermit = listPermit;
+
+  factory _$OfficePermitImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OfficePermitImplFromJson(json);
+
+  final List<Report>? _listPermit;
+  @override
+  List<Report>? get listPermit {
+    final value = _listPermit;
+    if (value == null) return null;
+    if (_listPermit is EqualUnmodifiableListView) return _listPermit;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? error;
+
+  @override
+  String toString() {
+    return 'OfficePermit(listPermit: $listPermit, error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OfficePermitImpl &&
+            const DeepCollectionEquality()
+                .equals(other._listPermit, _listPermit) &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_listPermit), error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OfficePermitImplCopyWith<_$OfficePermitImpl> get copyWith =>
+      __$$OfficePermitImplCopyWithImpl<_$OfficePermitImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$OfficePermitImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OfficePermit implements OfficePermit {
+  const factory _OfficePermit(
+      {final List<Report>? listPermit,
+      final String? error}) = _$OfficePermitImpl;
+
+  factory _OfficePermit.fromJson(Map<String, dynamic> json) =
+      _$OfficePermitImpl.fromJson;
+
+  @override
+  List<Report>? get listPermit;
+  @override
+  String? get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$OfficePermitImplCopyWith<_$OfficePermitImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
