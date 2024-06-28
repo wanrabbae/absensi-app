@@ -17,7 +17,7 @@ class HoraButton extends ElevatedButton {
               borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
             textStyle: const TextStyle(
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.bold,
               fontFamily: kGlobalFontFamily,
             ),

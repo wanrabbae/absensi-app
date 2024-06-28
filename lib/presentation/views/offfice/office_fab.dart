@@ -146,7 +146,7 @@ class AddFAB extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FloatingActionButton.small(
+    return FloatingActionButton(
       onPressed: () {},
       backgroundColor: colorBluePrimary2,
       foregroundColor: Colors.white,
