@@ -126,7 +126,7 @@ export 'package:flutter/material.dart';
 export 'package:flutter_feather_icons/flutter_feather_icons.dart';
 export 'package:geocoding/geocoding.dart';
 export 'package:geolocator/geolocator.dart';
-export 'package:get/get.dart';
+export 'package:get/get.dart' hide MapExtension;
 export 'package:get_storage/get_storage.dart';
 export 'package:google_maps_flutter/google_maps_flutter.dart';
 export 'package:hooks_riverpod/hooks_riverpod.dart'

@@ -70,7 +70,9 @@ class MainTheme {
       colorScheme: lightColorScheme,
       inputDecorationTheme: _kInputDecorationTheme,
       fontFamily: kGlobalFontFamily,
+      scaffoldBackgroundColor: Colors.white,
       appBarTheme: AppBarTheme(
+        backgroundColor: Colors.white,
         titleTextStyle: theme.primaryTextTheme.titleLarge?.copyWith(
           fontSize: 16,
           fontFamily: kGlobalFontFamily,

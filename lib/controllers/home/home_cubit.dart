@@ -43,7 +43,7 @@ class HomeCubit extends Cubit<HomeState> {
     } catch (e) {
       String error = e.toString();
       if (e is DioError) {
-        error = e.message;
+        error = e.message ?? 'Error';
       }
       emit(state.copyWith(klaimError: error));
     }

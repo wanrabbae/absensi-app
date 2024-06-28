@@ -1,7 +1,10 @@
 import 'package:app/global_resource.dart';
-import 'package:app/presentation/widgets/appbar.dart';
+import 'package:app/presentation/blocs/office/office_cubit.dart';
+import 'package:app/presentation/views/offfice/office_appbar.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'leave/leave_view.dart';
+import 'office_fab.dart';
 import 'permit/permit_view.dart';
 import 'present/present_view.dart';
 import 'sick/sick_view.dart';
@@ -16,17 +19,30 @@ class OfficeScreen extends StatefulWidget {
 class _OfficeScreenState extends State<OfficeScreen>
     with AutomaticKeepAliveClientMixin {
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<OfficeCubit>().reloadData();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: HoraAppBar(context, bottom: _buildBottomAppBar()),
+      appBar: OfficeAppBar(context, bottom: _buildBottomAppBar()),
       body: const TabBarView(
+        physics: NeverScrollableScrollPhysics(),
         children: [
           PresentView(),
           LeaveView(),
           PermitView(),
           SickView(),
         ],
+      ),
+      floatingActionButton: OfficeFAB(
+        controller: DefaultTabController.of(context),
       ),
     );
   }

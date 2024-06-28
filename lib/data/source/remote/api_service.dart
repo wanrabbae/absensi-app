@@ -48,6 +48,13 @@ mixin $Attendance {
     @Query("tglstart") required String start,
     @Query("tglend") required String end,
   });
+
+  @GET('api/absensi/HomeA')
+  Future<List<Absence>> getAttendanceList({
+    @Query("idperusahaan") required String idperusahaan,
+    @Query("tglstart") required String start,
+    @Query("tglend") required String end,
+  });
 }
 
 mixin $Reimburse {

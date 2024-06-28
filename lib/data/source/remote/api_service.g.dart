@@ -19,11 +19,11 @@ class _ApiService implements ApiService {
   String? baseUrl;
 
   @override
-  Future<List<Company>> getCompany({required email}) async {
-    const _extra = <String, dynamic>{};
+  Future<List<Company>> getCompany({required String email}) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'email': email};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<Company>>(Options(
       method: 'GET',
@@ -36,7 +36,11 @@ class _ApiService implements ApiService {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     var value = _result.data!
         .map((dynamic i) => Company.fromJson(i as Map<String, dynamic>))
         .toList();
@@ -45,16 +49,16 @@ class _ApiService implements ApiService {
 
   @override
   Future<String> toggleLikeUnlike({
-    required karyawanId,
-    required perusahaanId,
+    required String karyawanId,
+    required String perusahaanId,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'karyawanid': karyawanId,
       r'perusahaanid': perusahaanId,
     };
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
       method: 'PUT',
       headers: _headers,
@@ -66,17 +70,21 @@ class _ApiService implements ApiService {
           queryParameters: queryParameters,
           data: _data,
         )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
     final value = _result.data!;
     return value;
   }
 
   @override
-  Future<String> stopWorking({required email}) async {
-    const _extra = <String, dynamic>{};
+  Future<String> stopWorking({required String email}) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'email': email};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
       method: 'PUT',
       headers: _headers,
@@ -88,17 +96,21 @@ class _ApiService implements ApiService {
           queryParameters: queryParameters,
           data: _data,
         )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
     final value = _result.data!;
     return value;
   }
 
   @override
-  Future<Profile> getProfile({required email}) async {
-    const _extra = <String, dynamic>{};
+  Future<Profile> getProfile({required String email}) async {
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'email': email};
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<Profile>(Options(
       method: 'GET',
@@ -111,25 +123,29 @@ class _ApiService implements ApiService {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     final value = Profile.fromJson(_result.data!);
     return value;
   }
 
   @override
   Future<List<Absence>> getAttendance({
-    required idkaryawan,
-    required start,
-    required end,
+    required String idkaryawan,
+    required String start,
+    required String end,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'idkaryawan': idkaryawan,
       r'tglstart': start,
       r'tglend': end,
     };
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<Absence>>(Options(
       method: 'GET',
@@ -142,7 +158,48 @@ class _ApiService implements ApiService {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => Absence.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<List<Absence>> getAttendanceList({
+    required String idperusahaan,
+    required String start,
+    required String end,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'idperusahaan': idperusahaan,
+      r'tglstart': start,
+      r'tglend': end,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Absence>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'api/absensi/HomeA',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     var value = _result.data!
         .map((dynamic i) => Absence.fromJson(i as Map<String, dynamic>))
         .toList();
@@ -151,18 +208,18 @@ class _ApiService implements ApiService {
 
   @override
   Future<List<Klaim>> getReimburse({
-    required idPerusahaan,
-    required start,
-    required end,
+    required String idPerusahaan,
+    required String start,
+    required String end,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'idperusahaan': idPerusahaan,
       r'tglstart': start,
       r'tglend': end,
     };
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<List<dynamic>>(_setStreamType<List<Klaim>>(Options(
       method: 'GET',
@@ -175,7 +232,11 @@ class _ApiService implements ApiService {
               queryParameters: queryParameters,
               data: _data,
             )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
     var value = _result.data!
         .map((dynamic i) => Klaim.fromJson(i as Map<String, dynamic>))
         .toList();
@@ -184,14 +245,14 @@ class _ApiService implements ApiService {
 
   @override
   Future<dynamic> submitReimburse({
-    required idKaryawan,
-    required namaKaryawan,
-    required keterangan,
-    required idPerusahaan,
-    required namaPerusahaan,
-    required file,
+    required String idKaryawan,
+    required String namaKaryawan,
+    required String keterangan,
+    required String idPerusahaan,
+    required String namaPerusahaan,
+    required File file,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = FormData();
@@ -234,19 +295,23 @@ class _ApiService implements ApiService {
           queryParameters: queryParameters,
           data: _data,
         )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
     final value = _result.data;
     return value;
   }
 
   @override
   Future<String> sendReport({
-    required idPerusahaan,
-    required start,
-    required end,
-    required email,
+    required String idPerusahaan,
+    required String start,
+    required String end,
+    required String email,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'idperusahaan': idPerusahaan,
       r'tglstart': start,
@@ -254,7 +319,7 @@ class _ApiService implements ApiService {
       r'emailrep': email,
     };
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
       method: 'GET',
       headers: _headers,
@@ -266,20 +331,24 @@ class _ApiService implements ApiService {
           queryParameters: queryParameters,
           data: _data,
         )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
     final value = _result.data!;
     return value;
   }
 
   @override
   Future<String> sendReportIzin({
-    required idPerusahaan,
-    required start,
-    required end,
-    required email,
-    required status,
+    required String idPerusahaan,
+    required String start,
+    required String end,
+    required String email,
+    required String status,
   }) async {
-    const _extra = <String, dynamic>{};
+    final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'idperusahaan': idPerusahaan,
       r'tglstart': start,
@@ -288,7 +357,7 @@ class _ApiService implements ApiService {
       r'Status': status,
     };
     final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<String>(_setStreamType<String>(Options(
       method: 'GET',
       headers: _headers,
@@ -300,7 +369,11 @@ class _ApiService implements ApiService {
           queryParameters: queryParameters,
           data: _data,
         )
-        .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
     final value = _result.data!;
     return value;
   }
@@ -316,5 +389,22 @@ class _ApiService implements ApiService {
       }
     }
     return requestOptions;
+  }
+
+  String _combineBaseUrls(
+    String dioBaseUrl,
+    String? baseUrl,
+  ) {
+    if (baseUrl == null || baseUrl.trim().isEmpty) {
+      return dioBaseUrl;
+    }
+
+    final url = Uri.parse(baseUrl);
+
+    if (url.isAbsolute) {
+      return url.toString();
+    }
+
+    return Uri.parse(dioBaseUrl).resolveUri(url).toString();
   }
 }

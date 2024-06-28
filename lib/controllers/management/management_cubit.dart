@@ -32,7 +32,7 @@ class ManagementCubit extends Cubit<ManagementState> {
       );
       onDone(response);
     } on DioError catch (e) {
-      onDone(e.message);
+      onDone(e.message ?? 'Error');
     }
   }
 
@@ -69,7 +69,7 @@ class ManagementCubit extends Cubit<ManagementState> {
       );
       onDone(response);
     } on DioError catch (e) {
-      onDone(e.message);
+      onDone(e.message ?? 'Error');
     }
   }
 }

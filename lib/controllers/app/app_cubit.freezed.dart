@@ -195,7 +195,7 @@ class __$$AppStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
+class _$AppStateImpl implements _AppState {
   const _$AppStateImpl(
       {this.currentUser,
       this.company = const Company(),
@@ -231,21 +231,8 @@ class _$AppStateImpl with DiagnosticableTreeMixin implements _AppState {
   final bool allowLocationAlwaysPermission;
 
   @override
-  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+  String toString() {
     return 'AppState(currentUser: $currentUser, company: $company, liveTrackingList: $liveTrackingList, todayAttendance: $todayAttendance, allowLocationAlwaysPermission: $allowLocationAlwaysPermission)';
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('type', 'AppState'))
-      ..add(DiagnosticsProperty('currentUser', currentUser))
-      ..add(DiagnosticsProperty('company', company))
-      ..add(DiagnosticsProperty('liveTrackingList', liveTrackingList))
-      ..add(DiagnosticsProperty('todayAttendance', todayAttendance))
-      ..add(DiagnosticsProperty(
-          'allowLocationAlwaysPermission', allowLocationAlwaysPermission));
   }
 
   @override

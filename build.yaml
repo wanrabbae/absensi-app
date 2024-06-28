@@ -4,7 +4,7 @@ global_options:
       - json_serializable
   json_serializable:
     runs_before:
-      - retrofit_generator:retrofit
+      - retrofit_generator
 
 targets:
   $default:
@@ -16,6 +16,7 @@ targets:
             - lib/data/models/**/**.dart
             - lib/data/source/**/**.dart
             - lib/controllers/**/**.dart
+            - lib/presentation/blocs/**/**.dart
       json_serializable:
         generate_for:
           include:
@@ -23,6 +24,7 @@ targets:
             - lib/data/models/**/**.dart
             - lib/data/source/**/**.dart
             - lib/controllers/**/**.dart
+            - lib/presentation/blocs/**/**.dart
         options:
           explicit_to_json: true
           include_if_null: false

@@ -4,7 +4,11 @@ import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:app/views/_components/dialog.dart';
+import 'package:flutter/foundation.dart';
 import 'package:in_app_review/in_app_review.dart';
+
+final ImageSource _kImageSource =
+    Platform.isIOS && kDebugMode ? ImageSource.gallery : ImageSource.camera;
 
 class AbsenController extends GetxController {
   //global
@@ -157,7 +161,8 @@ class AbsenController extends GetxController {
         permission = await Geolocator.requestPermission();
         if (permission == LocationPermission.denied) {
           showConfirmationDialog2(
-            tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
+              tr('dialog_permission_title2'), tr('dialog_permission_message2'),
+              () {
             // Redirect to allow location setting on phone
             openAppSettings();
           });
@@ -166,7 +171,8 @@ class AbsenController extends GetxController {
       }
       if (permission == LocationPermission.deniedForever) {
         showConfirmationDialog2(
-          tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
+            tr('dialog_permission_title2'), tr('dialog_permission_message2'),
+            () {
           // Redirect to allow location setting on phone
           openAppSettings();
         });
@@ -220,7 +226,8 @@ class AbsenController extends GetxController {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         showConfirmationDialog2(
-          tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
+            tr('dialog_permission_title2'), tr('dialog_permission_message2'),
+            () {
           // Redirect to allow location setting on phone
           openAppSettings();
         });
@@ -229,7 +236,7 @@ class AbsenController extends GetxController {
     }
     if (permission == LocationPermission.deniedForever) {
       showConfirmationDialog2(
-        tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
+          tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
         // Redirect to allow location setting on phone
         openAppSettings();
       });
@@ -253,7 +260,8 @@ class AbsenController extends GetxController {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         showConfirmationDialog2(
-          tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
+            tr('dialog_permission_title2'), tr('dialog_permission_message2'),
+            () {
           // Redirect to allow location setting on phone
           openAppSettings();
         });
@@ -262,7 +270,7 @@ class AbsenController extends GetxController {
     }
     if (permission == LocationPermission.deniedForever) {
       showConfirmationDialog2(
-        tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
+          tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
         // Redirect to allow location setting on phone
         openAppSettings();
       });
@@ -344,7 +352,7 @@ class AbsenController extends GetxController {
         Get.back();
         ImagePicker()
             .pickImage(
-                source: ImageSource.camera,
+                source: _kImageSource,
                 preferredCameraDevice: CameraDevice.front,
                 imageQuality: 50)
             .then((value) {
@@ -358,11 +366,12 @@ class AbsenController extends GetxController {
         });
       });
     } else {
-      showConfirmationDialog2(tr('dialog_presence_title'), tr('dialog_presence_message'), () {
+      showConfirmationDialog2(
+          tr('dialog_presence_title'), tr('dialog_presence_message'), () {
         Get.back();
         ImagePicker()
             .pickImage(
-                source: ImageSource.camera,
+                source: _kImageSource,
                 preferredCameraDevice: CameraDevice.front,
                 imageQuality: 50)
             .then((value) {
@@ -383,7 +392,7 @@ class AbsenController extends GetxController {
       // Get.back();
       ImagePicker()
           .pickImage(
-              source: ImageSource.camera,
+              source: _kImageSource,
               preferredCameraDevice: CameraDevice.front,
               imageQuality: 50)
           .then((value) {
@@ -399,7 +408,8 @@ class AbsenController extends GetxController {
   }
 
   mulaiPulang(context, idAbsen) {
-    showConfirmationDialog2(tr('dialog_presence_title'), tr('dialog_presence_message'), () async {
+    showConfirmationDialog2(
+        tr('dialog_presence_title'), tr('dialog_presence_message'), () async {
       // Get.back();
       // changePageScreen = 1;
       // update();
@@ -412,7 +422,8 @@ class AbsenController extends GetxController {
   }
 
   mulaiPulang2(idAbsen) {
-    showConfirmationDialog2(tr('dialog_presence_title'), tr('dialog_presence_message'), () async {
+    showConfirmationDialog2(
+        tr('dialog_presence_title'), tr('dialog_presence_message'), () async {
       // Get.back();
       // changePageScreen = 1;
       // update();
@@ -424,7 +435,8 @@ class AbsenController extends GetxController {
   }
 
   mulaiPulangFromNotif(idAbsen) {
-    showConfirmationDialog2(tr('dialog_presence_title'), tr('dialog_presence_message'), () async {
+    showConfirmationDialog2(
+        tr('dialog_presence_title'), tr('dialog_presence_message'), () async {
       await getCurrentLocationPulang(idAbsen?["id"]);
     });
   }
@@ -433,7 +445,7 @@ class AbsenController extends GetxController {
     showConfirmationDialog2(tr('selfie'), tr('snackbar_take_photo_now'), () {
       ImagePicker()
           .pickImage(
-              source: ImageSource.camera,
+              source: _kImageSource,
               preferredCameraDevice: CameraDevice.front,
               imageQuality: 50)
           .then((value) {
@@ -452,7 +464,7 @@ class AbsenController extends GetxController {
     showConfirmationDialog2(tr('selfie'), tr('snackbar_take_photo_now'), () {
       ImagePicker()
           .pickImage(
-              source: ImageSource.camera,
+              source: _kImageSource,
               preferredCameraDevice: CameraDevice.front,
               imageQuality: 50)
           .then((value) {

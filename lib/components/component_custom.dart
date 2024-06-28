@@ -357,24 +357,14 @@ Widget buildImageSizeIcon(BuildContext context, String url) {
 
 Widget buildImageList(BuildContext context, String url, bool local) {
   var img = local
-      ? DecorationImage(
-          image: AssetImage(url),
-          onError: (exception, stackTrace) =>
-              const AssetImage('assets/icons/logo/hora.png'),
-          fit: BoxFit.cover)
+      ? DecorationImage(image: AssetImage(url), fit: BoxFit.cover)
       : url.contains("pulang_horas.png")
-          ? DecorationImage(
-              image: const AssetImage('assets/icons/logo/hora.png'),
-              onError: (exception, stackTrace) =>
-                  const AssetImage('assets/icons/logo/hora.png'),
+          ? const DecorationImage(
+              image: AssetImage('assets/icons/logo/hora.png'),
               fit: BoxFit.cover,
             )
-          : DecorationImage(
-              image: NetworkImage(url),
-              onError: (exception, stackTrace) =>
-                  const AssetImage('assets/icons/logo/hora.png'),
-              fit: BoxFit.cover,
-            );
+          : DecorationImage(image: NetworkImage(url), fit: BoxFit.cover);
+
   return Container(
     width: 60,
     height: 60,
