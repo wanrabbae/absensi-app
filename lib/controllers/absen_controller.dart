@@ -4,11 +4,7 @@ import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:app/views/_components/dialog.dart';
-import 'package:flutter/foundation.dart';
 import 'package:in_app_review/in_app_review.dart';
-
-final ImageSource _kImageSource =
-    Platform.isIOS && kDebugMode ? ImageSource.gallery : ImageSource.camera;
 
 class AbsenController extends GetxController {
   //global
@@ -352,7 +348,7 @@ class AbsenController extends GetxController {
         Get.back();
         ImagePicker()
             .pickImage(
-                source: _kImageSource,
+                source: kImageSource,
                 preferredCameraDevice: CameraDevice.front,
                 imageQuality: 50)
             .then((value) {
@@ -371,7 +367,7 @@ class AbsenController extends GetxController {
         Get.back();
         ImagePicker()
             .pickImage(
-                source: _kImageSource,
+                source: kImageSource,
                 preferredCameraDevice: CameraDevice.front,
                 imageQuality: 50)
             .then((value) {
@@ -392,7 +388,7 @@ class AbsenController extends GetxController {
       // Get.back();
       ImagePicker()
           .pickImage(
-              source: _kImageSource,
+              source: kImageSource,
               preferredCameraDevice: CameraDevice.front,
               imageQuality: 50)
           .then((value) {
@@ -445,7 +441,7 @@ class AbsenController extends GetxController {
     showConfirmationDialog2(tr('selfie'), tr('snackbar_take_photo_now'), () {
       ImagePicker()
           .pickImage(
-              source: _kImageSource,
+              source: kImageSource,
               preferredCameraDevice: CameraDevice.front,
               imageQuality: 50)
           .then((value) {
@@ -464,7 +460,7 @@ class AbsenController extends GetxController {
     showConfirmationDialog2(tr('selfie'), tr('snackbar_take_photo_now'), () {
       ImagePicker()
           .pickImage(
-              source: _kImageSource,
+              source: kImageSource,
               preferredCameraDevice: CameraDevice.front,
               imageQuality: 50)
           .then((value) {

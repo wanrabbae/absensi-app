@@ -3,12 +3,16 @@ import 'package:app/helpers/notification_local.dart';
 import 'package:app/views/_components/dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:downloads_path_provider_28/downloads_path_provider_28.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 const Locale kLocaleID = Locale("id", "ID");
 const Locale kLocaleEN = Locale("en", "US");
+
+final ImageSource kImageSource =
+    Platform.isIOS && kDebugMode ? ImageSource.gallery : ImageSource.camera;
 
 const String kGlobalFontFamily = 'Montserrat';
 final DateFormat kTimeFormat = DateFormat('HH:mm');
@@ -314,7 +318,7 @@ saveNetworkImage(url) async {
     if (!status.isGranted) {
       // If the user denies the permission, open app settings
       showConfirmationDialog2(
-        tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
+          tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
         // Redirect to allow location setting on phone
         openAppSettings();
       });
@@ -357,7 +361,7 @@ saveNetworkFile(url) async {
     if (!status.isGranted) {
       // If the user denies the permission, open app settings
       showConfirmationDialog2(
-        tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
+          tr('dialog_permission_title2'), tr('dialog_permission_message2'), () {
         // Redirect to allow location setting on phone
         openAppSettings();
       });

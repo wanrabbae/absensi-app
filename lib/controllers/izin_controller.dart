@@ -138,7 +138,7 @@ class IzinController extends GetxController {
     // FilePicker
     if (isFoto == true) {
       await ImagePicker()
-          .pickImage(source: ImageSource.camera, imageQuality: 50)
+          .pickImage(source: kImageSource, imageQuality: 50)
           .then((value) {
         if (value != null) {
           updateFileFromFoto(PlatformFile(
