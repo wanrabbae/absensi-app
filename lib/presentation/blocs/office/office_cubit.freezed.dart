@@ -22,7 +22,9 @@ OfficeState _$OfficeStateFromJson(Map<String, dynamic> json) {
 mixin _$OfficeState {
   DateTime? get selectedDate => throw _privateConstructorUsedError;
   OfficeAttendance get attendance => throw _privateConstructorUsedError;
+  OfficeLeave get leave => throw _privateConstructorUsedError;
   OfficePermit get permit => throw _privateConstructorUsedError;
+  OfficeSick get sick => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,10 +41,14 @@ abstract class $OfficeStateCopyWith<$Res> {
   $Res call(
       {DateTime? selectedDate,
       OfficeAttendance attendance,
-      OfficePermit permit});
+      OfficeLeave leave,
+      OfficePermit permit,
+      OfficeSick sick});
 
   $OfficeAttendanceCopyWith<$Res> get attendance;
+  $OfficeLeaveCopyWith<$Res> get leave;
   $OfficePermitCopyWith<$Res> get permit;
+  $OfficeSickCopyWith<$Res> get sick;
 }
 
 /// @nodoc
@@ -60,7 +66,9 @@ class _$OfficeStateCopyWithImpl<$Res, $Val extends OfficeState>
   $Res call({
     Object? selectedDate = freezed,
     Object? attendance = null,
+    Object? leave = null,
     Object? permit = null,
+    Object? sick = null,
   }) {
     return _then(_value.copyWith(
       selectedDate: freezed == selectedDate
@@ -71,10 +79,18 @@ class _$OfficeStateCopyWithImpl<$Res, $Val extends OfficeState>
           ? _value.attendance
           : attendance // ignore: cast_nullable_to_non_nullable
               as OfficeAttendance,
+      leave: null == leave
+          ? _value.leave
+          : leave // ignore: cast_nullable_to_non_nullable
+              as OfficeLeave,
       permit: null == permit
           ? _value.permit
           : permit // ignore: cast_nullable_to_non_nullable
               as OfficePermit,
+      sick: null == sick
+          ? _value.sick
+          : sick // ignore: cast_nullable_to_non_nullable
+              as OfficeSick,
     ) as $Val);
   }
 
@@ -88,9 +104,25 @@ class _$OfficeStateCopyWithImpl<$Res, $Val extends OfficeState>
 
   @override
   @pragma('vm:prefer-inline')
+  $OfficeLeaveCopyWith<$Res> get leave {
+    return $OfficeLeaveCopyWith<$Res>(_value.leave, (value) {
+      return _then(_value.copyWith(leave: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $OfficePermitCopyWith<$Res> get permit {
     return $OfficePermitCopyWith<$Res>(_value.permit, (value) {
       return _then(_value.copyWith(permit: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $OfficeSickCopyWith<$Res> get sick {
+    return $OfficeSickCopyWith<$Res>(_value.sick, (value) {
+      return _then(_value.copyWith(sick: value) as $Val);
     });
   }
 }
@@ -106,12 +138,18 @@ abstract class _$$OfficeStateImplCopyWith<$Res>
   $Res call(
       {DateTime? selectedDate,
       OfficeAttendance attendance,
-      OfficePermit permit});
+      OfficeLeave leave,
+      OfficePermit permit,
+      OfficeSick sick});
 
   @override
   $OfficeAttendanceCopyWith<$Res> get attendance;
   @override
+  $OfficeLeaveCopyWith<$Res> get leave;
+  @override
   $OfficePermitCopyWith<$Res> get permit;
+  @override
+  $OfficeSickCopyWith<$Res> get sick;
 }
 
 /// @nodoc
@@ -127,7 +165,9 @@ class __$$OfficeStateImplCopyWithImpl<$Res>
   $Res call({
     Object? selectedDate = freezed,
     Object? attendance = null,
+    Object? leave = null,
     Object? permit = null,
+    Object? sick = null,
   }) {
     return _then(_$OfficeStateImpl(
       selectedDate: freezed == selectedDate
@@ -138,10 +178,18 @@ class __$$OfficeStateImplCopyWithImpl<$Res>
           ? _value.attendance
           : attendance // ignore: cast_nullable_to_non_nullable
               as OfficeAttendance,
+      leave: null == leave
+          ? _value.leave
+          : leave // ignore: cast_nullable_to_non_nullable
+              as OfficeLeave,
       permit: null == permit
           ? _value.permit
           : permit // ignore: cast_nullable_to_non_nullable
               as OfficePermit,
+      sick: null == sick
+          ? _value.sick
+          : sick // ignore: cast_nullable_to_non_nullable
+              as OfficeSick,
     ));
   }
 }
@@ -152,7 +200,9 @@ class _$OfficeStateImpl implements _OfficeState {
   const _$OfficeStateImpl(
       {this.selectedDate,
       this.attendance = const OfficeAttendance(),
-      this.permit = const OfficePermit()});
+      this.leave = const OfficeLeave(),
+      this.permit = const OfficePermit(),
+      this.sick = const OfficeSick()});
 
   factory _$OfficeStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$OfficeStateImplFromJson(json);
@@ -164,11 +214,17 @@ class _$OfficeStateImpl implements _OfficeState {
   final OfficeAttendance attendance;
   @override
   @JsonKey()
+  final OfficeLeave leave;
+  @override
+  @JsonKey()
   final OfficePermit permit;
+  @override
+  @JsonKey()
+  final OfficeSick sick;
 
   @override
   String toString() {
-    return 'OfficeState(selectedDate: $selectedDate, attendance: $attendance, permit: $permit)';
+    return 'OfficeState(selectedDate: $selectedDate, attendance: $attendance, leave: $leave, permit: $permit, sick: $sick)';
   }
 
   @override
@@ -180,13 +236,15 @@ class _$OfficeStateImpl implements _OfficeState {
                 other.selectedDate == selectedDate) &&
             (identical(other.attendance, attendance) ||
                 other.attendance == attendance) &&
-            (identical(other.permit, permit) || other.permit == permit));
+            (identical(other.leave, leave) || other.leave == leave) &&
+            (identical(other.permit, permit) || other.permit == permit) &&
+            (identical(other.sick, sick) || other.sick == sick));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, selectedDate, attendance, permit);
+      Object.hash(runtimeType, selectedDate, attendance, leave, permit, sick);
 
   @JsonKey(ignore: true)
   @override
@@ -206,7 +264,9 @@ abstract class _OfficeState implements OfficeState {
   const factory _OfficeState(
       {final DateTime? selectedDate,
       final OfficeAttendance attendance,
-      final OfficePermit permit}) = _$OfficeStateImpl;
+      final OfficeLeave leave,
+      final OfficePermit permit,
+      final OfficeSick sick}) = _$OfficeStateImpl;
 
   factory _OfficeState.fromJson(Map<String, dynamic> json) =
       _$OfficeStateImpl.fromJson;
@@ -216,7 +276,11 @@ abstract class _OfficeState implements OfficeState {
   @override
   OfficeAttendance get attendance;
   @override
+  OfficeLeave get leave;
+  @override
   OfficePermit get permit;
+  @override
+  OfficeSick get sick;
   @override
   @JsonKey(ignore: true)
   _$$OfficeStateImplCopyWith<_$OfficeStateImpl> get copyWith =>
@@ -431,6 +495,170 @@ abstract class _OfficeAttendance implements OfficeAttendance {
       throw _privateConstructorUsedError;
 }
 
+OfficeLeave _$OfficeLeaveFromJson(Map<String, dynamic> json) {
+  return _OfficeLeave.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OfficeLeave {
+  List<Report>? get listLeave => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OfficeLeaveCopyWith<OfficeLeave> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OfficeLeaveCopyWith<$Res> {
+  factory $OfficeLeaveCopyWith(
+          OfficeLeave value, $Res Function(OfficeLeave) then) =
+      _$OfficeLeaveCopyWithImpl<$Res, OfficeLeave>;
+  @useResult
+  $Res call({List<Report>? listLeave, String? error});
+}
+
+/// @nodoc
+class _$OfficeLeaveCopyWithImpl<$Res, $Val extends OfficeLeave>
+    implements $OfficeLeaveCopyWith<$Res> {
+  _$OfficeLeaveCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? listLeave = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_value.copyWith(
+      listLeave: freezed == listLeave
+          ? _value.listLeave
+          : listLeave // ignore: cast_nullable_to_non_nullable
+              as List<Report>?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$OfficeLeaveImplCopyWith<$Res>
+    implements $OfficeLeaveCopyWith<$Res> {
+  factory _$$OfficeLeaveImplCopyWith(
+          _$OfficeLeaveImpl value, $Res Function(_$OfficeLeaveImpl) then) =
+      __$$OfficeLeaveImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Report>? listLeave, String? error});
+}
+
+/// @nodoc
+class __$$OfficeLeaveImplCopyWithImpl<$Res>
+    extends _$OfficeLeaveCopyWithImpl<$Res, _$OfficeLeaveImpl>
+    implements _$$OfficeLeaveImplCopyWith<$Res> {
+  __$$OfficeLeaveImplCopyWithImpl(
+      _$OfficeLeaveImpl _value, $Res Function(_$OfficeLeaveImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? listLeave = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_$OfficeLeaveImpl(
+      listLeave: freezed == listLeave
+          ? _value._listLeave
+          : listLeave // ignore: cast_nullable_to_non_nullable
+              as List<Report>?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$OfficeLeaveImpl implements _OfficeLeave {
+  const _$OfficeLeaveImpl({final List<Report>? listLeave, this.error})
+      : _listLeave = listLeave;
+
+  factory _$OfficeLeaveImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OfficeLeaveImplFromJson(json);
+
+  final List<Report>? _listLeave;
+  @override
+  List<Report>? get listLeave {
+    final value = _listLeave;
+    if (value == null) return null;
+    if (_listLeave is EqualUnmodifiableListView) return _listLeave;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? error;
+
+  @override
+  String toString() {
+    return 'OfficeLeave(listLeave: $listLeave, error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OfficeLeaveImpl &&
+            const DeepCollectionEquality()
+                .equals(other._listLeave, _listLeave) &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_listLeave), error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OfficeLeaveImplCopyWith<_$OfficeLeaveImpl> get copyWith =>
+      __$$OfficeLeaveImplCopyWithImpl<_$OfficeLeaveImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$OfficeLeaveImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OfficeLeave implements OfficeLeave {
+  const factory _OfficeLeave(
+      {final List<Report>? listLeave, final String? error}) = _$OfficeLeaveImpl;
+
+  factory _OfficeLeave.fromJson(Map<String, dynamic> json) =
+      _$OfficeLeaveImpl.fromJson;
+
+  @override
+  List<Report>? get listLeave;
+  @override
+  String? get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$OfficeLeaveImplCopyWith<_$OfficeLeaveImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
 OfficePermit _$OfficePermitFromJson(Map<String, dynamic> json) {
   return _OfficePermit.fromJson(json);
 }
@@ -593,5 +821,168 @@ abstract class _OfficePermit implements OfficePermit {
   @override
   @JsonKey(ignore: true)
   _$$OfficePermitImplCopyWith<_$OfficePermitImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+OfficeSick _$OfficeSickFromJson(Map<String, dynamic> json) {
+  return _OfficeSick.fromJson(json);
+}
+
+/// @nodoc
+mixin _$OfficeSick {
+  List<Report>? get listSick => throw _privateConstructorUsedError;
+  String? get error => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OfficeSickCopyWith<OfficeSick> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OfficeSickCopyWith<$Res> {
+  factory $OfficeSickCopyWith(
+          OfficeSick value, $Res Function(OfficeSick) then) =
+      _$OfficeSickCopyWithImpl<$Res, OfficeSick>;
+  @useResult
+  $Res call({List<Report>? listSick, String? error});
+}
+
+/// @nodoc
+class _$OfficeSickCopyWithImpl<$Res, $Val extends OfficeSick>
+    implements $OfficeSickCopyWith<$Res> {
+  _$OfficeSickCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? listSick = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_value.copyWith(
+      listSick: freezed == listSick
+          ? _value.listSick
+          : listSick // ignore: cast_nullable_to_non_nullable
+              as List<Report>?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$OfficeSickImplCopyWith<$Res>
+    implements $OfficeSickCopyWith<$Res> {
+  factory _$$OfficeSickImplCopyWith(
+          _$OfficeSickImpl value, $Res Function(_$OfficeSickImpl) then) =
+      __$$OfficeSickImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<Report>? listSick, String? error});
+}
+
+/// @nodoc
+class __$$OfficeSickImplCopyWithImpl<$Res>
+    extends _$OfficeSickCopyWithImpl<$Res, _$OfficeSickImpl>
+    implements _$$OfficeSickImplCopyWith<$Res> {
+  __$$OfficeSickImplCopyWithImpl(
+      _$OfficeSickImpl _value, $Res Function(_$OfficeSickImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? listSick = freezed,
+    Object? error = freezed,
+  }) {
+    return _then(_$OfficeSickImpl(
+      listSick: freezed == listSick
+          ? _value._listSick
+          : listSick // ignore: cast_nullable_to_non_nullable
+              as List<Report>?,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$OfficeSickImpl implements _OfficeSick {
+  const _$OfficeSickImpl({final List<Report>? listSick, this.error})
+      : _listSick = listSick;
+
+  factory _$OfficeSickImpl.fromJson(Map<String, dynamic> json) =>
+      _$$OfficeSickImplFromJson(json);
+
+  final List<Report>? _listSick;
+  @override
+  List<Report>? get listSick {
+    final value = _listSick;
+    if (value == null) return null;
+    if (_listSick is EqualUnmodifiableListView) return _listSick;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? error;
+
+  @override
+  String toString() {
+    return 'OfficeSick(listSick: $listSick, error: $error)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$OfficeSickImpl &&
+            const DeepCollectionEquality().equals(other._listSick, _listSick) &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_listSick), error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$OfficeSickImplCopyWith<_$OfficeSickImpl> get copyWith =>
+      __$$OfficeSickImplCopyWithImpl<_$OfficeSickImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$OfficeSickImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _OfficeSick implements OfficeSick {
+  const factory _OfficeSick(
+      {final List<Report>? listSick, final String? error}) = _$OfficeSickImpl;
+
+  factory _OfficeSick.fromJson(Map<String, dynamic> json) =
+      _$OfficeSickImpl.fromJson;
+
+  @override
+  List<Report>? get listSick;
+  @override
+  String? get error;
+  @override
+  @JsonKey(ignore: true)
+  _$$OfficeSickImplCopyWith<_$OfficeSickImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

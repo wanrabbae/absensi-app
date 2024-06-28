@@ -30,7 +30,11 @@ class OfficeCubit extends Cubit<OfficeState> {
     }
 
     return reloadAttendance().then((_) {
+      return getCurrentLeaveList();
+    }).then((_) {
       return getCurrentPermitList();
+    }).then((_) {
+      return getCurrentSickList();
     });
   }
 
@@ -110,6 +114,38 @@ class OfficeCubit extends Cubit<OfficeState> {
     });
   }
 
+  Future<void> getCurrentLeaveList() async {
+    final company = app.state.company;
+    final idperusahaan = company.id;
+
+    final DateTime date = state.selectedDate!;
+
+    final tglStart = DateTime(date.year, date.month, date.day).toUtc();
+    final start = kQueryRangeDateFormat.format(tglStart);
+
+    final tglEnd =
+        DateTime(date.year, date.month, date.day, 23, 59, 59).toUtc();
+    final end = kQueryRangeDateFormat.format(tglEnd);
+
+    return api
+        .getLeaveList(idperusahaan: idperusahaan, start: start, end: end)
+        .then((leaves) {
+      emit(state.copyWith(
+        leave: state.leave.copyWith(
+          listLeave: leaves,
+          error: null,
+        ),
+      ));
+    }, onError: (e, __) {
+      emit(state.copyWith(
+        leave: state.leave.copyWith(
+          listLeave: null,
+          error: e is DioError ? e.message ?? 'Error' : 'Data not found',
+        ),
+      ));
+    });
+  }
+
   Future<void> getCurrentPermitList() async {
     final company = app.state.company;
     final idperusahaan = company.id;
@@ -136,6 +172,38 @@ class OfficeCubit extends Cubit<OfficeState> {
       emit(state.copyWith(
         permit: state.permit.copyWith(
           listPermit: null,
+          error: e is DioError ? e.message ?? 'Error' : 'Data not found',
+        ),
+      ));
+    });
+  }
+
+  Future<void> getCurrentSickList() async {
+    final company = app.state.company;
+    final idperusahaan = company.id;
+
+    final DateTime date = state.selectedDate!;
+
+    final tglStart = DateTime(date.year, date.month, date.day).toUtc();
+    final start = kQueryRangeDateFormat.format(tglStart);
+
+    final tglEnd =
+        DateTime(date.year, date.month, date.day, 23, 59, 59).toUtc();
+    final end = kQueryRangeDateFormat.format(tglEnd);
+
+    return api
+        .getSickList(idperusahaan: idperusahaan, start: start, end: end)
+        .then((sicks) {
+      emit(state.copyWith(
+        sick: state.sick.copyWith(
+          listSick: sicks,
+          error: null,
+        ),
+      ));
+    }, onError: (e, __) {
+      emit(state.copyWith(
+        sick: state.sick.copyWith(
+          listSick: null,
           error: e is DioError ? e.message ?? 'Error' : 'Data not found',
         ),
       ));
