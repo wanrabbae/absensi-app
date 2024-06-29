@@ -3,7 +3,7 @@ import 'package:app/presentation/blocs/office/office_cubit.dart';
 import 'package:app/presentation/widgets/empty_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'report_tile.dart';
+import '../report/report_tile.dart';
 
 class PermitView extends StatelessWidget {
   const PermitView({super.key});

@@ -355,7 +355,12 @@ Widget buildImageSizeIcon(BuildContext context, String url) {
   );
 }
 
-Widget buildImageList(BuildContext context, String url, bool local) {
+Widget buildImageList(
+  BuildContext context,
+  String url,
+  bool local, {
+  double size = 60,
+}) {
   var img = local
       ? DecorationImage(image: AssetImage(url), fit: BoxFit.cover)
       : url.contains("pulang_horas.png")
@@ -366,8 +371,8 @@ Widget buildImageList(BuildContext context, String url, bool local) {
           : DecorationImage(image: NetworkImage(url), fit: BoxFit.cover);
 
   return Container(
-    width: 60,
-    height: 60,
+    width: size,
+    height: size,
     decoration: BoxDecoration(
       color: Colors.white,
       image: img,

@@ -1,6 +1,6 @@
 import 'package:app/global_resource.dart';
 import 'package:app/presentation/blocs/office/office_cubit.dart';
-import 'package:app/presentation/views/offfice/permit/report_tile.dart';
+import 'package:app/presentation/views/offfice/report/report_tile.dart';
 import 'package:app/presentation/widgets/empty_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
