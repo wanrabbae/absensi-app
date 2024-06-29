@@ -16,3 +16,4 @@ const colorDivider = Color(0xFF7D7D7D);
 const colorDisabled = Color(0xFFD9D9D9);
 const colorSplash = Color(0xFFE8F0FC);
 const colorSplash30 = Color(0x4DE8F0FC);
+const colorBottomSheetDrag = Color(0xFFD0D0D0);

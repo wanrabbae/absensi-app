@@ -489,6 +489,75 @@ class _ApiService implements ApiService {
     return value;
   }
 
+  @override
+  Future<dynamic> submitReport({
+    required String idKaryawan,
+    required String namaKaryawan,
+    required String description,
+    required String type,
+    required File file,
+    required String idPerusahaan,
+    required String namaPerusahaan,
+    CancelToken? cancelToken,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'IDKaryawan',
+      idKaryawan,
+    ));
+    _data.fields.add(MapEntry(
+      'NamaKaryawan',
+      namaKaryawan,
+    ));
+    _data.fields.add(MapEntry(
+      'Keterangan',
+      description,
+    ));
+    _data.fields.add(MapEntry(
+      'Ijin',
+      type,
+    ));
+    _data.files.add(MapEntry(
+      'DokumenIjin',
+      MultipartFile.fromFileSync(
+        file.path,
+        filename: file.path.split(Platform.pathSeparator).last,
+        contentType: MediaType.parse('image/*'),
+      ),
+    ));
+    _data.fields.add(MapEntry(
+      'IDPerusahaan',
+      idPerusahaan,
+    ));
+    _data.fields.add(MapEntry(
+      'NamaPerusahaan',
+      namaPerusahaan,
+    ));
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'api/absensi/Izin',
+          queryParameters: queryParameters,
+          data: _data,
+          cancelToken: cancelToken,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data;
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

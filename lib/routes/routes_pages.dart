@@ -3,7 +3,9 @@ import 'package:app/controllers/klaim/form/klaim_form_cubit.dart';
 import 'package:app/controllers/live_location_log/live_location_log_cubit.dart';
 import 'package:app/controllers/management/management_cubit.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/blocs/report/report_cubit.dart';
 import 'package:app/presentation/views/dashboard/dashboard_screen.dart';
+import 'package:app/presentation/views/offfice/report/report_form_view.dart';
 import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
 import 'package:app/views/absensi/absensi_pulang_screen.dart';
 import 'package:app/views/absensi/absensi_screen2.dart';
@@ -97,6 +99,13 @@ class Routes {
       page: () => const AbsensiScreenView(),
     ),
     // Izin
+    GetPage(
+      name: '/$ReportFormView',
+      page: () => BlocProvider.value(
+        value: Get.find<ReportCubit>(),
+        child: const ReportFormView(),
+      ),
+    ),
     GetPage(name: RouteName.absenIzin, page: () => const AbsensiIzinScreen()),
     GetPage(
       name: RouteName.absenIzinDownloaded,

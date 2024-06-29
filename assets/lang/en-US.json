@@ -178,5 +178,15 @@
   "live_location_log_footer": "Tap location to open map",
   "app_update": "Latest version Hora is ready!",
   "app_update_button_skip": "Skip",
-  "app_update_button_update": "Update"
+  "app_update_button_update": "Update",
+  "report_bottom_sheet_title": "Note",
+  "report_bottom_sheet_textfield_hint": "Write the note here",
+  "report_bottom_sheet_button_done": "Done",
+  "bottom_sheet_loading_title": "Please Wait",
+  "bottom_sheet_loading_button": "Cancel",
+  "bottom_sheet_loading_canceled_message": "Request canceled",
+  "bottom_sheet_info_button": "Close",
+  "report_bottom_sheet_info_title": "Report",
+  "report_bottom_sheet_info_message_succeed": "Report has been sent",
+  "report_bottom_sheet_info_message_failed": "Report failed to sent"
 }

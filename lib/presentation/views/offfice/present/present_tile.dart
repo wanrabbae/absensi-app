@@ -113,8 +113,9 @@ class PresentListTile extends StatelessWidget {
   }
 
   Widget _buildTime() {
+    final time = (data.waktuCheckOut ?? data.waktuCheckIn!).toLocal();
     return Text(
-      kTimeFormat.format(data.waktuCheckOut ?? data.waktuCheckIn!),
+      kTimeFormat.format(time),
       style: const TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: 14,

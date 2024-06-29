@@ -7,7 +7,7 @@ import 'package:app/data/models/profile.dart';
 import 'package:app/data/models/report/report.dart';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
-import 'package:retrofit/http.dart';
+import 'package:retrofit/retrofit.dart';
 
 part 'api_service.g.dart';
 
@@ -114,5 +114,17 @@ mixin $Report {
     @Query("idperusahaan") required String idperusahaan,
     @Query("tglstart") required String start,
     @Query("tglend") required String end,
+  });
+
+  @POST('api/absensi/Izin')
+  Future<dynamic> submitReport({
+    @Part(name: "IDKaryawan") required String idKaryawan,
+    @Part(name: "NamaKaryawan") required String namaKaryawan,
+    @Part(name: "Keterangan") required String description,
+    @Part(name: "Ijin") required String type,
+    @Part(name: "DokumenIjin", contentType: "image/*") required File file,
+    @Part(name: "IDPerusahaan") required String idPerusahaan,
+    @Part(name: "NamaPerusahaan") required String namaPerusahaan,
+    @CancelRequest() CancelToken? cancelToken
   });
 }

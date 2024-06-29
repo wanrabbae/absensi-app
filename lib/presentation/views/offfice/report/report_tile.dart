@@ -67,7 +67,7 @@ class ReportListTile extends StatelessWidget {
 
   Widget _buildTime() {
     return Text(
-      kTimeFormat.format(data.tanggalStart),
+      kTimeFormat.format(data.tanggalStart.toLocal()),
       style: const TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: 14,

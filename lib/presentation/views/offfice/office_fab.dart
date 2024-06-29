@@ -1,6 +1,8 @@
 import 'package:app/data/models/absence.dart';
+import 'package:app/data/models/report/report.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/presentation/blocs/office/office_cubit.dart';
+import 'package:app/presentation/views/offfice/report/report_handler.dart';
 import 'package:app/presentation/widgets/buttons.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
@@ -18,8 +20,13 @@ class OfficeFAB extends StatelessWidget {
         switch (controller.index) {
           case 0:
             return const PresenceFAB();
+          case 1:
+            return const AddFAB(type: ReportType.leave);
+          case 2:
+            return const AddFAB(type: ReportType.permit);
+          case 3:
           default:
-            return const AddFAB();
+            return const AddFAB(type: ReportType.sick);
         }
       },
     );
@@ -142,12 +149,31 @@ class _PresenceFABState extends State<PresenceFAB> {
 }
 
 class AddFAB extends StatelessWidget {
-  const AddFAB({super.key});
+  const AddFAB({super.key, required this.type});
+
+  final ReportType type;
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        final cubit = context.read<OfficeCubit>();
+        handleAddReport(context, type).then((response) {
+          if (response == true && !cubit.isClosed) {
+            switch (type) {
+              case ReportType.leave:
+                cubit.getCurrentLeaveList();
+                break;
+              case ReportType.permit:
+                cubit.getCurrentPermitList();
+                break;
+              case ReportType.sick:
+                cubit.getCurrentSickList();
+                break;
+            }
+          }
+        });
+      },
       backgroundColor: colorBluePrimary2,
       foregroundColor: Colors.white,
       elevation: 0,

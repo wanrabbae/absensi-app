@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$ReportState {
   XFile get image => throw _privateConstructorUsedError;
   ReportType get type => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  ReportStateSubmit? get submit => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ReportStateCopyWith<ReportState> get copyWith =>
@@ -30,7 +32,11 @@ abstract class $ReportStateCopyWith<$Res> {
           ReportState value, $Res Function(ReportState) then) =
       _$ReportStateCopyWithImpl<$Res, ReportState>;
   @useResult
-  $Res call({XFile image, ReportType type});
+  $Res call(
+      {XFile image,
+      ReportType type,
+      String description,
+      ReportStateSubmit? submit});
 }
 
 /// @nodoc
@@ -48,6 +54,8 @@ class _$ReportStateCopyWithImpl<$Res, $Val extends ReportState>
   $Res call({
     Object? image = null,
     Object? type = null,
+    Object? description = null,
+    Object? submit = freezed,
   }) {
     return _then(_value.copyWith(
       image: null == image
@@ -58,6 +66,14 @@ class _$ReportStateCopyWithImpl<$Res, $Val extends ReportState>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as ReportType,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      submit: freezed == submit
+          ? _value.submit
+          : submit // ignore: cast_nullable_to_non_nullable
+              as ReportStateSubmit?,
     ) as $Val);
   }
 }
@@ -70,7 +86,11 @@ abstract class _$$ReportStateImplCopyWith<$Res>
       __$$ReportStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({XFile image, ReportType type});
+  $Res call(
+      {XFile image,
+      ReportType type,
+      String description,
+      ReportStateSubmit? submit});
 }
 
 /// @nodoc
@@ -86,6 +106,8 @@ class __$$ReportStateImplCopyWithImpl<$Res>
   $Res call({
     Object? image = null,
     Object? type = null,
+    Object? description = null,
+    Object? submit = freezed,
   }) {
     return _then(_$ReportStateImpl(
       image: null == image
@@ -96,6 +118,14 @@ class __$$ReportStateImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as ReportType,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      submit: freezed == submit
+          ? _value.submit
+          : submit // ignore: cast_nullable_to_non_nullable
+              as ReportStateSubmit?,
     ));
   }
 }
@@ -103,16 +133,25 @@ class __$$ReportStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ReportStateImpl implements _ReportState {
-  const _$ReportStateImpl({required this.image, required this.type});
+  const _$ReportStateImpl(
+      {required this.image,
+      required this.type,
+      this.description = '',
+      this.submit});
 
   @override
   final XFile image;
   @override
   final ReportType type;
+  @override
+  @JsonKey()
+  final String description;
+  @override
+  final ReportStateSubmit? submit;
 
   @override
   String toString() {
-    return 'ReportState(image: $image, type: $type)';
+    return 'ReportState(image: $image, type: $type, description: $description, submit: $submit)';
   }
 
   @override
@@ -121,11 +160,15 @@ class _$ReportStateImpl implements _ReportState {
         (other.runtimeType == runtimeType &&
             other is _$ReportStateImpl &&
             (identical(other.image, image) || other.image == image) &&
-            (identical(other.type, type) || other.type == type));
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.submit, submit) || other.submit == submit));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, image, type);
+  int get hashCode =>
+      Object.hash(runtimeType, image, type, description, submit);
 
   @JsonKey(ignore: true)
   @override
@@ -137,12 +180,18 @@ class _$ReportStateImpl implements _ReportState {
 abstract class _ReportState implements ReportState {
   const factory _ReportState(
       {required final XFile image,
-      required final ReportType type}) = _$ReportStateImpl;
+      required final ReportType type,
+      final String description,
+      final ReportStateSubmit? submit}) = _$ReportStateImpl;
 
   @override
   XFile get image;
   @override
   ReportType get type;
+  @override
+  String get description;
+  @override
+  ReportStateSubmit? get submit;
   @override
   @JsonKey(ignore: true)
   _$$ReportStateImplCopyWith<_$ReportStateImpl> get copyWith =>
