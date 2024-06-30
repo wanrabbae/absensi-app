@@ -27,7 +27,7 @@ class Report with _$Report {
     required DateTime tanggalStart,
     required DateTime tanggalAkhir,
     required DateTime tanggalCuti,
-    required String keterangan,
+    String? keterangan,
     required String dokumen,
     @JsonKey(name: 'ijin') required ReportType type,
     required String status,

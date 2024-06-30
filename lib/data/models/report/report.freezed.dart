@@ -29,7 +29,7 @@ mixin _$Report {
   DateTime get tanggalStart => throw _privateConstructorUsedError;
   DateTime get tanggalAkhir => throw _privateConstructorUsedError;
   DateTime get tanggalCuti => throw _privateConstructorUsedError;
-  String get keterangan => throw _privateConstructorUsedError;
+  String? get keterangan => throw _privateConstructorUsedError;
   String get dokumen => throw _privateConstructorUsedError;
   @JsonKey(name: 'ijin')
   ReportType get type => throw _privateConstructorUsedError;
@@ -55,7 +55,7 @@ abstract class $ReportCopyWith<$Res> {
       DateTime tanggalStart,
       DateTime tanggalAkhir,
       DateTime tanggalCuti,
-      String keterangan,
+      String? keterangan,
       String dokumen,
       @JsonKey(name: 'ijin') ReportType type,
       String status,
@@ -83,7 +83,7 @@ class _$ReportCopyWithImpl<$Res, $Val extends Report>
     Object? tanggalStart = null,
     Object? tanggalAkhir = null,
     Object? tanggalCuti = null,
-    Object? keterangan = null,
+    Object? keterangan = freezed,
     Object? dokumen = null,
     Object? type = null,
     Object? status = null,
@@ -122,10 +122,10 @@ class _$ReportCopyWithImpl<$Res, $Val extends Report>
           ? _value.tanggalCuti
           : tanggalCuti // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      keterangan: null == keterangan
+      keterangan: freezed == keterangan
           ? _value.keterangan
           : keterangan // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       dokumen: null == dokumen
           ? _value.dokumen
           : dokumen // ignore: cast_nullable_to_non_nullable
@@ -162,7 +162,7 @@ abstract class _$$ReportImplCopyWith<$Res> implements $ReportCopyWith<$Res> {
       DateTime tanggalStart,
       DateTime tanggalAkhir,
       DateTime tanggalCuti,
-      String keterangan,
+      String? keterangan,
       String dokumen,
       @JsonKey(name: 'ijin') ReportType type,
       String status,
@@ -188,7 +188,7 @@ class __$$ReportImplCopyWithImpl<$Res>
     Object? tanggalStart = null,
     Object? tanggalAkhir = null,
     Object? tanggalCuti = null,
-    Object? keterangan = null,
+    Object? keterangan = freezed,
     Object? dokumen = null,
     Object? type = null,
     Object? status = null,
@@ -227,10 +227,10 @@ class __$$ReportImplCopyWithImpl<$Res>
           ? _value.tanggalCuti
           : tanggalCuti // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      keterangan: null == keterangan
+      keterangan: freezed == keterangan
           ? _value.keterangan
           : keterangan // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       dokumen: null == dokumen
           ? _value.dokumen
           : dokumen // ignore: cast_nullable_to_non_nullable
@@ -263,7 +263,7 @@ class _$ReportImpl implements _Report {
       required this.tanggalStart,
       required this.tanggalAkhir,
       required this.tanggalCuti,
-      required this.keterangan,
+      this.keterangan,
       required this.dokumen,
       @JsonKey(name: 'ijin') required this.type,
       required this.status,
@@ -290,7 +290,7 @@ class _$ReportImpl implements _Report {
   @override
   final DateTime tanggalCuti;
   @override
-  final String keterangan;
+  final String? keterangan;
   @override
   final String dokumen;
   @override
@@ -377,7 +377,7 @@ abstract class _Report implements Report {
       required final DateTime tanggalStart,
       required final DateTime tanggalAkhir,
       required final DateTime tanggalCuti,
-      required final String keterangan,
+      final String? keterangan,
       required final String dokumen,
       @JsonKey(name: 'ijin') required final ReportType type,
       required final String status,
@@ -403,7 +403,7 @@ abstract class _Report implements Report {
   @override
   DateTime get tanggalCuti;
   @override
-  String get keterangan;
+  String? get keterangan;
   @override
   String get dokumen;
   @override

@@ -2,7 +2,6 @@ import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/data/local/base_preference.dart';
 import 'package:app/global_resource.dart';
-import 'package:app/presentation/blocs/office/office_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,7 +44,6 @@ void main() async {
         providers: [
           BlocProvider<AppCubit>(create: (context) => $it()),
           BlocProvider(create: (context) => HomeCubit($it())),
-          BlocProvider(create: (context) => OfficeCubit($it())),
         ],
         child: const MainApp(),
       ),

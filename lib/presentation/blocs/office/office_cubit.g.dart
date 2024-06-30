@@ -8,9 +8,13 @@ part of 'office_cubit.dart';
 
 _$OfficeStateImpl _$$OfficeStateImplFromJson(Map<String, dynamic> json) =>
     _$OfficeStateImpl(
-      selectedDate: json['selectedDate'] == null
+      user: json['user'] == null
           ? null
-          : DateTime.parse(json['selectedDate'] as String),
+          : Profile.fromJson(json['user'] as Map<String, dynamic>),
+      company: json['company'] == null
+          ? null
+          : Company.fromJson(json['company'] as Map<String, dynamic>),
+      selectedDate: DateTime.parse(json['selectedDate'] as String),
       attendance: json['attendance'] == null
           ? const OfficeAttendance()
           : OfficeAttendance.fromJson(
@@ -35,7 +39,9 @@ Map<String, dynamic> _$$OfficeStateImplToJson(_$OfficeStateImpl instance) {
     }
   }
 
-  writeNotNull('selectedDate', instance.selectedDate?.toIso8601String());
+  writeNotNull('user', instance.user?.toJson());
+  writeNotNull('company', instance.company?.toJson());
+  val['selectedDate'] = instance.selectedDate.toIso8601String();
   val['attendance'] = instance.attendance.toJson();
   val['leave'] = instance.leave.toJson();
   val['permit'] = instance.permit.toJson();

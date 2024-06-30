@@ -11,7 +11,7 @@ class HoraButton extends ElevatedButton {
           style: ElevatedButton.styleFrom(
             backgroundColor: colorBluePrimary2,
             foregroundColor: Colors.white,
-            disabledBackgroundColor: colorDisabled,
+            disabledBackgroundColor: Colors.black.withOpacity(0.62),
             disabledForegroundColor: Colors.white,
             shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(12)),

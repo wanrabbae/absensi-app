@@ -2,6 +2,7 @@ import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/presentation/blocs/office/office_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 
 class OfficeAppBar extends AppBar {
   OfficeAppBar(
@@ -30,8 +31,7 @@ class _OfficeAppBarCompany extends StatelessWidget {
         Get.toNamed(RouteName.companyScreen);
       },
       icon: BlocBuilder<AppCubit, AppState>(
-        buildWhen: (previous, current) =>
-            previous.company != current.company,
+        buildWhen: (previous, current) => previous.company != current.company,
         builder: (context, state) {
           final company = state.company;
 
@@ -59,9 +59,7 @@ class _OfficeAppBarLeading extends StatelessWidget {
         final selectedDate = state.selectedDate;
 
         return IconButton(
-          tooltip: selectedDate == null
-              ? null
-              : kDateFullFormat.format(selectedDate),
+          tooltip: kDateFullFormat.format(selectedDate),
           onPressed: () {
             final cubit = context.read<OfficeCubit>();
 
@@ -71,7 +69,13 @@ class _OfficeAppBarLeading extends StatelessWidget {
               context: context,
               initialDate: selectedDate,
               firstDate: DateTime(2010, 1, 1),
-              lastDate: now.add(const Duration(days: 1)),
+              lastDate: now.copyWith(
+                hour: 23,
+                minute: 59,
+                second: 59,
+                millisecond: 999,
+                microsecond: 999,
+              ),
               currentDate: now,
               initialDatePickerMode: DatePickerMode.day,
             ).then((value) {
@@ -79,7 +83,7 @@ class _OfficeAppBarLeading extends StatelessWidget {
               cubit.selectDate(value);
             });
           },
-          icon: const Icon(FeatherIcons.settings),
+          icon: const Icon(Boxicons.bx_cog),
         );
       },
     );

@@ -76,7 +76,9 @@ class ReportFormView extends StatelessWidget {
       body: BlocBuilder<ReportCubit, ReportState>(
         buildWhen: (previous, current) => previous.image != current.image,
         builder: (context, state) {
-          return Image.file(File(state.image.path));
+          return InteractiveViewer(
+            child: Center(child: Image.file(File(state.image.path))),
+          );
         },
       ),
       bottomNavigationBar: SafeArea(

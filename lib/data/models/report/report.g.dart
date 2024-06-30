@@ -15,7 +15,7 @@ _$ReportImpl _$$ReportImplFromJson(Map<String, dynamic> json) => _$ReportImpl(
       tanggalStart: DateTime.parse(json['tanggalStart'] as String),
       tanggalAkhir: DateTime.parse(json['tanggalAkhir'] as String),
       tanggalCuti: DateTime.parse(json['tanggalCuti'] as String),
-      keterangan: json['keterangan'] as String,
+      keterangan: json['keterangan'] as String?,
       dokumen: json['dokumen'] as String,
       type: $enumDecode(_$ReportTypeEnumMap, json['ijin']),
       status: json['status'] as String,
@@ -40,7 +40,7 @@ Map<String, dynamic> _$$ReportImplToJson(_$ReportImpl instance) {
   val['tanggalStart'] = instance.tanggalStart.toIso8601String();
   val['tanggalAkhir'] = instance.tanggalAkhir.toIso8601String();
   val['tanggalCuti'] = instance.tanggalCuti.toIso8601String();
-  val['keterangan'] = instance.keterangan;
+  writeNotNull('keterangan', instance.keterangan);
   val['dokumen'] = instance.dokumen;
   val['ijin'] = _$ReportTypeEnumMap[instance.type]!;
   val['status'] = instance.status;

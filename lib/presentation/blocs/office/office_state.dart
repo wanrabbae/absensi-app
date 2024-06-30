@@ -2,8 +2,12 @@ part of 'office_cubit.dart';
 
 @freezed
 class OfficeState with _$OfficeState {
+  const OfficeState._();
+
   const factory OfficeState({
-    DateTime? selectedDate,
+    Profile? user,
+    Company? company,
+    required DateTime selectedDate,
     @Default(OfficeAttendance()) OfficeAttendance attendance,
     @Default(OfficeLeave()) OfficeLeave leave,
     @Default(OfficePermit()) OfficePermit permit,
@@ -12,6 +16,23 @@ class OfficeState with _$OfficeState {
 
   factory OfficeState.fromJson(Map<String, dynamic> json) =>
       _$OfficeStateFromJson(json);
+
+  bool get isAnyCurrentDataSubmitted {
+    final isAttendance = attendance.currentAttendance != null;
+
+    return isAttendance || isAnyCurrentReportSubmitted;
+  }
+
+  bool get isAnyCurrentReportSubmitted {
+    bool isLeave = false, isPermit = false, isSick = false;
+    if (user != null && user!.idkaryawan != null) {
+      isLeave = leave.currentLeave(user!.idkaryawan!) != null;
+      isPermit = permit.currentPermit(user!.idkaryawan!) != null;
+      isSick = sick.currentSick(user!.idkaryawan!) != null;
+    }
+
+    return isLeave || isPermit || isSick;
+  }
 }
 
 @freezed
@@ -28,6 +49,8 @@ class OfficeAttendance with _$OfficeAttendance {
 
 @freezed
 class OfficeLeave with _$OfficeLeave {
+  const OfficeLeave._();
+
   const factory OfficeLeave({
     List<Report>? listLeave,
     String? error,
@@ -35,10 +58,17 @@ class OfficeLeave with _$OfficeLeave {
 
   factory OfficeLeave.fromJson(Map<String, dynamic> json) =>
       _$OfficeLeaveFromJson(json);
+
+  Report? currentLeave(String idKaryawan) {
+    return listLeave
+        ?.firstWhereOrNull((leave) => leave.idKaryawan == idKaryawan);
+  }
 }
 
 @freezed
 class OfficePermit with _$OfficePermit {
+  const OfficePermit._();
+
   const factory OfficePermit({
     List<Report>? listPermit,
     String? error,
@@ -46,10 +76,17 @@ class OfficePermit with _$OfficePermit {
 
   factory OfficePermit.fromJson(Map<String, dynamic> json) =>
       _$OfficePermitFromJson(json);
+
+  Report? currentPermit(String idKaryawan) {
+    return listPermit
+        ?.firstWhereOrNull((permit) => permit.idKaryawan == idKaryawan);
+  }
 }
 
 @freezed
 class OfficeSick with _$OfficeSick {
+  const OfficeSick._();
+
   const factory OfficeSick({
     List<Report>? listSick,
     String? error,
@@ -57,4 +94,8 @@ class OfficeSick with _$OfficeSick {
 
   factory OfficeSick.fromJson(Map<String, dynamic> json) =>
       _$OfficeSickFromJson(json);
+
+  Report? currentSick(String idKaryawan) {
+    return listSick?.firstWhereOrNull((sick) => sick.idKaryawan == idKaryawan);
+  }
 }

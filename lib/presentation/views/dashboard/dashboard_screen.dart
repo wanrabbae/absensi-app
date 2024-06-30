@@ -1,5 +1,6 @@
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/blocs/office/office_cubit.dart';
 import 'package:app/presentation/views/offfice/office_screen.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:flutter/services.dart';
@@ -71,7 +72,17 @@ class _DashboardScreenState extends State<DashboardScreen>
         controller: tabController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          const DefaultTabController(length: 4, child: OfficeScreen()),
+          BlocProvider(
+            create: (context) {
+              final app = context.read<AppCubit>();
+              return OfficeCubit(
+                $it(),
+                user: app.state.currentUser,
+                company: app.state.company,
+              );
+            },
+            child: const DefaultTabController(length: 4, child: OfficeScreen()),
+          ),
           const HomeSearchScreen(),
           activeAttendanceDate != null
               ? HomeScreen(activeAttendanceDate: activeAttendanceDate)

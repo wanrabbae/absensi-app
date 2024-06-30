@@ -3,8 +3,12 @@ import 'package:app/data/models/report/report.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/presentation/blocs/office/office_cubit.dart';
 import 'package:app/presentation/views/offfice/report/report_handler.dart';
+import 'package:app/presentation/widgets/bottomsheet.dart';
 import 'package:app/presentation/widgets/buttons.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
+import 'package:nil/nil.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 class OfficeFAB extends StatelessWidget {
@@ -17,17 +21,28 @@ class OfficeFAB extends StatelessWidget {
     return AnimatedBuilder(
       animation: controller,
       builder: (context, child) {
-        switch (controller.index) {
-          case 0:
-            return const PresenceFAB();
-          case 1:
-            return const AddFAB(type: ReportType.leave);
-          case 2:
-            return const AddFAB(type: ReportType.permit);
-          case 3:
-          default:
-            return const AddFAB(type: ReportType.sick);
-        }
+        return BlocBuilder<OfficeCubit, OfficeState>(
+          buildWhen: (previous, current) =>
+              previous.isAnyCurrentDataSubmitted !=
+              current.isAnyCurrentDataSubmitted,
+          builder: (context, state) {
+            if (state.isAnyCurrentDataSubmitted && controller.index > 0) {
+              return nil;
+            }
+
+            switch (controller.index) {
+              case 0:
+                return const PresenceFAB();
+              case 1:
+                return const AddFAB(type: ReportType.leave);
+              case 2:
+                return const AddFAB(type: ReportType.permit);
+              case 3:
+              default:
+                return const AddFAB(type: ReportType.sick);
+            }
+          },
+        );
       },
     );
   }
@@ -42,7 +57,6 @@ class PresenceFAB extends StatefulWidget {
 
 class _PresenceFABState extends State<PresenceFAB> {
   final stopWatchTimer = StopWatchTimer(mode: StopWatchMode.countUp);
-  final rxButtonEnabled = ValueNotifier(true);
 
   @override
   void dispose() {
@@ -56,20 +70,36 @@ class _PresenceFABState extends State<PresenceFAB> {
       children: [
         const SizedBox(width: 32),
         Expanded(
-          child: AnimatedBuilder(
-            animation: rxButtonEnabled,
-            builder: (context, child) {
-              final buttonEnabled = rxButtonEnabled.value;
+          child: BlocBuilder<OfficeCubit, OfficeState>(
+            buildWhen: (previous, current) =>
+                previous.selectedDate != current.selectedDate ||
+                previous.attendance != current.attendance ||
+                previous.isAnyCurrentReportSubmitted !=
+                    current.isAnyCurrentReportSubmitted,
+            builder: (context, state) {
+              final currentAttendance = state.attendance.currentAttendance;
+              final isAnyCurrentReportSubmitted =
+                  state.isAnyCurrentReportSubmitted;
+              final now = DateTime.now();
+              final today = DateTime(now.year, now.month, now.day);
+              final isCurrent = today == state.selectedDate;
+
+              bool buttonEnabled = false;
+
+              if (isCurrent &&
+                  !isAnyCurrentReportSubmitted &&
+                  (currentAttendance == null ||
+                      !currentAttendance.isCheckOut)) {
+                buttonEnabled = true;
+              }
 
               Widget child = HoraButton(
                 onPressed: buttonEnabled
-                    ? () {
-                        Get.find<HomeController>().absensi(context);
-                      }
+                    ? () => Get.find<HomeController>().absensi(context)
                     : null,
                 child: Row(
                   children: [
-                    const Icon(Icons.hourglass_bottom),
+                    const Icon(Boxicons.bxs_hourglass),
                     Expanded(
                       child: StreamBuilder(
                         stream: stopWatchTimer.rawTime,
@@ -96,12 +126,12 @@ class _PresenceFABState extends State<PresenceFAB> {
                         },
                       ),
                     ),
-                    const Icon(Icons.chevron_right),
+                    const Icon(Boxicons.bxs_chevron_right),
                   ],
                 ),
               );
 
-              if (!buttonEnabled) {
+              if (!buttonEnabled &&  isCurrent) {
                 child = GestureDetector(
                   onTap: () {
                     customSnackbar1(tr('snackbar_already_present'));
@@ -119,32 +149,40 @@ class _PresenceFABState extends State<PresenceFAB> {
 
     return BlocListener<OfficeCubit, OfficeState>(
       listenWhen: (previous, current) =>
-          previous.attendance.currentAttendance !=
-          current.attendance.currentAttendance,
+          previous.selectedDate != current.selectedDate ||
+          previous.attendance != current.attendance,
       listener: (context, state) {
-        _handleTodayAttendanceTimer(state.attendance.currentAttendance);
+        _handleTodayAttendanceTimer(
+          state.selectedDate,
+          state.attendance.currentAttendance,
+        );
       },
       child: child,
     );
   }
 
-  _handleTodayAttendanceTimer(Absence? currentAttendance) {
+  _handleTodayAttendanceTimer(
+    DateTime selectedDate,
+    Absence? currentAttendance,
+  ) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final isCurrent = today == selectedDate;
+
     if (currentAttendance == null) {
-      rxButtonEnabled.value = true;
       return;
     }
 
-    if (currentAttendance.isCheckIn && currentAttendance.isCheckOut) {
-      rxButtonEnabled.value = false;
-      return;
+    if (isCurrent &&
+        currentAttendance.isCheckIn &&
+        !currentAttendance.isCheckOut) {
+      stopWatchTimer.setPresetTime(
+        mSec: DateTime.now()
+            .difference(currentAttendance.waktuCheckIn!)
+            .inMilliseconds,
+      );
+      stopWatchTimer.onStartTimer();
     }
-
-    stopWatchTimer.setPresetTime(
-      mSec: DateTime.now()
-          .difference(currentAttendance.waktuCheckIn!)
-          .inMilliseconds,
-    );
-    stopWatchTimer.onStartTimer();
   }
 }
 
@@ -156,28 +194,70 @@ class AddFAB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {
-        final cubit = context.read<OfficeCubit>();
-        handleAddReport(context, type).then((response) {
-          if (response == true && !cubit.isClosed) {
-            switch (type) {
-              case ReportType.leave:
-                cubit.getCurrentLeaveList();
-                break;
-              case ReportType.permit:
-                cubit.getCurrentPermitList();
-                break;
-              case ReportType.sick:
-                cubit.getCurrentSickList();
-                break;
-            }
-          }
-        });
-      },
+      onPressed: () => _handleAddReport(context),
       backgroundColor: colorBluePrimary2,
       foregroundColor: Colors.white,
       elevation: 0,
       child: const Icon(Icons.add),
     );
+  }
+
+  _handleAddReport(BuildContext context) {
+    final cubit = context.read<OfficeCubit>();
+
+    late final String title, message;
+
+    switch (type) {
+      case ReportType.leave:
+        title = tr('leave');
+        message = tr('leave_submission_confirmation');
+        break;
+      case ReportType.permit:
+        title = tr('permit');
+        message = tr('permit_submission_confirmation');
+        break;
+      case ReportType.sick:
+        title = tr('sick');
+        message = tr('sick_submission_confirmation');
+        break;
+    }
+
+    showHoraConfirmationBottomSheet(
+      context,
+      title: title,
+      message: message,
+      button: HoraButton(
+        onPressed: () {
+          Navigator.pop(context, true);
+        },
+        child: Text(tr('report_submission_button')),
+      ),
+    ).then((confirm) {
+      if (confirm == true) {
+        return handleAddReport(context, type);
+      }
+
+      return Future.value(confirm);
+    }).then((response) {
+      if (response == true && !cubit.isClosed) {
+        switch (type) {
+          case ReportType.leave:
+            cubit.getCurrentLeaveList();
+            break;
+          case ReportType.permit:
+            cubit.getCurrentPermitList();
+            break;
+          case ReportType.sick:
+            cubit.getCurrentSickList();
+            break;
+        }
+      }
+    }, onError: (e) {
+      if (e is PlatformException) {
+        customSnackbar1(e.message ?? e.code);
+      } else {
+        customSnackbar1(tr('snackbar_photo_required'));
+      }
+    });
   }
 }

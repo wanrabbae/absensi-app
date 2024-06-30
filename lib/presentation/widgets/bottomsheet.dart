@@ -38,15 +38,11 @@ Future<dynamic> showHoraInfoBottomSheet(
   required String message,
   VoidCallback? onButtonClose,
 }) {
-  return showHoraCustomBottomSheet(
+  return showHoraConfirmationBottomSheet(
     context,
     title: title,
     isDismissible: false,
-    content: Text(
-      message,
-      style: const TextStyle(fontSize: 18),
-      textAlign: TextAlign.center,
-    ),
+    message: message,
     button: HoraButton(
       onPressed: () {
         Navigator.pop(context);
@@ -54,6 +50,26 @@ Future<dynamic> showHoraInfoBottomSheet(
       },
       child: Text(tr('bottom_sheet_info_button')),
     ),
+  );
+}
+
+Future<dynamic> showHoraConfirmationBottomSheet(
+  BuildContext context, {
+  required String title,
+  required String message,
+  required HoraButton button,
+  bool isDismissible = true,
+}) {
+  return showHoraCustomBottomSheet(
+    context,
+    title: title,
+    isDismissible: isDismissible,
+    content: Text(
+      message,
+      style: const TextStyle(fontSize: 18),
+      textAlign: TextAlign.center,
+    ),
+    button: button,
   );
 }
 
