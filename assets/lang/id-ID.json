@@ -192,5 +192,7 @@
   "bottom_sheet_info_button": "Tutup",
   "report_bottom_sheet_info_title": "Laporan",
   "report_bottom_sheet_info_message_succeed": "Laporan telah terkirim",
-  "report_bottom_sheet_info_message_failed": "Laporan gagal dikirim"
+  "report_bottom_sheet_info_message_failed": "Laporan gagal dikirim",
+  "tile_title_change_date": "Ganti Tanggal",
+  "tile_title_show_active_only": "Tampilkan yang aktif saja"
 }

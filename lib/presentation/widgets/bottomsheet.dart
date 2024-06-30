@@ -166,3 +166,49 @@ void dismissKeyboard([BuildContext? context]) {
     FocusScope.of(context).unfocus();
   }
 }
+
+Future<dynamic> showHoraCustomListBottomSheet(
+  BuildContext context, {
+  required List<ListTile> children,
+  bool isDismissible = true,
+}) {
+  return showModalBottomSheet(
+    context: context,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+    ),
+    backgroundColor: Colors.white,
+    barrierColor: Colors.black54,
+    isScrollControlled: true,
+    isDismissible: isDismissible,
+    builder: (context) {
+      return HoraListBottomSheet(children: children);
+    },
+  );
+}
+
+class HoraListBottomSheet extends StatelessWidget {
+  const HoraListBottomSheet({
+    super.key,
+    required this.children,
+  });
+
+  final List<ListTile> children;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget child = Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Center(
+          child: Container(height: 2, width: 20, color: colorBottomSheetDrag),
+        ),
+        const SizedBox(height: 16),
+        ...ListTile.divideTiles(color: colorDivider, tiles: children),
+      ],
+    );
+
+    return SafeArea(minimum: const EdgeInsets.all(16), child: child);
+  }
+}

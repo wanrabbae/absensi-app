@@ -192,5 +192,7 @@
   "bottom_sheet_info_button": "Close",
   "report_bottom_sheet_info_title": "Report",
   "report_bottom_sheet_info_message_succeed": "Report has been sent",
-  "report_bottom_sheet_info_message_failed": "Report failed to sent"
+  "report_bottom_sheet_info_message_failed": "Report failed to sent",
+  "tile_title_change_date": "Change Date",
+  "tile_title_show_active_only": "Show active only"
 }

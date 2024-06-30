@@ -11,12 +11,12 @@ import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 class OfficeFAB extends StatelessWidget {
-  const OfficeFAB({super.key, required this.controller});
-
-  final TabController controller;
+  const OfficeFAB({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final controller = DefaultTabController.of(context);
+
     return AnimatedBuilder(
       animation: controller,
       builder: (context, child) {

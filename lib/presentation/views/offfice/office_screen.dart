@@ -41,9 +41,7 @@ class _OfficeScreenState extends State<OfficeScreen>
           SickView(),
         ],
       ),
-      floatingActionButton: OfficeFAB(
-        controller: DefaultTabController.of(context),
-      ),
+      floatingActionButton: const OfficeFAB(),
     );
   }
 
