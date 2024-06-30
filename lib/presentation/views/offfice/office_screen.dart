@@ -33,7 +33,6 @@ class _OfficeScreenState extends State<OfficeScreen>
     return Scaffold(
       appBar: OfficeAppBar(context, bottom: _buildBottomAppBar()),
       body: const TabBarView(
-        physics: NeverScrollableScrollPhysics(),
         children: [
           PresentView(),
           LeaveView(),
@@ -51,6 +50,8 @@ class _OfficeScreenState extends State<OfficeScreen>
   PreferredSizeWidget _buildBottomAppBar() {
     return TabBar(
       indicatorSize: TabBarIndicatorSize.tab,
+      tabAlignment: TabAlignment.center,
+      isScrollable: true,
       labelStyle: const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.bold,

@@ -19,6 +19,8 @@ class OfficeAppBar extends AppBar {
             const _OfficeAppBarCompany(),
             const SizedBox(width: 8),
           ],
+          surfaceTintColor: Colors.white,
+          forceMaterialTransparency: true,
         );
 }
 

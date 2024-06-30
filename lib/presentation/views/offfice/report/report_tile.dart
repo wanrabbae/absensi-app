@@ -8,7 +8,6 @@ class ReportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('data.dokumen=${changeUrlImage(data.dokumen)}');
     return InkWell(
       radius: 5,
       onTap: () {},
