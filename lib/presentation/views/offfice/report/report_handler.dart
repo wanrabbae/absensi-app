@@ -39,7 +39,9 @@ Future<XFile?> pickImage() {
   return _imagePicker.pickImage(
     source: kImageSource,
     preferredCameraDevice: CameraDevice.front,
-    imageQuality: 50,
+    imageQuality: 40,
+    maxWidth: 1024,
+    maxHeight: 1024,
     requestFullMetadata: Platform.isAndroid,
   );
 }
