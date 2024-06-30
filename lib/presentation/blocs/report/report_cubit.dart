@@ -1,11 +1,11 @@
-import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/data/models/company.dart';
+import 'package:app/data/models/profile.dart';
 import 'package:app/data/models/report/report.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/global_resource.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:image_picker/image_picker.dart';
 
 part 'report_state.dart';
 
@@ -15,9 +15,13 @@ class ReportCubit extends Cubit<ReportState> {
   ReportCubit({
     required XFile image,
     required ReportType type,
+    required this.user,
+    required this.company,
   }) : super(ReportState(image: image, type: type));
 
   final ApiService api = $it();
+  final Profile user;
+  final Company company;
   CancelToken? _cancelToken;
 
   void setImage(XFile image) {
@@ -29,10 +33,6 @@ class ReportCubit extends Cubit<ReportState> {
   }
 
   Future<void> submit() async {
-    final app = $it<AppCubit>().state;
-    final user = app.currentUser!;
-    final company = app.company;
-
     emit(state.copyWith(submit: ReportStateSubmit.busy));
 
     try {
