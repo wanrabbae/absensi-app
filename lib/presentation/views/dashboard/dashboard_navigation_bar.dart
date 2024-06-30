@@ -1,4 +1,5 @@
 import 'package:app/global_resource.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 
 class DashboardNavigationBar extends StatelessWidget {
   const DashboardNavigationBar({
@@ -21,59 +22,23 @@ class DashboardNavigationBar extends StatelessWidget {
             type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/icons/navbar/office.webp',
-                  width: 30,
-                  height: 30,
-                ),
-                activeIcon: Image.asset(
-                  'assets/icons/navbar/office.webp',
-                  color: colorBluePrimary,
-                  width: 30,
-                  height: 30,
-                ),
+                icon: const Icon(Boxicons.bx_buildings),
+                activeIcon: const Icon(Boxicons.bxs_buildings),
                 label: tr('menu_office'),
               ),
               BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/icons/navbar/search.webp',
-                  width: 30,
-                  height: 30,
-                ),
-                activeIcon: Image.asset(
-                  'assets/icons/navbar/search.webp',
-                  color: colorBluePrimary,
-                  width: 30,
-                  height: 30,
-                ),
+                icon: const Icon(Boxicons.bx_search),
+                activeIcon: const Icon(Boxicons.bxs_search),
                 label: tr('menu_search'),
               ),
               BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/icons/navbar/work.webp',
-                  width: 30,
-                  height: 30,
-                ),
-                activeIcon: Image.asset(
-                  'assets/icons/navbar/work.webp',
-                  color: colorBluePrimary,
-                  width: 30,
-                  height: 30,
-                ),
+                icon: const Icon(Boxicons.bx_briefcase),
+                activeIcon: const Icon(Boxicons.bxs_briefcase),
                 label: tr('menu_work'),
               ),
               BottomNavigationBarItem(
-                icon: Image.asset(
-                  'assets/icons/navbar/profile.webp',
-                  width: 30,
-                  height: 30,
-                ),
-                activeIcon: Image.asset(
-                  'assets/icons/navbar/profile.webp',
-                  color: colorBluePrimary,
-                  width: 30,
-                  height: 30,
-                ),
+                icon: const Icon(Boxicons.bx_user),
+                activeIcon: const Icon(Boxicons.bxs_user),
                 label: tr('menu_profile'),
               ),
             ],
