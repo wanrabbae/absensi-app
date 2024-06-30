@@ -145,7 +145,7 @@ class HoraBottomSheet extends StatelessWidget {
       padding = EdgeInsets.fromLTRB(16, 16, 16, 16 + keyboardSize);
     }
 
-    child = Padding(padding: padding, child: child);
+    child = SafeArea(minimum: padding, child: child);
 
     if (slideUpWithKeyboard) {
       child = GestureDetector(
