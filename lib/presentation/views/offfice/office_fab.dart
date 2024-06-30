@@ -8,7 +8,6 @@ import 'package:app/presentation/widgets/buttons.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
-import 'package:nil/nil.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 class OfficeFAB extends StatelessWidget {
@@ -23,11 +22,13 @@ class OfficeFAB extends StatelessWidget {
       builder: (context, child) {
         return BlocBuilder<OfficeCubit, OfficeState>(
           buildWhen: (previous, current) =>
-              previous.isAnyCurrentDataSubmitted !=
-              current.isAnyCurrentDataSubmitted,
+              previous.attendance != current.attendance ||
+              previous.leave != current.leave ||
+              previous.permit != current.permit ||
+              previous.sick != current.sick,
           builder: (context, state) {
             if (state.isAnyCurrentDataSubmitted && controller.index > 0) {
-              return nil;
+              return const AddFAB();
             }
 
             switch (controller.index) {
@@ -131,7 +132,7 @@ class _PresenceFABState extends State<PresenceFAB> {
                 ),
               );
 
-              if (!buttonEnabled &&  isCurrent) {
+              if (!buttonEnabled && isCurrent) {
                 child = GestureDetector(
                   onTap: () {
                     customSnackbar1(tr('snackbar_already_present'));
@@ -187,22 +188,23 @@ class _PresenceFABState extends State<PresenceFAB> {
 }
 
 class AddFAB extends StatelessWidget {
-  const AddFAB({super.key, required this.type});
+  const AddFAB({super.key, this.type});
 
-  final ReportType type;
+  final ReportType? type;
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () => _handleAddReport(context),
-      backgroundColor: colorBluePrimary2,
+      onPressed: type == null ? null : () => _handleAddReport(context, type!),
+      backgroundColor:
+          type == null ? Colors.black.withOpacity(0.62) : colorBluePrimary2,
       foregroundColor: Colors.white,
       elevation: 0,
       child: const Icon(Icons.add),
     );
   }
 
-  _handleAddReport(BuildContext context) {
+  _handleAddReport(BuildContext context, ReportType type) {
     final cubit = context.read<OfficeCubit>();
 
     late final String title, message;

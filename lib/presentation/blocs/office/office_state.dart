@@ -24,7 +24,7 @@ class OfficeState with _$OfficeState {
   }
 
   bool get isAnyCurrentReportSubmitted {
-    bool isLeave = false, isPermit = false, isSick = false;
+    bool isLeave = true, isPermit = true, isSick = true;
     if (user != null && user!.idkaryawan != null) {
       isLeave = leave.currentLeave(user!.idkaryawan!) != null;
       isPermit = permit.currentPermit(user!.idkaryawan!) != null;
