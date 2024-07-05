@@ -11,6 +11,11 @@ import 'package:url_launcher/url_launcher_string.dart';
 const Locale kLocaleID = Locale("id", "ID");
 const Locale kLocaleEN = Locale("en", "US");
 
+const CameraPosition kDefaultCenter = CameraPosition(
+  target: LatLng(3.5729021, 98.6292165),
+  zoom: 17,
+);
+
 final ImageSource kImageSource =
     Platform.isIOS && kDebugMode ? ImageSource.gallery : ImageSource.camera;
 

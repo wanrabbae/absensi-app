@@ -61,7 +61,12 @@ class AppCubit extends HydratedCubit<AppState> {
           initLiveTracking();
           getTodayAttendance();
         }
-      } catch (_) {}
+      } catch (e, s) {
+        if (kDebugMode) {
+          print(e);
+          debugPrintStack(stackTrace: s);
+        }
+      }
     }
   }
 
@@ -126,7 +131,7 @@ class AppCubit extends HydratedCubit<AppState> {
 
   updateTokenFcm() {
     pushNotificationService.getToken().then((token) {
-      if (state.currentUser!.idkaryawan != null && token != null) {
+      if (state.currentUser?.idkaryawan != null && token != null) {
         final userId = state.currentUser!.idkaryawan!;
         _updateToken(userId, token);
       }

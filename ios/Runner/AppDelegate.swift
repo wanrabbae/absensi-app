@@ -14,7 +14,7 @@ import flutter_local_notifications
     FlutterLocalNotificationsPlugin.setPluginRegistrantCallback { (registry) in
     GeneratedPluginRegistrant.register(with: registry)}
 
-    GMSServices.provideAPIKey("AIzaSyCh8mO8IioKQSiSueMzwOAwuOXHtEres9A")
+    GMSServices.provideAPIKey("AIzaSyDYnIjqcUNsFcZN9wqmZ5IISuRgi6RTjiM")
     GeneratedPluginRegistrant.register(with: self)
 
       if #available(iOS 10.0, *) {

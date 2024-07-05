@@ -1,3 +1,4 @@
+import 'package:app/components/component_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -41,6 +42,7 @@ class HoraAppBar extends AppBar {
     super.backgroundColor,
     super.titleSpacing,
     Color? backButtonColor,
+    bool leadingCircleButton = false,
     super.actionsIconTheme,
   }) : super(
           leading: () {
@@ -54,9 +56,19 @@ class HoraAppBar extends AppBar {
             if (automaticallyImplyLeading) {
               if ((!hasEndDrawer && canPop) ||
                   (parentRoute?.impliesAppBarDismissal ?? false)) {
-                return useCloseButton
+                Widget child = useCloseButton
                     ? const CloseButton()
                     : HoraBackButton(color: backButtonColor);
+
+                if (leadingCircleButton) {
+                  child = Container(
+                    margin: const EdgeInsets.only(left: 16),
+                    decoration: kCircleButtonDecoration,
+                    child: child,
+                  );
+                }
+
+                return child;
               }
             }
             return null;
@@ -64,25 +76,27 @@ class HoraAppBar extends AppBar {
         );
 
   factory HoraAppBar.transparent(
-      BuildContext context, {
-        Key? key,
-        Widget? title,
-        List<Widget>? actions,
-        Widget? flexibleSpace,
-        PreferredSizeWidget? bottom,
-        double? elevation,
-        bool automaticallyImplyLeading = true,
-        SystemUiOverlayStyle? systemOverlayStyle,
-        double? titleSpacing,
-        Color? backButtonColor,
-      }) {
+    BuildContext context, {
+    Key? key,
+    Widget? title,
+    List<Widget>? actions,
+    Widget? flexibleSpace,
+    PreferredSizeWidget? bottom,
+    double? elevation,
+    bool automaticallyImplyLeading = true,
+    SystemUiOverlayStyle? systemOverlayStyle,
+    double? titleSpacing,
+    Color? backButtonColor,
+  }) {
     return HoraAppBar(
       context,
       key: key,
-      title: title != null ? DefaultTextStyle.merge(
-        child: title,
-        style: const TextStyle(color: Colors.white),
-      ) : null,
+      title: title != null
+          ? DefaultTextStyle.merge(
+              child: title,
+              style: const TextStyle(color: Colors.white),
+            )
+          : null,
       actions: actions,
       flexibleSpace: flexibleSpace,
       bottom: bottom,
@@ -93,8 +107,8 @@ class HoraAppBar extends AppBar {
       titleSpacing: titleSpacing,
       backButtonColor: Colors.white,
       actionsIconTheme: Theme.of(context).iconTheme.copyWith(
-        color: Colors.white,
-      ),
+            color: Colors.white,
+          ),
     );
   }
 }

@@ -86,6 +86,9 @@ class OfficeCubit extends Cubit<OfficeState> {
   }
 
   Future<void> getCurrentAttendanceList() async {
+    final user = state.user!;
+    final idKaryawan = user.idkaryawan;
+
     final company = state.company!;
     final idperusahaan = company.id;
 
@@ -101,8 +104,11 @@ class OfficeCubit extends Cubit<OfficeState> {
     return api
         .getAttendanceList(idperusahaan: idperusahaan, start: start, end: end)
         .then((attendances) {
+      final current =
+          attendances.firstWhereOrNull((a) => a.idKaryawan == idKaryawan);
       emit(state.copyWith(
         attendance: state.attendance.copyWith(
+          currentAttendance: current,
           listAttendance: attendances,
           error: null,
         ),

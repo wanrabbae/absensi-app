@@ -3,7 +3,6 @@ import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

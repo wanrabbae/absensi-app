@@ -32,6 +32,7 @@ class _ImageViewerState extends State<ImageViewer> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black54,
+      extendBodyBehindAppBar: true,
       appBar: HoraAppBar.transparent(
         context,
         actions: [

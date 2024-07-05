@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
+import 'present/present_form_view.dart';
+
 class OfficeFAB extends StatelessWidget {
   const OfficeFAB({super.key});
 
@@ -96,7 +98,7 @@ class _PresenceFABState extends State<PresenceFAB> {
 
               Widget child = HoraButton(
                 onPressed: buttonEnabled
-                    ? () => Get.find<HomeController>().absensi(context)
+                    ? () => PresentFormView.show(context, currentAttendance)
                     : null,
                 child: Row(
                   children: [

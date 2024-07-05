@@ -42,69 +42,7 @@ class DialogPermission extends HookConsumerWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
-                Align(
-                  alignment: Alignment.center,
-                  child: Image.asset(
-                    "assets/icons/ic_settings.png",
-                    width: 55,
-                    height: 55,
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Text(
-                  tr('dialog_permission_message'),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                    color: Color.fromRGBO(51, 51, 51, 1),
-                  ),
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: [
-                    const Icon(FeatherIcons.camera, size: 17),
-                    const SizedBox(width: 10),
-                    Text(
-                      tr('camera'),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 5),
-                Row(
-                  children: [
-                    const Icon(FeatherIcons.mapPin, size: 17),
-                    const SizedBox(width: 10),
-                    Text(
-                      tr('location'),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 5),
-                Row(
-                  children: [
-                    const Icon(FeatherIcons.folder, size: 17),
-                    const SizedBox(width: 10),
-                    Text(
-                      tr('storage'),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
+                ...dialogPermissionChildren(),
                 const SizedBox(height: 20),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -123,7 +61,7 @@ class DialogPermission extends HookConsumerWidget {
                           ),
                         ),
                       ),
-                      onPressed: _handlePermission,
+                      onPressed: handlePermission,
                       child: Text(
                         tr('next'),
                         style: const TextStyle(
@@ -142,33 +80,116 @@ class DialogPermission extends HookConsumerWidget {
       ],
     );
   }
+}
 
-  _handlePermission() async {
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.camera,
-      Permission.location,
-    ].request();
+List<Widget> dialogPermissionChildren() {
+  return [
+    const SizedBox(height: 20),
+    Align(
+      alignment: Alignment.center,
+      child: Image.asset(
+        "assets/icons/icon-permissions.webp",
+        width: 55,
+        height: 55,
+      ),
+    ),
+    const SizedBox(height: 20),
+    Text(
+      tr('dialog_permission_message'),
+      style: const TextStyle(
+        fontWeight: FontWeight.w500,
+        fontSize: 16,
+        color: Color.fromRGBO(51, 51, 51, 1),
+      ),
+    ),
+    const SizedBox(height: 20),
+    Row(
+      children: [
+        const Icon(FeatherIcons.camera, size: 17),
+        const SizedBox(width: 10),
+        Text(
+          tr('camera'),
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+            color: Colors.black,
+          ),
+        ),
+      ],
+    ),
+    const SizedBox(height: 5),
+    Row(
+      children: [
+        const Icon(FeatherIcons.mapPin, size: 17),
+        const SizedBox(width: 10),
+        Text(
+          tr('location'),
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+            color: Colors.black,
+          ),
+        ),
+      ],
+    ),
+    const SizedBox(height: 5),
+    Row(
+      children: [
+        const Icon(FeatherIcons.folder, size: 17),
+        const SizedBox(width: 10),
+        Text(
+          tr('storage'),
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+            color: Colors.black,
+          ),
+        ),
+      ],
+    ),
+  ];
+}
 
-    if (statuses[Permission.camera] == PermissionStatus.granted &&
-        statuses[Permission.location] == PermissionStatus.granted) {
-      Get.back();
-      Get.toNamed(RouteName.absen);
+handlePermission([BuildContext? context]) async {
+  Map<Permission, PermissionStatus> statuses = await [
+    Permission.camera,
+    Permission.location,
+  ].request();
+
+  if (statuses[Permission.camera] == PermissionStatus.granted &&
+      statuses[Permission.location] == PermissionStatus.granted) {
+    if (context != null && context.mounted) {
+      Navigator.pop(context, true);
       return;
     }
 
-    if (statuses[Permission.camera] == PermissionStatus.permanentlyDenied &&
-        statuses[Permission.location] == PermissionStatus.permanentlyDenied) {
-      Get.back();
-      if (Platform.isIOS) {
-        Get.toNamed(RouteName.absen);
-      }
+    Get.back();
+    Get.toNamed(RouteName.absen);
+    return;
+  }
+
+  if (statuses[Permission.camera] == PermissionStatus.permanentlyDenied &&
+      statuses[Permission.location] == PermissionStatus.permanentlyDenied) {
+    if (context != null && context.mounted) {
+      Navigator.pop(context, false);
       return;
     }
 
+    Get.back();
     if (Platform.isIOS) {
-      Get.back();
       Get.toNamed(RouteName.absen);
     }
+    return;
+  }
+
+  if (context != null && context.mounted) {
+    Navigator.pop(context);
+    return;
+  }
+
+  if (Platform.isIOS) {
+    Get.back();
+    Get.toNamed(RouteName.absen);
   }
 }
 

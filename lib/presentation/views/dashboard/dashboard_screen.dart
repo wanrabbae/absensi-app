@@ -40,6 +40,8 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AppCubit>()
+        ..getProfile()
+        ..getCompany()
         ..checkForUpdates(context.locale.countryCode!).then((result) {
           if (result.canUpdate == true) {
             Get.toNamed(RouteName.appUpdate, arguments: result);
