@@ -146,5 +146,15 @@ class _OfficeAppBarLeading extends StatelessWidget {
     });
   }
 
-  void _showActiveOnly(BuildContext context) {}
+  void _showActiveOnly(BuildContext context) {
+    final cubit = context.read<OfficeCubit>();
+    final now = DateTime.now().copyWith(
+      hour: 0,
+      minute: 0,
+      second: 0,
+      millisecond: 0,
+      microsecond: 0,
+    );
+    cubit.selectDate(now);
+  }
 }
