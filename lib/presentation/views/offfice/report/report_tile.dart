@@ -1,5 +1,6 @@
 import 'package:app/data/models/report/report.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/views/_shared/image_viewer.dart';
 
 class ReportListTile extends StatelessWidget {
   const ReportListTile({super.key, required this.data});
@@ -8,9 +9,11 @@ class ReportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final documentImage = changeUrlImage(data.dokumen);
+
     return InkWell(
       radius: 5,
-      onTap: () {},
+      onTap: () => ImageViewer.show(context, documentImage),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
         child: LayoutBuilder(
@@ -31,7 +34,7 @@ class ReportListTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Image.network(
-                  changeUrlImage(data.dokumen),
+                  documentImage,
                   width: constraints.maxWidth,
                   height: constraints.maxWidth * 3 / 8,
                   fit: BoxFit.fitWidth,
