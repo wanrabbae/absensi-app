@@ -141,6 +141,17 @@ final kDio = Dio();
 initialize() async {
   final box = GetStorage();
 
+  kDio.interceptors.add(InterceptorsWrapper(
+    onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
+      final headers = options.headers;
+      final token = box.read(Base.token);
+      if (!headers.containsKey('Authorization') && token is String) {
+        headers['Authorization'] = token;
+      }
+      handler.next(options.copyWith(headers: headers));
+    },
+  ));
+
   if (kDebugMode) {
     final logger = PrettyDioLogger(
       requestHeader: true,
@@ -153,17 +164,6 @@ initialize() async {
     );
     kDio.interceptors.add(logger);
   }
-
-  kDio.interceptors.add(InterceptorsWrapper(
-    onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
-      final headers = options.headers;
-      final token = box.read(Base.token);
-      if (!headers.containsKey('Authorization') && token is String) {
-        headers['Authorization'] = token;
-      }
-      handler.next(options.copyWith(headers: headers));
-    },
-  ));
 
   final api = ApiService(kDio, baseUrl: Base.url);
   final pushNotificationApi = PushNotificationApiService(
