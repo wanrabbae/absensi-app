@@ -24,7 +24,7 @@ _$AbsenceImpl _$$AbsenceImplFromJson(Map<String, dynamic> json) =>
       alamatLatitude: json['alamatLatitude'] as String?,
       alamatLoc: json['alamatLoc'] as String?,
       telat: json['telat'],
-      id: json['id'] as int?,
+      id: json['id'] as int,
       foto: json['foto'] as String?,
       fotoKaryawan: json['fotoKaryawan'] as String?,
       idPerusahaan: json['idPerusahaan'] as String?,
@@ -58,7 +58,7 @@ Map<String, dynamic> _$$AbsenceImplToJson(_$AbsenceImpl instance) {
   writeNotNull('alamatLatitude', instance.alamatLatitude);
   writeNotNull('alamatLoc', instance.alamatLoc);
   writeNotNull('telat', instance.telat);
-  writeNotNull('id', instance.id);
+  val['id'] = instance.id;
   writeNotNull('foto', instance.foto);
   writeNotNull('fotoKaryawan', instance.fotoKaryawan);
   writeNotNull('idPerusahaan', instance.idPerusahaan);

@@ -56,6 +56,28 @@ mixin $Attendance {
     @Query("tglstart") required String start,
     @Query("tglend") required String end,
   });
+
+  @POST('api/absensi')
+  Future<dynamic> checkIn({
+    @Part(name: 'IDPerusahaan') required String companyId,
+    @Part(name: 'NamaPerusahaan') required String companyName,
+    @Part(name: 'IDKaryawan') required String staffId,
+    @Part(name: 'NamaKaryawan') required String staffName,
+    @Part(name: 'AlamatLoc') required String address,
+    @Part(name: 'AlamatLatitude') required String latitude,
+    @Part(name: 'AlamatLongtitude') required String longitude,
+    @Part(name: "Foto", contentType: "image/*") required File photo,
+  });
+
+  @POST('api/absensi/pulang/{id}')
+  Future<dynamic> checkOut({
+    @Path('id') required int id,
+    @Part(name: 'NamaKaryawan') required String staffName,
+    @Part(name: 'AlamatPulang') required String address,
+    @Part(name: 'LatitudePulang') required String latitude,
+    @Part(name: 'LongtitudePulang') required String longitude,
+    @Part(name: "Foto", contentType: "image/*") required File photo,
+  });
 }
 
 mixin $Reimburse {
@@ -117,14 +139,13 @@ mixin $Report {
   });
 
   @POST('api/absensi/Izin')
-  Future<dynamic> submitReport({
-    @Part(name: "IDKaryawan") required String idKaryawan,
-    @Part(name: "NamaKaryawan") required String namaKaryawan,
-    @Part(name: "Keterangan") required String description,
-    @Part(name: "Ijin") required String type,
-    @Part(name: "DokumenIjin", contentType: "image/*") required File file,
-    @Part(name: "IDPerusahaan") required String idPerusahaan,
-    @Part(name: "NamaPerusahaan") required String namaPerusahaan,
-    @CancelRequest() CancelToken? cancelToken
-  });
+  Future<dynamic> submitReport(
+      {@Part(name: "IDKaryawan") required String idKaryawan,
+      @Part(name: "NamaKaryawan") required String namaKaryawan,
+      @Part(name: "Keterangan") required String description,
+      @Part(name: "Ijin") required String type,
+      @Part(name: "DokumenIjin", contentType: "image/*") required File file,
+      @Part(name: "IDPerusahaan") required String idPerusahaan,
+      @Part(name: "NamaPerusahaan") required String namaPerusahaan,
+      @CancelRequest() CancelToken? cancelToken});
 }

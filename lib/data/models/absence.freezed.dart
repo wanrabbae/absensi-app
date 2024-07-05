@@ -30,7 +30,7 @@ mixin _$Absence {
   String? get alamatLatitude => throw _privateConstructorUsedError;
   String? get alamatLoc => throw _privateConstructorUsedError;
   dynamic get telat => throw _privateConstructorUsedError;
-  int? get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String? get foto => throw _privateConstructorUsedError;
   String? get fotoKaryawan => throw _privateConstructorUsedError;
   String? get idPerusahaan => throw _privateConstructorUsedError;
@@ -63,7 +63,7 @@ abstract class $AbsenceCopyWith<$Res> {
       String? alamatLatitude,
       String? alamatLoc,
       dynamic telat,
-      int? id,
+      int id,
       String? foto,
       String? fotoKaryawan,
       String? idPerusahaan,
@@ -99,7 +99,7 @@ class _$AbsenceCopyWithImpl<$Res, $Val extends Absence>
     Object? alamatLatitude = freezed,
     Object? alamatLoc = freezed,
     Object? telat = freezed,
-    Object? id = freezed,
+    Object? id = null,
     Object? foto = freezed,
     Object? fotoKaryawan = freezed,
     Object? idPerusahaan = freezed,
@@ -152,10 +152,10 @@ class _$AbsenceCopyWithImpl<$Res, $Val extends Absence>
           ? _value.telat
           : telat // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       foto: freezed == foto
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
@@ -218,7 +218,7 @@ abstract class _$$AbsenceImplCopyWith<$Res> implements $AbsenceCopyWith<$Res> {
       String? alamatLatitude,
       String? alamatLoc,
       dynamic telat,
-      int? id,
+      int id,
       String? foto,
       String? fotoKaryawan,
       String? idPerusahaan,
@@ -252,7 +252,7 @@ class __$$AbsenceImplCopyWithImpl<$Res>
     Object? alamatLatitude = freezed,
     Object? alamatLoc = freezed,
     Object? telat = freezed,
-    Object? id = freezed,
+    Object? id = null,
     Object? foto = freezed,
     Object? fotoKaryawan = freezed,
     Object? idPerusahaan = freezed,
@@ -305,10 +305,10 @@ class __$$AbsenceImplCopyWithImpl<$Res>
           ? _value.telat
           : telat // ignore: cast_nullable_to_non_nullable
               as dynamic,
-      id: freezed == id
+      id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as int,
       foto: freezed == foto
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
@@ -367,7 +367,7 @@ class _$AbsenceImpl extends _Absence {
       this.alamatLatitude,
       this.alamatLoc,
       this.telat,
-      this.id,
+      required this.id,
       this.foto,
       this.fotoKaryawan,
       this.idPerusahaan,
@@ -404,7 +404,7 @@ class _$AbsenceImpl extends _Absence {
   @override
   final dynamic telat;
   @override
-  final int? id;
+  final int id;
   @override
   final String? foto;
   @override
@@ -528,7 +528,7 @@ abstract class _Absence extends Absence {
       final String? alamatLatitude,
       final String? alamatLoc,
       final dynamic telat,
-      final int? id,
+      required final int id,
       final String? foto,
       final String? fotoKaryawan,
       final String? idPerusahaan,
@@ -564,7 +564,7 @@ abstract class _Absence extends Absence {
   @override
   dynamic get telat;
   @override
-  int? get id;
+  int get id;
   @override
   String? get foto;
   @override

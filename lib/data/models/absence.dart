@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 part 'absence.freezed.dart';
+
 part 'absence.g.dart';
 
 @freezed
@@ -22,7 +23,7 @@ class Absence with _$Absence {
     String? alamatLatitude,
     String? alamatLoc,
     dynamic telat,
-    int? id,
+    required int id,
     String? foto,
     String? fotoKaryawan,
     String? idPerusahaan,
