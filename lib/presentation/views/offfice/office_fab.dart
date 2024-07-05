@@ -173,18 +173,40 @@ class _PresenceFABState extends State<PresenceFAB> {
     final isCurrent = today == selectedDate;
 
     if (currentAttendance == null) {
+      stopWatchTimer.setPresetTime(mSec: 0, add: false);
+      stopWatchTimer.onStopTimer();
       return;
     }
 
-    if (isCurrent &&
-        currentAttendance.isCheckIn &&
-        !currentAttendance.isCheckOut) {
+    if (currentAttendance.isCheckIn && currentAttendance.isCheckOut) {
       stopWatchTimer.setPresetTime(
-        mSec: DateTime.now()
+        mSec: currentAttendance.waktuCheckOut!
             .difference(currentAttendance.waktuCheckIn!)
             .inMilliseconds,
+        add: false,
       );
-      stopWatchTimer.onStartTimer();
+      stopWatchTimer.onStopTimer();
+      return;
+    }
+
+    if (currentAttendance.isCheckIn && !currentAttendance.isCheckOut) {
+      DateTime end = DateTime.now();
+
+      if (!isCurrent) {
+        final start = currentAttendance.waktuCheckIn ?? end;
+        end = DateTime(start.year, start.month, start.day, 23, 59, 59);
+      }
+
+      stopWatchTimer.setPresetTime(
+        mSec: end.difference(currentAttendance.waktuCheckIn!).inMilliseconds,
+        add: false,
+      );
+
+      if (isCurrent) {
+        stopWatchTimer.onStartTimer();
+      } else {
+        stopWatchTimer.onStopTimer();
+      }
     }
   }
 }
