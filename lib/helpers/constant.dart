@@ -97,7 +97,10 @@ Future<File> readAssetFile(String assetContent, String fileName) async {
 }
 
 changeUrlImage(String data) {
-  return data.replaceAll("wwwroot/", Base.url).toLowerCase();
+  if (data.startsWith(r'/')) {
+    data = data.substring(1);
+  }
+  return data.replaceFirst("wwwroot/", Base.url);
 }
 
 bool isGreaterThanToday(String dateString) {
