@@ -344,9 +344,7 @@ Widget buildImageSizeIcon(BuildContext context, String url) {
     width: 30,
     height: 30,
     decoration: BoxDecoration(
-      color: Colors.blue,
       image: DecorationImage(
-        filterQuality: FilterQuality.high,
         image: image,
         fit: BoxFit.cover,
       ),
