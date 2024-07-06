@@ -385,9 +385,11 @@ class _ApiService implements ApiService {
     required String idPerusahaan,
     required String namaPerusahaan,
     required File file,
+    CancelToken? cancelToken,
   }) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = FormData();
     _data.fields.add(MapEntry(
@@ -428,6 +430,7 @@ class _ApiService implements ApiService {
           'api/absensi/Reimb',
           queryParameters: queryParameters,
           data: _data,
+          cancelToken: cancelToken,
         )
         .copyWith(
             baseUrl: _combineBaseUrls(

@@ -20,6 +20,19 @@ class KlaimFormCubit extends Cubit<KlaimFormState> {
 
   final ApiService api;
   final keteranganController = TextEditingController();
+  CancelToken? _cancelToken;
+
+  void setFile(XFile file) {
+    emit(state.copyWith(file: file));
+  }
+
+  void setDescription(String description) {
+    emit(state.copyWith(description: description));
+  }
+
+  void cancelSubmit() {
+    _cancelToken?.cancel();
+  }
 
   Future<void> submit(Profile profile) async {
     final idKaryawan = profile.idkaryawan!;
@@ -29,9 +42,10 @@ class KlaimFormCubit extends Cubit<KlaimFormState> {
     final namaPerusahaan = profile.perusahaan!;
     final file = File(state.file.path);
 
-    emit(state.copyWith(busy: true, error: null));
+    emit(state.copyWith(submit: ReimburseStateSubmit.busy, error: null));
 
     try {
+      _cancelToken = CancelToken();
       await api.submitReimburse(
         idKaryawan: idKaryawan,
         namaKaryawan: namaKaryawan,
@@ -39,11 +53,14 @@ class KlaimFormCubit extends Cubit<KlaimFormState> {
         idPerusahaan: idPerusahaan,
         namaPerusahaan: namaPerusahaan,
         file: file,
+        cancelToken: _cancelToken,
       );
 
-      emit(state.copyWith(busy: false));
+      emit(state.copyWith(submit: ReimburseStateSubmit.succeed));
     } on DioError catch (e) {
-      emit(state.copyWith(busy: false, error: e.message));
+      emit(
+        state.copyWith(submit: ReimburseStateSubmit.failed, error: e.message),
+      );
     }
   }
 }

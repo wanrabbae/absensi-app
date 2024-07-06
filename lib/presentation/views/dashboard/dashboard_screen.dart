@@ -1,6 +1,7 @@
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/presentation/blocs/office/office_cubit.dart';
+import 'package:app/presentation/blocs/work/work_cubit.dart';
 import 'package:app/presentation/views/offfice/office_screen.dart';
 import 'package:app/presentation/views/work/work_screen.dart';
 import 'package:app/services/push_notification_service.dart';
@@ -87,7 +88,16 @@ class _DashboardScreenState extends State<DashboardScreen>
             child: const DefaultTabController(length: 4, child: OfficeScreen()),
           ),
           const HomeSearchScreen(),
-          const DefaultTabController(length: 3, child: WorkScreen()),
+          BlocProvider(
+            create: (context) {
+              final app = context.read<AppCubit>();
+              return WorkCubit(
+                context.read(),
+                app.state.currentUser!,
+              );
+            },
+            child: const DefaultTabController(length: 3, child: WorkScreen()),
+          ),
           const ProfileScreen(),
         ],
       ),

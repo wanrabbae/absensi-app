@@ -17,8 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$KlaimFormState {
   XFile get file => throw _privateConstructorUsedError;
-  bool? get busy => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
+  ReimburseStateSubmit? get submit => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $KlaimFormStateCopyWith<KlaimFormState> get copyWith =>
@@ -31,7 +32,11 @@ abstract class $KlaimFormStateCopyWith<$Res> {
           KlaimFormState value, $Res Function(KlaimFormState) then) =
       _$KlaimFormStateCopyWithImpl<$Res, KlaimFormState>;
   @useResult
-  $Res call({XFile file, bool? busy, String? error});
+  $Res call(
+      {XFile file,
+      String description,
+      String? error,
+      ReimburseStateSubmit? submit});
 }
 
 /// @nodoc
@@ -48,22 +53,27 @@ class _$KlaimFormStateCopyWithImpl<$Res, $Val extends KlaimFormState>
   @override
   $Res call({
     Object? file = null,
-    Object? busy = freezed,
+    Object? description = null,
     Object? error = freezed,
+    Object? submit = freezed,
   }) {
     return _then(_value.copyWith(
       file: null == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as XFile,
-      busy: freezed == busy
-          ? _value.busy
-          : busy // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      submit: freezed == submit
+          ? _value.submit
+          : submit // ignore: cast_nullable_to_non_nullable
+              as ReimburseStateSubmit?,
     ) as $Val);
   }
 }
@@ -76,7 +86,11 @@ abstract class _$$KlaimFormStateImplCopyWith<$Res>
       __$$KlaimFormStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({XFile file, bool? busy, String? error});
+  $Res call(
+      {XFile file,
+      String description,
+      String? error,
+      ReimburseStateSubmit? submit});
 }
 
 /// @nodoc
@@ -91,22 +105,27 @@ class __$$KlaimFormStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? file = null,
-    Object? busy = freezed,
+    Object? description = null,
     Object? error = freezed,
+    Object? submit = freezed,
   }) {
     return _then(_$KlaimFormStateImpl(
       file: null == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as XFile,
-      busy: freezed == busy
-          ? _value.busy
-          : busy // ignore: cast_nullable_to_non_nullable
-              as bool?,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
       error: freezed == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String?,
+      submit: freezed == submit
+          ? _value.submit
+          : submit // ignore: cast_nullable_to_non_nullable
+              as ReimburseStateSubmit?,
     ));
   }
 }
@@ -114,18 +133,22 @@ class __$$KlaimFormStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$KlaimFormStateImpl implements _KlaimFormState {
-  const _$KlaimFormStateImpl({required this.file, this.busy, this.error});
+  const _$KlaimFormStateImpl(
+      {required this.file, this.description = '', this.error, this.submit});
 
   @override
   final XFile file;
   @override
-  final bool? busy;
+  @JsonKey()
+  final String description;
   @override
   final String? error;
+  @override
+  final ReimburseStateSubmit? submit;
 
   @override
   String toString() {
-    return 'KlaimFormState(file: $file, busy: $busy, error: $error)';
+    return 'KlaimFormState(file: $file, description: $description, error: $error, submit: $submit)';
   }
 
   @override
@@ -134,12 +157,15 @@ class _$KlaimFormStateImpl implements _KlaimFormState {
         (other.runtimeType == runtimeType &&
             other is _$KlaimFormStateImpl &&
             (identical(other.file, file) || other.file == file) &&
-            (identical(other.busy, busy) || other.busy == busy) &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.submit, submit) || other.submit == submit));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, file, busy, error);
+  int get hashCode =>
+      Object.hash(runtimeType, file, description, error, submit);
 
   @JsonKey(ignore: true)
   @override
@@ -152,15 +178,18 @@ class _$KlaimFormStateImpl implements _KlaimFormState {
 abstract class _KlaimFormState implements KlaimFormState {
   const factory _KlaimFormState(
       {required final XFile file,
-      final bool? busy,
-      final String? error}) = _$KlaimFormStateImpl;
+      final String description,
+      final String? error,
+      final ReimburseStateSubmit? submit}) = _$KlaimFormStateImpl;
 
   @override
   XFile get file;
   @override
-  bool? get busy;
+  String get description;
   @override
   String? get error;
+  @override
+  ReimburseStateSubmit? get submit;
   @override
   @JsonKey(ignore: true)
   _$$KlaimFormStateImplCopyWith<_$KlaimFormStateImpl> get copyWith =>

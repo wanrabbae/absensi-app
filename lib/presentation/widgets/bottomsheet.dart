@@ -2,9 +2,9 @@ import 'package:app/core/themes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'buttons.dart';
+import 'loading.dart';
 
 typedef HoraLoadingWidgetBuilder<T> = Widget Function(
     BuildContext context, Widget loading);
@@ -14,12 +14,7 @@ Future<dynamic> showHoraLoadingBottomSheet(
   HoraLoadingWidgetBuilder? builder,
   VoidCallback? onCancel,
 }) {
-  final loading = Center(
-    child: LoadingAnimationWidget.prograssiveDots(
-      color: colorBluePrimary2,
-      size: 96,
-    ),
-  );
+  const loading = Center(child: LoadingAnimation());
 
   return showHoraCustomBottomSheet(
     context,

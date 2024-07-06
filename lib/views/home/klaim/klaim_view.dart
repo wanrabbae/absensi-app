@@ -1,7 +1,7 @@
 import 'package:app/presentation/widgets/empty_view.dart';
 import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/global_resource.dart';
-import 'package:app/views/home/klaim/klaim_tile_view.dart';
+import 'package:app/presentation/views/work/reimburse/reimburse_tile_view.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Completer<bool>? _completer;
@@ -60,7 +60,7 @@ class KlaimView extends StatelessWidget {
           child: ListView.builder(
             itemBuilder: (context, index) {
               final klaim = data[index];
-              return KlaimTileView(klaim, onTap: () {
+              return ReimburseTileView(klaim, onTap: () {
                 Get.toNamed(RouteName.klaimDetail, arguments: klaim);
               });
             },

@@ -1,8 +1,8 @@
 import 'package:app/data/models/klaim/klaim.dart';
 import 'package:app/global_resource.dart';
 
-class KlaimTileView extends StatelessWidget {
-  const KlaimTileView(this.klaim, {super.key, required this.onTap});
+class ReimburseTileView extends StatelessWidget {
+  const ReimburseTileView(this.klaim, {super.key, required this.onTap});
 
   final Klaim klaim;
   final VoidCallback onTap;

@@ -4,8 +4,8 @@ import 'package:app/data/models/klaim/klaim.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/views/home/components/appbar.dart';
 
-class KlaimDetailView extends StatelessWidget {
-  const KlaimDetailView({super.key, required this.klaim});
+class ReimburseDetailView extends StatelessWidget {
+  const ReimburseDetailView({super.key, required this.klaim});
 
   final Klaim klaim;
 

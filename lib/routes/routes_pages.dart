@@ -14,9 +14,9 @@ import 'package:app/views/home/company_full_screen.dart';
 import 'package:app/views/home/company_screen.dart';
 import 'package:app/views/home/hadir_result_location_screen.dart';
 import 'package:app/views/home/hadir_result_selfie_screen.dart';
-import 'package:app/views/home/klaim/klaim_detail_view.dart';
-import 'package:app/views/home/klaim/klaim_form.dart';
-import 'package:app/views/home/klaim/klaim_image_viewer.dart';
+import 'package:app/presentation/views/work/reimburse/reimburse_detail_view.dart';
+import 'package:app/presentation/views/work/reimburse/reimburse_form.dart';
+import 'package:app/presentation/views/work/reimburse/reimburse_image_viewer.dart';
 import 'package:app/views/home/stop_working_screen.dart';
 import 'package:app/views/management/data_management_page.dart';
 import 'package:app/views/tutorial/app_update_screen.dart';
@@ -132,17 +132,17 @@ class Routes {
       page: () {
         return BlocProvider(
           create: (context) => KlaimFormCubit(api: $it(), file: Get.arguments),
-          child: const KlaimForm(),
+          child: ReimburseForm(),
         );
       },
     ),
     GetPage(
       name: RouteName.klaimImageViewer,
-      page: () => KlaimImageViewer(file: Get.arguments),
+      page: () => ReimburseImageViewer(file: Get.arguments),
     ),
     GetPage(
       name: RouteName.klaimDetail,
-      page: () => KlaimDetailView(klaim: Get.arguments),
+      page: () => ReimburseDetailView(klaim: Get.arguments),
     ),
     // endregion
 

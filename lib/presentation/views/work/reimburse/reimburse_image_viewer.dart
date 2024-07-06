@@ -3,8 +3,8 @@ import 'package:app/global_resource.dart';
 import 'package:app/views/home/components/appbar.dart';
 import 'package:flutter/services.dart';
 
-class KlaimImageViewer extends StatelessWidget {
-  const KlaimImageViewer({super.key, required this.file})
+class ReimburseImageViewer extends StatelessWidget {
+  const ReimburseImageViewer({super.key, required this.file})
       : assert(file is Uint8List || file is String);
 
   final dynamic file;

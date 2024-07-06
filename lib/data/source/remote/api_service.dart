@@ -98,6 +98,7 @@ mixin $Reimburse {
     @Part(name: "IDPerusahaan") required String idPerusahaan,
     @Part(name: "NamaPerusahaan") required String namaPerusahaan,
     @Part(name: "File", contentType: "image/*") required File file,
+    @CancelRequest() CancelToken? cancelToken,
   });
 }
 
