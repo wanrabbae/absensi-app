@@ -67,16 +67,18 @@ mixin $Attendance {
     @Part(name: 'AlamatLatitude') required String latitude,
     @Part(name: 'AlamatLongtitude') required String longitude,
     @Part(name: "Foto", contentType: "image/*") required File photo,
+    @CancelRequest() CancelToken? cancelToken,
   });
 
-  @POST('api/absensi/pulang/{id}')
+  @PUT('api/absensi/pulang')
   Future<dynamic> checkOut({
-    @Path('id') required int id,
+    @Query('id') required int id,
     @Part(name: 'NamaKaryawan') required String staffName,
     @Part(name: 'AlamatPulang') required String address,
     @Part(name: 'LatitudePulang') required String latitude,
     @Part(name: 'LongtitudePulang') required String longitude,
     @Part(name: "Foto", contentType: "image/*") required File photo,
+    @CancelRequest() CancelToken? cancelToken,
   });
 }
 

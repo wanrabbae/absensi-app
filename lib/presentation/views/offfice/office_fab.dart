@@ -98,7 +98,14 @@ class _PresenceFABState extends State<PresenceFAB> {
 
               Widget child = HoraButton(
                 onPressed: buttonEnabled
-                    ? () => PresentFormView.show(context, currentAttendance)
+                    ? () {
+                        PresentFormView.show(context, currentAttendance)
+                            .then((saved) {
+                          if (saved == true) {
+                            context.read<OfficeCubit>().reloadAttendance();
+                          }
+                        });
+                      }
                     : null,
                 child: Row(
                   children: [

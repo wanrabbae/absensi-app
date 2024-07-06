@@ -104,8 +104,9 @@ class OfficeCubit extends Cubit<OfficeState> {
     return api
         .getAttendanceList(idperusahaan: idperusahaan, start: start, end: end)
         .then((attendances) {
-      final current =
+      final current = state.attendance.currentAttendance ??
           attendances.firstWhereOrNull((a) => a.idKaryawan == idKaryawan);
+      if (isClosed) return;
       emit(state.copyWith(
         attendance: state.attendance.copyWith(
           currentAttendance: current,
@@ -114,6 +115,7 @@ class OfficeCubit extends Cubit<OfficeState> {
         ),
       ));
     }, onError: (e, __) {
+      if (isClosed) return;
       emit(state.copyWith(
         attendance: state.attendance.copyWith(
           listAttendance: null,
@@ -139,6 +141,7 @@ class OfficeCubit extends Cubit<OfficeState> {
     return api
         .getLeaveList(idperusahaan: idperusahaan, start: start, end: end)
         .then((leaves) {
+      if (isClosed) return;
       emit(state.copyWith(
         leave: state.leave.copyWith(
           listLeave: leaves,
@@ -146,6 +149,7 @@ class OfficeCubit extends Cubit<OfficeState> {
         ),
       ));
     }, onError: (e, __) {
+      if (isClosed) return;
       emit(state.copyWith(
         leave: state.leave.copyWith(
           listLeave: null,
@@ -171,6 +175,7 @@ class OfficeCubit extends Cubit<OfficeState> {
     return api
         .getPermitList(idperusahaan: idperusahaan, start: start, end: end)
         .then((permits) {
+      if (isClosed) return;
       emit(state.copyWith(
         permit: state.permit.copyWith(
           listPermit: permits,
@@ -178,6 +183,7 @@ class OfficeCubit extends Cubit<OfficeState> {
         ),
       ));
     }, onError: (e, __) {
+      if (isClosed) return;
       emit(state.copyWith(
         permit: state.permit.copyWith(
           listPermit: null,
@@ -203,6 +209,7 @@ class OfficeCubit extends Cubit<OfficeState> {
     return api
         .getSickList(idperusahaan: idperusahaan, start: start, end: end)
         .then((sicks) {
+      if (isClosed) return;
       emit(state.copyWith(
         sick: state.sick.copyWith(
           listSick: sicks,
@@ -210,6 +217,7 @@ class OfficeCubit extends Cubit<OfficeState> {
         ),
       ));
     }, onError: (e, __) {
+      if (isClosed) return;
       emit(state.copyWith(
         sick: state.sick.copyWith(
           listSick: null,

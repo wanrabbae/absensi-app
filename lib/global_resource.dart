@@ -3,11 +3,15 @@
 
 //Views End
 
+import 'dart:async';
+
+import 'package:app/controllers/splash_controller.dart';
 import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart' hide Response;
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -141,6 +145,8 @@ final kDio = Dio();
 initialize() async {
   final box = GetStorage();
 
+  final streamUnauthorized = StreamController<dynamic>.broadcast();
+
   kDio.interceptors.add(InterceptorsWrapper(
     onRequest: (RequestOptions options, RequestInterceptorHandler handler) {
       final headers = options.headers;
@@ -149,6 +155,17 @@ initialize() async {
         headers['Authorization'] = token;
       }
       handler.next(options.copyWith(headers: headers));
+    },
+    onResponse: (Response response, ResponseInterceptorHandler handler) {
+      if (response.data is Map) {
+        final data = response.data as Map;
+        if (data.containsKey('message') &&
+            data['message'] == 'Unauthorized' &&
+            Get.currentRoute != RouteName.login) {
+          streamUnauthorized.add(data['message']);
+        }
+      }
+      handler.next(response);
     },
   ));
 
@@ -193,5 +210,6 @@ initialize() async {
     ..registerSingleton(kDio)
     ..registerSingleton(pushNotificationApi)
     ..registerSingleton(api)
+    ..registerSingleton(streamUnauthorized)
     ..registerSingleton(AppCubit(api, pushNotificationApi, box, $it(), $it()));
 }

@@ -13,3 +13,5 @@ enum HomeTab {
 
   bool get isKlaim => this == HomeTab.klaim;
 }
+
+enum PageStatus { idle, busy, canceled, succeed, failed }

@@ -2,12 +2,17 @@ import 'dart:async';
 
 import 'package:app/components/component_constant.dart';
 import 'package:app/components/dialog_permission.dart';
+import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/core/enums.dart';
 import 'package:app/data/models/absence.dart';
 import 'package:app/helpers/constant.dart';
+import 'package:app/helpers/notification_local.dart';
 import 'package:app/presentation/blocs/office/present/form/present_form_cubit.dart';
+import 'package:app/presentation/views/offfice/present/present_form_fab.dart';
 import 'package:app/presentation/widgets/appbar.dart';
 import 'package:app/presentation/widgets/bottomsheet.dart';
 import 'package:app/presentation/widgets/buttons.dart';
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +30,7 @@ class PresentFormView extends StatefulWidget {
           create: (context) => PresentFormCubit(
             api: context.read(),
             currentAttendance: current,
+            user: context.read<AppCubit>().state.currentUser!,
           ),
           child: const PresentFormView(),
         );
@@ -69,9 +75,54 @@ class _PresentFormViewState extends State<PresentFormView> {
     BitmapDescriptor.hueAzure,
   );
 
+  bool _showLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _setMarker();
+
+      _showLoading = true;
+      final cubit = context.read<PresentFormCubit>();
+      showHoraLoadingBottomSheet(
+        context,
+        onCancel: () {
+          Navigator.pop(context);
+        },
+        builder: (context, loading) {
+          return FutureBuilder(
+            future: cubit.getCurrentLocation(),
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                case ConnectionState.waiting:
+                case ConnectionState.active:
+                  return Image.asset(
+                    'images/map-pin-gif.gif',
+                    width: 96,
+                    height: 96,
+                  );
+                case ConnectionState.done:
+                  return Image.asset(
+                    'images/check-gif.gif',
+                    width: 96,
+                    height: 96,
+                  );
+              }
+            },
+          );
+        },
+      ).then((_) {
+        _showLoading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    final scaffold = Scaffold(
       extendBodyBehindAppBar: true,
       appBar: HoraAppBar(
         context,
@@ -107,6 +158,100 @@ class _PresentFormViewState extends State<PresentFormView> {
           );
         },
       ),
+      floatingActionButton: const PresentFormFAB(),
     );
+
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<PresentFormCubit, PresentFormState>(
+          listenWhen: (previous, current) =>
+              previous.currentLocation != current.currentLocation,
+          listener: (context, state) {
+            if (rxPosition.value != state.currentLocation) {
+              if (_showLoading == true) {
+                Future.delayed(const Duration(seconds: 2), () {
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                  }
+                });
+              }
+
+              rxPosition.value = state.currentLocation;
+              _setMarker();
+
+              final cubit = context.read<PresentFormCubit>();
+              final attendance = state.currentAttendance;
+
+              if (attendance == null) {
+                cubit.checkIn(CancelToken());
+              } else {
+                cubit.checkOut(CancelToken());
+              }
+            }
+          },
+        ),
+        BlocListener<PresentFormCubit, PresentFormState>(
+          listenWhen: (previous, current) =>
+              previous.submitAttendanceStatus !=
+                  current.submitAttendanceStatus ||
+              previous.isCheckingIn != current.isCheckingIn,
+          listener: (BuildContext context, PresentFormState state) {
+            final cubit = context.read<PresentFormCubit>();
+            switch (state.submitAttendanceStatus) {
+              case PageStatus.idle:
+                break;
+              case PageStatus.busy:
+                _showLoading = true;
+                showHoraLoadingBottomSheet(
+                  context,
+                  onCancel: () => cubit.cancelRequest(),
+                ).then((value) {
+                  _showLoading = false;
+                });
+                break;
+              case PageStatus.canceled:
+              case PageStatus.succeed:
+              case PageStatus.failed:
+                if (_showLoading == true && context.mounted) {
+                  Navigator.pop(context);
+                }
+                break;
+            }
+
+            if (state.submitAttendanceStatus == PageStatus.succeed) {
+              if (state.isCheckingIn) {
+                final now = DateTime.now();
+                AwesomeNotificationService()
+                  ..showNotificationAbsen(now)
+                  ..showNotificationAfter12Hours(now);
+              } else {
+                AwesomeNotificationService().showNotificationAbsenDone();
+              }
+              Navigator.pop(context, true);
+            } else if (state.submitAttendanceStatus == PageStatus.failed) {
+              showHoraInfoBottomSheet(
+                context,
+                title: tr('present'),
+                message: tr('snackbar_error_system'),
+              );
+            }
+          },
+        ),
+      ],
+      child: scaffold,
+    );
+  }
+
+  _setMarker() {
+    rxMarkers.value = [
+      Marker(
+        markerId: const MarkerId('marker-attendance-id'),
+        icon: markerIcon,
+        position: rxPosition.value,
+      ),
+    ];
+    completer.future.then((controller) {
+      controller.animateCamera(CameraUpdate.newLatLng(rxPosition.value));
+    });
   }
 }

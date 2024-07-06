@@ -1,6 +1,7 @@
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/data/local/base_preference.dart';
+import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/global_resource.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -40,12 +41,17 @@ void main() async {
       supportedLocales: const [kLocaleID, kLocaleEN],
       fallbackLocale: kLocaleID,
       path: 'assets/lang',
-      child: MultiBlocProvider(
+      child: MultiRepositoryProvider(
         providers: [
-          BlocProvider<AppCubit>(create: (context) => $it()),
-          BlocProvider(create: (context) => HomeCubit($it())),
+          RepositoryProvider<ApiService>.value(value: $it()),
         ],
-        child: const MainApp(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<AppCubit>(create: (context) => $it()),
+            BlocProvider(create: (context) => HomeCubit(context.read())),
+          ],
+          child: const MainApp(),
+        ),
       ),
     ),
   ));

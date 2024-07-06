@@ -6,20 +6,26 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'buttons.dart';
 
+typedef HoraLoadingWidgetBuilder<T> = Widget Function(
+    BuildContext context, Widget loading);
+
 Future<dynamic> showHoraLoadingBottomSheet(
   BuildContext context, {
+  HoraLoadingWidgetBuilder? builder,
   VoidCallback? onCancel,
 }) {
+  final loading = Center(
+    child: LoadingAnimationWidget.prograssiveDots(
+      color: colorBluePrimary2,
+      size: 96,
+    ),
+  );
+
   return showHoraCustomBottomSheet(
     context,
     title: tr('bottom_sheet_loading_title'),
     isDismissible: false,
-    content: Center(
-      child: LoadingAnimationWidget.prograssiveDots(
-        color: colorBluePrimary2,
-        size: 96,
-      ),
-    ),
+    content: builder == null ? loading : builder(context, loading),
     button: HoraButton(
       onPressed: onCancel != null
           ? () {

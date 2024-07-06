@@ -96,6 +96,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   StreamSubscription<RemoteMessage>? _streamSubscriptionMessageClick;
   StreamSubscription<dynamic>? _streamSubscriptionLocalMessageClick;
 
+  final StreamController<dynamic> _stream = $it();
+  StreamSubscription<dynamic>? _streamSubscription;
+
   @override
   void initState() {
     super.initState();
@@ -134,6 +137,12 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
           _handleMessageLocalOpen(remoteMessage);
         }
       });
+
+      _streamSubscription = _stream.stream.listen((event) {
+        SplashController().removeData();
+        context.read<AppCubit>().clearToken();
+        Get.offAllNamed(RouteName.login);
+      });
     });
 
     WidgetsBinding.instance.addObserver(this);
@@ -160,6 +169,9 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
     _streamSubscriptionMessageClick?.cancel();
     _streamSubscriptionLocalMessageClick?.cancel();
     WidgetsBinding.instance.removeObserver(this);
+
+    _streamSubscription?.cancel();
+    _stream.close();
 
     super.dispose();
   }
