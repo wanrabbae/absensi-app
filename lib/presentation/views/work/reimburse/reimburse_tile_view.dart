@@ -1,5 +1,6 @@
 import 'package:app/data/models/klaim/klaim.dart';
 import 'package:app/global_resource.dart';
+import 'package:flutter/cupertino.dart';
 
 class ReimburseTileView extends StatelessWidget {
   const ReimburseTileView(this.klaim, {super.key, required this.onTap});
@@ -17,7 +18,7 @@ class ReimburseTileView extends StatelessWidget {
           const SizedBox(height: 8),
           Row(
             children: [
-              _buildLeadingImage(),
+              _buildProfileImage(klaim, size: 60),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -36,47 +37,9 @@ class ReimburseTileView extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          _buildKlaimImage(),
+          _buildKlaimImage(klaim),
           const SizedBox(height: 16),
         ],
-      ),
-    );
-  }
-
-  Container _buildKlaimImage() {
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        border: Border.fromBorderSide(
-          BorderSide(color: colorSplash, width: 3),
-        ),
-      ),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(18)),
-        child: Image.network(changeUrlImage(klaim.file)),
-      ),
-    );
-  }
-
-  Widget _buildLeadingImage() {
-    return Container(
-      width: 60,
-      height: 60,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        image: klaim.foto.startsWith('assets')
-            ? DecorationImage(
-                image: AssetImage(klaim.foto),
-                fit: BoxFit.cover,
-              )
-            : DecorationImage(
-                image: NetworkImage(changeUrlImage(klaim.foto)),
-                fit: BoxFit.cover,
-              ),
-        borderRadius: const BorderRadius.all(Radius.circular(50)),
-        border: const Border.fromBorderSide(
-          BorderSide(color: colorSplash, width: 3),
-        ),
       ),
     );
   }
@@ -118,4 +81,63 @@ class ReimburseTileView extends StatelessWidget {
       textAlign: TextAlign.right,
     );
   }
+}
+
+class ReimburseGridTileView extends StatelessWidget {
+  const ReimburseGridTileView(this.klaim, {super.key, required this.onTap});
+
+  final Klaim klaim;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    Widget child = Stack(
+      children: [
+        Positioned.fill(child: _buildKlaimImage(klaim)),
+        Center(child: _buildProfileImage(klaim, size: 40)),
+      ],
+    );
+
+    child = InkWell(radius: 5, onTap: onTap, child: child);
+
+    return child;
+  }
+}
+
+Widget _buildKlaimImage(Klaim klaim) {
+  return Container(
+    decoration: const BoxDecoration(
+      borderRadius: BorderRadius.all(Radius.circular(20)),
+      border: Border.fromBorderSide(
+        BorderSide(color: colorSplash, width: 3),
+      ),
+    ),
+    child: ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(18)),
+      child: Image.network(changeUrlImage(klaim.file), fit: BoxFit.cover),
+    ),
+  );
+}
+
+Widget _buildProfileImage(Klaim klaim, {required double size}) {
+  return Container(
+    width: size,
+    height: size,
+    decoration: BoxDecoration(
+      color: Colors.white,
+      image: klaim.foto.startsWith('assets')
+          ? DecorationImage(
+              image: AssetImage(klaim.foto),
+              fit: BoxFit.cover,
+            )
+          : DecorationImage(
+              image: NetworkImage(changeUrlImage(klaim.foto)),
+              fit: BoxFit.cover,
+            ),
+      borderRadius: const BorderRadius.all(Radius.circular(50)),
+      border: const Border.fromBorderSide(
+        BorderSide(color: colorBottomSheetDrag, width: 3),
+      ),
+    ),
+  );
 }

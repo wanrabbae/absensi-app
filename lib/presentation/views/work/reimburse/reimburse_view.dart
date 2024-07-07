@@ -53,15 +53,20 @@ class _ReimburseViewState extends State<ReimburseView>
           );
         }
 
-        return ListView.builder(
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 16,
+            crossAxisSpacing: 16,
+          ),
           itemBuilder: (context, index) {
             final klaim = data[index];
-            return ReimburseTileView(klaim, onTap: () {
+            return ReimburseGridTileView(klaim, onTap: () {
               Get.toNamed(RouteName.klaimDetail, arguments: klaim);
             });
           },
           itemCount: data.length,
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 72),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 72),
         );
       },
     );
