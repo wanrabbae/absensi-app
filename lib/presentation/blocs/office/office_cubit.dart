@@ -17,8 +17,8 @@ part 'office_cubit.g.dart';
 class OfficeCubit extends Cubit<OfficeState> {
   OfficeCubit(
     this.api, {
-    Profile? user,
-    Company? company,
+    required Profile user,
+    required Company company,
   }) : super(OfficeState(
           user: user,
           company: company,
@@ -56,8 +56,6 @@ class OfficeCubit extends Cubit<OfficeState> {
 
   Future<void> getCurrentAttendance() async {
     final user = state.user;
-    if (user == null) return;
-
     final idkaryawan = user.idkaryawan;
     if (idkaryawan == null) return;
 
@@ -86,10 +84,10 @@ class OfficeCubit extends Cubit<OfficeState> {
   }
 
   Future<void> getCurrentAttendanceList() async {
-    final user = state.user!;
+    final user = state.user;
     final idKaryawan = user.idkaryawan;
 
-    final company = state.company!;
+    final company = state.company;
     final idperusahaan = company.id;
 
     final DateTime date = state.selectedDate;
@@ -126,7 +124,7 @@ class OfficeCubit extends Cubit<OfficeState> {
   }
 
   Future<void> getCurrentLeaveList() async {
-    final company = state.company!;
+    final company = state.company;
     final idperusahaan = company.id;
 
     final DateTime date = state.selectedDate;
@@ -160,7 +158,7 @@ class OfficeCubit extends Cubit<OfficeState> {
   }
 
   Future<void> getCurrentPermitList() async {
-    final company = state.company!;
+    final company = state.company;
     final idperusahaan = company.id;
 
     final DateTime date = state.selectedDate;
@@ -194,7 +192,7 @@ class OfficeCubit extends Cubit<OfficeState> {
   }
 
   Future<void> getCurrentSickList() async {
-    final company = state.company!;
+    final company = state.company;
     final idperusahaan = company.id;
 
     final DateTime date = state.selectedDate;

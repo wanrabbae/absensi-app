@@ -20,8 +20,8 @@ OfficeState _$OfficeStateFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$OfficeState {
-  Profile? get user => throw _privateConstructorUsedError;
-  Company? get company => throw _privateConstructorUsedError;
+  Profile get user => throw _privateConstructorUsedError;
+  Company get company => throw _privateConstructorUsedError;
   DateTime get selectedDate => throw _privateConstructorUsedError;
   OfficeAttendance get attendance => throw _privateConstructorUsedError;
   OfficeLeave get leave => throw _privateConstructorUsedError;
@@ -41,16 +41,16 @@ abstract class $OfficeStateCopyWith<$Res> {
       _$OfficeStateCopyWithImpl<$Res, OfficeState>;
   @useResult
   $Res call(
-      {Profile? user,
-      Company? company,
+      {Profile user,
+      Company company,
       DateTime selectedDate,
       OfficeAttendance attendance,
       OfficeLeave leave,
       OfficePermit permit,
       OfficeSick sick});
 
-  $ProfileCopyWith<$Res>? get user;
-  $CompanyCopyWith<$Res>? get company;
+  $ProfileCopyWith<$Res> get user;
+  $CompanyCopyWith<$Res> get company;
   $OfficeAttendanceCopyWith<$Res> get attendance;
   $OfficeLeaveCopyWith<$Res> get leave;
   $OfficePermitCopyWith<$Res> get permit;
@@ -70,8 +70,8 @@ class _$OfficeStateCopyWithImpl<$Res, $Val extends OfficeState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
-    Object? company = freezed,
+    Object? user = null,
+    Object? company = null,
     Object? selectedDate = null,
     Object? attendance = null,
     Object? leave = null,
@@ -79,14 +79,14 @@ class _$OfficeStateCopyWithImpl<$Res, $Val extends OfficeState>
     Object? sick = null,
   }) {
     return _then(_value.copyWith(
-      user: freezed == user
+      user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as Profile?,
-      company: freezed == company
+              as Profile,
+      company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
-              as Company?,
+              as Company,
       selectedDate: null == selectedDate
           ? _value.selectedDate
           : selectedDate // ignore: cast_nullable_to_non_nullable
@@ -112,24 +112,16 @@ class _$OfficeStateCopyWithImpl<$Res, $Val extends OfficeState>
 
   @override
   @pragma('vm:prefer-inline')
-  $ProfileCopyWith<$Res>? get user {
-    if (_value.user == null) {
-      return null;
-    }
-
-    return $ProfileCopyWith<$Res>(_value.user!, (value) {
+  $ProfileCopyWith<$Res> get user {
+    return $ProfileCopyWith<$Res>(_value.user, (value) {
       return _then(_value.copyWith(user: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $CompanyCopyWith<$Res>? get company {
-    if (_value.company == null) {
-      return null;
-    }
-
-    return $CompanyCopyWith<$Res>(_value.company!, (value) {
+  $CompanyCopyWith<$Res> get company {
+    return $CompanyCopyWith<$Res>(_value.company, (value) {
       return _then(_value.copyWith(company: value) as $Val);
     });
   }
@@ -176,8 +168,8 @@ abstract class _$$OfficeStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {Profile? user,
-      Company? company,
+      {Profile user,
+      Company company,
       DateTime selectedDate,
       OfficeAttendance attendance,
       OfficeLeave leave,
@@ -185,9 +177,9 @@ abstract class _$$OfficeStateImplCopyWith<$Res>
       OfficeSick sick});
 
   @override
-  $ProfileCopyWith<$Res>? get user;
+  $ProfileCopyWith<$Res> get user;
   @override
-  $CompanyCopyWith<$Res>? get company;
+  $CompanyCopyWith<$Res> get company;
   @override
   $OfficeAttendanceCopyWith<$Res> get attendance;
   @override
@@ -209,8 +201,8 @@ class __$$OfficeStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? user = freezed,
-    Object? company = freezed,
+    Object? user = null,
+    Object? company = null,
     Object? selectedDate = null,
     Object? attendance = null,
     Object? leave = null,
@@ -218,14 +210,14 @@ class __$$OfficeStateImplCopyWithImpl<$Res>
     Object? sick = null,
   }) {
     return _then(_$OfficeStateImpl(
-      user: freezed == user
+      user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
-              as Profile?,
-      company: freezed == company
+              as Profile,
+      company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
-              as Company?,
+              as Company,
       selectedDate: null == selectedDate
           ? _value.selectedDate
           : selectedDate // ignore: cast_nullable_to_non_nullable
@@ -254,8 +246,8 @@ class __$$OfficeStateImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$OfficeStateImpl extends _OfficeState {
   const _$OfficeStateImpl(
-      {this.user,
-      this.company,
+      {required this.user,
+      required this.company,
       required this.selectedDate,
       this.attendance = const OfficeAttendance(),
       this.leave = const OfficeLeave(),
@@ -267,9 +259,9 @@ class _$OfficeStateImpl extends _OfficeState {
       _$$OfficeStateImplFromJson(json);
 
   @override
-  final Profile? user;
+  final Profile user;
   @override
-  final Company? company;
+  final Company company;
   @override
   final DateTime selectedDate;
   @override
@@ -327,8 +319,8 @@ class _$OfficeStateImpl extends _OfficeState {
 
 abstract class _OfficeState extends OfficeState {
   const factory _OfficeState(
-      {final Profile? user,
-      final Company? company,
+      {required final Profile user,
+      required final Company company,
       required final DateTime selectedDate,
       final OfficeAttendance attendance,
       final OfficeLeave leave,
@@ -340,9 +332,9 @@ abstract class _OfficeState extends OfficeState {
       _$OfficeStateImpl.fromJson;
 
   @override
-  Profile? get user;
+  Profile get user;
   @override
-  Company? get company;
+  Company get company;
   @override
   DateTime get selectedDate;
   @override

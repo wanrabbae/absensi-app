@@ -8,12 +8,8 @@ part of 'office_cubit.dart';
 
 _$OfficeStateImpl _$$OfficeStateImplFromJson(Map<String, dynamic> json) =>
     _$OfficeStateImpl(
-      user: json['user'] == null
-          ? null
-          : Profile.fromJson(json['user'] as Map<String, dynamic>),
-      company: json['company'] == null
-          ? null
-          : Company.fromJson(json['company'] as Map<String, dynamic>),
+      user: Profile.fromJson(json['user'] as Map<String, dynamic>),
+      company: Company.fromJson(json['company'] as Map<String, dynamic>),
       selectedDate: DateTime.parse(json['selectedDate'] as String),
       attendance: json['attendance'] == null
           ? const OfficeAttendance()
@@ -30,24 +26,16 @@ _$OfficeStateImpl _$$OfficeStateImplFromJson(Map<String, dynamic> json) =>
           : OfficeSick.fromJson(json['sick'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$$OfficeStateImplToJson(_$OfficeStateImpl instance) {
-  final val = <String, dynamic>{};
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('user', instance.user?.toJson());
-  writeNotNull('company', instance.company?.toJson());
-  val['selectedDate'] = instance.selectedDate.toIso8601String();
-  val['attendance'] = instance.attendance.toJson();
-  val['leave'] = instance.leave.toJson();
-  val['permit'] = instance.permit.toJson();
-  val['sick'] = instance.sick.toJson();
-  return val;
-}
+Map<String, dynamic> _$$OfficeStateImplToJson(_$OfficeStateImpl instance) =>
+    <String, dynamic>{
+      'user': instance.user.toJson(),
+      'company': instance.company.toJson(),
+      'selectedDate': instance.selectedDate.toIso8601String(),
+      'attendance': instance.attendance.toJson(),
+      'leave': instance.leave.toJson(),
+      'permit': instance.permit.toJson(),
+      'sick': instance.sick.toJson(),
+    };
 
 _$OfficeAttendanceImpl _$$OfficeAttendanceImplFromJson(
         Map<String, dynamic> json) =>

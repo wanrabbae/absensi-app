@@ -5,8 +5,8 @@ class OfficeState with _$OfficeState {
   const OfficeState._();
 
   const factory OfficeState({
-    Profile? user,
-    Company? company,
+    required Profile user,
+    required Company company,
     required DateTime selectedDate,
     @Default(OfficeAttendance()) OfficeAttendance attendance,
     @Default(OfficeLeave()) OfficeLeave leave,

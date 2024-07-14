@@ -4,6 +4,7 @@ import 'package:app/presentation/blocs/office/office_cubit.dart';
 import 'package:app/presentation/blocs/work/work_cubit.dart';
 import 'package:app/presentation/views/offfice/office_screen.dart';
 import 'package:app/presentation/views/work/work_screen.dart';
+import 'package:app/presentation/widgets/loading.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,27 +77,50 @@ class _DashboardScreenState extends State<DashboardScreen>
         controller: tabController,
         physics: const NeverScrollableScrollPhysics(),
         children: [
-          BlocProvider(
-            create: (context) {
-              final app = context.read<AppCubit>();
-              return OfficeCubit(
-                context.read(),
-                user: app.state.currentUser,
-                company: app.state.company,
+          BlocBuilder<AppCubit, AppState>(
+            buildWhen: (previous, current) =>
+                previous.currentUser != current.currentUser ||
+                previous.company != current.company,
+            builder: (context, state) {
+              if (state.currentUser == null) {
+                return const Center(child: LoadingAnimation());
+              }
+
+              return BlocProvider(
+                create: (context) {
+                  return OfficeCubit(
+                    context.read(),
+                    user: state.currentUser!,
+                    company: state.company,
+                  );
+                },
+                child: const DefaultTabController(
+                  length: 4,
+                  child: OfficeScreen(),
+                ),
               );
             },
-            child: const DefaultTabController(length: 4, child: OfficeScreen()),
           ),
           const HomeSearchScreen(),
-          BlocProvider(
-            create: (context) {
-              final app = context.read<AppCubit>();
-              return WorkCubit(
-                context.read(),
-                app.state.currentUser!,
+          BlocBuilder<AppCubit, AppState>(
+            buildWhen: (previous, current) =>
+                previous.currentUser != current.currentUser,
+            builder: (context, state) {
+              final currentUser = state.currentUser;
+              if (currentUser == null) {
+                return const Center(child: LoadingAnimation());
+              }
+
+              return BlocProvider(
+                create: (context) {
+                  return WorkCubit(context.read(), currentUser);
+                },
+                child: const DefaultTabController(
+                  length: 3,
+                  child: WorkScreen(),
+                ),
               );
             },
-            child: const DefaultTabController(length: 3, child: WorkScreen()),
           ),
           const ProfileScreen(),
         ],
