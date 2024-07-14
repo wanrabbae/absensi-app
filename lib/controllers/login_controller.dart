@@ -66,11 +66,11 @@ class LoginController extends GetxController {
         Get.offAllNamed(RouteName.home, arguments: 0);
       } else {
         Get.back();
-        customSnackbar1(tr('snackbar_otp_invalidar_otp_invalid'));
+        customSnackbar1(tr('snackbar_otp_invalid'));
       }
     } catch (e) {
       Get.back();
-      customSnackbar1(tr('snackbar_otp_invalidar_otp_invalid'));
+      customSnackbar1(tr('snackbar_otp_invalid'));
     }
   }
 }
