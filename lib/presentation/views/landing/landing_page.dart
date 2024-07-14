@@ -1,8 +1,9 @@
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/widgets/buttons.dart';
 import 'package:flutter/services.dart';
 
-class GreetingScreen extends StatelessWidget {
-  const GreetingScreen({super.key});
+class LandingPage extends StatelessWidget {
+  const LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +11,6 @@ class GreetingScreen extends StatelessWidget {
       value: SystemUiOverlayStyle.dark
           .copyWith(statusBarColor: Colors.transparent),
       child: Scaffold(
-        backgroundColor: colorGrayPrimary,
         body: Stack(
           children: [
             Positioned(
@@ -35,11 +35,15 @@ class GreetingScreen extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      customTextRichWithLink(context, tr('greeting_approval')),
-                      buttonGreen(
-                        tr('greeting_button'),
-                        onTap: () => Get.toNamed(RouteName.login),
-                      )
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: customTextRichWithLink(context, tr('greeting_approval')),
+                      ),
+                      const SizedBox(height: 12),
+                      HoraButton(
+                        onPressed: () => Get.toNamed(RouteName.login),
+                        child: Text(tr('greeting_button')),
+                      ),
                     ],
                   ),
                 ),

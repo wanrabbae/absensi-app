@@ -81,7 +81,7 @@ export 'package:app/views/auth/verify_otp_screen.dart';
 //End Tutorial
 
 //Start splash
-export 'package:app/views/greeting/greeting_screen.dart';
+export 'package:app/presentation/views/landing/landing_page.dart';
 //End Auth
 
 //Start Home
@@ -116,7 +116,7 @@ export 'package:app/views/splash/splash_screen.dart';
 //End Splash
 
 //Start Tutorial
-export 'package:app/views/tutorial/tutorial_screen.dart';
+export 'package:app/presentation/views/landing/tutorial_screen.dart';
 //End Absen
 
 //Start Webview

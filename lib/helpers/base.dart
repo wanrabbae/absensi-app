@@ -37,6 +37,7 @@ abstract class Base {
 
 //Start data auth
   static String token = "tokens";
+  static String email = "email";
   static String dataUser = "users";
   static String waktuAbsen = "waktuAbsen";
   static String izinAbsen = "izinAbsen";
@@ -54,8 +55,8 @@ abstract class RouteName {
   //Splash Screen
   static const splash = "/splash_screen";
 
-  //Greeting Screen
-  static const greeting = "/greeting_screen";
+  // Landing Page
+  static const landing = "/landing";
 
   //Tutorial Screen
   static const tutorial = "/tutorial_screen";
@@ -65,10 +66,10 @@ abstract class RouteName {
   static const onboarding = "/onboarding_screen";
 
   //Auth Login Screen
-  static const login = "/login_screen";
+  static const login = "/login";
 
   //Auth Otp Screen
-  static const otpLogin = "/otp_login_screen";
+  static const otpLogin = "/login/otp";
 
   //Home Screen
   static const home = "/home_screen";

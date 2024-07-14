@@ -1,4 +1,6 @@
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/widgets/buttons.dart';
+import 'package:flutter/services.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -10,65 +12,69 @@ class TutorialScreen extends StatelessWidget {
     final pageController = PageController();
     return GetBuilder<SplashController>(
       init: SplashController(),
-      builder: (s) => Scaffold(
-        backgroundColor: colorBluePrimary2,
-        body: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 60, 16, 0),
-              child: customHeaderAuth2(context, "HORA", tr('tutorial_title')),
-            ),
-            PageView(
-              controller: pageController,
-              children: [
-                _TutorialContent(
-                  'assets/icons/tutorial/clock.png',
-                  tr('tutorial_content_1'),
-                ),
-                _TutorialContent(
-                  'assets/icons/tutorial/marker.webp',
-                  tr('tutorial_content_2'),
-                ),
-                _TutorialContent(
-                  'assets/icons/tutorial/camera.webp',
-                  tr('tutorial_content_3'),
-                ),
-                _TutorialContent(
-                  'assets/icons/tutorial/folder.webp',
-                  tr('tutorial_content_4'),
-                ),
-                _TutorialContent(
-                  'assets/icons/tutorial/chat.png',
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(text: tr('tutorial_content_5a')),
-                        TextSpan(
-                          text: 'cs@horaapp.id',
-                          style: const TextStyle(
-                            decoration: TextDecoration.underline,
-                            decorationColor: Colors.white70,
-                          ),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              launchUrlString('mailto:cs@horaapp.id');
-                            },
-                        ),
-                        TextSpan(text: tr('tutorial_content_5b')),
-                      ],
-                    ),
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
+      builder: (s) => AnnotatedRegion<SystemUiOverlayStyle>(
+        value: SystemUiOverlayStyle.light
+            .copyWith(statusBarColor: Colors.transparent),
+        child: Scaffold(
+          backgroundColor: colorBluePrimary2,
+          body: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 60, 16, 0),
+                child: customHeaderAuth2(context, "HORA", tr('tutorial_title')),
+              ),
+              PageView(
+                controller: pageController,
+                children: [
+                  _TutorialContent(
+                    'assets/icons/tutorial/clock.png',
+                    tr('tutorial_content_1'),
                   ),
-                ),
-              ],
-            ),
-            _Footer(pageController),
-          ],
+                  _TutorialContent(
+                    'assets/icons/tutorial/marker.webp',
+                    tr('tutorial_content_2'),
+                  ),
+                  _TutorialContent(
+                    'assets/icons/tutorial/camera.webp',
+                    tr('tutorial_content_3'),
+                  ),
+                  _TutorialContent(
+                    'assets/icons/tutorial/folder.webp',
+                    tr('tutorial_content_4'),
+                  ),
+                  _TutorialContent(
+                    'assets/icons/tutorial/chat.png',
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(text: tr('tutorial_content_5a')),
+                          TextSpan(
+                            text: 'cs@horaapp.id',
+                            style: const TextStyle(
+                              decoration: TextDecoration.underline,
+                              decorationColor: Colors.white70,
+                            ),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                launchUrlString('mailto:cs@horaapp.id');
+                              },
+                          ),
+                          TextSpan(text: tr('tutorial_content_5b')),
+                        ],
+                      ),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+              _Footer(pageController),
+            ],
+          ),
         ),
       ),
     );
@@ -83,9 +89,9 @@ class _Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      bottom: 12,
-      left: 12,
-      right: 12,
+      bottom: 20,
+      left: 20,
+      right: 20,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
@@ -116,13 +122,11 @@ class _Footer extends StatelessWidget {
             textAlign: TextAlign.center,
             style: const TextStyle(color: Colors.white, fontSize: 12),
           ),
-          const SizedBox(height: 4),
-          buttonWhite(
-            tr('tutorial_footer_button'),
-            onTap: () {
-              Get.toNamed(RouteName.greeting);
-            },
-          )
+          const SizedBox(height: 12),
+          HoraButton.white(
+            onPressed: () => Get.toNamed(RouteName.landing),
+            child: Text(tr('tutorial_footer_button')),
+          ),
         ],
       ),
     );

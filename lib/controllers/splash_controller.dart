@@ -12,7 +12,7 @@ class SplashController extends GetxController {
         if (splashScreen == null) {
           Get.offAndToNamed(RouteName.tutorial);
         } else {
-          Get.offAndToNamed(RouteName.greeting);
+          Get.offAndToNamed(RouteName.landing);
         }
       } else {
         Get.offAndToNamed(RouteName.home, arguments: 0);
@@ -22,7 +22,7 @@ class SplashController extends GetxController {
 
   tutupTutorial() {
     box.write(Base.splash, "sudah lewat tutorial");
-    Get.offAllNamed(RouteName.greeting);
+    Get.offAllNamed(RouteName.landing);
   }
 
   removeData() {
@@ -35,7 +35,7 @@ class SplashController extends GetxController {
     box.remove(Base.dataPerusahaan);
     box.remove(Base.perusahaanTerpilih);
     // AwesomeNotificationService().removeNotification();
-    Get.offAllNamed(RouteName.greeting);
+    Get.offAllNamed(RouteName.landing);
   }
 
   sessionHabis(mail) {

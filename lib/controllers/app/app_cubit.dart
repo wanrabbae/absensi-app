@@ -52,7 +52,7 @@ class AppCubit extends HydratedCubit<AppState> {
 
   Future<void> getProfile() async {
     final user = box.read(Base.dataUser);
-    final email = user?['alamatEmail'];
+    final email = user?['alamatEmail'] ?? box.read(Base.email);
     if (email is String) {
       try {
         final profile = await api.getProfile(email: email);
@@ -151,6 +151,7 @@ class AppCubit extends HydratedCubit<AppState> {
   }
 
   clearToken() {
+    box.erase();
     AwesomeNotificationService().removeNotification();
     emit(const AppState());
     // bg.BackgroundLocation.stopLocationService();

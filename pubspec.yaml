@@ -63,6 +63,7 @@ dependencies:
   saver_gallery: ^3.0.5
   device_info_plus: ^10.1.0
   path: ^1.9.0
+  email_validator: ^3.0.0
 
 dev_dependencies:
   analyzer: ^5.13.0

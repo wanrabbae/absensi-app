@@ -40,10 +40,12 @@ void main() async {
     child: EasyLocalization(
       supportedLocales: const [kLocaleID, kLocaleEN],
       fallbackLocale: kLocaleID,
+      startLocale: kLocaleID,
       path: 'assets/lang',
       child: MultiRepositoryProvider(
         providers: [
           RepositoryProvider<ApiService>.value(value: $it()),
+          RepositoryProvider<GetStorage>.value(value: $it()),
         ],
         child: MultiBlocProvider(
           providers: [

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app/data/models/absence.dart';
+import 'package:app/data/models/auth/verify_otp.dart';
 import 'package:app/data/models/company.dart';
 import 'package:app/data/models/klaim/klaim.dart';
 import 'package:app/data/models/profile.dart';
@@ -13,8 +14,23 @@ part 'api_service.g.dart';
 
 @RestApi()
 abstract class ApiService
-    with $Company, $Profile, $Attendance, $Reimburse, $Report {
+    with $Auth, $Company, $Profile, $Attendance, $Reimburse, $Report {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
+}
+
+mixin $Auth {
+  @PUT('api/login/sendlink')
+  Future<String> requestEmailOTP({
+    @Query("email") required String email,
+    @CancelRequest() CancelToken? cancelToken,
+  });
+
+  @GET('api/login/verifyOTP')
+  Future<VerifyOTP> verifyEmailOTP({
+    @Query("email") required String email,
+    @Query("otp") required String otp,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 }
 
 mixin $Company {

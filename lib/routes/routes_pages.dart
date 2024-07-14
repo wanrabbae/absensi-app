@@ -3,9 +3,16 @@ import 'package:app/controllers/klaim/form/klaim_form_cubit.dart';
 import 'package:app/controllers/live_location_log/live_location_log_cubit.dart';
 import 'package:app/controllers/management/management_cubit.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/blocs/auth/login/login_cubit.dart';
 import 'package:app/presentation/blocs/report/report_cubit.dart';
+import 'package:app/presentation/views/auth/login/login_page.dart';
+import 'package:app/presentation/views/auth/otp/verify_otp_login_page.dart';
 import 'package:app/presentation/views/dashboard/dashboard_screen.dart';
+import 'package:app/presentation/views/landing/app_update_screen.dart';
 import 'package:app/presentation/views/offfice/report/report_form_view.dart';
+import 'package:app/presentation/views/work/reimburse/reimburse_detail_view.dart';
+import 'package:app/presentation/views/work/reimburse/reimburse_form.dart';
+import 'package:app/presentation/views/work/reimburse/reimburse_image_viewer.dart';
 import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
 import 'package:app/views/absensi/absensi_pulang_screen.dart';
 import 'package:app/views/absensi/absensi_screen2.dart';
@@ -14,12 +21,8 @@ import 'package:app/views/home/company_full_screen.dart';
 import 'package:app/views/home/company_screen.dart';
 import 'package:app/views/home/hadir_result_location_screen.dart';
 import 'package:app/views/home/hadir_result_selfie_screen.dart';
-import 'package:app/presentation/views/work/reimburse/reimburse_detail_view.dart';
-import 'package:app/presentation/views/work/reimburse/reimburse_form.dart';
-import 'package:app/presentation/views/work/reimburse/reimburse_image_viewer.dart';
 import 'package:app/views/home/stop_working_screen.dart';
 import 'package:app/views/management/data_management_page.dart';
-import 'package:app/views/tutorial/app_update_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Routes {
@@ -34,14 +37,30 @@ class Routes {
     // endregion Tutorial
 
     // region Greeting
-    GetPage(name: RouteName.greeting, page: () => const GreetingScreen()),
+    GetPage(name: RouteName.landing, page: () => const LandingPage()),
     // endregion Greeting
 
     // region Auth
     // Login
-    GetPage(name: RouteName.login, page: () => const LoginScreen()),
+    GetPage(
+      name: RouteName.login,
+      page: () {
+        return BlocProvider(
+          create: (context) => LoginCubit(context.read(), context.read()),
+          child: const LoginPage(),
+        );
+      },
+    ),
     // Login Otp
-    GetPage(name: RouteName.otpLogin, page: () => const VerifyOtpScreen()),
+    GetPage(
+      name: RouteName.otpLogin,
+      page: () {
+        return BlocProvider<LoginCubit>.value(
+          value: Get.arguments,
+          child: const VerifyOTPLoginPage(),
+        );
+      },
+    ),
     // endregion Auth
 
     // region Home

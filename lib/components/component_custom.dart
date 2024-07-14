@@ -188,32 +188,6 @@ Widget buttonBlue(String title, {VoidCallback? onTap}) {
   );
 }
 
-Widget buttonWhite(String title, {VoidCallback? onTap}) {
-  return Padding(
-    padding: const EdgeInsets.all(8.0),
-    child: ElevatedButton(
-      onPressed: onTap,
-      style: ButtonStyle(
-        backgroundColor: const MaterialStatePropertyAll<Color>(Colors.white),
-        shape: MaterialStatePropertyAll<OutlinedBorder>(
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        child: Text(
-          title,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    ),
-  );
-}
-
 Widget buildImageProfilePage(BuildContext context, String? url, bool local) {
   final ImageProvider image =
       (local ? AssetImage(url!) : NetworkImage(url!)) as ImageProvider<Object>;

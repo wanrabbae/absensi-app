@@ -14,4 +14,18 @@ enum HomeTab {
   bool get isKlaim => this == HomeTab.klaim;
 }
 
-enum PageStatus { idle, busy, canceled, succeed, failed }
+enum PageStatus {
+  idle,
+  busy,
+  canceled,
+  succeed,
+  failed;
+
+  bool get isBusy => this == PageStatus.busy;
+
+  bool get isCanceled => this == PageStatus.canceled;
+
+  bool get isSucceed => this == PageStatus.succeed;
+
+  bool get isFailed => this == PageStatus.failed;
+}
