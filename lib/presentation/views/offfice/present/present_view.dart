@@ -17,6 +17,7 @@ class PresentView extends StatelessWidget {
       builder: (context, state) {
         final data = state.attendance.listAttendance;
         final error = state.attendance.error;
+        final user = state.user;
 
         if (data == null && error == null) {
           return const Center(child: CircularProgressIndicator.adaptive());
@@ -51,7 +52,10 @@ class PresentView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 itemBuilder: (context, index) {
                   final attendance = data[index];
-                  return PresentListTile(data: attendance);
+                  return PresentListTile(
+                    data: attendance,
+                    isCurrent: user.idkaryawan == attendance.idKaryawan,
+                  );
                 },
                 itemCount: data.length,
               );

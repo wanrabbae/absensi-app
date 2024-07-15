@@ -4,11 +4,13 @@ import 'package:app/controllers/live_location_log/live_location_log_cubit.dart';
 import 'package:app/controllers/management/management_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/presentation/blocs/auth/login/login_cubit.dart';
+import 'package:app/presentation/blocs/office/present/detail/present_detail_cubit.dart';
 import 'package:app/presentation/blocs/report/report_cubit.dart';
 import 'package:app/presentation/views/auth/login/login_page.dart';
 import 'package:app/presentation/views/auth/otp/verify_otp_login_page.dart';
 import 'package:app/presentation/views/dashboard/dashboard_screen.dart';
 import 'package:app/presentation/views/landing/app_update_screen.dart';
+import 'package:app/presentation/views/offfice/present/present_detail_view.dart';
 import 'package:app/presentation/views/offfice/report/report_form_view.dart';
 import 'package:app/presentation/views/work/reimburse/reimburse_detail_view.dart';
 import 'package:app/presentation/views/work/reimburse/reimburse_form.dart';
@@ -116,6 +118,29 @@ class Routes {
     GetPage(
       name: RouteName.absenViewMode,
       page: () => const AbsensiScreenView(),
+    ),
+    GetPage(
+      name: RouteName.absenDetail,
+      page: () => MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) {
+              return PresentDetailCubit(
+                context.read(),
+                context.read(),
+                data: Get.arguments,
+              );
+            },
+          ),
+          BlocProvider(
+            create: (context) {
+              return LiveLocationLogCubit(context.read(), Get.arguments);
+            },
+          ),
+        ],
+        child: const PresentDetailView(),
+      ),
+      fullscreenDialog: true,
     ),
     // Izin
     GetPage(

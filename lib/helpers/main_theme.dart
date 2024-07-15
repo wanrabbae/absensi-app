@@ -143,6 +143,21 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
         context.read<AppCubit>().clearToken();
         Get.offAllNamed(RouteName.login);
       });
+
+      Timer(const Duration(seconds: 2), () {
+        final app = context.read<AppCubit>();
+        final user = app.state.currentUser;
+        if (user == null) {
+          final splashScreen = box.read(Base.splash);
+          if (splashScreen == null) {
+            Get.offAndToNamed(RouteName.tutorial);
+          } else {
+            Get.offAndToNamed(RouteName.landing);
+          }
+        } else {
+          Get.offAndToNamed(RouteName.home, arguments: 0);
+        }
+      });
     });
 
     WidgetsBinding.instance.addObserver(this);

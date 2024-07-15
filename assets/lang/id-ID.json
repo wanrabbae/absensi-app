@@ -203,5 +203,17 @@
   "report_bottom_sheet_info_message_succeed": "Laporan telah terkirim",
   "report_bottom_sheet_info_message_failed": "Laporan gagal dikirim",
   "tile_title_change_date": "Ganti Tanggal",
-  "tile_title_show_active_only": "Tampilkan yang aktif saja"
+  "tile_title_show_active_only": "Tampilkan yang aktif saja",
+  "caller_bottom_sheet_title": "Bel",
+  "caller_bottom_sheet_message": "Bel panggilan terkirim",
+  "request_location_bottom_sheet_title": "Permintaan lokasi",
+  "detail_present_title": "Rincian kehadiran",
+  "detail_present_tab_caller": "Bel",
+  "detail_present_tab_check_in": "Hadir",
+  "detail_present_tab_location": "Lokasi",
+  "detail_present_tab_check_out": "Pulang",
+  "detail_present_clock_check_in": "Jam masuk",
+  "detail_present_location_check_in": "Lokasi",
+  "detail_present_clock_check_out": "Jam pulang",
+  "detail_present_location_check_out": "Lokasi"
 }

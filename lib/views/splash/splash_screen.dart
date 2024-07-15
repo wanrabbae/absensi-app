@@ -9,20 +9,17 @@ class SplashScreen extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     );
-    return GetBuilder<SplashController>(
-      init: SplashController(),
-      builder: (s) => const Scaffold(
-        backgroundColor: colorSplash,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image(
-                image: AssetImage("assets/icons/logo/hora.png"),
-                width: 100,
-              ),
-            ],
-          ),
+    return const Scaffold(
+      backgroundColor: colorSplash,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image(
+              image: AssetImage("assets/icons/logo/hora.png"),
+              width: 100,
+            ),
+          ],
         ),
       ),
     );

@@ -2,7 +2,7 @@ import 'package:app/presentation/widgets/empty_view.dart';
 import 'package:app/controllers/live_location_log/live_location_log_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/notification_local.dart';
-import 'package:app/views/absensi/location_log/location_log_tile.dart';
+import 'package:app/presentation/views/offfice/present/location/location_log_tile.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path_provider/path_provider.dart';

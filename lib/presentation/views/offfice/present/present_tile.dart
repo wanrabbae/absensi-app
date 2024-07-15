@@ -1,25 +1,28 @@
 import 'package:app/data/models/absence.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/widgets/bottomsheet.dart';
+import 'package:flutter_boxicons/flutter_boxicons.dart';
 
 class PresentListTile extends StatelessWidget {
-  PresentListTile({super.key, required this.data});
+  PresentListTile({super.key, required this.data, this.isCurrent = false});
 
   final Absence data;
-  final GlobalKey<TooltipState> tooltipkey = GlobalKey<TooltipState>();
+  final bool isCurrent;
+  final GlobalKey<TooltipState> tooltipKey = GlobalKey<TooltipState>();
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       radius: 5,
       onLongPress: () {
-        tooltipkey.currentState?.ensureTooltipVisible();
+        tooltipKey.currentState?.ensureTooltipVisible();
         Future.delayed(const Duration(seconds: 1), () {
           Tooltip.dismissAllToolTips();
         });
       },
       onTap: () {},
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+        padding: const EdgeInsets.fromLTRB(16, 8, 4, 8),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -34,16 +37,40 @@ class PresentListTile extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      _buildNamaKaryawan(context),
+                      Flexible(
+                        fit: FlexFit.tight,
+                        child: _buildNamaKaryawan(context),
+                      ),
                       if (data.waktuCheckOut == null) _buildTooltip(),
-                      const Spacer(),
-                      _buildTime(),
                     ],
                   ),
-                  const SizedBox(height: 5),
                   _buildSubtitle(),
                 ],
               ),
+            ),
+            const SizedBox(width: 10),
+            if (!isCurrent) ...{
+              IconButton(
+                onPressed: () => _handleCallingUser(context),
+                style: IconButton.styleFrom(
+                  visualDensity: VisualDensity.compact,
+                ),
+                icon: const Icon(Boxicons.bx_bell),
+              ),
+              IconButton(
+                onPressed: () => _handleRequestLiveLocation(context),
+                style: IconButton.styleFrom(
+                  visualDensity: VisualDensity.compact,
+                ),
+                icon: const Icon(Boxicons.bx_map),
+              ),
+            },
+            IconButton(
+              onPressed: () => _handleShowDetail(context),
+              style: IconButton.styleFrom(
+                visualDensity: VisualDensity.compact,
+              ),
+              icon: const Icon(Boxicons.bx_dots_vertical_rounded),
             ),
           ],
         ),
@@ -72,7 +99,7 @@ class PresentListTile extends StatelessWidget {
         preferBelow: false,
         verticalOffset: -16,
         margin: const EdgeInsets.only(left: 96),
-        key: tooltipkey,
+        key: tooltipKey,
         child: const Icon(
           Icons.circle,
           color: colorGreenPrimary2,
@@ -82,64 +109,26 @@ class PresentListTile extends StatelessWidget {
     );
   }
 
-  Row _buildSubtitle() {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: () {},
-          child: Image.asset(
-            'assets/icons/map-pin.png',
-            width: 16,
-          ),
-        ),
-        const SizedBox(width: 5),
-        Expanded(
-          flex: 1,
-          child: GestureDetector(
-            onTap: () {},
-            child: Text(
-              data.alamatPulang ?? data.alamatLoc ?? '',
-              maxLines: 1,
-              softWrap: true,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 16, color: Colors.black),
-            ),
-          ),
-        ),
-        const SizedBox(width: 16),
-        const Icon(Icons.keyboard_arrow_down, size: 20),
-      ],
-    );
-  }
-
-  Widget _buildTime() {
-    final time = (data.waktuCheckOut ?? data.waktuCheckIn!).toLocal();
+  Widget _buildSubtitle() {
     return Text(
-      kTimeFormat.format(time),
-      style: const TextStyle(
-        fontWeight: FontWeight.w500,
-        fontSize: 14,
-        color: Colors.black,
-      ),
-      textAlign: TextAlign.right,
+      data.alamatPulang ?? data.alamatLoc ?? '',
+      maxLines: 1,
+      softWrap: true,
+      overflow: TextOverflow.ellipsis,
+      style: const TextStyle(fontSize: 16, color: Colors.black),
     );
   }
 
   Widget _buildNamaKaryawan(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width * 0.5,
-      ),
-      child: Text(
-        data.namaKaryawan ?? '-',
-        overflow: TextOverflow.ellipsis,
-        maxLines: 1,
-        strutStyle: const StrutStyle(fontSize: 12.0),
-        style: const TextStyle(
-          color: Colors.black,
-          fontWeight: FontWeight.w700,
-          fontSize: 16,
-        ),
+    return Text(
+      data.namaKaryawan ?? '-',
+      overflow: TextOverflow.ellipsis,
+      maxLines: 1,
+      strutStyle: const StrutStyle(fontSize: 12.0),
+      style: const TextStyle(
+        color: Colors.black,
+        fontWeight: FontWeight.w700,
+        fontSize: 16,
       ),
     );
   }
@@ -154,7 +143,28 @@ class PresentListTile extends StatelessWidget {
         context,
         cloud ? changeUrlImage(image) : image,
         !cloud,
+        size: 48,
       ),
     );
+  }
+
+  _handleCallingUser(BuildContext context) {
+    showHoraInfoBottomSheet(
+      context,
+      title: tr('caller_bottom_sheet_title'),
+      message: tr('caller_bottom_sheet_message'),
+    );
+  }
+
+  _handleRequestLiveLocation(BuildContext context) {
+    showHoraInfoBottomSheet(
+      context,
+      title: tr('request_location_bottom_sheet_title'),
+      message: tr('request_location_sent'),
+    );
+  }
+
+  _handleShowDetail(BuildContext context) {
+    Get.toNamed(RouteName.absenDetail, arguments: data);
   }
 }

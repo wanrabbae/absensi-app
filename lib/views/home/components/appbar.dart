@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 
 const Icon horaBackButtonIcon = Icon(FeatherIcons.arrowLeft);
 
@@ -22,24 +23,28 @@ class HoraAppBar extends AppBar {
     super.actionsIconTheme,
   }) : super(
           centerTitle: false,
-          leading: leading ?? () {
-            final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
-            final bool canPop = parentRoute?.canPop ?? false;
-            final bool useCloseButton = parentRoute is PageRoute<dynamic> &&
-                parentRoute.fullscreenDialog;
-            final ScaffoldState? scaffold = Scaffold.maybeOf(context);
-            final bool hasEndDrawer = scaffold?.hasEndDrawer ?? false;
+          leading: leading ??
+              () {
+                final ModalRoute<dynamic>? parentRoute = ModalRoute.of(context);
+                final bool canPop = parentRoute?.canPop ?? false;
+                final bool useCloseButton =
+                    (parentRoute is PageRoute<dynamic> &&
+                            parentRoute.fullscreenDialog) ||
+                        (parentRoute is GetPageRoute<dynamic> &&
+                            parentRoute.fullscreenDialog);
+                final ScaffoldState? scaffold = Scaffold.maybeOf(context);
+                final bool hasEndDrawer = scaffold?.hasEndDrawer ?? false;
 
-            if (automaticallyImplyLeading) {
-              if ((!hasEndDrawer && canPop) ||
-                  (parentRoute?.impliesAppBarDismissal ?? false)) {
-                return useCloseButton
-                    ? const CloseButton()
-                    : HoraBackButton(color: backButtonColor);
-              }
-            }
-            return null;
-          }(),
+                if (automaticallyImplyLeading) {
+                  if ((!hasEndDrawer && canPop) ||
+                      (parentRoute?.impliesAppBarDismissal ?? false)) {
+                    return useCloseButton
+                        ? const CloseButton()
+                        : HoraBackButton(color: backButtonColor);
+                  }
+                }
+                return null;
+              }(),
         );
 
   factory HoraAppBar.white(

@@ -1,6 +1,7 @@
 import 'package:app/controllers/app/app_cubit.dart';
 import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/data/local/base_preference.dart';
+import 'package:app/data/source/firebase/firebase_service.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/global_resource.dart';
 import 'package:flutter/foundation.dart';
@@ -45,6 +46,7 @@ void main() async {
       child: MultiRepositoryProvider(
         providers: [
           RepositoryProvider<ApiService>.value(value: $it()),
+          RepositoryProvider<FirebaseService>.value(value: $it()),
           RepositoryProvider<GetStorage>.value(value: $it()),
         ],
         child: MultiBlocProvider(

@@ -21,6 +21,7 @@ final ImageSource kImageSource =
 
 const String kGlobalFontFamily = 'Montserrat';
 final DateFormat kTimeFormat = DateFormat('HH:mm');
+final DateFormat kTimeFullFormat = DateFormat('HH:mm:ss');
 final DateFormat kMysqlDateFormat = DateFormat('yyyy-MM-dd');
 final DateFormat kLastUpdatePositionDateFormat =
     DateFormat('dd/MM/yyyy HH:mm:ss');
