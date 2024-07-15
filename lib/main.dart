@@ -7,6 +7,7 @@ import 'package:app/global_resource.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:timezone/data/latest.dart' as tz;
 
 void main() async {
@@ -46,6 +47,7 @@ void main() async {
       child: MultiRepositoryProvider(
         providers: [
           RepositoryProvider<ApiService>.value(value: $it()),
+          RepositoryProvider<PackageInfo>.value(value: $it()),
           RepositoryProvider<FirebaseService>.value(value: $it()),
           RepositoryProvider<GetStorage>.value(value: $it()),
         ],

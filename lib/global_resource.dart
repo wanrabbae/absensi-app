@@ -108,7 +108,7 @@ export 'package:app/views/profile/profile_gantiemail_screen.dart';
 
 //Start Profile
 // view
-export 'package:app/views/profile/profile_screen.dart';
+export 'package:app/presentation/views/profile/profile_screen.dart';
 //Views Start
 
 //Start splash

@@ -28,7 +28,7 @@ Widget menuProfile(
             child: Text(
               title,
               style: TextStyle(
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.bold,
                 fontSize: 16,
                 color: title == tr('profile_logout')
                     ? colorBluePrimary2
