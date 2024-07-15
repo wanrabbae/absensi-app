@@ -1,9 +1,8 @@
 import 'package:app/controllers/app/app_cubit.dart';
-import 'package:app/controllers/home_controller.dart';
 import 'package:app/helpers/base.dart';
 import 'package:app/helpers/constant.dart';
-import 'package:app/helpers/dialogs.dart';
-import 'package:app/services/absensi_services.dart';
+import 'package:app/presentation/widgets/bottomsheet.dart';
+import 'package:app/presentation/widgets/buttons.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -97,45 +96,18 @@ handleShowContact(BuildContext context) {
 }
 
 handleLogOut(BuildContext context) async {
-  final homeCtrl = Get.put(HomeController());
-
-  if (homeCtrl.timer != null && homeCtrl.timer?.isActive) {
-    final tanggal = homeCtrl.currentDate;
-    final tglstart = DateTime(tanggal.year, tanggal.month, tanggal.day).toUtc();
-    final tglend =
-        DateTime(tanggal.year, tanggal.month, tanggal.day, 23, 59, 59).toUtc();
-    final request = {
-      "idkaryawan": homeCtrl.userProfile!.idkaryawan!,
-      "tglstart": kQueryRangeDateFormat.format(tglstart),
-      "tglend": kQueryRangeDateFormat.format(tglend),
-    };
-    var findData = await AbsensiServices().findIndiv(request);
-
-    if (context.mounted) {
-      showConfirmationDialog(
-        context,
-        tr('dialog_presence_title'),
-        tr('dialog_presence_message'),
-        buttonOk: tr('dialog_button_yes'),
-        buttonCancel: tr('dialog_button_no'),
-      ).then((confirmed) {
-        if (confirmed == true) {
-          Get.toNamed(RouteName.absen,
-              arguments: {"dataAbsen": findData.data?[0], "pulang": 1});
-        }
-      });
+  // TODO: check if any check in data, then check out if any
+  showHoraConfirmationBottomSheet(
+    context,
+    title: tr('dialog_logout_title'),
+    message: tr('dialog_logout_message'),
+    button: HoraButton(
+      onPressed: () => Navigator.pop(context, true),
+      child: Text(tr('dialog_logout_button')),
+    ),
+  ).then((confirmed) {
+    if (confirmed == true) {
+      context.read<AppCubit>().clearToken();
     }
-  } else {
-    showConfirmationDialog(
-      context,
-      tr('dialog_logout_title'),
-      tr('dialog_logout_message'),
-      buttonOk: tr('dialog_button_yes'),
-      buttonCancel: tr('dialog_button_no'),
-    ).then((confirmed) {
-      if (confirmed == true) {
-        context.read<AppCubit>().clearToken();
-      }
-    });
-  }
+  });
 }

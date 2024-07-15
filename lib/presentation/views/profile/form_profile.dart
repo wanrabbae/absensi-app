@@ -1,7 +1,8 @@
+import 'package:app/data/models/profile.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/views/_components/dialog.dart';
 
-Widget formProfile(context, s) {
+Widget formProfile(context, Profile user) {
   return Column(
     mainAxisAlignment: MainAxisAlignment.start,
     crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,14 +42,14 @@ Widget formProfile(context, s) {
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   GestureDetector(
-                                    onTap: () => s.imagePick(1),
+                                    onTap: () {},
                                     child: const Icon(
                                       FeatherIcons.camera,
                                       size: 40,
                                     ),
                                   ),
                                   GestureDetector(
-                                    onTap: () => s.imagePick(2),
+                                    onTap: () {},
                                     child: const Icon(
                                       FeatherIcons.image,
                                       size: 40,
@@ -61,11 +62,18 @@ Widget formProfile(context, s) {
                         },
                       );
                     },
-                    child: buildImageProfileBig(
-                      context,
-                      HomeController().gambarSearch(s.user, 1),
-                      HomeController().gambarSearch(s.user, 2),
-                      s.formFoto,
+                    child: Builder(
+                      builder: (context) {
+                        bool local = true;
+                        String image = 'assets/icons/logo/hora.png';
+
+                        if (user.photo != null) {
+                          image = changeUrlImage(user.photo!);
+                          local = false;
+                        }
+
+                        return buildImageProfilePage(context, image, local);
+                      },
                     ),
                   ),
                 ),
@@ -93,8 +101,7 @@ Widget formProfile(context, s) {
                                 TextFormField(
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
-                                  initialValue: s.user?['namaKaryawan'],
-                                  onChanged: (value) => s.profileNama = value,
+                                  initialValue: user.name,
                                   decoration: const InputDecoration(
                                     border: UnderlineInputBorder(),
                                     enabledBorder: UnderlineInputBorder(),
@@ -118,11 +125,10 @@ Widget formProfile(context, s) {
                               children: [
                                 Text(tr('gender')),
                                 DropdownButtonFormField<String>(
-                                  value: s.user?["gender"],
+                                  value: user.gender,
                                   icon: const Icon(FeatherIcons.chevronDown),
                                   onChanged: (newValue) {
-                                    // Update the selected value when the user chooses a gender
-                                    s.selectedGender = newValue;
+                                    // TODO: Update the selected value when the user chooses a gender
                                   },
                                   items: [
                                     DropdownMenuItem(
@@ -167,7 +173,7 @@ Widget formProfile(context, s) {
                               children: [
                                 Text(tr('email')),
                                 TextFormField(
-                                  initialValue: s.user?['alamatEmail'],
+                                  initialValue: user.email,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
                                   readOnly: true,
@@ -202,9 +208,7 @@ Widget formProfile(context, s) {
                               children: [
                                 Text(tr('address')),
                                 TextFormField(
-                                  key: Key(s.profileAlamat.toString()),
-                                  onChanged: (value) => s.profileAlamat = value,
-                                  initialValue: s.profileAlamat,
+                                  initialValue: user.address,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold),
                                   keyboardType: TextInputType.multiline,
@@ -243,7 +247,7 @@ Widget formProfile(context, s) {
           child: Align(
             alignment: Alignment.bottomCenter,
             child: GestureDetector(
-              onTap: () => s.hapusAkun(),
+              onTap: () {},
               child: Container(
                 color: Colors.white,
                 width: MediaQuery.of(context).size.width,

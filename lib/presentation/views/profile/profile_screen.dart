@@ -30,8 +30,10 @@ class _ProfileScreenState extends State<ProfileScreen>
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 20),
               child: BlocBuilder<AppCubit, AppState>(
+                buildWhen: (previous, current) =>
+                    previous.currentUser != current.currentUser,
                 builder: (context, state) {
                   bool local = true;
                   String image = 'assets/icons/logo/hora.png';

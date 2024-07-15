@@ -97,7 +97,7 @@ export 'package:app/views/home/home_search_screen.dart';
 export 'package:app/views/home/home_undangan_screen.dart';
 
 // Update & Delete
-export 'package:app/views/profile/profile_form_screen.dart';
+export 'package:app/presentation/views/profile/profile_form_screen.dart';
 
 // Ganti Email Otp
 export 'package:app/views/profile/profile_gantiemail_otp_screen.dart';

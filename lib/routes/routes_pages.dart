@@ -95,7 +95,11 @@ class Routes {
     // Profile
     GetPage(name: RouteName.profile, page: () => const ProfileScreen()),
     // Profile Form
-    GetPage(name: RouteName.profileForm, page: () => const ProfileFormScreen()),
+    GetPage(
+      name: RouteName.profileForm,
+      page: () => const ProfileFormScreen(),
+      fullscreenDialog: true,
+    ),
     // Profile Ganti Email
     GetPage(
       name: RouteName.profileGantiemail,
