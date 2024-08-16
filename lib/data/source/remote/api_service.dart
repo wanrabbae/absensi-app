@@ -4,6 +4,7 @@ import 'package:app/data/models/absence.dart';
 import 'package:app/data/models/auth/verify_otp.dart';
 import 'package:app/data/models/company.dart';
 import 'package:app/data/models/klaim/klaim.dart';
+import 'package:app/data/models/laporan/laporan.dart';
 import 'package:app/data/models/profile.dart';
 import 'package:app/data/models/report/report.dart';
 import 'package:dio/dio.dart';
@@ -14,7 +15,7 @@ part 'api_service.g.dart';
 
 @RestApi()
 abstract class ApiService
-    with $Auth, $Company, $Profile, $Attendance, $Reimburse, $Report {
+    with $Auth, $Company, $Profile, $Attendance, $Reimburse, $Report, $Laporan {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 }
 
@@ -158,13 +159,38 @@ mixin $Report {
   });
 
   @POST('api/absensi/Izin')
-  Future<dynamic> submitReport(
-      {@Part(name: "IDKaryawan") required String idKaryawan,
-      @Part(name: "NamaKaryawan") required String namaKaryawan,
-      @Part(name: "Keterangan") required String description,
-      @Part(name: "Ijin") required String type,
-      @Part(name: "DokumenIjin", contentType: "image/*") required File file,
-      @Part(name: "IDPerusahaan") required String idPerusahaan,
-      @Part(name: "NamaPerusahaan") required String namaPerusahaan,
-      @CancelRequest() CancelToken? cancelToken});
+  Future<dynamic> submitReport({
+    @Part(name: "IDKaryawan") required String idKaryawan,
+    @Part(name: "NamaKaryawan") required String namaKaryawan,
+    @Part(name: "Keterangan") required String description,
+    @Part(name: "Ijin") required String type,
+    @Part(name: "DokumenIjin", contentType: "image/*") required File file,
+    @Part(name: "IDPerusahaan") required String idPerusahaan,
+    @Part(name: "NamaPerusahaan") required String namaPerusahaan,
+    @CancelRequest() CancelToken? cancelToken,
+  });
+}
+
+mixin $Laporan {
+  @GET('api/absensi/LapView')
+  Future<List<Laporan>> getLaporan({
+    @Query("idperusahaan") required String idPerusahaan,
+    @Query("tglstart") required String start,
+    @Query("tglend") required String end,
+  });
+
+  @POST('api/absensi/Laporan')
+  Future<dynamic> submitLaporan({
+    @Part(name: "IDKaryawan") required String idKaryawan,
+    @Part(name: "NamaKaryawan") required String namaKaryawan,
+    @Part(name: "IDPerusahaan") required String idPerusahaan,
+    @Part(name: "NamaPerusahaan") required String namaPerusahaan,
+    @Part(name: "File", contentType: "image/*") required File file,
+    @Part(name: "Keterangan") required String keterangan,
+    @Part(name: "LocLat") required String latitude,
+    @Part(name: "LocLang") required String longitude,
+    @Part(name: "Lokasi") required String lokasi,
+    @Part(name: "Tag") required String tag,
+    @CancelRequest() CancelToken? cancelToken,
+  });
 }

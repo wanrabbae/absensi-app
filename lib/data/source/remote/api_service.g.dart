@@ -762,6 +762,127 @@ class _ApiService implements ApiService {
     return value;
   }
 
+  @override
+  Future<List<Laporan>> getLaporan({
+    required String idPerusahaan,
+    required String start,
+    required String end,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'idperusahaan': idPerusahaan,
+      r'tglstart': start,
+      r'tglend': end,
+    };
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Laporan>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'api/absensi/LapView',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => Laporan.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<dynamic> submitLaporan({
+    required String idKaryawan,
+    required String namaKaryawan,
+    required String idPerusahaan,
+    required String namaPerusahaan,
+    required File file,
+    required String keterangan,
+    required String latitude,
+    required String longitude,
+    required String lokasi,
+    required String tag,
+    CancelToken? cancelToken,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = FormData();
+    _data.fields.add(MapEntry(
+      'IDKaryawan',
+      idKaryawan,
+    ));
+    _data.fields.add(MapEntry(
+      'NamaKaryawan',
+      namaKaryawan,
+    ));
+    _data.fields.add(MapEntry(
+      'IDPerusahaan',
+      idPerusahaan,
+    ));
+    _data.fields.add(MapEntry(
+      'NamaPerusahaan',
+      namaPerusahaan,
+    ));
+    _data.files.add(MapEntry(
+      'File',
+      MultipartFile.fromFileSync(
+        file.path,
+        filename: file.path.split(Platform.pathSeparator).last,
+        contentType: MediaType.parse('image/*'),
+      ),
+    ));
+    _data.fields.add(MapEntry(
+      'Keterangan',
+      keterangan,
+    ));
+    _data.fields.add(MapEntry(
+      'LocLat',
+      latitude,
+    ));
+    _data.fields.add(MapEntry(
+      'LocLang',
+      longitude,
+    ));
+    _data.fields.add(MapEntry(
+      'Lokasi',
+      lokasi,
+    ));
+    _data.fields.add(MapEntry(
+      'Tag',
+      tag,
+    ));
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+      method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+        .compose(
+          _dio.options,
+          'api/absensi/Laporan',
+          queryParameters: queryParameters,
+          data: _data,
+          cancelToken: cancelToken,
+        )
+        .copyWith(
+            baseUrl: _combineBaseUrls(
+          _dio.options.baseUrl,
+          baseUrl,
+        ))));
+    final value = _result.data;
+    return value;
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

@@ -7,5 +7,7 @@ class WorkState with _$WorkState {
     required DateTime selectedDate,
     List<Klaim>? klaimList,
     String? klaimError,
+    List<Laporan>? laporanList,
+    String? laporanError,
   }) = _WorkState;
 }

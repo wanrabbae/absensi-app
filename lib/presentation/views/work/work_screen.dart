@@ -19,13 +19,14 @@ class WorkScreen extends StatefulWidget {
 
 class _WorkScreenState extends State<WorkScreen>
     with AutomaticKeepAliveClientMixin {
-
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      context.read<WorkCubit>().getReimbursement();
+      context.read<WorkCubit>()
+        ..getReimbursement()
+        ..getLaporan();
     });
   }
 
