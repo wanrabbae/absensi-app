@@ -14,3 +14,17 @@ class FullPathImageConverter extends JsonConverter<String, String> {
     return object;
   }
 }
+
+class FullPathOptionalImageConverter extends JsonConverter<String?, String?> {
+  const FullPathOptionalImageConverter();
+
+  @override
+  String? fromJson(String? json) {
+    return json != null ? changeUrlImage(json) : null;
+  }
+
+  @override
+  String? toJson(String? object) {
+    return object;
+  }
+}

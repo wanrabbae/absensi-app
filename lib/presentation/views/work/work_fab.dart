@@ -33,7 +33,9 @@ class AddFAB extends StatelessWidget {
       onPressed: () {
         if (index == 2) {
           handleFabReimburse(context);
-        } else if (index == 1) {}
+        } else if (index == 1) {
+          handleFabLaporan(context);
+        }
       },
       backgroundColor: colorBluePrimary2,
       foregroundColor: Colors.white,

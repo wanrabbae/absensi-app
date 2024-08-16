@@ -4,7 +4,6 @@ import 'package:app/data/models/profile.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -19,7 +18,6 @@ class KlaimFormCubit extends Cubit<KlaimFormState> {
   }) : super(KlaimFormState(file: file));
 
   final ApiService api;
-  final keteranganController = TextEditingController();
   CancelToken? _cancelToken;
 
   void setFile(XFile file) {
@@ -37,7 +35,7 @@ class KlaimFormCubit extends Cubit<KlaimFormState> {
   Future<void> submit(Profile profile) async {
     final idKaryawan = profile.idkaryawan!;
     final namaKaryawan = profile.name!;
-    final keterangan = keteranganController.text;
+    final keterangan = state.description;
     final idPerusahaan = profile.perusahaanId!;
     final namaPerusahaan = profile.perusahaan!;
     final file = File(state.file.path);

@@ -119,6 +119,11 @@ abstract class RouteName {
   static const klaimImageViewer = "/klaim/image-viewer";
   static const klaimDetail = "/klaim/detail";
 
+  // Laporan
+  static const laporanForm = "/laporan/form";
+  static const laporanImageViewer = "/laporan/image-viewer";
+  static const laporanDetail = "/laporan/detail";
+
   // Management
   static const management = "/management";
 }

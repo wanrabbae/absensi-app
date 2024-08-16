@@ -200,6 +200,35 @@ class _ApiService implements ApiService {
   }
 
   @override
+  Future<List<Profile>> getKaryawanList({required String idPerusahaan}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'idperusahaan': idPerusahaan};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _result =
+        await _dio.fetch<List<dynamic>>(_setStreamType<List<Profile>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              'api/profile/search-company',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) => Profile.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
   Future<List<Absence>> getAttendance({
     required String idkaryawan,
     required String start,

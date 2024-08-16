@@ -29,8 +29,8 @@ mixin _$Laporan {
   String get namaperusahaan => throw _privateConstructorUsedError;
   String get keterangan => throw _privateConstructorUsedError;
   int get idklaim => throw _privateConstructorUsedError;
-  @FullPathImageConverter()
-  String get foto => throw _privateConstructorUsedError;
+  @FullPathOptionalImageConverter()
+  String? get foto => throw _privateConstructorUsedError;
   String get lokasi => throw _privateConstructorUsedError;
   String get lokasiLat => throw _privateConstructorUsedError;
   String get lokasiLong => throw _privateConstructorUsedError;
@@ -54,7 +54,7 @@ abstract class $LaporanCopyWith<$Res> {
       String namaperusahaan,
       String keterangan,
       int idklaim,
-      @FullPathImageConverter() String foto,
+      @FullPathOptionalImageConverter() String? foto,
       String lokasi,
       String lokasiLat,
       String lokasiLong});
@@ -81,7 +81,7 @@ class _$LaporanCopyWithImpl<$Res, $Val extends Laporan>
     Object? namaperusahaan = null,
     Object? keterangan = null,
     Object? idklaim = null,
-    Object? foto = null,
+    Object? foto = freezed,
     Object? lokasi = null,
     Object? lokasiLat = null,
     Object? lokasiLong = null,
@@ -119,10 +119,10 @@ class _$LaporanCopyWithImpl<$Res, $Val extends Laporan>
           ? _value.idklaim
           : idklaim // ignore: cast_nullable_to_non_nullable
               as int,
-      foto: null == foto
+      foto: freezed == foto
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       lokasi: null == lokasi
           ? _value.lokasi
           : lokasi // ignore: cast_nullable_to_non_nullable
@@ -155,7 +155,7 @@ abstract class _$$LaporanImplCopyWith<$Res> implements $LaporanCopyWith<$Res> {
       String namaperusahaan,
       String keterangan,
       int idklaim,
-      @FullPathImageConverter() String foto,
+      @FullPathOptionalImageConverter() String? foto,
       String lokasi,
       String lokasiLat,
       String lokasiLong});
@@ -180,7 +180,7 @@ class __$$LaporanImplCopyWithImpl<$Res>
     Object? namaperusahaan = null,
     Object? keterangan = null,
     Object? idklaim = null,
-    Object? foto = null,
+    Object? foto = freezed,
     Object? lokasi = null,
     Object? lokasiLat = null,
     Object? lokasiLong = null,
@@ -218,10 +218,10 @@ class __$$LaporanImplCopyWithImpl<$Res>
           ? _value.idklaim
           : idklaim // ignore: cast_nullable_to_non_nullable
               as int,
-      foto: null == foto
+      foto: freezed == foto
           ? _value.foto
           : foto // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       lokasi: null == lokasi
           ? _value.lokasi
           : lokasi // ignore: cast_nullable_to_non_nullable
@@ -248,9 +248,9 @@ class _$LaporanImpl implements _Laporan {
       @FullPathImageConverter() required this.fileReimb,
       required this.idPerusahaan,
       required this.namaperusahaan,
-      required this.keterangan,
+      this.keterangan = '',
       required this.idklaim,
-      @FullPathImageConverter() required this.foto,
+      @FullPathOptionalImageConverter() this.foto,
       required this.lokasi,
       required this.lokasiLat,
       required this.lokasiLong});
@@ -272,12 +272,13 @@ class _$LaporanImpl implements _Laporan {
   @override
   final String namaperusahaan;
   @override
+  @JsonKey()
   final String keterangan;
   @override
   final int idklaim;
   @override
-  @FullPathImageConverter()
-  final String foto;
+  @FullPathOptionalImageConverter()
+  final String? foto;
   @override
   final String lokasi;
   @override
@@ -356,9 +357,9 @@ abstract class _Laporan implements Laporan {
       @FullPathImageConverter() required final String fileReimb,
       required final String idPerusahaan,
       required final String namaperusahaan,
-      required final String keterangan,
+      final String keterangan,
       required final int idklaim,
-      @FullPathImageConverter() required final String foto,
+      @FullPathOptionalImageConverter() final String? foto,
       required final String lokasi,
       required final String lokasiLat,
       required final String lokasiLong}) = _$LaporanImpl;
@@ -383,8 +384,8 @@ abstract class _Laporan implements Laporan {
   @override
   int get idklaim;
   @override
-  @FullPathImageConverter()
-  String get foto;
+  @FullPathOptionalImageConverter()
+  String? get foto;
   @override
   String get lokasi;
   @override

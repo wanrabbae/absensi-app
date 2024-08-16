@@ -37,6 +37,7 @@
   "permit_submission_confirmation": "Anda ingin mengisi formulir ijin?",
   "sick_submission_confirmation": "Anda ingin mengisi formulir sakit?",
   "work_reimburse_submission_confirmation": "Anda ingin mengisi reimburse?",
+  "work_report_submission_confirmation": "Anda ingin mengisi laporan?",
   "report_submission_button": "Isi sekarang",
   "dialog_logout_title": "Keluar",
   "dialog_logout_message": "Anda ingin keluar?",
@@ -216,5 +217,6 @@
   "detail_present_clock_check_in": "Jam masuk",
   "detail_present_location_check_in": "Lokasi",
   "detail_present_clock_check_out": "Jam pulang",
-  "detail_present_location_check_out": "Lokasi"
+  "detail_present_location_check_out": "Lokasi",
+  "tag_friends": "Tandai teman"
 }

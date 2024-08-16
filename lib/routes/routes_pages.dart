@@ -6,6 +6,7 @@ import 'package:app/global_resource.dart';
 import 'package:app/presentation/blocs/auth/login/login_cubit.dart';
 import 'package:app/presentation/blocs/office/present/detail/present_detail_cubit.dart';
 import 'package:app/presentation/blocs/report/report_cubit.dart';
+import 'package:app/presentation/blocs/work/laporan/form/laporan_form_cubit.dart';
 import 'package:app/presentation/views/auth/login/login_page.dart';
 import 'package:app/presentation/views/auth/otp/verify_otp_login_page.dart';
 import 'package:app/presentation/views/dashboard/dashboard_screen.dart';
@@ -15,6 +16,7 @@ import 'package:app/presentation/views/offfice/report/report_form_view.dart';
 import 'package:app/presentation/views/work/reimburse/reimburse_detail_view.dart';
 import 'package:app/presentation/views/work/reimburse/reimburse_form.dart';
 import 'package:app/presentation/views/work/reimburse/reimburse_image_viewer.dart';
+import 'package:app/presentation/views/work/report/report_form.dart';
 import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
 import 'package:app/views/absensi/absensi_pulang_screen.dart';
 import 'package:app/views/absensi/absensi_screen2.dart';
@@ -192,6 +194,35 @@ class Routes {
       name: RouteName.klaimDetail,
       page: () => ReimburseDetailView(klaim: Get.arguments),
     ),
+    // endregion
+
+    // region Laporan
+    GetPage(
+      name: RouteName.laporanForm,
+      page: () {
+        return BlocProvider(
+          create: (context) {
+            final app = context.read<AppCubit>();
+            final state = app.state;
+            final profile = state.currentUser!;
+            return LaporanFormCubit(
+              api: $it(),
+              profile: profile,
+              file: Get.arguments,
+            );
+          },
+          child: ReportForm(),
+        );
+      },
+    ),
+    // GetPage(
+    //   name: RouteName.klaimImageViewer,
+    //   page: () => ReimburseImageViewer(file: Get.arguments),
+    // ),
+    // GetPage(
+    //   name: RouteName.klaimDetail,
+    //   page: () => ReimburseDetailView(klaim: Get.arguments),
+    // ),
     // endregion
 
     // region management

@@ -57,6 +57,11 @@ mixin $Profile {
   Future<Profile> getProfile({
     @Query("email") required String email,
   });
+
+  @GET('api/profile/search-company')
+  Future<List<Profile>> getKaryawanList({
+    @Query("idperusahaan") required String idPerusahaan,
+  });
 }
 
 mixin $Attendance {

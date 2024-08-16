@@ -61,6 +61,52 @@ handleFabReimburse(BuildContext context) async {
   }
 }
 
+handleFabLaporan(BuildContext context) async {
+  final cameraStatus = await Permission.camera.status;
+  if (cameraStatus.isDenied) {
+    Permission.camera.request();
+    return;
+  }
+
+  if (!cameraStatus.isGranted) {
+    customSnackbar1(tr('snackbar_photo_required'));
+    return;
+  }
+
+  if (!context.mounted) return;
+
+  final confirm = await showHoraConfirmationBottomSheet(
+    context,
+    title: tr('menu_work_report'),
+    message: tr('work_report_submission_confirmation'),
+    button: HoraButton(
+      onPressed: () {
+        Navigator.pop(context, true);
+      },
+      child: Text(tr('report_submission_button')),
+    ),
+  );
+
+  if (confirm == true) {
+    try {
+      final photo = await pickImage();
+
+      if (photo != null) {
+        Get.toNamed(RouteName.laporanForm, arguments: photo)?.then((succeed) {
+          if (succeed == true) {
+            final cubit = context.read<WorkCubit>();
+            cubit.getLaporan();
+          }
+        });
+      } else {
+        customSnackbar1(tr('snackbar_taking_photo_canceled'));
+      }
+    } catch (e) {
+      customSnackbar1(tr('snackbar_taking_photo_failed'));
+    }
+  }
+}
+
 Future<XFile?> pickImage() {
   return _imagePicker.pickImage(
     source: kImageSource,
