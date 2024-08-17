@@ -1,7 +1,6 @@
 import 'package:app/data/models/laporan/laporan.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/presentation/widgets/images.dart';
-import 'package:flutter/material.dart';
 
 class ReportTileView extends StatelessWidget {
   const ReportTileView(this.laporan, {super.key, required this.onTap});
@@ -21,21 +20,27 @@ class ReportTileView extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
           child: AspectRatio(
             aspectRatio: 2,
-            child: Container(
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(12)),
-                border: Border.fromBorderSide(
-                  BorderSide(color: Colors.black, width: 1),
-                ),
+            child: InkWell(
+              onTap: () => Get.toNamed(
+                RouteName.laporanImageViewer,
+                arguments: image,
               ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                child: FadeInImage(
-                  placeholder: kImagePlaceholder,
-                  image: NetworkImage(image),
-                  imageErrorBuilder: (context, error, stackTrace) =>
-                      kImagePlaceholderWidget,
-                  fit: BoxFit.cover,
+              child: Container(
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  border: Border.fromBorderSide(
+                    BorderSide(color: Colors.black, width: 1),
+                  ),
+                ),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
+                  child: FadeInImage(
+                    placeholder: kImagePlaceholder,
+                    image: NetworkImage(image),
+                    imageErrorBuilder: (context, error, stackTrace) =>
+                        kImagePlaceholderWidget,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

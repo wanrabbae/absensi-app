@@ -3,8 +3,8 @@ import 'package:app/global_resource.dart';
 import 'package:app/views/home/components/appbar.dart';
 import 'package:flutter/services.dart';
 
-class ReimburseImageViewer extends StatelessWidget {
-  const ReimburseImageViewer({super.key, required this.file})
+class WorkImageViewer extends StatelessWidget {
+  const WorkImageViewer({super.key, required this.file})
       : assert(file is Uint8List || file is String);
 
   final dynamic file;
@@ -50,9 +50,12 @@ class ReimburseImageViewer extends StatelessWidget {
         height: double.infinity,
         child: InteractiveViewer(
           child: Hero(
-              tag: 'img',
+            tag: 'img',
+            child: Center(
               child:
-                  file is Uint8List ? Image.memory(file) : Image.network(file)),
+                  file is Uint8List ? Image.memory(file) : Image.network(file),
+            ),
+          ),
         ),
       ),
     );

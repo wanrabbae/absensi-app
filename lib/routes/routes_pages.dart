@@ -15,7 +15,7 @@ import 'package:app/presentation/views/offfice/present/present_detail_view.dart'
 import 'package:app/presentation/views/offfice/report/report_form_view.dart';
 import 'package:app/presentation/views/work/reimburse/reimburse_detail_view.dart';
 import 'package:app/presentation/views/work/reimburse/reimburse_form.dart';
-import 'package:app/presentation/views/work/reimburse/reimburse_image_viewer.dart';
+import 'package:app/presentation/views/work/work_image_viewer.dart';
 import 'package:app/presentation/views/work/report/report_form.dart';
 import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
 import 'package:app/views/absensi/absensi_pulang_screen.dart';
@@ -188,7 +188,7 @@ class Routes {
     ),
     GetPage(
       name: RouteName.klaimImageViewer,
-      page: () => ReimburseImageViewer(file: Get.arguments),
+      page: () => WorkImageViewer(file: Get.arguments),
     ),
     GetPage(
       name: RouteName.klaimDetail,
@@ -215,14 +215,10 @@ class Routes {
         );
       },
     ),
-    // GetPage(
-    //   name: RouteName.klaimImageViewer,
-    //   page: () => ReimburseImageViewer(file: Get.arguments),
-    // ),
-    // GetPage(
-    //   name: RouteName.klaimDetail,
-    //   page: () => ReimburseDetailView(klaim: Get.arguments),
-    // ),
+    GetPage(
+      name: RouteName.laporanImageViewer,
+      page: () => WorkImageViewer(file: Get.arguments),
+    ),
     // endregion
 
     // region management
