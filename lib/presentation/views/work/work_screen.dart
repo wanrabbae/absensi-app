@@ -5,7 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'calendar/calendar_view.dart';
+import 'agenda/agenda_view.dart';
 import 'reimburse/reimburse_view.dart';
 import 'report/report_view.dart';
 import 'work_fab.dart';
@@ -37,7 +37,7 @@ class _WorkScreenState extends State<WorkScreen>
       appBar: WorkAppBar(context, bottom: _buildBottomAppBar()),
       body: const TabBarView(
         children: [
-          CalendarView(),
+          AgendaView(),
           ReportView(),
           ReimburseView(),
         ],
@@ -63,7 +63,7 @@ class _WorkScreenState extends State<WorkScreen>
       ),
       indicatorColor: colorBluePrimary,
       tabs: [
-        Tab(text: tr('menu_work_calendar')),
+        Tab(text: tr('menu_work_agenda')),
         Tab(text: tr('menu_work_report')),
         Tab(text: tr('menu_work_reimburse')),
       ],
