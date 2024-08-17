@@ -1,4 +1,5 @@
 import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/presentation/views/_shared/helper.dart';
 import 'package:app/presentation/views/search/hora_search_delegate.dart';
 import 'package:app/presentation/widgets/buttons.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -65,6 +66,8 @@ class _SearchScreenState extends State<SearchScreen> {
       }
       return;
     }
+
+    dismissKeyboard(context);
 
     final query = controller.text;
     showSearch(

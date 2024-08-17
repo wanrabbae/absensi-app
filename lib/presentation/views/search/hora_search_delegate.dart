@@ -54,14 +54,9 @@ class HoraSearchDelegate extends SearchDelegate<Profile?> {
               final user = list[index];
               final photo = user.photo;
               return ListTile(
-                trailing: const Icon(Icons.check),
-                leading: FadeInImage(
-                  placeholder: kImagePlaceholder,
-                  image:
+                leading: CircleAvatar(
+                  backgroundImage:
                       photo != null ? NetworkImage(photo) : kImagePlaceholder,
-                  imageErrorBuilder: (context, error, stackTrace) =>
-                      kImagePlaceholderWidget,
-                  fit: BoxFit.cover,
                 ),
                 onTap: () {
                   Navigator.pop(context, user);
