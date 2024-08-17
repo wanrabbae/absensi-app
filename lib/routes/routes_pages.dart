@@ -1,5 +1,5 @@
 import 'package:app/controllers/app/app_cubit.dart';
-import 'package:app/controllers/klaim/form/klaim_form_cubit.dart';
+import 'package:app/presentation/blocs/work/klaim/form/klaim_form_cubit.dart';
 import 'package:app/controllers/live_location_log/live_location_log_cubit.dart';
 import 'package:app/controllers/management/management_cubit.dart';
 import 'package:app/global_resource.dart';
