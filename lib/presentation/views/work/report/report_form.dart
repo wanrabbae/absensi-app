@@ -1,4 +1,4 @@
-import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/data/models/profile.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/presentation/blocs/work/laporan/form/laporan_form_cubit.dart';

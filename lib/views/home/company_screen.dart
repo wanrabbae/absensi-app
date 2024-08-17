@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:app/components/component_constant.dart';
 import 'package:app/components/component_custom.dart';
-import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/controllers/home_controller.dart';
 import 'package:app/core/themes.dart';
 import 'package:app/helpers/base.dart';

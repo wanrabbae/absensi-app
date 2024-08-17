@@ -19,7 +19,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-import 'controllers/app/app_cubit.dart';
+import 'presentation/blocs/app/app_cubit.dart';
 import 'data/source/firebase/firebase_service.dart';
 import 'firebase_options.dart';
 import 'helpers/base.dart';

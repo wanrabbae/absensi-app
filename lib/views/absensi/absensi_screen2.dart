@@ -1,6 +1,6 @@
 import 'package:animated_icon_button/animated_icon_button.dart';
 import 'package:app/components/component_constant.dart';
-import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/data/models/absence.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/images.dart';

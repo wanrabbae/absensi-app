@@ -1,5 +1,5 @@
 import 'package:app/presentation/widgets/empty_view.dart';
-import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/data/models/report/report.dart';
 import 'package:app/helpers/constant.dart';
 import 'package:app/presentation/blocs/report/report_cubit.dart';

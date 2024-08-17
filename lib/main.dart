@@ -1,5 +1,4 @@
-import 'package:app/controllers/app/app_cubit.dart';
-import 'package:app/controllers/home/home_cubit.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/data/local/base_preference.dart';
 import 'package:app/data/source/firebase/firebase_service.dart';
 import 'package:app/data/source/remote/api_service.dart';
@@ -54,7 +53,6 @@ void main() async {
         child: MultiBlocProvider(
           providers: [
             BlocProvider<AppCubit>(create: (context) => $it()),
-            BlocProvider(create: (context) => HomeCubit(context.read())),
           ],
           child: const MainApp(),
         ),

@@ -1,4 +1,4 @@
-import 'package:app/controllers/app/app_cubit.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/presentation/views/_shared/helper.dart';
 import 'package:app/presentation/views/search/hora_search_delegate.dart';
 import 'package:app/presentation/widgets/buttons.dart';
