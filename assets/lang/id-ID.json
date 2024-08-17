@@ -122,6 +122,7 @@
   "stop_working_description": "Anda dapat menggunakan Hora\nkembali dengan undangan\nAdmin perusahaan. Terima kasih.",
   "permit_letter": "Surat Izin",
   "type_here": "Ketikkan disini",
+  "keyword_empty": "Kata kunci belum dimasukkan",
   "attachment_required": "Lampiran (Harus terisi)",
   "attachment_hint": "File_surat_sakit.docx",
   "reason_required": "Alasan (Harus terisi)",

@@ -3,6 +3,7 @@ import 'package:app/global_resource.dart';
 import 'package:app/presentation/blocs/office/office_cubit.dart';
 import 'package:app/presentation/blocs/work/work_cubit.dart';
 import 'package:app/presentation/views/offfice/office_screen.dart';
+import 'package:app/presentation/views/search/search_screen.dart';
 import 'package:app/presentation/views/work/work_screen.dart';
 import 'package:app/presentation/widgets/loading.dart';
 import 'package:app/services/push_notification_service.dart';
@@ -101,7 +102,7 @@ class _DashboardScreenState extends State<DashboardScreen>
               );
             },
           ),
-          const HomeSearchScreen(),
+          const SearchScreen(),
           BlocBuilder<AppCubit, AppState>(
             buildWhen: (previous, current) =>
                 previous.currentUser != current.currentUser,

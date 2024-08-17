@@ -122,6 +122,7 @@
   "stop_working_description": "You can use Hora again\nwith an invitation from\nCompany admin. Thank You.",
   "permit_letter": "Leave Letter",
   "type_here": "Type here",
+  "keyword_empty": "Keyword empty",
   "attachment_required": "Attachment (Required)",
   "attachment_hint": "Sick_leave_file.docx",
   "reason_required": "Reason (Required)",
