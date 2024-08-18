@@ -1,4 +1,5 @@
 import 'package:app/core/themes.dart';
+import 'package:app/global_resource.dart';
 import 'package:app/presentation/blocs/company/company_cubit.dart';
 import 'package:app/presentation/widgets/buttons.dart';
 import 'package:app/presentation/widgets/empty_view.dart';
@@ -30,7 +31,9 @@ class _StaffViewState extends State<StaffView>
               child: SimpleEmptyView(
                 title: tr('company_tab_staff_not_found'),
                 button: HoraButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.toNamed(RouteName.companyInvitation);
+                  },
                   child: Text(tr('company_tab_staff_not_found_action_button')),
                 ),
               ),
@@ -69,7 +72,9 @@ class _StaffViewState extends State<StaffView>
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.toNamed(RouteName.companyInvitation);
+        },
         backgroundColor: colorBluePrimary,
         foregroundColor: Colors.white,
         child: const Icon(Boxicons.bx_user_plus),

@@ -43,7 +43,7 @@ class HomeToolbar extends StatelessWidget implements PreferredSizeWidget {
           ),
           IconButton(
             onPressed: () {
-              Get.toNamed(RouteName.homeUndangan);
+              Get.toNamed(RouteName.companyInvitation);
             },
             icon: const Icon(
               FeatherIcons.userPlus,

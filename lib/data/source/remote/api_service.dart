@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app/data/models/absence.dart';
 import 'package:app/data/models/auth/verify_otp.dart';
 import 'package:app/data/models/company.dart';
+import 'package:app/data/models/invitation/invitation.dart';
 import 'package:app/data/models/klaim/klaim.dart';
 import 'package:app/data/models/laporan/laporan.dart';
 import 'package:app/data/models/profile.dart';
@@ -49,6 +50,12 @@ mixin $Company {
   @PUT('api/profile/delete')
   Future<String> stopWorking({
     @Query("email") required String email,
+  });
+
+  @POST('api/invite')
+  Future<HttpResponse<String>> inviteStaff({
+    @Body() required Invitation request,
+    @CancelRequest() CancelToken? cancelToken,
   });
 }
 

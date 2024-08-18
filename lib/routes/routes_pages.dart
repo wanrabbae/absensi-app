@@ -3,6 +3,8 @@ import 'package:app/controllers/management/management_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/presentation/blocs/auth/login/login_cubit.dart';
+import 'package:app/presentation/blocs/company/company_cubit.dart';
+import 'package:app/presentation/blocs/company/invitation/invitation_cubit.dart';
 import 'package:app/presentation/blocs/office/present/detail/present_detail_cubit.dart';
 import 'package:app/presentation/blocs/report/report_cubit.dart';
 import 'package:app/presentation/blocs/work/klaim/form/klaim_form_cubit.dart';
@@ -10,6 +12,7 @@ import 'package:app/presentation/blocs/work/laporan/form/laporan_form_cubit.dart
 import 'package:app/presentation/views/auth/login/login_page.dart';
 import 'package:app/presentation/views/auth/otp/verify_otp_login_page.dart';
 import 'package:app/presentation/views/company/company_screen.dart';
+import 'package:app/presentation/views/company/invitation/invitation_screen.dart';
 import 'package:app/presentation/views/dashboard/dashboard_screen.dart';
 import 'package:app/presentation/views/landing/app_update_screen.dart';
 import 'package:app/presentation/views/offfice/present/present_detail_view.dart';
@@ -74,8 +77,15 @@ class Routes {
     GetPage(name: RouteName.homeSearch, page: () => const HomeSearchScreen()),
     // Home Undangan
     GetPage(
-      name: RouteName.homeUndangan,
-      page: () => const HomeUndanganScreen(),
+      name: RouteName.companyInvitation,
+      page: () => BlocProvider(
+        create: (context) {
+          final user = context.read<AppCubit>().state.currentUser!;
+          final company = context.read<CompanyCubit>().state.company;
+          return InvitationCubit(context.read(), user, company);
+        },
+        child: const InvitationScreen(),
+      ),
     ),
     GetPage(
       name: RouteName.companyFullScreen,

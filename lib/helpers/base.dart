@@ -73,17 +73,17 @@ abstract class RouteName {
 
   //Home Screen
   static const home = "/home_screen";
-  static const companyScreen = "/company_screen";
   static const stopWorking = "/stop_working";
   static const companyFullScreen = "/company_full_screen";
   static const hasilHadirFullScreen = "/hasil_hadir_full_screen";
   static const hasilLocationFullScreen = "/hasil_location_full_screen";
 
+  // Company screen
+  static const companyScreen = "/company_screen";
+  static const companyInvitation = "/company_invitation_screen";
+
   //Home Search Screen
   static const homeSearch = "/home_search_screen";
-
-  //Home Undangan Screen
-  static const homeUndangan = "/home_undangan_screen";
 
   //Profile View Screen
   static const profileView = "/profile_view_screen";
