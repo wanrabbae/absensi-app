@@ -1,6 +1,7 @@
-import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
 import 'package:app/helpers/dialogs.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
+import 'package:app/presentation/blocs/company/company_cubit.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -199,7 +200,29 @@ class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
     );
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-    return MainTheme.materialApp(context, child: const SplashScreen());
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<CompanyCubit, CompanyState>(
+          listenWhen: (previous, current) =>
+              previous.company != current.company,
+          listener: (context, state) {
+            context.read<AppCubit>().setCompany(state.company);
+          },
+        ),
+        BlocListener<AppCubit, AppState>(
+          listenWhen: (previous, current) =>
+              previous.currentUser != current.currentUser,
+          listener: (context, state) {
+            if (state.currentUser == null) {
+              context.read<CompanyCubit>().reset();
+            } else {
+              context.read<CompanyCubit>().getCompany();
+            }
+          },
+        ),
+      ],
+      child: MainTheme.materialApp(context, child: const SplashScreen()),
+    );
   }
 
   _handleMessageLocalOpen(dynamic payload) {

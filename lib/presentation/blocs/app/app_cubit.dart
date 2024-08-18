@@ -50,6 +50,8 @@ class AppCubit extends HydratedCubit<AppState> {
   StreamSubscription<String>? _streamSubscriptionToken;
   Timer? _liveTrackingTimer;
 
+  void setCompany(Company company) => emit(state.copyWith(company: company));
+
   Future<void> getProfile() async {
     final user = box.read(Base.dataUser);
     final email = user?['alamatEmail'] ?? box.read(Base.email);
@@ -67,19 +69,6 @@ class AppCubit extends HydratedCubit<AppState> {
           debugPrintStack(stackTrace: s);
         }
       }
-    }
-  }
-
-  Future<void> getCompany() async {
-    final user = box.read(Base.dataUser);
-    final email = user?['alamatEmail'];
-    if (email is String) {
-      try {
-        final companies = await api.getCompany(email: email);
-        if (!isClosed && companies.isNotEmpty) {
-          emit(state.copyWith(company: companies.first));
-        }
-      } catch (_) {}
     }
   }
 
@@ -111,7 +100,6 @@ class AppCubit extends HydratedCubit<AppState> {
       );
       if (!isClosed) {
         getProfile();
-        getCompany();
       }
     } catch (_) {}
   }

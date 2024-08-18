@@ -1,5 +1,6 @@
 import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/blocs/company/company_cubit.dart';
 import 'package:app/presentation/blocs/office/office_cubit.dart';
 import 'package:app/presentation/blocs/work/work_cubit.dart';
 import 'package:app/presentation/views/offfice/office_screen.dart';
@@ -43,9 +44,9 @@ class _DashboardScreenState extends State<DashboardScreen>
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<CompanyCubit>().getCompany();
       context.read<AppCubit>()
         ..getProfile()
-        ..getCompany()
         ..checkForUpdates(context.locale.countryCode!).then((result) {
           if (result.canUpdate == true) {
             Get.toNamed(RouteName.appUpdate, arguments: result);

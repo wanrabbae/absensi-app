@@ -1,8 +1,9 @@
-import 'package:app/presentation/widgets/empty_view.dart';
-import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/controllers/home/home_cubit.dart';
 import 'package:app/controllers/izin_controller.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
+import 'package:app/presentation/blocs/company/company_cubit.dart';
+import 'package:app/presentation/widgets/empty_view.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app_badger/flutter_app_badger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -52,12 +53,12 @@ class _HomeScreenState extends State<HomeScreen>
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      final app = context.read<AppCubit>()
-        ..getProfile()
-        ..getCompany();
-
-      final idPerusahaan = app.state.company.id;
-      context.read<HomeCubit>().getDataKlaim(idPerusahaan);
+      context.read<AppCubit>().getProfile();
+      final company = context.read<CompanyCubit>();
+      company.getCompany().then((_) {
+        final idPerusahaan = company.state.company.id;
+        context.read<HomeCubit>().getDataKlaim(idPerusahaan);
+      });
     });
   }
 

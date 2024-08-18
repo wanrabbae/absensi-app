@@ -1,13 +1,15 @@
-import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/data/local/base_preference.dart';
 import 'package:app/data/source/firebase/firebase_service.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:timezone/data/latest.dart' as tz;
+
+import 'presentation/blocs/company/company_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,6 +55,9 @@ void main() async {
         child: MultiBlocProvider(
           providers: [
             BlocProvider<AppCubit>(create: (context) => $it()),
+            BlocProvider<CompanyCubit>(
+              create: (context) => CompanyCubit(context.read(), context.read()),
+            ),
           ],
           child: const MainApp(),
         ),

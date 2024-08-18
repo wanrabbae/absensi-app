@@ -7,6 +7,7 @@ import 'package:app/controllers/home_controller.dart';
 import 'package:app/core/themes.dart';
 import 'package:app/helpers/base.dart';
 import 'package:app/helpers/constant.dart';
+import 'package:app/presentation/blocs/company/company_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -95,7 +96,9 @@ class CompanyScreen extends StatelessWidget {
                   },
                   onSelected: (value) {
                     if (value == 'favorite') {
-                      context.read<AppCubit>().toggleLikeUnlike();
+                      context.read<AppCubit>().toggleLikeUnlike().then((_) {
+                        context.read<CompanyCubit>().getCompany();
+                      });
                     } else if (value == 'stop-working') {
                       _handleStopWorking(context);
                     }
