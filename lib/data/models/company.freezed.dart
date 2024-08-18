@@ -184,8 +184,7 @@ class _$CompanyImpl implements _Company {
   const _$CompanyImpl(
       {@JsonKey(name: 'idperusahaan') this.id = 'HORA-001',
       @JsonKey(name: 'namaPerusahaan') this.name = 'PT HORA',
-      @JsonKey(name: 'logoPerusahaan')
-      this.logo = 'wwwroot/Images/CompanyLogo/logo_hora.png',
+      @JsonKey(name: 'logoPerusahaan') this.logo = kHoraImageUrl,
       @JsonKey(name: 'alamatLoc')
       this.alamat = 'Jl. Budiluhur No.47 Medan, Indonesia',
       @JsonKey(name: 'alamatLongtitude') this.longitude = '98.6388869',
