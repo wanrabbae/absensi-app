@@ -63,7 +63,7 @@ class InvitationScreen extends StatelessWidget {
             break;
           case PageStatus.failed:
             Navigator.pop(context);
-            customSnackbar1(tr('snackbar_email_not_registered'));
+            customSnackbar1(tr('snackbar_invitation_failed'));
             break;
         }
       },

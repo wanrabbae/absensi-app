@@ -181,6 +181,7 @@
   "snackbar_user_not_found": "Data user tidak ditemukan",
   "snackbar_company_not_found": "Data perusahaan tidak ditemukan",
   "snackbar_invitation_sent": "Undangan terkirim",
+  "snackbar_invitation_failed": "Undangan gagal terkirim",
   "snackbar_email_registered": "Email telah terdaftar",
   "snackbar_error_when_check_out": "Terjadi kesalahan Pada Absen Pulang",
   "snackbar_otp_invalid": "Kode OTP tidak valid",
