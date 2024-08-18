@@ -1,5 +1,7 @@
+import 'package:app/presentation/blocs/company/company_cubit.dart';
 import 'package:app/presentation/views/company/pocket/pocket_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'company_appbar.dart';
 import 'staff/staff_view.dart';
@@ -13,6 +15,15 @@ class CompanyScreen extends StatefulWidget {
 }
 
 class _CompanyScreenState extends State<CompanyScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      context.read<CompanyCubit>().getStaffList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Theme(

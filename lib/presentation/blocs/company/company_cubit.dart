@@ -1,4 +1,5 @@
 import 'package:app/data/models/company.dart';
+import 'package:app/data/models/profile.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/helpers/base.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -28,6 +29,16 @@ class CompanyCubit extends HydratedCubit<CompanyState> {
         }
       } catch (_) {}
     }
+  }
+
+  Future<void> getStaffList() async {
+    try {
+      final staff = await api.getKaryawanList(
+        idPerusahaan: state.company.id,
+      );
+      if (isClosed) return;
+      emit(state.copyWith(staff: staff));
+    } catch (_) {}
   }
 
   @override

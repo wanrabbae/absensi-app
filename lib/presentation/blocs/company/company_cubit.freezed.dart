@@ -21,6 +21,7 @@ CompanyState _$CompanyStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CompanyState {
   Company get company => throw _privateConstructorUsedError;
+  List<Profile> get staff => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $CompanyStateCopyWith<$Res> {
           CompanyState value, $Res Function(CompanyState) then) =
       _$CompanyStateCopyWithImpl<$Res, CompanyState>;
   @useResult
-  $Res call({Company company});
+  $Res call({Company company, List<Profile> staff});
 
   $CompanyCopyWith<$Res> get company;
 }
@@ -53,12 +54,17 @@ class _$CompanyStateCopyWithImpl<$Res, $Val extends CompanyState>
   @override
   $Res call({
     Object? company = null,
+    Object? staff = null,
   }) {
     return _then(_value.copyWith(
       company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
               as Company,
+      staff: null == staff
+          ? _value.staff
+          : staff // ignore: cast_nullable_to_non_nullable
+              as List<Profile>,
     ) as $Val);
   }
 
@@ -79,7 +85,7 @@ abstract class _$$CompanyStateImplCopyWith<$Res>
       __$$CompanyStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Company company});
+  $Res call({Company company, List<Profile> staff});
 
   @override
   $CompanyCopyWith<$Res> get company;
@@ -97,12 +103,17 @@ class __$$CompanyStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? company = null,
+    Object? staff = null,
   }) {
     return _then(_$CompanyStateImpl(
       company: null == company
           ? _value.company
           : company // ignore: cast_nullable_to_non_nullable
               as Company,
+      staff: null == staff
+          ? _value._staff
+          : staff // ignore: cast_nullable_to_non_nullable
+              as List<Profile>,
     ));
   }
 }
@@ -110,7 +121,9 @@ class __$$CompanyStateImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$CompanyStateImpl implements _CompanyState {
-  const _$CompanyStateImpl({this.company = const Company()});
+  const _$CompanyStateImpl(
+      {this.company = const Company(), final List<Profile> staff = const []})
+      : _staff = staff;
 
   factory _$CompanyStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$CompanyStateImplFromJson(json);
@@ -118,10 +131,18 @@ class _$CompanyStateImpl implements _CompanyState {
   @override
   @JsonKey()
   final Company company;
+  final List<Profile> _staff;
+  @override
+  @JsonKey()
+  List<Profile> get staff {
+    if (_staff is EqualUnmodifiableListView) return _staff;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_staff);
+  }
 
   @override
   String toString() {
-    return 'CompanyState(company: $company)';
+    return 'CompanyState(company: $company, staff: $staff)';
   }
 
   @override
@@ -129,12 +150,14 @@ class _$CompanyStateImpl implements _CompanyState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CompanyStateImpl &&
-            (identical(other.company, company) || other.company == company));
+            (identical(other.company, company) || other.company == company) &&
+            const DeepCollectionEquality().equals(other._staff, _staff));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, company);
+  int get hashCode => Object.hash(
+      runtimeType, company, const DeepCollectionEquality().hash(_staff));
 
   @JsonKey(ignore: true)
   @override
@@ -151,13 +174,16 @@ class _$CompanyStateImpl implements _CompanyState {
 }
 
 abstract class _CompanyState implements CompanyState {
-  const factory _CompanyState({final Company company}) = _$CompanyStateImpl;
+  const factory _CompanyState(
+      {final Company company, final List<Profile> staff}) = _$CompanyStateImpl;
 
   factory _CompanyState.fromJson(Map<String, dynamic> json) =
       _$CompanyStateImpl.fromJson;
 
   @override
   Company get company;
+  @override
+  List<Profile> get staff;
   @override
   @JsonKey(ignore: true)
   _$$CompanyStateImplCopyWith<_$CompanyStateImpl> get copyWith =>
