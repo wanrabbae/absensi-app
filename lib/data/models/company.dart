@@ -1,3 +1,4 @@
+import 'package:app/presentation/widgets/images.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'company.freezed.dart';
@@ -9,7 +10,7 @@ class Company with _$Company {
   const factory Company({
     @Default('HORA-001') @JsonKey(name: 'idperusahaan') String id,
     @Default('PT HORA') @JsonKey(name: 'namaPerusahaan') String name,
-    @Default('wwwroot/Images/CompanyLogo/logo_hora.png')
+    @Default(kHoraImageUrl)
     @JsonKey(name: 'logoPerusahaan')
     String logo,
     @Default('Jl. Budiluhur No.47 Medan, Indonesia')

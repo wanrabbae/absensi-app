@@ -57,7 +57,7 @@ class _StaffViewState extends State<StaffView>
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(16)),
                     child: FadeInImage.assetNetwork(
-                      placeholder: kImagePlaceholderUrl,
+                      placeholder: kLocalPlaceholderUrl,
                       image: staff.photo,
                       imageErrorBuilder: (context, error, stackTrace) {
                         return Image.network(kImagePlaceholderUrl);
