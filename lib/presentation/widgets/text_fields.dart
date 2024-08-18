@@ -6,12 +6,12 @@ class HoraTextFieldViewer extends StatelessWidget {
     super.key,
     required this.label,
     required String value,
-    required this.leading,
+    this.leading,
   }) : controller = TextEditingController(text: value);
 
   final String label;
   final TextEditingController controller;
-  final IconData leading;
+  final IconData? leading;
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +22,12 @@ class HoraTextFieldViewer extends StatelessWidget {
         TextField(
           controller: controller,
           decoration: InputDecoration(
-            prefix: Padding(
-              padding: const EdgeInsets.only(right: 12),
-              child: Icon(leading),
-            ),
+            prefix: leading == null
+                ? null
+                : Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: Icon(leading),
+                  ),
             enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: colorBottomSheetDrag),
             ),

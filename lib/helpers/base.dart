@@ -81,6 +81,7 @@ abstract class RouteName {
   // Company screen
   static const companyScreen = "/company_screen";
   static const companyInvitation = "/company_invitation_screen";
+  static const companyStaffDetail = "/company_staff_detail_screen";
 
   //Home Search Screen
   static const homeSearch = "/home_search_screen";

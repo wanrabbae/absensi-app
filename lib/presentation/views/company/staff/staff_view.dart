@@ -52,7 +52,7 @@ class _StaffViewState extends State<StaffView>
               itemBuilder: (context, index) {
                 final staff = state.staff[index];
 
-                return Tooltip(
+                Widget child = Tooltip(
                   message: staff.name,
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(Radius.circular(16)),
@@ -65,6 +65,15 @@ class _StaffViewState extends State<StaffView>
                     ),
                   ),
                 );
+
+                child = InkWell(
+                  onTap: () {
+                    Get.toNamed(RouteName.companyStaffDetail, arguments: staff);
+                  },
+                  child: child,
+                );
+
+                return child;
               },
               itemCount: state.staff.length,
             ),

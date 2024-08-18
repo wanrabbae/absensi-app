@@ -13,6 +13,7 @@ import 'package:app/presentation/views/auth/login/login_page.dart';
 import 'package:app/presentation/views/auth/otp/verify_otp_login_page.dart';
 import 'package:app/presentation/views/company/company_screen.dart';
 import 'package:app/presentation/views/company/invitation/invitation_screen.dart';
+import 'package:app/presentation/views/company/staff/staff_detail_screen.dart';
 import 'package:app/presentation/views/dashboard/dashboard_screen.dart';
 import 'package:app/presentation/views/landing/app_update_screen.dart';
 import 'package:app/presentation/views/offfice/present/present_detail_view.dart';
@@ -97,6 +98,10 @@ class Routes {
         length: 3,
         child: CompanyScreen(),
       ),
+    ),
+    GetPage(
+      name: RouteName.companyStaffDetail,
+      page: () => StaffDetailScreen(staff: Get.arguments),
     ),
     GetPage(name: RouteName.stopWorking, page: () => const StopWorkingScreen()),
     GetPage(
