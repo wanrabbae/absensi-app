@@ -1,3 +1,5 @@
+import 'package:app/data/converter/fullpath_image_converter.dart';
+import 'package:app/presentation/widgets/images.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'profile.freezed.dart';
@@ -7,16 +9,19 @@ part 'profile.g.dart';
 class Profile with _$Profile {
   const factory Profile({
     int? id,
-    @JsonKey(name: 'namaKaryawan') String? name,
+    @JsonKey(name: 'namaKaryawan') required String name,
     @Default('no') @JsonKey(name: 'liked') String liked,
-    @JsonKey(name: 'alamatEmail') String? email,
+    @JsonKey(name: 'alamatEmail') required String email,
     @JsonKey(name: 'noHp') String? phone,
     @JsonKey(name: 'namaPerusahaan') String? perusahaan,
     @JsonKey(name: 'idperusahaan') String? perusahaanId,
     @JsonKey(name: 'alamatLongtitude') String? longitude,
     @JsonKey(name: 'alamatLatitude') String? latitude,
     @JsonKey(name: 'alamatLoc') String? address,
-    @JsonKey(name: 'foto') String? photo,
+    @FullPathOptionalImageConverter()
+    @Default(kImagePlaceholderUrl)
+    @JsonKey(name: 'foto')
+    String photo,
     @JsonKey(name: 'joinDate') String? joinDate,
     @JsonKey(name: 'status') String? status,
     @JsonKey(name: 'fcmToken') String? fcmToken,

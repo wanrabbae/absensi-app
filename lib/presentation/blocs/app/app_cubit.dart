@@ -163,7 +163,7 @@ class AppCubit extends HydratedCubit<AppState> {
   requestLiveTracking(String broadcasterId) {
     if (state.currentUser!.idkaryawan != null) {
       final listenerId = state.currentUser!.idkaryawan!;
-      final name = state.currentUser!.name ?? 'Karyawan-$listenerId';
+      final name = state.currentUser!.name;
 
       firebaseService
           .setLiveTracking(
@@ -214,7 +214,7 @@ class AppCubit extends HydratedCubit<AppState> {
     String? address,
   ]) {
     if (state.currentUser!.idkaryawan != null) {
-      final name = state.currentUser!.name ?? 'Karyawan-$listenerId';
+      final name = state.currentUser!.name;
 
       firebaseService
           .setLiveTracking(

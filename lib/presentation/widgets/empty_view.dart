@@ -1,4 +1,5 @@
 import 'package:app/core/themes.dart';
+import 'package:app/presentation/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 
 class EmptyView extends StatelessWidget {
@@ -40,6 +41,40 @@ class EmptyView extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class SimpleEmptyView extends StatelessWidget {
+  const SimpleEmptyView({
+    super.key,
+    required this.title,
+    required this.button,
+  });
+
+  final String title;
+  final HoraButton button;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: colorBlackPrimary,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 10),
+          button,
         ],
       ),
     );

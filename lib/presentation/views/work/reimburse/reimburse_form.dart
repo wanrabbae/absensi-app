@@ -46,12 +46,7 @@ class ReimburseForm extends StatelessWidget {
 
             final photo = user.photo;
             final name = user.name;
-            late final ImageProvider image;
-            if (photo != null) {
-              image = NetworkImage(changeUrlImage(photo));
-            } else {
-              image = const AssetImage('assets/icons/logo/hora.png');
-            }
+            final ImageProvider image = NetworkImage(changeUrlImage(photo));
 
             return Row(
               children: [
@@ -60,7 +55,7 @@ class ReimburseForm extends StatelessWidget {
                   foregroundImage: image,
                 ),
                 const SizedBox(width: 16),
-                if (name != null) Text(name),
+                Text(name),
               ],
             );
           },

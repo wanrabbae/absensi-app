@@ -220,5 +220,14 @@
   "detail_present_location_check_in": "Location",
   "detail_present_clock_check_out": "Clock Out",
   "detail_present_location_check_out": "Location",
-  "tag_friends": "Tag friends"
+  "tag_friends": "Tag friends",
+  "company_tab_pocket": "Pocket",
+  "company_tab_staff": "Staff",
+  "company_tab_statistic": "Statistic",
+  "company_tab_pocket_not_registered": "Pocket not registered",
+  "company_tab_pocket_not_registered_action_button": "Register now",
+  "company_tab_staff_not_found": "Staff not found",
+  "company_tab_staff_not_found_action_button": "Invite staff",
+  "company_tab_statistic_not_found": "Statistic not found",
+  "company_tab_statistic_not_found_action_button": "Submit now"
 }

@@ -5,7 +5,6 @@
 
 import 'dart:async';
 
-import 'package:app/controllers/splash_controller.dart';
 import 'package:app/data/source/notification/push_notif_api_service.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:dio/dio.dart';

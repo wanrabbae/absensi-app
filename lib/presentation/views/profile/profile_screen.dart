@@ -1,6 +1,5 @@
 import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
-import 'package:app/helpers/dialogs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_boxicons/flutter_boxicons.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -39,8 +38,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                   String image = 'assets/icons/logo/hora.png';
 
                   final user = state.currentUser;
-                  if (user != null && user.photo != null) {
-                    image = changeUrlImage(user.photo!);
+                  if (user != null) {
+                    image = changeUrlImage(user.photo);
                     local = false;
                   }
 

@@ -1,28 +1,28 @@
-import 'package:app/presentation/blocs/app/app_cubit.dart';
-import 'package:app/presentation/blocs/work/klaim/form/klaim_form_cubit.dart';
 import 'package:app/controllers/live_location_log/live_location_log_cubit.dart';
 import 'package:app/controllers/management/management_cubit.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/presentation/blocs/auth/login/login_cubit.dart';
 import 'package:app/presentation/blocs/office/present/detail/present_detail_cubit.dart';
 import 'package:app/presentation/blocs/report/report_cubit.dart';
+import 'package:app/presentation/blocs/work/klaim/form/klaim_form_cubit.dart';
 import 'package:app/presentation/blocs/work/laporan/form/laporan_form_cubit.dart';
 import 'package:app/presentation/views/auth/login/login_page.dart';
 import 'package:app/presentation/views/auth/otp/verify_otp_login_page.dart';
+import 'package:app/presentation/views/company/company_screen.dart';
 import 'package:app/presentation/views/dashboard/dashboard_screen.dart';
 import 'package:app/presentation/views/landing/app_update_screen.dart';
 import 'package:app/presentation/views/offfice/present/present_detail_view.dart';
 import 'package:app/presentation/views/offfice/report/report_form_view.dart';
 import 'package:app/presentation/views/work/reimburse/reimburse_detail_view.dart';
 import 'package:app/presentation/views/work/reimburse/reimburse_form.dart';
-import 'package:app/presentation/views/work/work_image_viewer.dart';
 import 'package:app/presentation/views/work/report/report_form.dart';
+import 'package:app/presentation/views/work/work_image_viewer.dart';
 import 'package:app/views/absensi/absensi_izin_downloaded_screen.dart';
 import 'package:app/views/absensi/absensi_pulang_screen.dart';
 import 'package:app/views/absensi/absensi_screen2.dart';
 import 'package:app/views/absensi/location_log/location_log_screen.dart';
 import 'package:app/views/home/company_full_screen.dart';
-import 'package:app/views/home/company_screen.dart';
 import 'package:app/views/home/hadir_result_location_screen.dart';
 import 'package:app/views/home/hadir_result_selfie_screen.dart';
 import 'package:app/views/home/stop_working_screen.dart';
@@ -81,7 +81,13 @@ class Routes {
       name: RouteName.companyFullScreen,
       page: () => const CompanyFullScreen(),
     ),
-    GetPage(name: RouteName.companyScreen, page: () => const CompanyScreen()),
+    GetPage(
+      name: RouteName.companyScreen,
+      page: () => const DefaultTabController(
+        length: 3,
+        child: CompanyScreen(),
+      ),
+    ),
     GetPage(name: RouteName.stopWorking, page: () => const StopWorkingScreen()),
     GetPage(
       name: RouteName.hasilHadirFullScreen,

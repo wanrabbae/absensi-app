@@ -67,7 +67,7 @@ class LaporanFormCubit extends Cubit<LaporanFormState> {
 
   Future<void> submit() async {
     final idKaryawan = profile.idkaryawan!;
-    final namaKaryawan = profile.name!;
+    final namaKaryawan = profile.name;
     final keterangan = state.description;
     final idPerusahaan = profile.perusahaanId!;
     final namaPerusahaan = profile.perusahaan!;

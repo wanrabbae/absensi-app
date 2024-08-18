@@ -39,7 +39,7 @@ class ReportCubit extends Cubit<ReportState> {
       _cancelToken = CancelToken();
       final result = await api.submitReport(
         idKaryawan: user.idkaryawan!,
-        namaKaryawan: user.name!,
+        namaKaryawan: user.name,
         description: state.description,
         type: state.type.status,
         file: File(state.image.path),

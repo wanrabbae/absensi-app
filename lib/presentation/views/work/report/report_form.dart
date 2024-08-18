@@ -47,12 +47,7 @@ class ReportForm extends StatelessWidget {
 
             final photo = user.photo;
             final name = user.name;
-            late final ImageProvider image;
-            if (photo != null) {
-              image = NetworkImage(changeUrlImage(photo));
-            } else {
-              image = const AssetImage('assets/icons/logo/hora.png');
-            }
+            final ImageProvider image = NetworkImage(changeUrlImage(photo));
 
             return Row(
               children: [
@@ -61,7 +56,7 @@ class ReportForm extends StatelessWidget {
                   foregroundImage: image,
                 ),
                 const SizedBox(width: 16),
-                if (name != null) Text(name),
+                Text(name),
               ],
             );
           },
@@ -279,15 +274,13 @@ class ReportForm extends StatelessWidget {
         return ListTile(
           contentPadding: EdgeInsets.zero,
           selected: selected,
-          leading: photo == null
-              ? const CircleAvatar()
-              : CircleAvatar(
+          leading: CircleAvatar(
             backgroundImage: NetworkImage(changeUrlImage(photo)),
           ),
           minLeadingWidth: 0,
           visualDensity: VisualDensity.compact,
           title: Text(
-            u.name ?? 'Name',
+            u.name,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           trailing: selected ? const Icon(Icons.check) : null,
@@ -300,7 +293,7 @@ class ReportForm extends StatelessWidget {
 
     showHoraCustomListBottomSheet(context, children: children).then((user) {
       if (user is Profile && !cubit.isClosed) {
-        cubit.setTag(user.name ?? '');
+        cubit.setTag(user.name);
       }
     });
   }

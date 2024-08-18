@@ -310,19 +310,21 @@ DecorationImage networkImage(String url, file) {
 }
 
 Widget buildImageSizeIcon(BuildContext context, String url) {
-  final ImageProvider image = url.startsWith('http')
-      ? NetworkImage(url)
-      : AssetImage(url) as ImageProvider<Object>;
-
-  return Container(
-    width: 30,
-    height: 30,
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: image,
-        fit: BoxFit.cover,
-      ),
-      borderRadius: BorderRadius.circular(20),
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(20),
+    child: FadeInImage.assetNetwork(
+      placeholder: 'assets/icons/logo/hora.png',
+      image: url,
+      width: 30,
+      height: 30,
+      imageErrorBuilder: (context, error, stackTrace) {
+        return Image.asset(
+          'assets/icons/logo/hora.png',
+          fit: BoxFit.cover,
+          width: 30,
+          height: 30,
+        );
+      },
     ),
   );
 }

@@ -28,7 +28,7 @@ class ManagementCubit extends Cubit<ManagementState> {
         idPerusahaan: profile.perusahaanId!,
         start: start,
         end: end,
-        email: profile.email!,
+        email: profile.email,
       );
       onDone(response);
     } on DioError catch (e) {
@@ -64,7 +64,7 @@ class ManagementCubit extends Cubit<ManagementState> {
         idPerusahaan: profile.perusahaanId!,
         start: start,
         end: end,
-        email: profile.email!,
+        email: profile.email,
         status: status,
       );
       onDone(response);

@@ -64,13 +64,8 @@ Widget formProfile(context, Profile user) {
                     },
                     child: Builder(
                       builder: (context) {
-                        bool local = true;
-                        String image = 'assets/icons/logo/hora.png';
-
-                        if (user.photo != null) {
-                          image = changeUrlImage(user.photo!);
-                          local = false;
-                        }
+                        String image = changeUrlImage(user.photo);
+                        bool local = false;
 
                         return buildImageProfilePage(context, image, local);
                       },

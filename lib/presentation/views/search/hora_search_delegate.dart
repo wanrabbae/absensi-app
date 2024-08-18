@@ -2,7 +2,6 @@ import 'package:app/core/themes.dart';
 import 'package:app/data/models/profile.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/presentation/widgets/empty_view.dart';
-import 'package:app/presentation/widgets/images.dart';
 import 'package:app/presentation/widgets/loading.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -45,8 +44,8 @@ class HoraSearchDelegate extends SearchDelegate<Profile?> {
         if (data != null) {
           final list = [...data].where((u) {
             if (query.isEmpty) return true;
-            return (u.name ?? '').contains(query) ||
-                (u.email ?? '').contains(query);
+            return (u.name).contains(query) ||
+                (u.email).contains(query);
           }).toList(growable: false);
 
           return ListView.separated(
@@ -55,13 +54,12 @@ class HoraSearchDelegate extends SearchDelegate<Profile?> {
               final photo = user.photo;
               return ListTile(
                 leading: CircleAvatar(
-                  backgroundImage:
-                      photo != null ? NetworkImage(photo) : kImagePlaceholder,
+                  backgroundImage: NetworkImage(photo),
                 ),
                 onTap: () {
                   Navigator.pop(context, user);
                 },
-                title: Text(user.name ?? ''),
+                title: Text(user.name),
               );
             },
             separatorBuilder: (context, index) {

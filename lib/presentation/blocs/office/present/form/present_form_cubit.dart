@@ -67,7 +67,7 @@ class PresentFormCubit extends Cubit<PresentFormState> {
         companyId: state.user.perusahaanId!,
         companyName: state.user.perusahaan!,
         staffId: state.user.idkaryawan!,
-        staffName: state.user.name!,
+        staffName: state.user.name,
         address: state.address,
         latitude: state.currentLocation.latitude.toString(),
         longitude: state.currentLocation.longitude.toString(),
@@ -104,7 +104,7 @@ class PresentFormCubit extends Cubit<PresentFormState> {
       ));
       await api.checkOut(
         id: state.currentAttendance!.id,
-        staffName: state.user.name!,
+        staffName: state.user.name,
         address: state.address,
         latitude: state.currentLocation.latitude.toString(),
         longitude: state.currentLocation.longitude.toString(),

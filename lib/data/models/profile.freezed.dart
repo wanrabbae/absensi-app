@@ -22,11 +22,11 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
 mixin _$Profile {
   int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'namaKaryawan')
-  String? get name => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'liked')
   String get liked => throw _privateConstructorUsedError;
   @JsonKey(name: 'alamatEmail')
-  String? get email => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   @JsonKey(name: 'noHp')
   String? get phone => throw _privateConstructorUsedError;
   @JsonKey(name: 'namaPerusahaan')
@@ -39,8 +39,9 @@ mixin _$Profile {
   String? get latitude => throw _privateConstructorUsedError;
   @JsonKey(name: 'alamatLoc')
   String? get address => throw _privateConstructorUsedError;
+  @FullPathOptionalImageConverter()
   @JsonKey(name: 'foto')
-  String? get photo => throw _privateConstructorUsedError;
+  String get photo => throw _privateConstructorUsedError;
   @JsonKey(name: 'joinDate')
   String? get joinDate => throw _privateConstructorUsedError;
   @JsonKey(name: 'status')
@@ -64,16 +65,16 @@ abstract class $ProfileCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
-      @JsonKey(name: 'namaKaryawan') String? name,
+      @JsonKey(name: 'namaKaryawan') String name,
       @JsonKey(name: 'liked') String liked,
-      @JsonKey(name: 'alamatEmail') String? email,
+      @JsonKey(name: 'alamatEmail') String email,
       @JsonKey(name: 'noHp') String? phone,
       @JsonKey(name: 'namaPerusahaan') String? perusahaan,
       @JsonKey(name: 'idperusahaan') String? perusahaanId,
       @JsonKey(name: 'alamatLongtitude') String? longitude,
       @JsonKey(name: 'alamatLatitude') String? latitude,
       @JsonKey(name: 'alamatLoc') String? address,
-      @JsonKey(name: 'foto') String? photo,
+      @FullPathOptionalImageConverter() @JsonKey(name: 'foto') String photo,
       @JsonKey(name: 'joinDate') String? joinDate,
       @JsonKey(name: 'status') String? status,
       @JsonKey(name: 'fcmToken') String? fcmToken,
@@ -95,16 +96,16 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
+    Object? name = null,
     Object? liked = null,
-    Object? email = freezed,
+    Object? email = null,
     Object? phone = freezed,
     Object? perusahaan = freezed,
     Object? perusahaanId = freezed,
     Object? longitude = freezed,
     Object? latitude = freezed,
     Object? address = freezed,
-    Object? photo = freezed,
+    Object? photo = null,
     Object? joinDate = freezed,
     Object? status = freezed,
     Object? fcmToken = freezed,
@@ -116,18 +117,18 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       liked: null == liked
           ? _value.liked
           : liked // ignore: cast_nullable_to_non_nullable
               as String,
-      email: freezed == email
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -152,10 +153,10 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
-      photo: freezed == photo
+      photo: null == photo
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       joinDate: freezed == joinDate
           ? _value.joinDate
           : joinDate // ignore: cast_nullable_to_non_nullable
@@ -189,16 +190,16 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
   @useResult
   $Res call(
       {int? id,
-      @JsonKey(name: 'namaKaryawan') String? name,
+      @JsonKey(name: 'namaKaryawan') String name,
       @JsonKey(name: 'liked') String liked,
-      @JsonKey(name: 'alamatEmail') String? email,
+      @JsonKey(name: 'alamatEmail') String email,
       @JsonKey(name: 'noHp') String? phone,
       @JsonKey(name: 'namaPerusahaan') String? perusahaan,
       @JsonKey(name: 'idperusahaan') String? perusahaanId,
       @JsonKey(name: 'alamatLongtitude') String? longitude,
       @JsonKey(name: 'alamatLatitude') String? latitude,
       @JsonKey(name: 'alamatLoc') String? address,
-      @JsonKey(name: 'foto') String? photo,
+      @FullPathOptionalImageConverter() @JsonKey(name: 'foto') String photo,
       @JsonKey(name: 'joinDate') String? joinDate,
       @JsonKey(name: 'status') String? status,
       @JsonKey(name: 'fcmToken') String? fcmToken,
@@ -218,16 +219,16 @@ class __$$ProfileImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
-    Object? name = freezed,
+    Object? name = null,
     Object? liked = null,
-    Object? email = freezed,
+    Object? email = null,
     Object? phone = freezed,
     Object? perusahaan = freezed,
     Object? perusahaanId = freezed,
     Object? longitude = freezed,
     Object? latitude = freezed,
     Object? address = freezed,
-    Object? photo = freezed,
+    Object? photo = null,
     Object? joinDate = freezed,
     Object? status = freezed,
     Object? fcmToken = freezed,
@@ -239,18 +240,18 @@ class __$$ProfileImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int?,
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       liked: null == liked
           ? _value.liked
           : liked // ignore: cast_nullable_to_non_nullable
               as String,
-      email: freezed == email
+      email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       phone: freezed == phone
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
@@ -275,10 +276,10 @@ class __$$ProfileImplCopyWithImpl<$Res>
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
-      photo: freezed == photo
+      photo: null == photo
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       joinDate: freezed == joinDate
           ? _value.joinDate
           : joinDate // ignore: cast_nullable_to_non_nullable
@@ -308,16 +309,18 @@ class __$$ProfileImplCopyWithImpl<$Res>
 class _$ProfileImpl implements _Profile {
   const _$ProfileImpl(
       {this.id,
-      @JsonKey(name: 'namaKaryawan') this.name,
+      @JsonKey(name: 'namaKaryawan') required this.name,
       @JsonKey(name: 'liked') this.liked = 'no',
-      @JsonKey(name: 'alamatEmail') this.email,
+      @JsonKey(name: 'alamatEmail') required this.email,
       @JsonKey(name: 'noHp') this.phone,
       @JsonKey(name: 'namaPerusahaan') this.perusahaan,
       @JsonKey(name: 'idperusahaan') this.perusahaanId,
       @JsonKey(name: 'alamatLongtitude') this.longitude,
       @JsonKey(name: 'alamatLatitude') this.latitude,
       @JsonKey(name: 'alamatLoc') this.address,
-      @JsonKey(name: 'foto') this.photo,
+      @FullPathOptionalImageConverter()
+      @JsonKey(name: 'foto')
+      this.photo = kImagePlaceholderUrl,
       @JsonKey(name: 'joinDate') this.joinDate,
       @JsonKey(name: 'status') this.status,
       @JsonKey(name: 'fcmToken') this.fcmToken,
@@ -331,13 +334,13 @@ class _$ProfileImpl implements _Profile {
   final int? id;
   @override
   @JsonKey(name: 'namaKaryawan')
-  final String? name;
+  final String name;
   @override
   @JsonKey(name: 'liked')
   final String liked;
   @override
   @JsonKey(name: 'alamatEmail')
-  final String? email;
+  final String email;
   @override
   @JsonKey(name: 'noHp')
   final String? phone;
@@ -357,8 +360,9 @@ class _$ProfileImpl implements _Profile {
   @JsonKey(name: 'alamatLoc')
   final String? address;
   @override
+  @FullPathOptionalImageConverter()
   @JsonKey(name: 'foto')
-  final String? photo;
+  final String photo;
   @override
   @JsonKey(name: 'joinDate')
   final String? joinDate;
@@ -448,16 +452,18 @@ class _$ProfileImpl implements _Profile {
 abstract class _Profile implements Profile {
   const factory _Profile(
       {final int? id,
-      @JsonKey(name: 'namaKaryawan') final String? name,
+      @JsonKey(name: 'namaKaryawan') required final String name,
       @JsonKey(name: 'liked') final String liked,
-      @JsonKey(name: 'alamatEmail') final String? email,
+      @JsonKey(name: 'alamatEmail') required final String email,
       @JsonKey(name: 'noHp') final String? phone,
       @JsonKey(name: 'namaPerusahaan') final String? perusahaan,
       @JsonKey(name: 'idperusahaan') final String? perusahaanId,
       @JsonKey(name: 'alamatLongtitude') final String? longitude,
       @JsonKey(name: 'alamatLatitude') final String? latitude,
       @JsonKey(name: 'alamatLoc') final String? address,
-      @JsonKey(name: 'foto') final String? photo,
+      @FullPathOptionalImageConverter()
+      @JsonKey(name: 'foto')
+      final String photo,
       @JsonKey(name: 'joinDate') final String? joinDate,
       @JsonKey(name: 'status') final String? status,
       @JsonKey(name: 'fcmToken') final String? fcmToken,
@@ -470,13 +476,13 @@ abstract class _Profile implements Profile {
   int? get id;
   @override
   @JsonKey(name: 'namaKaryawan')
-  String? get name;
+  String get name;
   @override
   @JsonKey(name: 'liked')
   String get liked;
   @override
   @JsonKey(name: 'alamatEmail')
-  String? get email;
+  String get email;
   @override
   @JsonKey(name: 'noHp')
   String? get phone;
@@ -496,8 +502,9 @@ abstract class _Profile implements Profile {
   @JsonKey(name: 'alamatLoc')
   String? get address;
   @override
+  @FullPathOptionalImageConverter()
   @JsonKey(name: 'foto')
-  String? get photo;
+  String get photo;
   @override
   @JsonKey(name: 'joinDate')
   String? get joinDate;

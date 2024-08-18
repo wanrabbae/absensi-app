@@ -1,7 +1,5 @@
-import 'dart:io';
-
-import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/global_resource.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/presentation/blocs/report/report_cubit.dart';
 import 'package:app/presentation/widgets/bottomsheet.dart';
 import 'package:app/presentation/widgets/buttons.dart';
@@ -43,12 +41,7 @@ class ReportFormView extends StatelessWidget {
 
             final photo = user.photo;
             final name = user.name;
-            late final ImageProvider image;
-            if (photo != null) {
-              image = NetworkImage(changeUrlImage(photo));
-            } else {
-              image = const AssetImage('assets/icons/logo/hora.png');
-            }
+            final ImageProvider image = NetworkImage(changeUrlImage(photo));
 
             return Row(
               children: [
@@ -57,7 +50,7 @@ class ReportFormView extends StatelessWidget {
                   foregroundImage: image,
                 ),
                 const SizedBox(width: 16),
-                if (name != null) Text(name),
+                Text(name),
               ],
             );
           },

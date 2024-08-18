@@ -220,5 +220,14 @@
   "detail_present_location_check_in": "Lokasi",
   "detail_present_clock_check_out": "Jam pulang",
   "detail_present_location_check_out": "Lokasi",
-  "tag_friends": "Tandai teman"
+  "tag_friends": "Tandai teman",
+  "company_tab_pocket": "Saku",
+  "company_tab_staff": "Staf",
+  "company_tab_statistic": "Statistik",
+  "company_tab_pocket_not_registered": "Saku anda belum terdaftar",
+  "company_tab_pocket_not_registered_action_button": "Daftar sekarang",
+  "company_tab_staff_not_found": "Data staf tidak ditemukan",
+  "company_tab_staff_not_found_action_button": "Undang staff",
+  "company_tab_statistic_not_found": "Data statistik tidak ditemukan",
+  "company_tab_statistic_not_found_action_button": "Isi sekarang"
 }
