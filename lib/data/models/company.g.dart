@@ -10,8 +10,7 @@ _$CompanyImpl _$$CompanyImplFromJson(Map<String, dynamic> json) =>
     _$CompanyImpl(
       id: json['idperusahaan'] as String? ?? 'HORA-001',
       name: json['namaPerusahaan'] as String? ?? 'PT HORA',
-      logo: json['logoPerusahaan'] as String? ??
-          'wwwroot/Images/CompanyLogo/logo_hora.png',
+      logo: json['logoPerusahaan'] as String? ?? kHoraImageUrl,
       alamat: json['alamatLoc'] as String? ??
           'Jl. Budiluhur No.47 Medan, Indonesia',
       longitude: json['alamatLongtitude'] as String? ?? '98.6388869',
