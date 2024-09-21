@@ -9,5 +9,7 @@ class WorkState with _$WorkState {
     String? klaimError,
     List<Laporan>? laporanList,
     String? laporanError,
+    List<Agenda>? agendaList,
+    String? agendaError,
   }) = _WorkState;
 }

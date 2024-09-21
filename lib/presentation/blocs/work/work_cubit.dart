@@ -1,3 +1,4 @@
+import 'package:app/data/models/agenda/agenda.dart';
 import 'package:app/data/models/klaim/klaim.dart';
 import 'package:app/data/models/laporan/laporan.dart';
 import 'package:app/data/models/profile.dart';
@@ -20,6 +21,7 @@ class WorkCubit extends Cubit<WorkState> {
     emit(state.copyWith(selectedDate: selectedDate));
     getReimbursement();
     getLaporan();
+    getAgenda();
   }
 
   Future<void> getReimbursement() async {
@@ -61,6 +63,23 @@ class WorkCubit extends Cubit<WorkState> {
       String error = e.toString();
       if (e is DioError) {
         error = e.message ?? 'Failed to get laporan data';
+      }
+      emit(state.copyWith(laporanError: error));
+    }
+  }
+
+  Future<void> getAgenda() async {
+    final String idPerusahaan = state.user.perusahaanId!;
+    emit(state.copyWith(laporanError: null, laporanList: null));
+    try {
+      final results = await api.getAgenda(
+        idPerusahaan: idPerusahaan,
+      );
+      emit(state.copyWith(agendaList: results));
+    } catch (e) {
+      String error = e.toString();
+      if (e is DioError) {
+        error = e.message ?? 'Failed to get agenda data';
       }
       emit(state.copyWith(laporanError: error));
     }

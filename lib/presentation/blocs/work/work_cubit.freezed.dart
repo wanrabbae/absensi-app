@@ -22,6 +22,8 @@ mixin _$WorkState {
   String? get klaimError => throw _privateConstructorUsedError;
   List<Laporan>? get laporanList => throw _privateConstructorUsedError;
   String? get laporanError => throw _privateConstructorUsedError;
+  List<Agenda>? get agendaList => throw _privateConstructorUsedError;
+  String? get agendaError => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $WorkStateCopyWith<WorkState> get copyWith =>
@@ -39,7 +41,9 @@ abstract class $WorkStateCopyWith<$Res> {
       List<Klaim>? klaimList,
       String? klaimError,
       List<Laporan>? laporanList,
-      String? laporanError});
+      String? laporanError,
+      List<Agenda>? agendaList,
+      String? agendaError});
 
   $ProfileCopyWith<$Res> get user;
 }
@@ -63,6 +67,8 @@ class _$WorkStateCopyWithImpl<$Res, $Val extends WorkState>
     Object? klaimError = freezed,
     Object? laporanList = freezed,
     Object? laporanError = freezed,
+    Object? agendaList = freezed,
+    Object? agendaError = freezed,
   }) {
     return _then(_value.copyWith(
       user: null == user
@@ -88,6 +94,14 @@ class _$WorkStateCopyWithImpl<$Res, $Val extends WorkState>
       laporanError: freezed == laporanError
           ? _value.laporanError
           : laporanError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      agendaList: freezed == agendaList
+          ? _value.agendaList
+          : agendaList // ignore: cast_nullable_to_non_nullable
+              as List<Agenda>?,
+      agendaError: freezed == agendaError
+          ? _value.agendaError
+          : agendaError // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -115,7 +129,9 @@ abstract class _$$WorkStateImplCopyWith<$Res>
       List<Klaim>? klaimList,
       String? klaimError,
       List<Laporan>? laporanList,
-      String? laporanError});
+      String? laporanError,
+      List<Agenda>? agendaList,
+      String? agendaError});
 
   @override
   $ProfileCopyWith<$Res> get user;
@@ -138,6 +154,8 @@ class __$$WorkStateImplCopyWithImpl<$Res>
     Object? klaimError = freezed,
     Object? laporanList = freezed,
     Object? laporanError = freezed,
+    Object? agendaList = freezed,
+    Object? agendaError = freezed,
   }) {
     return _then(_$WorkStateImpl(
       user: null == user
@@ -164,6 +182,14 @@ class __$$WorkStateImplCopyWithImpl<$Res>
           ? _value.laporanError
           : laporanError // ignore: cast_nullable_to_non_nullable
               as String?,
+      agendaList: freezed == agendaList
+          ? _value._agendaList
+          : agendaList // ignore: cast_nullable_to_non_nullable
+              as List<Agenda>?,
+      agendaError: freezed == agendaError
+          ? _value.agendaError
+          : agendaError // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -177,9 +203,12 @@ class _$WorkStateImpl implements _WorkState {
       final List<Klaim>? klaimList,
       this.klaimError,
       final List<Laporan>? laporanList,
-      this.laporanError})
+      this.laporanError,
+      final List<Agenda>? agendaList,
+      this.agendaError})
       : _klaimList = klaimList,
-        _laporanList = laporanList;
+        _laporanList = laporanList,
+        _agendaList = agendaList;
 
   @override
   final Profile user;
@@ -209,10 +238,22 @@ class _$WorkStateImpl implements _WorkState {
 
   @override
   final String? laporanError;
+  final List<Agenda>? _agendaList;
+  @override
+  List<Agenda>? get agendaList {
+    final value = _agendaList;
+    if (value == null) return null;
+    if (_agendaList is EqualUnmodifiableListView) return _agendaList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  final String? agendaError;
 
   @override
   String toString() {
-    return 'WorkState(user: $user, selectedDate: $selectedDate, klaimList: $klaimList, klaimError: $klaimError, laporanList: $laporanList, laporanError: $laporanError)';
+    return 'WorkState(user: $user, selectedDate: $selectedDate, klaimList: $klaimList, klaimError: $klaimError, laporanList: $laporanList, laporanError: $laporanError, agendaList: $agendaList, agendaError: $agendaError)';
   }
 
   @override
@@ -230,7 +271,11 @@ class _$WorkStateImpl implements _WorkState {
             const DeepCollectionEquality()
                 .equals(other._laporanList, _laporanList) &&
             (identical(other.laporanError, laporanError) ||
-                other.laporanError == laporanError));
+                other.laporanError == laporanError) &&
+            const DeepCollectionEquality()
+                .equals(other._agendaList, _agendaList) &&
+            (identical(other.agendaError, agendaError) ||
+                other.agendaError == agendaError));
   }
 
   @override
@@ -241,7 +286,9 @@ class _$WorkStateImpl implements _WorkState {
       const DeepCollectionEquality().hash(_klaimList),
       klaimError,
       const DeepCollectionEquality().hash(_laporanList),
-      laporanError);
+      laporanError,
+      const DeepCollectionEquality().hash(_agendaList),
+      agendaError);
 
   @JsonKey(ignore: true)
   @override
@@ -257,7 +304,9 @@ abstract class _WorkState implements WorkState {
       final List<Klaim>? klaimList,
       final String? klaimError,
       final List<Laporan>? laporanList,
-      final String? laporanError}) = _$WorkStateImpl;
+      final String? laporanError,
+      final List<Agenda>? agendaList,
+      final String? agendaError}) = _$WorkStateImpl;
 
   @override
   Profile get user;
@@ -271,6 +320,10 @@ abstract class _WorkState implements WorkState {
   List<Laporan>? get laporanList;
   @override
   String? get laporanError;
+  @override
+  List<Agenda>? get agendaList;
+  @override
+  String? get agendaError;
   @override
   @JsonKey(ignore: true)
   _$$WorkStateImplCopyWith<_$WorkStateImpl> get copyWith =>

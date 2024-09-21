@@ -135,7 +135,7 @@ handleFabAgenda(BuildContext context) async {
     Get.toNamed(RouteName.agendaForm)?.then((succeed) {
       if (succeed == true) {
         final cubit = context.read<WorkCubit>();
-        cubit.getLaporan();
+        cubit.getAgenda();
       }
     });
   }

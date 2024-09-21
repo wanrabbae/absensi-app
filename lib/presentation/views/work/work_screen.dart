@@ -26,7 +26,8 @@ class _WorkScreenState extends State<WorkScreen>
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       context.read<WorkCubit>()
         ..getReimbursement()
-        ..getLaporan();
+        ..getLaporan()
+        ..getAgenda();
     });
   }
 
