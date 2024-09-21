@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'horagps.appspot.com',
     iosBundleId: 'com.hora.app',
   );
+
 }

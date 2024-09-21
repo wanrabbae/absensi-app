@@ -141,7 +141,7 @@ export 'package:webview_flutter/webview_flutter.dart';
 final $it = GetIt.instance;
 final kDio = Dio();
 
-initialize() async {
+Future<void> initialize() async {
   final box = GetStorage();
 
   final streamUnauthorized = StreamController<dynamic>.broadcast();
@@ -197,7 +197,7 @@ initialize() async {
     storageDirectory: await getApplicationDocumentsDirectory(),
   );
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp();
 
   $it
     ..registerLazySingleton(
