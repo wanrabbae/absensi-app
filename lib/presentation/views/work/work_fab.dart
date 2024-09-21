@@ -12,10 +12,6 @@ class WorkFAB extends StatelessWidget {
     return AnimatedBuilder(
       animation: controller,
       builder: (context, child) {
-        if (controller.index == 0) {
-          return const SizedBox.shrink();
-        }
-
         return AddFAB(index: controller.index);
       },
     );
@@ -35,6 +31,8 @@ class AddFAB extends StatelessWidget {
           handleFabReimburse(context);
         } else if (index == 1) {
           handleFabLaporan(context);
+        } else {
+          handleFabAgenda(context);
         }
       },
       backgroundColor: colorBluePrimary2,

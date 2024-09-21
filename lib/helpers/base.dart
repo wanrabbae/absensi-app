@@ -125,6 +125,10 @@ abstract class RouteName {
   static const laporanImageViewer = "/laporan/image-viewer";
   static const laporanDetail = "/laporan/detail";
 
+  // Agenda
+  static const agendaForm = "/agenda/form";
+  static const agendaDetail = "/agenda/detail";
+
   // Management
   static const management = "/management";
 }

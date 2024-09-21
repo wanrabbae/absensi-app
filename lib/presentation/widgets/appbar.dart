@@ -1,6 +1,9 @@
 import 'package:app/components/component_constant.dart';
+import 'package:app/helpers/constant.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 const Icon horaBackButtonIcon = Icon(Icons.arrow_back);
 
@@ -109,6 +112,36 @@ class HoraAppBar extends AppBar {
       actionsIconTheme: Theme.of(context).iconTheme.copyWith(
             color: Colors.white,
           ),
+    );
+  }
+}
+
+class HoraAppBarCurrentUserTitle extends StatelessWidget {
+  const HoraAppBarCurrentUserTitle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AppCubit, AppState>(
+      buildWhen: (previous, current) =>
+          previous.currentUser != current.currentUser,
+      builder: (context, state) {
+        final user = state.currentUser!;
+
+        final photo = user.photo;
+        final name = user.name;
+        final ImageProvider image = NetworkImage(changeUrlImage(photo));
+
+        return Row(
+          children: [
+            CircleAvatar(
+              radius: 16,
+              foregroundImage: image,
+            ),
+            const SizedBox(width: 16),
+            Text(name),
+          ],
+        );
+      },
     );
   }
 }

@@ -117,3 +117,26 @@ Future<XFile?> pickImage() {
     requestFullMetadata: Platform.isAndroid,
   );
 }
+
+handleFabAgenda(BuildContext context) async {
+  final confirm = await showHoraConfirmationBottomSheet(
+    context,
+    title: tr('menu_work_agenda'),
+    message: tr('work_agenda_submission_confirmation'),
+    button: HoraButton(
+      onPressed: () {
+        Navigator.pop(context, true);
+      },
+      child: Text(tr('report_submission_button')),
+    ),
+  );
+
+  if (confirm == true) {
+    Get.toNamed(RouteName.agendaForm)?.then((succeed) {
+      if (succeed == true) {
+        final cubit = context.read<WorkCubit>();
+        cubit.getLaporan();
+      }
+    });
+  }
+}

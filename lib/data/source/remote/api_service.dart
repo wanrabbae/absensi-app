@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:app/data/models/absence.dart';
+import 'package:app/data/models/agenda/agenda.dart';
 import 'package:app/data/models/auth/verify_otp.dart';
 import 'package:app/data/models/company.dart';
 import 'package:app/data/models/invitation/invitation.dart';
@@ -16,7 +17,15 @@ part 'api_service.g.dart';
 
 @RestApi()
 abstract class ApiService
-    with $Auth, $Company, $Profile, $Attendance, $Reimburse, $Report, $Laporan {
+    with
+        $Auth,
+        $Company,
+        $Profile,
+        $Attendance,
+        $Reimburse,
+        $Report,
+        $Laporan,
+        $Agenda {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 }
 
@@ -203,6 +212,20 @@ mixin $Laporan {
     @Part(name: "LocLang") required String longitude,
     @Part(name: "Lokasi") required String lokasi,
     @Part(name: "Tag") required String tag,
+    @CancelRequest() CancelToken? cancelToken,
+  });
+}
+
+mixin $Agenda {
+  @GET('api/absensi/viewKal')
+  Future<List<Agenda>> getAgenda({
+    @Query("idperusahaan") required String idPerusahaan,
+  });
+
+  @POST('api/absensi/kalender')
+  Future<HttpResponse<dynamic>> submitAgenda({
+    @Query("karyawanid") required String idKaryawan,
+    @Body() required AgendaMutable request,
     @CancelRequest() CancelToken? cancelToken,
   });
 }

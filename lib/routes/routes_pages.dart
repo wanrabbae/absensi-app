@@ -7,6 +7,7 @@ import 'package:app/presentation/blocs/company/company_cubit.dart';
 import 'package:app/presentation/blocs/company/invitation/invitation_cubit.dart';
 import 'package:app/presentation/blocs/office/present/detail/present_detail_cubit.dart';
 import 'package:app/presentation/blocs/report/report_cubit.dart';
+import 'package:app/presentation/blocs/work/agenda/form/agenda_form_cubit.dart';
 import 'package:app/presentation/blocs/work/klaim/form/klaim_form_cubit.dart';
 import 'package:app/presentation/blocs/work/laporan/form/laporan_form_cubit.dart';
 import 'package:app/presentation/views/auth/login/login_page.dart';
@@ -18,6 +19,7 @@ import 'package:app/presentation/views/dashboard/dashboard_screen.dart';
 import 'package:app/presentation/views/landing/app_update_screen.dart';
 import 'package:app/presentation/views/offfice/present/present_detail_view.dart';
 import 'package:app/presentation/views/offfice/report/report_form_view.dart';
+import 'package:app/presentation/views/work/agenda/agenda_form.dart';
 import 'package:app/presentation/views/work/reimburse/reimburse_detail_view.dart';
 import 'package:app/presentation/views/work/reimburse/reimburse_form.dart';
 import 'package:app/presentation/views/work/report/report_form.dart';
@@ -239,6 +241,23 @@ class Routes {
     GetPage(
       name: RouteName.laporanImageViewer,
       page: () => WorkImageViewer(file: Get.arguments),
+    ),
+    // endregion
+
+    // region Agenda
+    GetPage(
+      name: RouteName.agendaForm,
+      page: () {
+        return BlocProvider(
+          create: (context) {
+            final app = context.read<AppCubit>();
+            final state = app.state;
+            final profile = state.currentUser!;
+            return AgendaFormCubit(api: $it(), profile: profile);
+          },
+          child: AgendaForm(),
+        );
+      },
     ),
     // endregion
 

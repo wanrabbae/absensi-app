@@ -69,7 +69,7 @@ class MainTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: lightColorScheme,
-      inputDecorationTheme: _kInputDecorationTheme,
+      // inputDecorationTheme: _kInputDecorationTheme,
       fontFamily: kGlobalFontFamily,
       scaffoldBackgroundColor: Colors.white,
       appBarTheme: AppBarTheme(
