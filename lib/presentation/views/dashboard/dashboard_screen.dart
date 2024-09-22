@@ -6,6 +6,8 @@ import 'package:app/presentation/blocs/work/work_cubit.dart';
 import 'package:app/presentation/views/offfice/office_screen.dart';
 import 'package:app/presentation/views/search/search_screen.dart';
 import 'package:app/presentation/views/work/work_screen.dart';
+import 'package:app/presentation/widgets/bottomsheet.dart';
+import 'package:app/presentation/widgets/buttons.dart';
 import 'package:app/presentation/widgets/loading.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:flutter/services.dart';
@@ -54,6 +56,25 @@ class _DashboardScreenState extends State<DashboardScreen>
         })
         ..updateTokenFcm()
         ..getAllowLocationAlwaysPermission();
+
+      context.read<AppCubit>().isFakeGpsEnabled().then((isFakeGpsEnabled) {
+        if (isFakeGpsEnabled) {
+          showHoraCustomBottomSheet(
+            context,
+            isDismissible: false,
+            disableBackButton: true,
+            title: tr('fake_gps_title'),
+            content: Text(tr('fake_gps_description')),
+            button: HoraButton(
+              onPressed: () {
+                Navigator.pop(context);
+                SystemNavigator.pop();
+              },
+              child: Text(tr('fake_gps_button')),
+            ),
+          );
+        }
+      });
     });
 
     tabController.addListener(() {

@@ -81,6 +81,7 @@ Future<dynamic> showHoraCustomBottomSheet(
   required Widget button,
   bool slideUpWithKeyboard = false,
   bool isDismissible = true,
+  bool disableBackButton = false,
 }) {
   return showModalBottomSheet(
     context: context,
@@ -97,6 +98,7 @@ Future<dynamic> showHoraCustomBottomSheet(
         content: content,
         button: button,
         slideUpWithKeyboard: slideUpWithKeyboard,
+        disableBackButton: disableBackButton,
       );
     },
   );
@@ -109,12 +111,14 @@ class HoraBottomSheet extends StatelessWidget {
     required this.content,
     required this.button,
     this.slideUpWithKeyboard = false,
+    this.disableBackButton = false,
   });
 
   final String title;
   final Widget content;
   final Widget button;
   final bool slideUpWithKeyboard;
+  final bool disableBackButton;
 
   @override
   Widget build(BuildContext context) {
@@ -154,6 +158,10 @@ class HoraBottomSheet extends StatelessWidget {
         onTap: () => dismissKeyboard(context),
         child: child,
       );
+    }
+
+    if (disableBackButton) {
+      child = PopScope(canPop: false, child: child);
     }
 
     return child;

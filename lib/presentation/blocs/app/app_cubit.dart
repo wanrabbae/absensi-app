@@ -12,18 +12,22 @@ import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/global_resource.dart' show $it;
 import 'package:app/helpers/base.dart';
 import 'package:app/helpers/constant.dart';
+
 // import 'package:app/helpers/debouncer.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:app_version_update/app_version_update.dart';
 import 'package:app_version_update/data/models/app_version_result.dart';
+
 // import 'package:background_location/background_location.dart' as bg;
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 // import 'package:permission_handler/permission_handler.dart';
 
 part 'app_cubit.freezed.dart';
@@ -46,6 +50,7 @@ class AppCubit extends HydratedCubit<AppState> {
   final GetStorage box;
   final FirebaseService firebaseService;
   final PushNotificationService pushNotificationService;
+
   // final _deBouncer = DeBouncer(delay: const Duration(milliseconds: 1000));
   StreamSubscription<String>? _streamSubscriptionToken;
   Timer? _liveTrackingTimer;
@@ -368,6 +373,20 @@ class AppCubit extends HydratedCubit<AppState> {
       playStoreId: $it<PackageInfo>().packageName,
       country: locale,
     );
+  }
+
+  Future<bool> isFakeGpsEnabled() {
+    return Permission.locationWhenInUse.status.then((status) {
+      final granted = status == PermissionStatus.granted;
+      if (granted) {
+        return Geolocator.getCurrentPosition().then(
+          (p) => p.isMocked,
+          onError: (_) => false,
+        );
+      }
+
+      return false;
+    });
   }
 
   @override

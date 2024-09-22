@@ -239,5 +239,8 @@
   "company_tab_staff_not_found": "Staff not found",
   "company_tab_staff_not_found_action_button": "Invite staff",
   "company_tab_statistic_not_found": "Statistic not found",
-  "company_tab_statistic_not_found_action_button": "Submit now"
+  "company_tab_statistic_not_found_action_button": "Submit now",
+  "fake_gps_title": "Warning",
+  "fake_gps_description": "You have been detected using fake gps application. Please remove all fake gps apps, then restart Hora",
+  "fake_gps_button": "Exit Hora"
 }
