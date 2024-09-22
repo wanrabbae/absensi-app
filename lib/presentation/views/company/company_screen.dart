@@ -1,3 +1,5 @@
+import 'package:app/controllers/management/management_cubit.dart';
+import 'package:app/presentation/blocs/app/app_cubit.dart';
 import 'package:app/presentation/blocs/company/company_cubit.dart';
 import 'package:app/presentation/views/company/pocket/pocket_view.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
+    final child = Theme(
       data: Theme.of(context).copyWith(
         appBarTheme: const AppBarTheme(
           iconTheme: IconThemeData(color: Colors.black),
@@ -49,6 +51,14 @@ class _CompanyScreenState extends State<CompanyScreen> {
           ),
         ),
       ),
+    );
+
+    return BlocProvider(
+      create: (context) {
+        final app = context.read<AppCubit>();
+        return ManagementCubit(context.read(), app.state.currentUser!);
+      },
+      child: child,
     );
   }
 }
