@@ -26,6 +26,8 @@ mixin _$AppState {
   @JsonKey(includeFromJson: false, includeToJson: false)
   Absence? get todayAttendance => throw _privateConstructorUsedError;
   bool get allowLocationAlwaysPermission => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  List<CameraDescription> get cameras => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +46,9 @@ abstract class $AppStateCopyWith<$Res> {
       List<LiveTracking> liveTrackingList,
       @JsonKey(includeFromJson: false, includeToJson: false)
       Absence? todayAttendance,
-      bool allowLocationAlwaysPermission});
+      bool allowLocationAlwaysPermission,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      List<CameraDescription> cameras});
 
   $ProfileCopyWith<$Res>? get currentUser;
   $CompanyCopyWith<$Res> get company;
@@ -69,6 +73,7 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
     Object? liveTrackingList = null,
     Object? todayAttendance = freezed,
     Object? allowLocationAlwaysPermission = null,
+    Object? cameras = null,
   }) {
     return _then(_value.copyWith(
       currentUser: freezed == currentUser
@@ -91,6 +96,10 @@ class _$AppStateCopyWithImpl<$Res, $Val extends AppState>
           ? _value.allowLocationAlwaysPermission
           : allowLocationAlwaysPermission // ignore: cast_nullable_to_non_nullable
               as bool,
+      cameras: null == cameras
+          ? _value.cameras
+          : cameras // ignore: cast_nullable_to_non_nullable
+              as List<CameraDescription>,
     ) as $Val);
   }
 
@@ -141,7 +150,9 @@ abstract class _$$AppStateImplCopyWith<$Res>
       List<LiveTracking> liveTrackingList,
       @JsonKey(includeFromJson: false, includeToJson: false)
       Absence? todayAttendance,
-      bool allowLocationAlwaysPermission});
+      bool allowLocationAlwaysPermission,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      List<CameraDescription> cameras});
 
   @override
   $ProfileCopyWith<$Res>? get currentUser;
@@ -167,6 +178,7 @@ class __$$AppStateImplCopyWithImpl<$Res>
     Object? liveTrackingList = null,
     Object? todayAttendance = freezed,
     Object? allowLocationAlwaysPermission = null,
+    Object? cameras = null,
   }) {
     return _then(_$AppStateImpl(
       currentUser: freezed == currentUser
@@ -189,6 +201,10 @@ class __$$AppStateImplCopyWithImpl<$Res>
           ? _value.allowLocationAlwaysPermission
           : allowLocationAlwaysPermission // ignore: cast_nullable_to_non_nullable
               as bool,
+      cameras: null == cameras
+          ? _value._cameras
+          : cameras // ignore: cast_nullable_to_non_nullable
+              as List<CameraDescription>,
     ));
   }
 }
@@ -202,8 +218,11 @@ class _$AppStateImpl implements _AppState {
       final List<LiveTracking> liveTrackingList = const [],
       @JsonKey(includeFromJson: false, includeToJson: false)
       this.todayAttendance,
-      this.allowLocationAlwaysPermission = false})
-      : _liveTrackingList = liveTrackingList;
+      this.allowLocationAlwaysPermission = false,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      final List<CameraDescription> cameras = const []})
+      : _liveTrackingList = liveTrackingList,
+        _cameras = cameras;
 
   factory _$AppStateImpl.fromJson(Map<String, dynamic> json) =>
       _$$AppStateImplFromJson(json);
@@ -229,10 +248,18 @@ class _$AppStateImpl implements _AppState {
   @override
   @JsonKey()
   final bool allowLocationAlwaysPermission;
+  final List<CameraDescription> _cameras;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  List<CameraDescription> get cameras {
+    if (_cameras is EqualUnmodifiableListView) return _cameras;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_cameras);
+  }
 
   @override
   String toString() {
-    return 'AppState(currentUser: $currentUser, company: $company, liveTrackingList: $liveTrackingList, todayAttendance: $todayAttendance, allowLocationAlwaysPermission: $allowLocationAlwaysPermission)';
+    return 'AppState(currentUser: $currentUser, company: $company, liveTrackingList: $liveTrackingList, todayAttendance: $todayAttendance, allowLocationAlwaysPermission: $allowLocationAlwaysPermission, cameras: $cameras)';
   }
 
   @override
@@ -250,7 +277,8 @@ class _$AppStateImpl implements _AppState {
             (identical(other.allowLocationAlwaysPermission,
                     allowLocationAlwaysPermission) ||
                 other.allowLocationAlwaysPermission ==
-                    allowLocationAlwaysPermission));
+                    allowLocationAlwaysPermission) &&
+            const DeepCollectionEquality().equals(other._cameras, _cameras));
   }
 
   @JsonKey(ignore: true)
@@ -261,7 +289,8 @@ class _$AppStateImpl implements _AppState {
       company,
       const DeepCollectionEquality().hash(_liveTrackingList),
       todayAttendance,
-      allowLocationAlwaysPermission);
+      allowLocationAlwaysPermission,
+      const DeepCollectionEquality().hash(_cameras));
 
   @JsonKey(ignore: true)
   @override
@@ -284,7 +313,9 @@ abstract class _AppState implements AppState {
       final List<LiveTracking> liveTrackingList,
       @JsonKey(includeFromJson: false, includeToJson: false)
       final Absence? todayAttendance,
-      final bool allowLocationAlwaysPermission}) = _$AppStateImpl;
+      final bool allowLocationAlwaysPermission,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      final List<CameraDescription> cameras}) = _$AppStateImpl;
 
   factory _AppState.fromJson(Map<String, dynamic> json) =
       _$AppStateImpl.fromJson;
@@ -300,6 +331,9 @@ abstract class _AppState implements AppState {
   Absence? get todayAttendance;
   @override
   bool get allowLocationAlwaysPermission;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  List<CameraDescription> get cameras;
   @override
   @JsonKey(ignore: true)
   _$$AppStateImplCopyWith<_$AppStateImpl> get copyWith =>

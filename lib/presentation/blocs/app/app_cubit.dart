@@ -18,6 +18,7 @@ import 'package:app/helpers/notification_local.dart';
 import 'package:app/services/push_notification_service.dart';
 import 'package:app_version_update/app_version_update.dart';
 import 'package:app_version_update/data/models/app_version_result.dart';
+import 'package:camera/camera.dart';
 
 // import 'package:background_location/background_location.dart' as bg;
 import 'package:flutter/foundation.dart';
@@ -387,6 +388,14 @@ class AppCubit extends HydratedCubit<AppState> {
 
       return false;
     });
+  }
+
+  Future<void> getCameras() {
+    return availableCameras().then((List<CameraDescription> cameras) {
+      if (!isClosed) {
+        emit(state.copyWith(cameras: cameras));
+      }
+    }, onError: (e, s) {});
   }
 
   @override

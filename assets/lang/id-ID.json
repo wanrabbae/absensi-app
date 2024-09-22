@@ -242,5 +242,7 @@
   "company_tab_statistic_not_found_action_button": "Isi sekarang",
   "fake_gps_title": "Peringatan",
   "fake_gps_description": "Anda terdeteksi menggunakan aplikasi fake gps. Segera hapus aplikasi fake gps Anda, lalu lakukan restart pada aplikasi Hora",
-  "fake_gps_button": "Keluar dari Hora"
+  "fake_gps_button": "Keluar dari Hora",
+  "take_picture": "Ambil Gambar",
+  "take_picture_disabled": "Wajah tidak terdeteksi"
 }

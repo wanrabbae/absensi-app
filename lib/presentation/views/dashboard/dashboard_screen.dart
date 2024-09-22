@@ -55,6 +55,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           }
         })
         ..updateTokenFcm()
+        ..getCameras()
         ..getAllowLocationAlwaysPermission();
 
       context.read<AppCubit>().isFakeGpsEnabled().then((isFakeGpsEnabled) {

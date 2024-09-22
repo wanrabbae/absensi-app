@@ -2,6 +2,7 @@ import 'package:app/data/models/company.dart';
 import 'package:app/data/models/profile.dart';
 import 'package:app/data/source/remote/api_service.dart';
 import 'package:app/helpers/base.dart';
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -20,7 +21,7 @@ class CompanyCubit extends HydratedCubit<CompanyState> {
 
   Future<void> getCompany() async {
     final user = box.read(Base.dataUser);
-    final email = user?['alamatEmail'];
+    final email = user?['alamatEmail'] ?? box.read(Base.email);
     if (email is String) {
       try {
         final companies = await api.getCompany(email: email);

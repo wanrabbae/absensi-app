@@ -8,10 +8,12 @@ import 'package:app/data/models/absence.dart';
 import 'package:app/helpers/constant.dart';
 import 'package:app/helpers/notification_local.dart';
 import 'package:app/presentation/blocs/office/present/form/present_form_cubit.dart';
+import 'package:app/presentation/views/_shared/take_camera_picture_view.dart';
 import 'package:app/presentation/views/offfice/present/present_form_fab.dart';
 import 'package:app/presentation/widgets/appbar.dart';
 import 'package:app/presentation/widgets/bottomsheet.dart';
 import 'package:app/presentation/widgets/buttons.dart';
+import 'package:camera/camera.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -169,24 +171,27 @@ class _PresentFormViewState extends State<PresentFormView> {
           listener: (context, state) {
             if (rxPosition.value != state.currentLocation) {
               if (_showLoading == true) {
-                Future.delayed(const Duration(seconds: 2), () {
+                Future.delayed(const Duration(seconds: 2), () async {
                   if (context.mounted) {
                     Navigator.pop(context);
+
+                    final cubit = context.read<PresentFormCubit>();
+                    final attendance = state.currentAttendance;
+
+                    final image = await TakeCameraPictureView.show(context);
+                    if (image is! XFile) return;
+
+                    if (attendance == null) {
+                      cubit.checkIn(CancelToken(), image);
+                    } else {
+                      cubit.checkOut(CancelToken(), image);
+                    }
                   }
                 });
               }
 
               rxPosition.value = state.currentLocation;
               _setMarker();
-
-              final cubit = context.read<PresentFormCubit>();
-              final attendance = state.currentAttendance;
-
-              if (attendance == null) {
-                cubit.checkIn(CancelToken());
-              } else {
-                cubit.checkOut(CancelToken());
-              }
             }
           },
         ),

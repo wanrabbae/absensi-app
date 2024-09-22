@@ -9,6 +9,9 @@ class AppState with _$AppState {
     @JsonKey(includeFromJson: false, includeToJson: false)
     Absence? todayAttendance,
     @Default(false) bool allowLocationAlwaysPermission,
+    @Default([])
+    @JsonKey(includeFromJson: false, includeToJson: false)
+    List<CameraDescription> cameras,
   }) = _AppState;
 
   factory AppState.fromJson(Map<String, dynamic> json) =>

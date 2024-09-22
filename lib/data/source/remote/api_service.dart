@@ -104,6 +104,7 @@ mixin $Attendance {
     @Part(name: 'AlamatLoc') required String address,
     @Part(name: 'AlamatLatitude') required String latitude,
     @Part(name: 'AlamatLongtitude') required String longitude,
+    @Part(name: 'zone') required String timezone,
     @Part(name: "Foto", contentType: "image/*") required File photo,
     @CancelRequest() CancelToken? cancelToken,
   });

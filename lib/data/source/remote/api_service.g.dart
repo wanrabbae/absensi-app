@@ -345,6 +345,7 @@ class _ApiService implements ApiService {
     required String address,
     required String latitude,
     required String longitude,
+    required String timezone,
     required File photo,
     CancelToken? cancelToken,
   }) async {
@@ -380,6 +381,10 @@ class _ApiService implements ApiService {
     _data.fields.add(MapEntry(
       'AlamatLongtitude',
       longitude,
+    ));
+    _data.fields.add(MapEntry(
+      'zone',
+      timezone,
     ));
     _data.files.add(MapEntry(
       'Foto',

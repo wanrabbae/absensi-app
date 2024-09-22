@@ -8,6 +8,7 @@ import 'package:app/helpers/constant.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -50,8 +51,8 @@ class PresentFormCubit extends Cubit<PresentFormState> {
     emit(state.copyWith(currentLocation: location, address: address));
   }
 
-  Future<void> checkIn(CancelToken token) async {
-    final image = await imagePicker.pickImage(
+  Future<void> checkIn(CancelToken token, XFile? image) async {
+    image ??= await imagePicker.pickImage(
       source: kImageSource,
       preferredCameraDevice: CameraDevice.front,
       imageQuality: 40,
@@ -62,6 +63,7 @@ class PresentFormCubit extends Cubit<PresentFormState> {
     _token = token;
 
     try {
+      final String timezone = await FlutterTimezone.getLocalTimezone();
       emit(state.copyWith(submitAttendanceStatus: PageStatus.busy));
       await api.checkIn(
         companyId: state.user.perusahaanId!,
@@ -73,6 +75,7 @@ class PresentFormCubit extends Cubit<PresentFormState> {
         longitude: state.currentLocation.longitude.toString(),
         photo: File(image.path),
         cancelToken: token,
+        timezone: timezone,
       );
       emit(state.copyWith(submitAttendanceStatus: PageStatus.succeed));
     } catch (e, s) {
@@ -86,8 +89,8 @@ class PresentFormCubit extends Cubit<PresentFormState> {
     }
   }
 
-  Future<void> checkOut(CancelToken token) async {
-    final image = await imagePicker.pickImage(
+  Future<void> checkOut(CancelToken token, XFile? image) async {
+    image ??= await imagePicker.pickImage(
       source: kImageSource,
       preferredCameraDevice: CameraDevice.front,
       imageQuality: 40,
